@@ -210,7 +210,10 @@ background-size: cover;
   <li><a href="#supported-distributions" id="toc-supported-distributions" class="nav-link" data-scroll-target="#supported-distributions"><span class="header-section-number">4.1</span> Supported distributions</a></li>
   <li><a href="#example-forecasts" id="toc-example-forecasts" class="nav-link" data-scroll-target="#example-forecasts"><span class="header-section-number">4.2</span> Example forecasts</a></li>
   </ul></li>
-  <li><a href="#submission-process" id="toc-submission-process" class="nav-link" data-scroll-target="#submission-process"><span class="header-section-number">5</span> Submission process</a></li>
+  <li><a href="#submission-process" id="toc-submission-process" class="nav-link" data-scroll-target="#submission-process"><span class="header-section-number">5</span> Submission process</a>
+  <ul class="collapse">
+  <li><a href="#timing" id="toc-timing" class="nav-link" data-scroll-target="#timing"><span class="header-section-number">5.1</span> Timing</a></li>
+  </ul></li>
   <li><a href="#post-submission" id="toc-post-submission" class="nav-link" data-scroll-target="#post-submission"><span class="header-section-number">6</span> Post submission</a>
   <ul class="collapse">
   <li><a href="#processing" id="toc-processing" class="nav-link" data-scroll-target="#processing"><span class="header-section-number">6.1</span> Processing</a></li>
@@ -271,7 +274,7 @@ background-size: cover;
 <li><p><code>datetime</code>: forecast timestamp. Format <code>%Y-%m-%d %H:%M:%S</code> with UTC as the time zone. Forecasts submitted with a <code>%Y-%m-%d</code> format will be converted to a full datetime assuming UTC mid-night.</p></li>
 <li><p><code>reference_datetime</code>: The start of the forecast; this should be 0 times steps in the future. There should only be one value of <code>reference_datetime</code> in the file. Format is <code>%Y-%m-%d %H:%M:%S</code> with UTC as the time zone. Forecasts submitted with a <code>%Y-%m-%d</code> format will be converted to a full datetime assuming UTC mid-night.</p></li>
 <li><p><code>duration</code>: the time-step of the forecast. Use the value of <code>P1D</code> for a daily forecast, <code>P1W</code> for a weekly forecast, and <code>PT30M</code> for 30 minute forecast. This value should match the duration of the target variable that you are forecasting. Formatted as <a href="https://en.wikipedia.org/wiki/ISO_8601#Durations">ISO 8601 duration</a></p></li>
-<li><p><code>site_id</code>: code for site (<code>bvre</code>, <code>fcre</code>, or <code>tubr</code>)</p></li>
+<li><p><code>site_id</code>: code for NEON site.</p></li>
 <li><p><code>family</code> name of the probability distribution that is described by the parameter values in the parameter column (see list below for accepted distribution). An ensemble forecast as a family of <code>ensemble</code>. See note below about family</p></li>
 <li><p><code>parameter</code> the parameters for the distribution (see note below about parameter column) or the number of the ensemble member. For example the parameters for normal are <code>mu</code> and <code>sigma</code>.</p></li>
 <li><p><code>variable</code>: standardized variable name</p></li>
@@ -323,50 +326,46 @@ background-size: cover;
 <h3 data-number="4.2" class="anchored" data-anchor-id="example-forecasts"><span class="header-section-number">4.2</span> Example forecasts</h3>
 <p>Here is an example of a forecast that uses a normal distribution:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">"https://renc.osn.xsede.org/bio230121-bucket01/vera4cast/forecasts/raw/T20231001231345_daily-2023-10-01-climatology.csv.gz"</span>, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">"https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/forecasts/raw/T20231102190926_aquatics-2023-10-19-climatology.csv.gz"</span>, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">glimpse</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Rows: 288
-Columns: 11
+<pre><code>Rows: 4,456
+Columns: 8
 $ model_id           &lt;chr&gt; "climatology", "climatology", "climatology", "clima…
-$ datetime           &lt;date&gt; 2023-10-02, 2023-10-02, 2023-10-02, 2023-10-02, 20…
-$ reference_datetime &lt;date&gt; 2023-10-01, 2023-10-01, 2023-10-01, 2023-10-01, 20…
-$ site_id            &lt;chr&gt; "bvre", "bvre", "bvre", "bvre", "bvre", "bvre", "bv…
-$ variable           &lt;chr&gt; "Chla_ugL_mean", "Chla_ugL_mean", "Temp_C_mean", "T…
+$ datetime           &lt;date&gt; 2023-10-20, 2023-10-20, 2023-10-20, 2023-10-20, 20…
+$ reference_datetime &lt;date&gt; 2023-10-19, 2023-10-19, 2023-10-19, 2023-10-19, 20…
+$ site_id            &lt;chr&gt; "ARIK", "ARIK", "ARIK", "ARIK", "ARIK", "ARIK", "AR…
 $ family             &lt;chr&gt; "normal", "normal", "normal", "normal", "normal", "…
 $ parameter          &lt;chr&gt; "mu", "sigma", "mu", "sigma", "mu", "sigma", "mu", …
-$ prediction         &lt;dbl&gt; 10.041987, 2.587292, 18.331126, 2.531732, 9.541139,…
-$ depth_m            &lt;dbl&gt; 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1…
-$ project_id         &lt;chr&gt; "vera4cast", "vera4cast", "vera4cast", "vera4cast",…
-$ duration           &lt;chr&gt; "P1D", "P1D", "P1D", "P1D", "P1D", "P1D", "P1D", "P…</code></pre>
+$ variable           &lt;chr&gt; "oxygen", "oxygen", "temperature", "temperature", "…
+$ prediction         &lt;dbl&gt; 4.542862, 1.448393, 8.070854, 1.330059, 4.194895, 1…</code></pre>
 </div>
 </div>
 <p>For an ensemble (or sample) forecast, the <code>family</code> column uses the word <code>ensemble</code> to designate that it is a ensemble forecast and the parameter column is the ensemble member number (<code>1</code>, <code>2</code>, <code>3</code> …)</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">"https://renc.osn.xsede.org/bio230121-bucket01/vera4cast/forecasts/raw/T20231001231348_daily-2023-10-01-persistenceRW.csv.gz"</span>, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">"https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/forecasts/raw/T20231102190926_aquatics-2023-10-19-persistenceRW.csv.gz"</span>, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">glimpse</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Rows: 28,800
-Columns: 11
+<pre><code>Rows: 530,400
+Columns: 8
 $ model_id           &lt;chr&gt; "persistenceRW", "persistenceRW", "persistenceRW", …
-$ datetime           &lt;dttm&gt; 2023-10-02, 2023-10-03, 2023-10-04, 2023-10-05, 20…
-$ reference_datetime &lt;dttm&gt; 2023-10-01, 2023-10-01, 2023-10-01, 2023-10-01, 20…
-$ site_id            &lt;chr&gt; "bvre", "bvre", "bvre", "bvre", "bvre", "bvre", "bv…
+$ datetime           &lt;date&gt; 2023-10-20, 2023-10-21, 2023-10-22, 2023-10-23, 20…
+$ reference_datetime &lt;date&gt; 2023-10-19, 2023-10-19, 2023-10-19, 2023-10-19, 20…
+$ site_id            &lt;chr&gt; "BARC", "BARC", "BARC", "BARC", "BARC", "BARC", "BA…
 $ family             &lt;chr&gt; "ensemble", "ensemble", "ensemble", "ensemble", "en…
 $ parameter          &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, …
-$ variable           &lt;chr&gt; "Chla_ugL_mean", "Chla_ugL_mean", "Chla_ugL_mean", …
-$ prediction         &lt;dbl&gt; 10.59539, 13.04463, 13.86989, 13.81281, 14.09787, 1…
-$ depth_m            &lt;dbl&gt; 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1…
-$ project_id         &lt;chr&gt; "vera4cast", "vera4cast", "vera4cast", "vera4cast",…
-$ duration           &lt;chr&gt; "P1D", "P1D", "P1D", "P1D", "P1D", "P1D", "P1D", "P…</code></pre>
+$ variable           &lt;chr&gt; "chla", "chla", "chla", "chla", "chla", "chla", "ch…
+$ prediction         &lt;dbl&gt; 3.7956520, 4.1800958, 3.2470058, 3.4550993, 3.48348…</code></pre>
 </div>
 </div>
 </section>
 </section>
 <section id="submission-process" class="level2" data-number="5">
 <h2 data-number="5" class="anchored" data-anchor-id="submission-process"><span class="header-section-number">5</span> Submission process</h2>
+<section id="timing" class="level3" data-number="5.1">
+<h3 data-number="5.1" class="anchored" data-anchor-id="timing"><span class="header-section-number">5.1</span> Timing</h3>
 <p>Individual forecast files can be uploaded any time.</p>
-<p>Teams will submit their forecast csv files through an R function.</p>
+<p>Teams will submit their forecast csv files through an R function. The csv file can only contain one unique <code>model_id</code> and one unique <code>project_id</code>.</p>
 <p>The function is available using the following code</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"eco4cast/neon4cast"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -381,6 +380,7 @@ $ duration           &lt;chr&gt; "P1D", "P1D", "P1D", "P1D", "P1D", "P1D", "P1D"
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>neon4cast<span class="sc">::</span><span class="fu">submit</span>(<span class="at">forecast_file =</span> <span class="st">"your_file.csv"</span>,</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>                         <span class="at">first_submission =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</section>
 </section>
 <section id="post-submission" class="level2" data-number="6">
 <h2 data-number="6" class="anchored" data-anchor-id="post-submission"><span class="header-section-number">6</span> Post submission</h2>
