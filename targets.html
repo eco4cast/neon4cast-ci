@@ -195,7 +195,8 @@ background-size: cover;
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#targets-files" id="toc-targets-files" class="nav-link active" data-scroll-target="#targets-files">Targets files</a>
+  <li><a href="#where-to-start" id="toc-where-to-start" class="nav-link active" data-scroll-target="#where-to-start">Where to start</a></li>
+  <li><a href="#targets-files" id="toc-targets-files" class="nav-link" data-scroll-target="#targets-files">Targets files</a>
   <ul class="collapse">
   <li><a href="#terrestrial-fluxes" id="toc-terrestrial-fluxes" class="nav-link" data-scroll-target="#terrestrial-fluxes">Terrestrial fluxes</a></li>
   <li><a href="#aquatics" id="toc-aquatics" class="nav-link" data-scroll-target="#aquatics">Aquatics</a></li>
@@ -217,53 +218,43 @@ background-size: cover;
 
 
 
-<p>The targets were specifically chosen to include ecosystem, community, and population dynamics. Targets are available at all relative NEON sites. If you are interested in forecasting a single site, we recommend the following focal sites.</p>
+<p>The “targets” are time-series that are avialable for use in model development and forecastin evaluation. The targets are updated as new NEON is made available.</p>
+<p>Targets were specifically chosen to include ecosystem, community, and population dynamics and are represented by five “themes”. The themes and their targets files are included below.</p>
+<section id="where-to-start" class="level2">
+<h2 class="anchored" data-anchor-id="where-to-start">Where to start</h2>
+<p>If are you are getting started, we recommend the following focal sites for each of the five “themes”.</p>
 <ul>
-<li>Terrestrial: HARV</li>
-<li>Aquatics: BARC</li>
-<li>Phenology: HARV</li>
-<li>Beetles:</li>
-<li>Ticks:</li>
+<li>Terrestrial: HARV, OSBS</li>
+<li>Aquatics: BARC, CRAM</li>
+<li>Phenology: HARV, OSBS</li>
+<li>Beetles: HARV, OSBS</li>
+<li>Ticks: HARV, OSBS</li>
 </ul>
+<p>As you develop your forecasting skills and want to expand to more sites, the targets are available at all 81 NEON sites.</p>
+</section>
 <section id="targets-files" class="level2">
 <h2 class="anchored" data-anchor-id="targets-files">Targets files</h2>
+<p>Information on the targets files for the five “themes” is below. In the tables, the “duration” is the time-step of the variable where <code>PT30M</code> is a 30-minute mean, <code>P1D</code> is a daily mean, and <code>P1W</code> is a weekly mean. The “forecast horizon” is the number of days-ahead that we want you to forecasts.</p>
 <section id="terrestrial-fluxes" class="level3">
 <h3 class="anchored" data-anchor-id="terrestrial-fluxes">Terrestrial fluxes</h3>
-<p>Insert short description</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">"https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1D/terrestrial_daily-targets.csv.gz"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>terrestrial_targets <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(url, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(terrestrial_targets)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Rows: 111,244
-Columns: 6
-$ project_id  &lt;chr&gt; "neon4cast", "neon4cast", "neon4cast", "neon4cast", "neon4…
-$ site_id     &lt;chr&gt; "BART", "BART", "BART", "BART", "BART", "BART", "BART", "B…
-$ datetime    &lt;dttm&gt; 2017-02-02, 2017-02-02, 2017-02-03, 2017-02-03, 2017-02-0…
-$ duration    &lt;chr&gt; "P1D", "P1D", "P1D", "P1D", "P1D", "P1D", "P1D", "P1D", "P…
-$ variable    &lt;chr&gt; "le", "nee", "le", "nee", "le", "nee", "le", "nee", "le", …
-$ observation &lt;dbl&gt; 2.7087720, 0.5801368, 8.4720864, 0.6873984, 6.6410325, 0.6…</code></pre>
-</div>
-</div>
+<p>The exchange of water and carbon dioxide between the atmosphere and the land is akin to earth's terrestrial ecosystems breathing rate and lung capacity.&nbsp;</p>
+<p>The terrestrial flux theme challenges you to forecast the gas exchange at up to 47 sites across the U.S.</p>
+<p>There are variables and two time-steps (or duration) that you can forecast.</p>
 <div class="cell">
 <div class="cell-output-display">
 <table class="table table-sm table-striped small">
 <colgroup>
-<col style="width: 12%">
-<col style="width: 12%">
-<col style="width: 63%">
-<col style="width: 11%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 58%">
+<col style="width: 20%">
 </colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: left;">variable</th>
 <th style="text-align: left;">duration</th>
 <th style="text-align: left;">Description</th>
-<th style="text-align: left;">horizon</th>
+<th style="text-align: left;">forecast horizon</th>
 </tr>
 </thead>
 <tbody>
@@ -279,44 +270,78 @@ $ observation &lt;dbl&gt; 2.7087720, 0.5801368, 8.4720864, 0.6873984, 6.6410325,
 <td style="text-align: left;">daily mean Net ecosystem exchange (gC/m2/day)</td>
 <td style="text-align: left;">30 days</td>
 </tr>
+<tr class="odd">
+<td style="text-align: left;">nee</td>
+<td style="text-align: left;">PT30M</td>
+<td style="text-align: left;">30 minute mean net ecosystem exchange (umol/m2/s)</td>
+<td style="text-align: left;">10 days</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">le</td>
+<td style="text-align: left;">PT30M</td>
+<td style="text-align: left;">30 minute mean latent heat flux (W/m2)</td>
+<td style="text-align: left;">10 days</td>
+</tr>
 </tbody>
 </table>
 </div>
 </div>
+<section id="daily-mean" class="level4">
+<h4 class="anchored" data-anchor-id="daily-mean">Daily mean</h4>
+<p>The daily mean target file is located at the following URL.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>terrestrial_targets <span class="sc">|&gt;</span> </span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(site_id <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"HARV"</span>, <span class="st">"OSBS"</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> datetime, <span class="at">y =</span> observation)) <span class="sc">+</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(variable<span class="sc">~</span>site_id, <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="st">"https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1D/terrestrial_daily-targets.csv.gz"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1D/terrestrial_daily-targets.csv.gz"</code></pre>
+</div>
+</div>
+<p>You can directly load it into R using the following</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>terrestrial_targets <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(url_P1D, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The file contains the following columns</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(terrestrial_targets)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 111,244
+Columns: 6
+$ project_id  &lt;chr&gt; "neon4cast", "neon4cast", "neon4cast", "neon4cast", "neon4…
+$ site_id     &lt;chr&gt; "BART", "BART", "BART", "BART", "BART", "BART", "BART", "B…
+$ datetime    &lt;dttm&gt; 2017-02-02, 2017-02-02, 2017-02-03, 2017-02-03, 2017-02-0…
+$ duration    &lt;chr&gt; "P1D", "P1D", "P1D", "P1D", "P1D", "P1D", "P1D", "P1D", "P…
+$ variable    &lt;chr&gt; "le", "nee", "le", "nee", "le", "nee", "le", "nee", "le", …
+$ observation &lt;dbl&gt; 2.7087720, 0.5801368, 8.4720864, 0.6873984, 6.6410325, 0.6…</code></pre>
+</div>
+</div>
+<p>and the time series for the focal sites</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>terrestrial_targets <span class="sc">|&gt;</span> </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(site_id <span class="sc">%in%</span> terrestrial_focal_sites) <span class="sc">|&gt;</span> </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> datetime, <span class="at">y =</span> observation)) <span class="sc">+</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(variable<span class="sc">~</span>site_id, <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="targets_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
+<p><img src="targets_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="minute" class="level4">
+<h4 class="anchored" data-anchor-id="minute">30 minute</h4>
+<p>The 30 minute duration targets are designed for forecasting sub-daily carbon and water dynamics. The URL is found at:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="st">"https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=PT30M/terrestrial_30min-targets.csv.gz"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=PT30M/terrestrial_30min-targets.csv.gz"</code></pre>
 </div>
 </div>
 <p>Learn more at: <a href="https://projects.ecoforecast.org/neon4cast-docs/Terrestrial.html" class="uri">https://projects.ecoforecast.org/neon4cast-docs/Terrestrial.html</a></p>
 </section>
+</section>
 <section id="aquatics" class="level3">
 <h3 class="anchored" data-anchor-id="aquatics">Aquatics</h3>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">"https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1D/aquatics-targets.csv.gz"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>aquatics_targets <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(url, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(aquatics_targets)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Rows: 58,082
-Columns: 6
-$ project_id  &lt;chr&gt; "neon4cast", "neon4cast", "neon4cast", "neon4cast", "neon4…
-$ site_id     &lt;chr&gt; "ARIK", "ARIK", "ARIK", "ARIK", "ARIK", "ARIK", "ARIK", "A…
-$ datetime    &lt;dttm&gt; 2016-08-17, 2016-08-18, 2016-08-19, 2016-08-20, 2016-08-2…
-$ duration    &lt;chr&gt; "P1D", "P1D", "P1D", "P1D", "P1D", "P1D", "P1D", "P1D", "P…
-$ variable    &lt;chr&gt; "temperature", "temperature", "temperature", "temperature"…
-$ observation &lt;dbl&gt; 24.55817, 20.60144, 20.14269, 17.72215, 17.73065, 19.86279…</code></pre>
-</div>
-</div>
+<p>Freshwater surface water temperature, dissolved oxygen, and chlorophyll-a all influence drinking water quality, are critical for life in aquatic environments, and can represent the health of the ecosystem.</p>
+<p>The aquatics theme challenges you to forecast daily mean water quality variables at 7 lakes and 27 river/stream NEON sites.</p>
 <div class="cell">
 <div class="cell-output-display">
 <table class="table table-sm table-striped small">
@@ -357,43 +382,53 @@ $ observation &lt;dbl&gt; 24.55817, 20.60144, 20.14269, 17.72215, 17.73065, 19.8
 </table>
 </div>
 </div>
+<p>The daily mean target file is located at the following URL.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>aquatics_targets <span class="sc">|&gt;</span> </span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(site_id <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"BARC"</span>, <span class="st">"CRAM"</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> datetime, <span class="at">y =</span> observation)) <span class="sc">+</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(variable<span class="sc">~</span>site_id, <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="st">"https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1D/aquatics-targets.csv.gz"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1D/aquatics-targets.csv.gz"</code></pre>
+</div>
+</div>
+<p>You can directly load it into R using the following</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>aquatics_targets <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(url, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The file contains the following columns</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(aquatics_targets)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 58,082
+Columns: 6
+$ project_id  &lt;chr&gt; "neon4cast", "neon4cast", "neon4cast", "neon4cast", "neon4…
+$ site_id     &lt;chr&gt; "ARIK", "ARIK", "ARIK", "ARIK", "ARIK", "ARIK", "ARIK", "A…
+$ datetime    &lt;dttm&gt; 2016-08-17, 2016-08-18, 2016-08-19, 2016-08-20, 2016-08-2…
+$ duration    &lt;chr&gt; "P1D", "P1D", "P1D", "P1D", "P1D", "P1D", "P1D", "P1D", "P…
+$ variable    &lt;chr&gt; "temperature", "temperature", "temperature", "temperature"…
+$ observation &lt;dbl&gt; 24.55817, 20.60144, 20.14269, 17.72215, 17.73065, 19.86279…</code></pre>
+</div>
+</div>
+<p>and the time series for the focal sites</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>aquatics_targets <span class="sc">|&gt;</span> </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(site_id <span class="sc">%in%</span> aquatics_focal_sites) <span class="sc">|&gt;</span> </span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> datetime, <span class="at">y =</span> observation)) <span class="sc">+</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(variable<span class="sc">~</span>site_id, <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: Removed 219 rows containing missing values (`geom_point()`).</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="targets_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
+<p><img src="targets_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Learn more at: <a href="https://projects.ecoforecast.org/neon4cast-docs/Aquatics.html" class="uri">https://projects.ecoforecast.org/neon4cast-docs/Aquatics.html</a></p>
 </section>
 <section id="phenology" class="level3">
 <h3 class="anchored" data-anchor-id="phenology">Phenology</h3>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">"https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1D/phenology-targets.csv.gz"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>phenology_targets <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(url, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(phenology_targets)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Rows: 266,678
-Columns: 6
-$ project_id  &lt;chr&gt; "neon4cast", "neon4cast", "neon4cast", "neon4cast", "neon4…
-$ site_id     &lt;chr&gt; "ABBY", "ABBY", "ABBY", "ABBY", "ABBY", "ABBY", "ABBY", "A…
-$ datetime    &lt;dttm&gt; 2016-01-29, 2016-01-30, 2016-01-31, 2016-02-01, 2016-02-0…
-$ duration    &lt;chr&gt; "P1D", "P1D", "P1D", "P1D", "P1D", "P1D", "P1D", "P1D", "P…
-$ variable    &lt;chr&gt; "gcc_90", "gcc_90", "gcc_90", "gcc_90", "gcc_90", "gcc_90"…
-$ observation &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…</code></pre>
-</div>
-</div>
+<p>The changes in plant canopies over the year (e.g., spring leaf-out and fall leaf-drop)</p>
+<p>Phenology (the changes in plant canopies over the year) has been identified as one of the primary ecological fingerprints of global climate change.</p>
+<p>The greenness and redness, as measured by camera’s looking down on the top of canopies are a quantitative measure of phenology. The phenology theme challenges you to forecast daily mean greeness and redness at up-to 47 terrestrial NEON sites.</p>
 <div class="cell">
 <div class="cell-output-display">
 <table class="table table-sm table-striped small">
@@ -428,43 +463,52 @@ $ observation &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA
 </table>
 </div>
 </div>
+<p>The daily mean target file is located at the following URL.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>phenology_targets <span class="sc">|&gt;</span> </span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(site_id <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"HARV"</span>, <span class="st">"OSBS"</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> datetime, <span class="at">y =</span> observation)) <span class="sc">+</span></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(variable<span class="sc">~</span>site_id, <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span></span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="st">"https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1D/phenology-targets.csv.gz"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1D/phenology-targets.csv.gz"</code></pre>
+</div>
+</div>
+<p>You can directly load it into R using the following</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>phenology_targets <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(url, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The file contains the following columns</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(phenology_targets)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 266,772
+Columns: 6
+$ project_id  &lt;chr&gt; "neon4cast", "neon4cast", "neon4cast", "neon4cast", "neon4…
+$ site_id     &lt;chr&gt; "ABBY", "ABBY", "ABBY", "ABBY", "ABBY", "ABBY", "ABBY", "A…
+$ datetime    &lt;dttm&gt; 2016-01-29, 2016-01-30, 2016-01-31, 2016-02-01, 2016-02-0…
+$ duration    &lt;chr&gt; "P1D", "P1D", "P1D", "P1D", "P1D", "P1D", "P1D", "P1D", "P…
+$ variable    &lt;chr&gt; "gcc_90", "gcc_90", "gcc_90", "gcc_90", "gcc_90", "gcc_90"…
+$ observation &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…</code></pre>
+</div>
+</div>
+<p>and the time series for the focal sites</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>phenology_targets <span class="sc">|&gt;</span> </span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(site_id <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"HARV"</span>, <span class="st">"OSBS"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> datetime, <span class="at">y =</span> observation)) <span class="sc">+</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(variable<span class="sc">~</span>site_id, <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: Removed 1672 rows containing missing values (`geom_point()`).</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="targets_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid" width="672"></p>
+<p><img src="targets_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Learn more at: <a href="https://projects.ecoforecast.org/neon4cast-docs/Phenology.html" class="uri">https://projects.ecoforecast.org/neon4cast-docs/Phenology.html</a></p>
 </section>
 <section id="beetle-communities" class="level3">
 <h3 class="anchored" data-anchor-id="beetle-communities">Beetle communities</h3>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">"https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1W/beetles-targets.csv.gz"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>beetles_targets <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(url, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(beetles_targets)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Rows: 5,280
-Columns: 6
-$ project_id  &lt;chr&gt; "neon4cast", "neon4cast", "neon4cast", "neon4cast", "neon4…
-$ site_id     &lt;chr&gt; "ABBY", "ABBY", "ABBY", "ABBY", "ABBY", "ABBY", "ABBY", "A…
-$ datetime    &lt;dttm&gt; 2016-09-12, 2016-09-12, 2016-09-26, 2016-09-26, 2017-05-0…
-$ duration    &lt;chr&gt; "P1W", "P1W", "P1W", "P1W", "P1W", "P1W", "P1W", "P1W", "P…
-$ variable    &lt;chr&gt; "abundance", "richness", "abundance", "richness", "abundan…
-$ observation &lt;dbl&gt; 0.3599440, 14.0000000, 0.8171691, 13.0000000, 0.2012987, 1…</code></pre>
-</div>
-</div>
+<p>Sentinel species (such as beetles) give forewarning of environmental risk to humans, so are particularly useful for such monitoring and forecasting efforts because they can provide surrogates for other co-located components of biodiversity.</p>
+<p>The beetles theme challenges you to forecast weekly Ground beetles (Family: Carabidae) abundance and richness (two measures of biodiversity) at up-to 47 terrestrial NEON sites.</p>
 <div class="cell">
 <div class="cell-output-display">
 <table class="table table-sm table-striped small">
@@ -499,29 +543,91 @@ $ observation &lt;dbl&gt; 0.3599440, 14.0000000, 0.8171691, 13.0000000, 0.201298
 </table>
 </div>
 </div>
+<p>The daily mean target file is located at the following URL.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>beetles_targets <span class="sc">|&gt;</span> </span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(site_id <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"HARV"</span>, <span class="st">"OSBS"</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> datetime, <span class="at">y =</span> observation)) <span class="sc">+</span></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(variable<span class="sc">~</span>site_id, <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span></span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="st">"https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1W/beetles-targets.csv.gz"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1W/beetles-targets.csv.gz"</code></pre>
+</div>
+</div>
+<p>You can directly load it into R using the following</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>beetles_targets <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(url, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The file contains the following columns</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(beetles_targets)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 8,402
+Columns: 6
+$ project_id  &lt;chr&gt; "neon4cast", "neon4cast", "neon4cast", "neon4cast", "neon4…
+$ site_id     &lt;chr&gt; "ABBY", "ABBY", "ABBY", "ABBY", "ABBY", "ABBY", "ABBY", "A…
+$ datetime    &lt;dttm&gt; 2016-09-12, 2016-09-12, 2016-09-26, 2016-09-26, 2017-05-0…
+$ duration    &lt;chr&gt; "P1W", "P1W", "P1W", "P1W", "P1W", "P1W", "P1W", "P1W", "P…
+$ variable    &lt;chr&gt; "abundance", "richness", "abundance", "richness", "abundan…
+$ observation &lt;dbl&gt; 1.04897959, 14.00000000, 4.45357143, 13.00000000, 0.055357…</code></pre>
+</div>
+</div>
+<p>and the time series for the focal sites</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>beetles_targets <span class="sc">|&gt;</span> </span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(site_id <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"HARV"</span>, <span class="st">"OSBS"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> datetime, <span class="at">y =</span> observation)) <span class="sc">+</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(variable<span class="sc">~</span>site_id, <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="targets_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid" width="672"></p>
+<p><img src="targets_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Learn more at: <a href="https://projects.ecoforecast.org/neon4cast-docs/Beetles.html" class="uri">https://projects.ecoforecast.org/neon4cast-docs/Beetles.html</a></p>
 </section>
 <section id="tick-populations" class="level3">
 <h3 class="anchored" data-anchor-id="tick-populations">Tick populations</h3>
+<p>Target species for the tick population forecasts are Amblyomma americanum nymphal ticks. A. americanum is a vector of ehrlichiosis, tularemia, and southern tick-associated rash illness. The species is present in the eastern United States, and their populations are expanding. There is a correlation between tick population abundance and disease incidence, meaning forecasts for tick abundance have the potential to aid in our understanding of disease risk through time and space.</p>
+<p>The beetles theme challenges you to forecast weekly Amblyomma americanum nymphal tick abundance at up-to 9 terrestrial NEON sites.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">"https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1W/ticks-targets.csv.gz"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 19%">
+<col style="width: 8%">
+<col style="width: 65%">
+<col style="width: 7%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">variable</th>
+<th style="text-align: left;">duration</th>
+<th style="text-align: left;">Description</th>
+<th style="text-align: left;">horizon</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">amblyomma_americanum</td>
+<td style="text-align: left;">P1W</td>
+<td style="text-align: left;">The density of Amblyomma americanum nymphs per week (ticks per 1600m^2)</td>
+<td style="text-align: left;">1 year</td>
+</tr>
+</tbody>
+</table>
 </div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>ticks_targets <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(url, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>The daily mean target file is located at the following URL.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(ticks_targets)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="st">"https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1W/ticks-targets.csv.gz"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1W/ticks-targets.csv.gz"</code></pre>
+</div>
+</div>
+<p>You can directly load it into R using the following</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>ticks_targets <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(url, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The file contains the following columns</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(ticks_targets)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 622
 Columns: 6
@@ -533,43 +639,28 @@ $ variable    &lt;chr&gt; "amblyomma_americanum", "amblyomma_americanum", "ambly
 $ observation &lt;dbl&gt; 0.000000, 9.815951, 10.000000, 19.393939, 3.137255, 3.6613…</code></pre>
 </div>
 </div>
+<p>and the time series for the focal sites</p>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>ticks_targets <span class="sc">|&gt;</span> </span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(site_id <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"BLAN"</span>, <span class="st">"OSBS"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> datetime, <span class="at">y =</span> observation)) <span class="sc">+</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(variable<span class="sc">~</span>site_id, <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<table>
-<thead>
-<tr class="header">
-<th style="text-align: left;">variable</th>
-<th style="text-align: left;">duration</th>
-<th style="text-align: left;">Description</th>
-<th style="text-align: left;">horizon</th>
-</tr>
-</thead>
-<tbody>
-</tbody>
-</table>
+<p><img src="targets_files/figure-html/unnamed-chunk-30-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>ticks_targets <span class="sc">|&gt;</span> </span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(site_id <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"BLAN"</span>, <span class="st">"OSBS"</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> datetime, <span class="at">y =</span> observation)) <span class="sc">+</span></span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(variable<span class="sc">~</span>site_id, <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span></span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="targets_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<p>Learn more at: <a href="https://projects.ecoforecast.org/neon4cast-docs/Ticks.html">https://projects.ecoforecast.org/neon4cast-docs/Beetles.html</a></p>
+<p>Learn more at: <a href="https://projects.ecoforecast.org/neon4cast-docs/Ticks.html" class="uri">https://projects.ecoforecast.org/neon4cast-docs/Ticks.html</a></p>
 </section>
 </section>
 <section id="sites" class="level2">
 <h2 class="anchored" data-anchor-id="sites">Sites</h2>
-<p>The following table lists all the sites in the NEON Ecological Forecasting Challenge along with the “themes” that it is included it.</p>
+<p>The following table lists all the sites in the NEON Ecological Forecasting Challenge. The columns with “theme” names incidate whether that site is included in that theme’s target file.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>site_list <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"../neon4cast_field_site_metadata.csv"</span>, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">site_id =</span> field_site_id) <span class="sc">|&gt;</span> </span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(site_id, field_site_name, terrestrial, aquatics, phenology, ticks, beetles) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>site_list <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"../neon4cast_field_site_metadata.csv"</span>, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">site_id =</span> field_site_id) <span class="sc">|&gt;</span> </span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(site_id, field_site_name, terrestrial, aquatics, phenology, ticks, beetles) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
@@ -1331,14 +1422,15 @@ $ observation &lt;dbl&gt; 0.000000, 9.815951, 10.000000, 19.393939, 3.137255, 3.
 </section>
 <section id="additional-variables" class="level2">
 <h2 class="anchored" data-anchor-id="additional-variables">Additional variables</h2>
+<p>Additional NEON observation are provided that are not used to evaluate forecasts (thus are not targets)</p>
 <section id="hourly-water-temperature" class="level3">
 <h3 class="anchored" data-anchor-id="hourly-water-temperature">Hourly water temperature</h3>
-<p>Daily time-step variables measured in the monitored stream (Tunnel Branch; site_id = tubr)</p>
+<p>Water temperature at multiple depths measured at the UTC 00 hour are avoaiable for the 7 NEON lake sites</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">"https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=PT1H/aquatics-expanded-observations.csv.gz"</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>aquatics_expanded <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(url, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(aquatics_expanded)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">"https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=PT1H/aquatics-expanded-observations.csv.gz"</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>aquatics_expanded <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(url, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(aquatics_expanded)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 1,412,364
 Columns: 6

@@ -201,7 +201,7 @@ background-size: cover;
   <li><a href="#any-approach-is-allowed" id="toc-any-approach-is-allowed" class="nav-link" data-scroll-target="#any-approach-is-allowed"><span class="header-section-number">2.1</span> Any approach is allowed</a></li>
   <li><a href="#must-include-uncertainty" id="toc-must-include-uncertainty" class="nav-link" data-scroll-target="#must-include-uncertainty"><span class="header-section-number">2.2</span> Must include uncertainty</a></li>
   <li><a href="#any-model-driverscovariatesfeatures-are-welcome" id="toc-any-model-driverscovariatesfeatures-are-welcome" class="nav-link" data-scroll-target="#any-model-driverscovariatesfeatures-are-welcome"><span class="header-section-number">2.3</span> Any model drivers/covariates/features are welcome</a></li>
-  <li><a href="#forecasts-can-be-for-a-range-of-horizons" id="toc-forecasts-can-be-for-a-range-of-horizons" class="nav-link" data-scroll-target="#forecasts-can-be-for-a-range-of-horizons"><span class="header-section-number">2.4</span> Forecasts can be for a range of horizons</a></li>
+  <li><a href="#forecasts-horizon-depends-on-the-variable-forecasted" id="toc-forecasts-horizon-depends-on-the-variable-forecasted" class="nav-link" data-scroll-target="#forecasts-horizon-depends-on-the-variable-forecasted"><span class="header-section-number">2.4</span> Forecasts horizon depends on the variable forecasted</a></li>
   <li><a href="#forecasts-can-be-submitted-everyday" id="toc-forecasts-can-be-submitted-everyday" class="nav-link" data-scroll-target="#forecasts-can-be-submitted-everyday"><span class="header-section-number">2.5</span> Forecasts can be submitted everyday</a></li>
   </ul></li>
   <li><a href="#forecast-file-format" id="toc-forecast-file-format" class="nav-link" data-scroll-target="#forecast-file-format"><span class="header-section-number">3</span> Forecast file format</a></li>
@@ -254,15 +254,15 @@ background-size: cover;
 <section id="any-model-driverscovariatesfeatures-are-welcome" class="level3" data-number="2.3">
 <h3 data-number="2.3" class="anchored" data-anchor-id="any-model-driverscovariatesfeatures-are-welcome"><span class="header-section-number">2.3</span> Any model drivers/covariates/features are welcome</h3>
 <p>You can use any data as inputs. This includes all the targets data available to date. All sensor-based target data is available in near-real time (1 day latency). You may want to use the updated target data to re-train a model or use in data assimilation.</p>
-<p>As this is a genuine forecasting challenge, you will need forecasted drivers if your model uses drivers as inputs. If you are interested in using forecasted meteorology, we have developed an R package (<a href="https://github.com/FLARE-forecast/RopenMeteo">https://github.com/FLARE-forecast/RopenMeteo</a>) that can be used to access ensemble weather forecasts or seasonal forecasts for the sites. The R package is a wrapper around the open-meteo.com API. The README in the R package repo provides instructions for use.</p>
+<p>As this is a genuine forecasting challenge, you will need forecasted drivers if your model uses drivers as inputs. If you are interested in using forecasted meteorology, we have developed R functions that provide access to the NOAA Global Ensemble Forecasting model forecasts for each <a href="https://projects.ecoforecast.org/neon4cast-docs/Shared-Forecast-Drivers.html">NEON site</a>.</p>
 </section>
-<section id="forecasts-can-be-for-a-range-of-horizons" class="level3" data-number="2.4">
-<h3 data-number="2.4" class="anchored" data-anchor-id="forecasts-can-be-for-a-range-of-horizons"><span class="header-section-number">2.4</span> Forecasts can be for a range of horizons</h3>
-<p>Forecasts can be submitted at the daily time step 1 day to 10 years ahead</p>
+<section id="forecasts-horizon-depends-on-the-variable-forecasted" class="level3" data-number="2.4">
+<h3 data-number="2.4" class="anchored" data-anchor-id="forecasts-horizon-depends-on-the-variable-forecasted"><span class="header-section-number">2.4</span> Forecasts horizon depends on the variable forecasted</h3>
+<p>Forecasts can be submitted 1 day to 1 year ahead. The sensor-based targets are 10 to 30 days ahead while the community and population targets are 1 year ahead.</p>
 </section>
 <section id="forecasts-can-be-submitted-everyday" class="level3" data-number="2.5">
 <h3 data-number="2.5" class="anchored" data-anchor-id="forecasts-can-be-submitted-everyday"><span class="header-section-number">2.5</span> Forecasts can be submitted everyday</h3>
-<p>Since forecasts can be submitted everyday, automation is important. We provide an example GitHub repository that can be used to automate your forecast with GitHub Actions. It also includes the use of a custom Docker Container <a href="https://github.com/LTREB-reservoirs/vera4cast/blob/main/Dockerfile">eco4cast/rocker-neon4cast:latest</a> that has many of the packages and functions needed to generate and submit forecasts.</p>
+<p>Since forecasts can be submitted everyday, automation is important. We provide an example GitHub repository that can be used to automate your forecast with GitHub Actions. It also includes the use of a custom Docker Container <a href="https://github.com/eco4cast/neon4cast-ci/blob/main/Dockerfile">eco4cast/rocker-neon4cast:latest</a> that has many of the packages and functions needed to generate and submit forecasts.</p>
 </section>
 </section>
 <section id="forecast-file-format" class="level2" data-number="3">
@@ -270,7 +270,7 @@ background-size: cover;
 <p>The file is a csv format with the following columns:</p>
 <ul>
 <li><p><code>project_id</code>: use <code>neon4cast</code></p></li>
-<li><p><code>model_id</code>: the short name of the model defined as the model_id in the file name (see below) and in your registration. The model_id should have no spaces. model_id should reflect a method to forecast one or a set of target variables and must be unique to the vera4cast Challenge</p></li>
+<li><p><code>model_id</code>: the short name of the model defined as the model_id in the file name (see below) and in your registration. The model_id should have no spaces. model_id should reflect a method to forecast one or a set of target variables and must be unique to the neon4cast Challenge</p></li>
 <li><p><code>datetime</code>: forecast timestamp. Format <code>%Y-%m-%d %H:%M:%S</code> with UTC as the time zone. Forecasts submitted with a <code>%Y-%m-%d</code> format will be converted to a full datetime assuming UTC mid-night.</p></li>
 <li><p><code>reference_datetime</code>: The start of the forecast; this should be 0 times steps in the future. There should only be one value of <code>reference_datetime</code> in the file. Format is <code>%Y-%m-%d %H:%M:%S</code> with UTC as the time zone. Forecasts submitted with a <code>%Y-%m-%d</code> format will be converted to a full datetime assuming UTC mid-night.</p></li>
 <li><p><code>duration</code>: the time-step of the forecast. Use the value of <code>P1D</code> for a daily forecast, <code>P1W</code> for a weekly forecast, and <code>PT30M</code> for 30 minute forecast. This value should match the duration of the target variable that you are forecasting. Formatted as <a href="https://en.wikipedia.org/wiki/ISO_8601#Durations">ISO 8601 duration</a></p></li>
@@ -305,7 +305,7 @@ background-size: cover;
 <section id="ensemble-or-sample-forecast" class="level4" data-number="4.0.2">
 <h4 data-number="4.0.2" class="anchored" data-anchor-id="ensemble-or-sample-forecast"><span class="header-section-number">4.0.2</span> Ensemble (or sample) forecast</h4>
 <p>Ensemble (or sample) forecasts use the <code>family</code> value of <code>ensemble</code> and the <code>parameter</code> values are the ensemble index.</p>
-<p>When forecasts using the ensemble family are scored, we assume that the ensemble is a set of equally likely realizations that are sampled from a distribution is comparable to that of the observations (i.e., no broad adjustments are required to make the ensemble more consistent with observations). This is referred to as a “perfect ensemble” in Bröcker and Smith (2007). Ensemble (or sample) forecasts are transformed to a probability distribution function (e.g., dressed) using the default methods in the <code>scoringRules</code> R package (empirical version of the quantile decomposition for the <code>crps</code> and kernel density estimation using a Gaussian kernel for the <code>logs</code>). Kernel density estimation uses the default bandwidth produced by the <code>bw.nrd</code> function in the R <code>stats</code> package.</p>
+<p>When forecasts using the ensemble family are scored, we assume that the ensemble is a set of equally likely realizations that are sampled from a distribution is comparable to that of the observations (i.e., no broad adjustments are required to make the ensemble more consistent with observations). This is referred to as a “perfect ensemble” in Bröcker and Smith (2007). Ensemble (or sample) forecasts are transformed to a probability distribution function (e.g., dressed) using the default methods in the <code>scoringRules</code> R package (empirical version of the quantile decomposition for the <code>crps</code> ).</p>
 </section>
 <section id="supported-distributions" class="level3" data-number="4.1">
 <h3 data-number="4.1" class="anchored" data-anchor-id="supported-distributions"><span class="header-section-number">4.1</span> Supported distributions</h3>
@@ -390,7 +390,7 @@ $ prediction         &lt;dbl&gt; 3.7956520, 4.1800958, 3.2470058, 3.4550993, 3.4
 </section>
 <section id="evaluation" class="level3" data-number="6.2">
 <h3 data-number="6.2" class="anchored" data-anchor-id="evaluation"><span class="header-section-number">6.2</span> Evaluation</h3>
-<p>All forecasts are scored daily using new data until the full horizon of the forecast has been scored. Forecasts are scored using the <code>crps</code> and <code>logs</code> functions in the <a href="https://cran.r-project.org/web/packages/scoringRules/index.html"><code>scoringRules</code></a> R package.</p>
+<p>All forecasts are scored daily using new data until the full horizon of the forecast has been scored. Forecasts are scored using the continuous ranked probability score (CRPS) via the <code>crps</code> function in the <a href="https://cran.r-project.org/web/packages/scoringRules/index.html"><code>scoringRules</code></a> R package.</p>
 </section>
 <section id="comparsion" class="level3" data-number="6.3">
 <h3 data-number="6.3" class="anchored" data-anchor-id="comparsion"><span class="header-section-number">6.3</span> Comparsion</h3>
