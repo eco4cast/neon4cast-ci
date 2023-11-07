@@ -139,11 +139,6 @@ background-size: cover;
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="https://www.ltreb-reservoirs.org" rel="" target=""><i class="bi bi-house-door" role="img">
-</i> 
- <span class="menu-text">Home</span></a>
-  </li>  
-  <li class="nav-item">
     <a class="nav-link" href="./targets.html" rel="" target=""><i class="bi bi-bullseye" role="img">
 </i> 
  <span class="menu-text">What to forecast</span></a>
@@ -253,12 +248,12 @@ background-size: cover;
 </section>
 <section id="any-model-driverscovariatesfeatures-are-welcome" class="level3" data-number="2.3">
 <h3 data-number="2.3" class="anchored" data-anchor-id="any-model-driverscovariatesfeatures-are-welcome"><span class="header-section-number">2.3</span> Any model drivers/covariates/features are welcome</h3>
-<p>You can use any data as inputs. This includes all the targets data available to date. All sensor-based target data is available in near-real time (1 day latency). You may want to use the updated target data to re-train a model or use in data assimilation.</p>
+<p>You can use any data as inputs. This includes all the targets data available to date. All sensor-based target data is available in near-real time (&lt; 5 day latency). You may want to use the updated target data to re-train a model or use in data assimilation.</p>
 <p>As this is a genuine forecasting challenge, you will need forecasted drivers if your model uses drivers as inputs. If you are interested in using forecasted meteorology, we have developed R functions that provide access to the NOAA Global Ensemble Forecasting model forecasts for each <a href="https://projects.ecoforecast.org/neon4cast-docs/Shared-Forecast-Drivers.html">NEON site</a>.</p>
 </section>
 <section id="forecasts-horizon-depends-on-the-variable-forecasted" class="level3" data-number="2.4">
 <h3 data-number="2.4" class="anchored" data-anchor-id="forecasts-horizon-depends-on-the-variable-forecasted"><span class="header-section-number">2.4</span> Forecasts horizon depends on the variable forecasted</h3>
-<p>Forecasts can be submitted 1 day to 1 year ahead. The sensor-based targets are 10 to 30 days ahead while the community and population targets are 1 year ahead.</p>
+<p>Forecasts can be submitted 1 day to 1 year ahead. The sensor-based targets are up to 30-days ahead while the community and population targets are 1 year ahead.</p>
 </section>
 <section id="forecasts-can-be-submitted-everyday" class="level3" data-number="2.5">
 <h3 data-number="2.5" class="anchored" data-anchor-id="forecasts-can-be-submitted-everyday"><span class="header-section-number">2.5</span> Forecasts can be submitted everyday</h3>
@@ -719,7 +714,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <div class="nav-footer-right">
       <ul class="footer-items list-unstyled">
     <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/LTREB-reservoirs/vera4cast">
+    <a class="nav-link" href="https://github.com/eco4cast/neon4cast-ci">
       <i class="bi bi-github" role="img">
 </i> 
     </a>
