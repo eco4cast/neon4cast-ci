@@ -202,13 +202,9 @@ background-size: cover;
   <li><a href="#forecast-file-format" id="toc-forecast-file-format" class="nav-link" data-scroll-target="#forecast-file-format"><span class="header-section-number">3</span> Forecast file format</a></li>
   <li><a href="#representing-uncertainity" id="toc-representing-uncertainity" class="nav-link" data-scroll-target="#representing-uncertainity"><span class="header-section-number">4</span> Representing uncertainity</a>
   <ul class="collapse">
-  <li><a href="#supported-distributions" id="toc-supported-distributions" class="nav-link" data-scroll-target="#supported-distributions"><span class="header-section-number">4.1</span> Supported distributions</a></li>
-  <li><a href="#example-forecasts" id="toc-example-forecasts" class="nav-link" data-scroll-target="#example-forecasts"><span class="header-section-number">4.2</span> Example forecasts</a></li>
+  <li><a href="#example-forecasts" id="toc-example-forecasts" class="nav-link" data-scroll-target="#example-forecasts"><span class="header-section-number">4.1</span> Example forecasts</a></li>
   </ul></li>
-  <li><a href="#submission-process" id="toc-submission-process" class="nav-link" data-scroll-target="#submission-process"><span class="header-section-number">5</span> Submission process</a>
-  <ul class="collapse">
-  <li><a href="#timing" id="toc-timing" class="nav-link" data-scroll-target="#timing"><span class="header-section-number">5.1</span> Timing</a></li>
-  </ul></li>
+  <li><a href="#submission-process" id="toc-submission-process" class="nav-link" data-scroll-target="#submission-process"><span class="header-section-number">5</span> Submission process</a></li>
   <li><a href="#post-submission" id="toc-post-submission" class="nav-link" data-scroll-target="#post-submission"><span class="header-section-number">6</span> Post submission</a>
   <ul class="collapse">
   <li><a href="#processing" id="toc-processing" class="nav-link" data-scroll-target="#processing"><span class="header-section-number">6.1</span> Processing</a></li>
@@ -231,7 +227,7 @@ background-size: cover;
 <ol type="1">
 <li>Register at <a href="https://forms.gle/kg2Vkpho9BoMXSy57" class="uri">https://forms.gle/kg2Vkpho9BoMXSy57</a>. You are not required to register if your forecast submission uses the word “example” in your model_id”. Any forecasts with “example” in the model_id will not be used in analyses.</li>
 <li>Generate forecast with required columns.</li>
-<li>Write the forecast to a file that follows the standardized naming format.</li>
+<li>Write the forecast to a file.</li>
 <li>Submit forecast using a provided function.</li>
 <li>Watch forecast be evaluated as new data is collected.</li>
 </ol>
@@ -240,11 +236,11 @@ background-size: cover;
 <h2 data-number="2" class="anchored" data-anchor-id="generating-a-forecast"><span class="header-section-number">2</span> Generating a forecast</h2>
 <section id="any-approach-is-allowed" class="level3" data-number="2.1">
 <h3 data-number="2.1" class="anchored" data-anchor-id="any-approach-is-allowed"><span class="header-section-number">2.1</span> Any approach is allowed</h3>
-<p>You can use any approach to make a prediction about the future conditions at any of the sites and variables</p>
+<p>You can use any approach to make a prediction about the future conditions at any of the sites and variables.</p>
 </section>
 <section id="must-include-uncertainty" class="level3" data-number="2.2">
 <h3 data-number="2.2" class="anchored" data-anchor-id="must-include-uncertainty"><span class="header-section-number">2.2</span> Must include uncertainty</h3>
-<p>Forecasts require you to make a access of confidence in the prediction of the future. You can represent your confidence (i.e., uncertainty in forecast) using a distribution or numerically using an ensemble (or sample) of predictions.</p>
+<p>Forecasts require you to make a assessment of your confidence in the prediction of the future. You can represent your confidence (i.e., uncertainty in forecast) using a distribution or numerically using an ensemble (or sample) of predictions.</p>
 </section>
 <section id="any-model-driverscovariatesfeatures-are-welcome" class="level3" data-number="2.3">
 <h3 data-number="2.3" class="anchored" data-anchor-id="any-model-driverscovariatesfeatures-are-welcome"><span class="header-section-number">2.3</span> Any model drivers/covariates/features are welcome</h3>
@@ -302,23 +298,8 @@ background-size: cover;
 <p>Ensemble (or sample) forecasts use the <code>family</code> value of <code>ensemble</code> and the <code>parameter</code> values are the ensemble index.</p>
 <p>When forecasts using the ensemble family are scored, we assume that the ensemble is a set of equally likely realizations that are sampled from a distribution is comparable to that of the observations (i.e., no broad adjustments are required to make the ensemble more consistent with observations). This is referred to as a “perfect ensemble” in Bröcker and Smith (2007). Ensemble (or sample) forecasts are transformed to a probability distribution function (e.g., dressed) using the default methods in the <code>scoringRules</code> R package (empirical version of the quantile decomposition for the <code>crps</code> ).</p>
 </section>
-<section id="supported-distributions" class="level3" data-number="4.1">
-<h3 data-number="4.1" class="anchored" data-anchor-id="supported-distributions"><span class="header-section-number">4.1</span> Supported distributions</h3>
-<p>The following names and parameterization of the distribution are supported (family: parameters):</p>
-<ul>
-<li><code>lognormal</code>: <code>mu</code>, <code>sigma</code></li>
-<li><code>normal</code>: <code>mu</code>,<code>sigma</code></li>
-<li><code>bernoulli</code>: <code>prob</code></li>
-<li><code>beta</code>: <code>shape1</code>, <code>shape2</code></li>
-<li><code>uniform</code>: <code>min</code>, <code>max</code></li>
-<li><code>gamma</code>: <code>shape</code>, <code>rate</code></li>
-<li><code>logistic</code>: <code>location</code>, <code>scale</code></li>
-<li><code>exponential</code>: <code>rate</code></li>
-<li><code>poisson</code>: <code>lambda</code></li>
-</ul>
-</section>
-<section id="example-forecasts" class="level3" data-number="4.2">
-<h3 data-number="4.2" class="anchored" data-anchor-id="example-forecasts"><span class="header-section-number">4.2</span> Example forecasts</h3>
+<section id="example-forecasts" class="level3" data-number="4.1">
+<h3 data-number="4.1" class="anchored" data-anchor-id="example-forecasts"><span class="header-section-number">4.1</span> Example forecasts</h3>
 <p>Here is an example of a forecast that uses a normal distribution:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">"https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/forecasts/raw/T20231102190926_aquatics-2023-10-19-climatology.csv.gz"</span>, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
@@ -357,8 +338,6 @@ $ prediction         &lt;dbl&gt; 3.7956520, 4.1800958, 3.2470058, 3.4550993, 3.4
 </section>
 <section id="submission-process" class="level2" data-number="5">
 <h2 data-number="5" class="anchored" data-anchor-id="submission-process"><span class="header-section-number">5</span> Submission process</h2>
-<section id="timing" class="level3" data-number="5.1">
-<h3 data-number="5.1" class="anchored" data-anchor-id="timing"><span class="header-section-number">5.1</span> Timing</h3>
 <p>Individual forecast files can be uploaded any time.</p>
 <p>Teams will submit their forecast csv files through an R function. The csv file can only contain one unique <code>model_id</code> and one unique <code>project_id</code>.</p>
 <p>The function is available using the following code</p>
@@ -375,7 +354,6 @@ $ prediction         &lt;dbl&gt; 3.7956520, 4.1800958, 3.2470058, 3.4550993, 3.4
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>neon4cast<span class="sc">::</span><span class="fu">submit</span>(<span class="at">forecast_file =</span> <span class="st">"your_file.csv"</span>,</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>                         <span class="at">first_submission =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
 </section>
 <section id="post-submission" class="level2" data-number="6">
 <h2 data-number="6" class="anchored" data-anchor-id="post-submission"><span class="header-section-number">6</span> Post submission</h2>
