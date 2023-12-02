@@ -231,8 +231,8 @@ background-size: cover;
 <h2 data-number="1" class="anchored" data-anchor-id="tldr-how-to-submit-a-forecast"><span class="header-section-number">1</span> tl;dr: How to submit a forecast</h2>
 <p>We provide an overview of the steps for submitting with the details below:</p>
 <ol type="1">
-<li>Explore the data (e.g., targets) and build your forecast model.</li>
-<li>Register and describe you model at <a href="https://forms.gle/kg2Vkpho9BoMXSy57" class="uri">https://forms.gle/kg2Vkpho9BoMXSy57</a>. You are not required to register if your forecast submission uses the word “example” in your model_id”. Any forecasts with “example” in the model_id will not be used in forecast evaluation analyses. Use neon4cast as the challenge you are registering for.</li>
+<li>Explore the <a href="./targets.html#sec-targets">data</a> (e.g., targets) and build your forecast model.</li>
+<li>Register and describe your model at <a href="https://forms.gle/kg2Vkpho9BoMXSy57" class="uri">https://forms.gle/kg2Vkpho9BoMXSy57</a>. You are not required to register if your forecast submission uses the word “example” in your model_id”. Any forecasts with “example” in the model_id will not be used in forecast evaluation analyses. Use neon4cast as the challenge you are registering for.</li>
 <li>Generate a forecast!</li>
 <li>Write the forecast output to a file that follows our standardized format (described below).</li>
 <li>Submit your forecast using an R function (provided below).</li>
@@ -252,7 +252,7 @@ background-size: cover;
 <section id="any-model-driverscovariatesfeatures-are-welcome" class="level3" data-number="2.3">
 <h3 data-number="2.3" class="anchored" data-anchor-id="any-model-driverscovariatesfeatures-are-welcome"><span class="header-section-number">2.3</span> Any model drivers/covariates/features are welcome</h3>
 <p>You can use any data as model inputs (including all of the forecast target data available to date). All sensor-based target data are available in with a 1 to 7 day delay (latency) from time of collection. You may want to use the updated target data to re-train a model or for use in data assimilation.</p>
-<p>As a genuine forecasting challenge, you will need forecasted drivers if your model uses drivers as inputs. If you are interested in using forecasted meteorology, we are downloading and processing NOAA Global Ensemble Forecasting System (GEFS) weather forecasts for each NEON site. The NOAA GEFS forecasts extend 35-days ahead. More information about accessing the weather forecasts can be found here: https://projects.ecoforecast.org/neon4cast-docs/Shared-Forecast-Drivers.html</p>
+<p>As a genuine forecasting challenge, you will need forecasted drivers if your model uses drivers as inputs. If you are interested in using forecasted meteorology, we are downloading and processing NOAA Global Ensemble Forecasting System (GEFS) weather forecasts for each NEON site. The NOAA GEFS forecasts extend 35-days ahead. More information about accessing the weather forecasts can be found <a href="https://projects.ecoforecast.org/neon4cast-docs/Shared-Forecast-Drivers.html">here</a></p>
 </section>
 <section id="forecasts-can-be-for-a-range-of-horizons" class="level3" data-number="2.4">
 <h3 data-number="2.4" class="anchored" data-anchor-id="forecasts-can-be-for-a-range-of-horizons"><span class="header-section-number">2.4</span> Forecasts can be for a range of horizons</h3>
@@ -261,19 +261,19 @@ background-size: cover;
 <section id="forecasts-can-be-submitted-everyday" class="level3" data-number="2.5">
 <h3 data-number="2.5" class="anchored" data-anchor-id="forecasts-can-be-submitted-everyday"><span class="header-section-number">2.5</span> Forecasts can be submitted everyday</h3>
 <p>Since forecasts can be submitted everyday, automation is important. We provide an <a href="https://github.com/eco4cast/neon4cast-example">example GitHub</a> repository that can be used to automate your forecast with GitHub Actions. It also includes the use of a custom Docker Container <a href="https://github.com/eco4cast/neon4cast-ci/blob/main/Dockerfile">eco4cast/rocker-neon4cast:latest</a> that has many of the packages and functions needed to generate and submit forecasts.</p>
-<p>We only evaluate forecasts for any variables that are forecasted weekly (e.g., beetles and ticks) that were submitted on the Sunday of each week. Therefore we recommend only submitting forecasts of the weekly variables on Sundays.</p>
+<p>We only evaluate forecasts for any weekly variables (e.g., beetles and ticks) that were submitted on the Sunday of each week. Therefore we recommend only submitting forecasts of the weekly variables on Sundays.</p>
 </section>
 </section>
 <section id="you-can-forecast-at-any-of-the-neon-sites" class="level2" data-number="3">
 <h2 data-number="3" class="anchored" data-anchor-id="you-can-forecast-at-any-of-the-neon-sites"><span class="header-section-number">3</span> You can forecast at any of the NEON sites</h2>
-<p>If are you are getting started, we recommend a set of focal sites for each of the five “themes”. See <a href="./targets.html#sec-starting-sites">here</a> for the list. You are also welcome to submit forecasts to all NEON sites. More information about NEON sites can be found in the <a href="https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/sites/collection.json">site metadata</a> and on NEON’s <a href="https://www.neonscience.org/field-sites/explore-field-sites">website</a></p>
+<p>If are you are getting started, we recommend a set of <a href="./targets.html#sec-starting-sites">focal sites</a> for each of the five “themes”. You are also welcome to submit forecasts to all or a subset of NEON sites . More information about NEON sites can be found in the <a href="https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/sites/collection.json">site metadata</a> and on NEON’s <a href="https://www.neonscience.org/field-sites/explore-field-sites">website</a></p>
 </section>
 <section id="forecast-file-format" class="level2" data-number="4">
 <h2 data-number="4" class="anchored" data-anchor-id="forecast-file-format"><span class="header-section-number">4</span> Forecast file format</h2>
 <p>The file is a csv format with the following columns:</p>
 <ul>
 <li><p><code>project_id</code>: use <code>neon4cast</code></p></li>
-<li><p><code>model_id</code>: the short name of the model defined as the model_id in the file name (see below) and in your registration. The model_id should have no spaces. <code>model_id</code> should reflect a method to forecast one or a set of target variables and must be unique to the neon4cast challenge.</p></li>
+<li><p><code>model_id</code>: the short name of the model defined as the model_id in your registration. The model_id should have no spaces. <code>model_id</code> should reflect a method to forecast one or a set of target variables and must be unique to the neon4cast challenge.</p></li>
 <li><p><code>datetime</code>: forecast timestamp. Format <code>%Y-%m-%d %H:%M:%S</code> with UTC as the time zone. Forecasts submitted with a <code>%Y-%m-%d</code> format will be converted to a full datetime assuming UTC mid-night.</p></li>
 <li><p><code>reference_datetime</code>: The start of the forecast; this should be 0 times steps in the future. There should only be one value of <code>reference_datetime</code> in the file. Format is <code>%Y-%m-%d %H:%M:%S</code> with UTC as the time zone. Forecasts submitted with a <code>%Y-%m-%d</code> format will be converted to a full datetime assuming UTC mid-night.</p></li>
 <li><p><code>duration</code>: the time-step of the forecast. Use the value of <code>P1D</code> for a daily forecast, <code>P1W</code> for a weekly forecast, and <code>PT30M</code> for 30 minute forecast. This value should match the duration of the target variable that you are forecasting. Formatted as <a href="https://en.wikipedia.org/wiki/ISO_8601#Durations">ISO 8601 duration</a></p></li>
@@ -308,7 +308,7 @@ background-size: cover;
 <section id="ensemble-or-sample-forecast" class="level4" data-number="5.0.2">
 <h4 data-number="5.0.2" class="anchored" data-anchor-id="ensemble-or-sample-forecast"><span class="header-section-number">5.0.2</span> Ensemble (or sample) forecast</h4>
 <p>Ensemble (or sample) forecasts use the <code>family</code> value of <code>ensemble</code> and the <code>parameter</code> values are the ensemble index.</p>
-<p>When forecasts using the ensemble family are scored, we assume that the ensemble is a set of equally likely realizations that are sampled from a distribution that is comparable to that of the observations (i.e., no broad adjustments are required to make the ensemble more consistent with observations). This is referred to as a “perfect ensemble” by Bröcker and Smith (2007). Ensemble (or sample) forecasts are transformed to a probability distribution function (e.g., dressed) using the default methods in the <code>scoringRules</code> R package (empirical version of the quantile decomposition for the <code>crps</code> and kernel density estimation using a Gaussian kernel for the <code>logs</code>). Kernel density estimation uses the default bandwidth produced by the <code>bw.nrd</code> function in the R <code>stats</code> package.</p>
+<p>When forecasts using the ensemble family are scored, we assume that the ensemble is a set of equally likely realizations that are sampled from a distribution that is comparable to that of the observations (i.e., no broad adjustments are required to make the ensemble more consistent with observations). This is referred to as a “perfect ensemble” by Bröcker and Smith (2007). Ensemble (or sample) forecasts are transformed to a probability distribution function (e.g., dressed) using the default methods in the <code>scoringRules</code> R package (empirical version of the quantile decomposition for the <code>crps</code>).</p>
 </section>
 <section id="example-forecasts" class="level3" data-number="5.1">
 <h3 data-number="5.1" class="anchored" data-anchor-id="example-forecasts"><span class="header-section-number">5.1</span> Example forecasts</h3>
@@ -415,8 +415,9 @@ background-size: cover;
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> </span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">arrange</span>(variable, site_id, datetime, parameter) <span class="sc">|&gt;</span> </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="table table-sm table-striped small">
 <colgroup>
@@ -454,53 +455,53 @@ background-size: cover;
 </tr>
 <tr class="even">
 <td style="text-align: left;">persistenceRW</td>
-<td style="text-align: left;">2023-10-21</td>
+<td style="text-align: left;">2023-10-20</td>
 <td style="text-align: left;">2023-10-19</td>
 <td style="text-align: left;">BARC</td>
 <td style="text-align: left;">ensemble</td>
-<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: left;">chla</td>
-<td style="text-align: right;">4.180096</td>
+<td style="text-align: right;">3.963322</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">persistenceRW</td>
-<td style="text-align: left;">2023-10-22</td>
+<td style="text-align: left;">2023-10-20</td>
 <td style="text-align: left;">2023-10-19</td>
 <td style="text-align: left;">BARC</td>
 <td style="text-align: left;">ensemble</td>
-<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: left;">chla</td>
-<td style="text-align: right;">3.247006</td>
+<td style="text-align: right;">2.053637</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">persistenceRW</td>
-<td style="text-align: left;">2023-10-23</td>
+<td style="text-align: left;">2023-10-20</td>
 <td style="text-align: left;">2023-10-19</td>
 <td style="text-align: left;">BARC</td>
 <td style="text-align: left;">ensemble</td>
-<td style="text-align: right;">1</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: left;">chla</td>
-<td style="text-align: right;">3.455099</td>
+<td style="text-align: right;">3.294723</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">persistenceRW</td>
-<td style="text-align: left;">2023-10-24</td>
+<td style="text-align: left;">2023-10-20</td>
 <td style="text-align: left;">2023-10-19</td>
 <td style="text-align: left;">BARC</td>
 <td style="text-align: left;">ensemble</td>
-<td style="text-align: right;">1</td>
+<td style="text-align: right;">5</td>
 <td style="text-align: left;">chla</td>
-<td style="text-align: right;">3.483489</td>
+<td style="text-align: right;">1.847344</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">persistenceRW</td>
-<td style="text-align: left;">2023-10-25</td>
+<td style="text-align: left;">2023-10-20</td>
 <td style="text-align: left;">2023-10-19</td>
 <td style="text-align: left;">BARC</td>
 <td style="text-align: left;">ensemble</td>
-<td style="text-align: right;">1</td>
+<td style="text-align: right;">6</td>
 <td style="text-align: left;">chla</td>
-<td style="text-align: right;">3.558580</td>
+<td style="text-align: right;">7.829229</td>
 </tr>
 </tbody>
 </table>
@@ -536,11 +537,11 @@ background-size: cover;
 <h2 data-number="7" class="anchored" data-anchor-id="post-submission"><span class="header-section-number">7</span> Post-submission</h2>
 <section id="processing" class="level3" data-number="7.1">
 <h3 data-number="7.1" class="anchored" data-anchor-id="processing"><span class="header-section-number">7.1</span> Processing</h3>
-<p>After submission, our servers will process uploaded files by converting them to a parquet format on our public s3 storage. A <code>pub_datetime</code> column will be added that denotes when a forecast was submitted.</p>
+<p>After submission, our servers will process uploaded files by converting them to a <a href="https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/collection.json">parquet format</a> on our public s3 storage. A <code>pub_datetime</code> column will be added that denotes when a forecast was submitted. <a href="https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/collection.json">Summaries</a> are generated of the forecasts provide descriptive statistics of the forecast.</p>
 </section>
 <section id="evaluation" class="level3" data-number="7.2">
 <h3 data-number="7.2" class="anchored" data-anchor-id="evaluation"><span class="header-section-number">7.2</span> Evaluation</h3>
-<p>All forecasts are scored daily using new data until the full horizon of the forecast has been scored. Forecasts are scored using the <code>crps</code> and <code>logs</code> functions in the <a href="https://cran.r-project.org/web/packages/scoringRules/index.html"><code>scoringRules</code></a> R package. More information about the scoring metric can be found at <a href="https://projects.ecoforecast.org/neon4cast-docs/Evaluation.html">here</a></p>
+<p>All forecasts are scored daily using new data until the full horizon of the forecast has been scored. Forecasts are scored using the <code>crps</code> function in the <a href="https://cran.r-project.org/web/packages/scoringRules/index.html"><code>scoringRules</code></a> R package. More information about the scoring metric can be found at <a href="https://projects.ecoforecast.org/neon4cast-docs/Evaluation.html">here</a></p>
 </section>
 <section id="comparison" class="level3" data-number="7.3">
 <h3 data-number="7.3" class="anchored" data-anchor-id="comparison"><span class="header-section-number">7.3</span> Comparison</h3>
