@@ -205,7 +205,11 @@ background-size: cover;
   <ul class="collapse">
   <li><a href="#example-forecasts" id="toc-example-forecasts" class="nav-link" data-scroll-target="#example-forecasts"><span class="header-section-number">5.1</span> Example forecasts</a></li>
   </ul></li>
-  <li><a href="#submission-process" id="toc-submission-process" class="nav-link" data-scroll-target="#submission-process"><span class="header-section-number">6</span> Submission process</a></li>
+  <li><a href="#submission-process" id="toc-submission-process" class="nav-link" data-scroll-target="#submission-process"><span class="header-section-number">6</span> Submission process</a>
+  <ul class="collapse">
+  <li><a href="#file-name" id="toc-file-name" class="nav-link" data-scroll-target="#file-name"><span class="header-section-number">6.1</span> File name</a></li>
+  <li><a href="#uploading-forecast" id="toc-uploading-forecast" class="nav-link" data-scroll-target="#uploading-forecast"><span class="header-section-number">6.2</span> Uploading forecast</a></li>
+  </ul></li>
   <li><a href="#post-submission" id="toc-post-submission" class="nav-link" data-scroll-target="#post-submission"><span class="header-section-number">7</span> Post-submission</a>
   <ul class="collapse">
   <li><a href="#processing" id="toc-processing" class="nav-link" data-scroll-target="#processing"><span class="header-section-number">7.1</span> Processing</a></li>
@@ -227,7 +231,8 @@ background-size: cover;
 <h2 data-number="1" class="anchored" data-anchor-id="tldr-how-to-submit-a-forecast"><span class="header-section-number">1</span> tl;dr: How to submit a forecast</h2>
 <p>We provide an overview of the steps for submitting with the details below:</p>
 <ol type="1">
-<li>Register at <a href="https://forms.gle/kg2Vkpho9BoMXSy57" class="uri">https://forms.gle/kg2Vkpho9BoMXSy57</a>. You are not required to register if your forecast submission uses the word “example” in your model_id”. Any forecasts with “example” in the model_id will not be used in forecast evaluation analyses.</li>
+<li>Explore the data (e.g., targets) and build your forecast model.</li>
+<li>Register and describe you model at <a href="https://forms.gle/kg2Vkpho9BoMXSy57" class="uri">https://forms.gle/kg2Vkpho9BoMXSy57</a>. You are not required to register if your forecast submission uses the word “example” in your model_id”. Any forecasts with “example” in the model_id will not be used in forecast evaluation analyses.</li>
 <li>Generate a forecast!</li>
 <li>Write the forecast output to a file that follows our standardized format (described below).</li>
 <li>Submit your forecast using an R function (provided below).</li>
@@ -251,16 +256,17 @@ background-size: cover;
 </section>
 <section id="forecasts-can-be-for-a-range-of-horizons" class="level3" data-number="2.4">
 <h3 data-number="2.4" class="anchored" data-anchor-id="forecasts-can-be-for-a-range-of-horizons"><span class="header-section-number">2.4</span> Forecasts can be for a range of horizons</h3>
-<p>Forecasts can be submitted at the daily time step for 1 day to 10 years ahead into the future.</p>
+<p>Forecasts can be submitted for 1 day to 1 year-ahead, depending on the variable. See the <a href="./targets.html#sec-targets">variable tables</a> for the horizon that is associated with each variable.</p>
 </section>
 <section id="forecasts-can-be-submitted-everyday" class="level3" data-number="2.5">
 <h3 data-number="2.5" class="anchored" data-anchor-id="forecasts-can-be-submitted-everyday"><span class="header-section-number">2.5</span> Forecasts can be submitted everyday</h3>
-<p>Since forecasts can be submitted everyday, automation is important. We provide an example GitHub repository that can be used to automate your forecast with GitHub Actions. It also includes the use of a custom Docker Container <a href="https://github.com/eco4cast/neon4cast-ci/blob/main/Dockerfile">eco4cast/rocker-neon4cast:latest</a> that has many of the packages and functions needed to generate and submit forecasts.</p>
+<p>Since forecasts can be submitted everyday, automation is important. We provide an <a href="https://github.com/eco4cast/neon4cast-example">example GitHub</a> repository that can be used to automate your forecast with GitHub Actions. It also includes the use of a custom Docker Container <a href="https://github.com/eco4cast/neon4cast-ci/blob/main/Dockerfile">eco4cast/rocker-neon4cast:latest</a> that has many of the packages and functions needed to generate and submit forecasts.</p>
+<p>We only evaluate forecasts for any variables that are forecasted weekly (e.g., beetles and ticks) that were submitted on the Sunday of each week. Therefore we recommend only submitting forecasts of the weekly variables on Sundays.</p>
 </section>
 </section>
 <section id="you-can-forecast-at-any-of-the-neon-sites" class="level2" data-number="3">
 <h2 data-number="3" class="anchored" data-anchor-id="you-can-forecast-at-any-of-the-neon-sites"><span class="header-section-number">3</span> You can forecast at any of the NEON sites</h2>
-<p>If are you are getting started, we recommend a set of focal sites for each of the five “themes”. See <strong>?@sec-starting-sites</strong> for the list. You are also welcome to submit forecasts to all NEON sites.</p>
+<p>If are you are getting started, we recommend a set of focal sites for each of the five “themes”. See <a href="./targets.html#sec-starting-sites">here</a> for the list. You are also welcome to submit forecasts to all NEON sites. More information about NEON sites can be found in the <a href="https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/sites/collection.json">site metadata</a> and on NEON’s <a href="https://www.neonscience.org/field-sites/explore-field-sites">website</a></p>
 </section>
 <section id="forecast-file-format" class="level2" data-number="4">
 <h2 data-number="4" class="anchored" data-anchor-id="forecast-file-format"><span class="header-section-number">4</span> Forecast file format</h2>
@@ -274,17 +280,17 @@ background-size: cover;
 <li><p><code>site_id</code>: code for NEON site.</p></li>
 <li><p><code>family</code> name of the probability distribution that is described by the parameter values in the parameter column (see list below for accepted distribution). An ensemble forecast as a family of <code>ensemble</code>. See note below about family</p></li>
 <li><p><code>parameter</code> the parameters for the distribution (see note below about the parameter column) or the number of the ensemble members. For example, the parameters for a normal distribution are called <code>mu</code> and <code>sigma</code>.</p></li>
-<li><p><code>variable</code>: standardized variable name</p></li>
+<li><p><code>variable</code>: standardized variable name. It must match the variable name in the target file.</p></li>
 <li><p><code>prediction</code>: forecasted value for the parameter in the parameter column</p></li>
 </ul>
 </section>
 <section id="representing-uncertainity" class="level2" data-number="5">
 <h2 data-number="5" class="anchored" data-anchor-id="representing-uncertainity"><span class="header-section-number">5</span> Representing uncertainity</h2>
-<p>Uncertainty is represented through the family - parameter columns</p>
+<p>Uncertainty is represented through the family - parameter columns in the file that you submit.</p>
 <section id="parameteric-forecast" class="level4" data-number="5.0.1">
 <h4 data-number="5.0.1" class="anchored" data-anchor-id="parameteric-forecast"><span class="header-section-number">5.0.1</span> Parameteric forecast</h4>
 <p>For a parametric forecast with a normal distribution, the <code>family</code> column would have the word <code>normal</code> to designate a normal distribution and the parameter column must have values of <code>mu</code> and <code>sigma</code> for each forecasted variable, site_id, depth, and time combination.</p>
-<p>Parameteric forecasts for binary variables should use <code>bernoulli</code> as the distribution.</p>
+<p>Parameteric forecasts for binary variables should use <code>bernoulli</code> as the family and <code>prob</code> as the parameter.</p>
 <p>The following names and parameterization of the distribution are currently supported (family: parameters):</p>
 <ul>
 <li><code>lognormal</code>: <code>mu</code>, <code>sigma</code></li>
@@ -308,42 +314,211 @@ background-size: cover;
 <h3 data-number="5.1" class="anchored" data-anchor-id="example-forecasts"><span class="header-section-number">5.1</span> Example forecasts</h3>
 <p>Here is an example of a forecast that uses a normal distribution:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">"https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/forecasts/raw/T20231102190926_aquatics-2023-10-19-climatology.csv.gz"</span>, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">glimpse</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Rows: 4,456
-Columns: 8
-$ model_id           &lt;chr&gt; "climatology", "climatology", "climatology", "clima…
-$ datetime           &lt;date&gt; 2023-10-20, 2023-10-20, 2023-10-20, 2023-10-20, 20…
-$ reference_datetime &lt;date&gt; 2023-10-19, 2023-10-19, 2023-10-19, 2023-10-19, 20…
-$ site_id            &lt;chr&gt; "ARIK", "ARIK", "ARIK", "ARIK", "ARIK", "ARIK", "AR…
-$ family             &lt;chr&gt; "normal", "normal", "normal", "normal", "normal", "…
-$ parameter          &lt;chr&gt; "mu", "sigma", "mu", "sigma", "mu", "sigma", "mu", …
-$ variable           &lt;chr&gt; "oxygen", "oxygen", "temperature", "temperature", "…
-$ prediction         &lt;dbl&gt; 4.542862, 1.448393, 8.070854, 1.330059, 4.194895, 1…</code></pre>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">"https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/forecasts/raw/T20231102190926_aquatics-2023-10-19-climatology.csv.gz"</span>, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 13%">
+<col style="width: 12%">
+<col style="width: 21%">
+<col style="width: 8%">
+<col style="width: 7%">
+<col style="width: 11%">
+<col style="width: 13%">
+<col style="width: 12%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">model_id</th>
+<th style="text-align: left;">datetime</th>
+<th style="text-align: left;">reference_datetime</th>
+<th style="text-align: left;">site_id</th>
+<th style="text-align: left;">family</th>
+<th style="text-align: left;">parameter</th>
+<th style="text-align: left;">variable</th>
+<th style="text-align: right;">prediction</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">climatology</td>
+<td style="text-align: left;">2023-10-20</td>
+<td style="text-align: left;">2023-10-19</td>
+<td style="text-align: left;">ARIK</td>
+<td style="text-align: left;">normal</td>
+<td style="text-align: left;">mu</td>
+<td style="text-align: left;">oxygen</td>
+<td style="text-align: right;">4.542862</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">climatology</td>
+<td style="text-align: left;">2023-10-20</td>
+<td style="text-align: left;">2023-10-19</td>
+<td style="text-align: left;">ARIK</td>
+<td style="text-align: left;">normal</td>
+<td style="text-align: left;">sigma</td>
+<td style="text-align: left;">oxygen</td>
+<td style="text-align: right;">1.448393</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">climatology</td>
+<td style="text-align: left;">2023-10-20</td>
+<td style="text-align: left;">2023-10-19</td>
+<td style="text-align: left;">ARIK</td>
+<td style="text-align: left;">normal</td>
+<td style="text-align: left;">mu</td>
+<td style="text-align: left;">temperature</td>
+<td style="text-align: right;">8.070854</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">climatology</td>
+<td style="text-align: left;">2023-10-20</td>
+<td style="text-align: left;">2023-10-19</td>
+<td style="text-align: left;">ARIK</td>
+<td style="text-align: left;">normal</td>
+<td style="text-align: left;">sigma</td>
+<td style="text-align: left;">temperature</td>
+<td style="text-align: right;">1.330059</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">climatology</td>
+<td style="text-align: left;">2023-10-21</td>
+<td style="text-align: left;">2023-10-19</td>
+<td style="text-align: left;">ARIK</td>
+<td style="text-align: left;">normal</td>
+<td style="text-align: left;">mu</td>
+<td style="text-align: left;">oxygen</td>
+<td style="text-align: right;">4.194895</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">climatology</td>
+<td style="text-align: left;">2023-10-21</td>
+<td style="text-align: left;">2023-10-19</td>
+<td style="text-align: left;">ARIK</td>
+<td style="text-align: left;">normal</td>
+<td style="text-align: left;">sigma</td>
+<td style="text-align: left;">oxygen</td>
+<td style="text-align: right;">1.448393</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <p>For an ensemble (or sample) forecast, the <code>family</code> column uses the word <code>ensemble</code> to designate that it is a ensemble forecast and the parameter column is the ensemble member number (<code>1</code>, <code>2</code>, <code>3</code> …)</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">"https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/forecasts/raw/T20231102190926_aquatics-2023-10-19-persistenceRW.csv.gz"</span>, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">glimpse</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Rows: 530,400
-Columns: 8
-$ model_id           &lt;chr&gt; "persistenceRW", "persistenceRW", "persistenceRW", …
-$ datetime           &lt;date&gt; 2023-10-20, 2023-10-21, 2023-10-22, 2023-10-23, 20…
-$ reference_datetime &lt;date&gt; 2023-10-19, 2023-10-19, 2023-10-19, 2023-10-19, 20…
-$ site_id            &lt;chr&gt; "BARC", "BARC", "BARC", "BARC", "BARC", "BARC", "BA…
-$ family             &lt;chr&gt; "ensemble", "ensemble", "ensemble", "ensemble", "en…
-$ parameter          &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, …
-$ variable           &lt;chr&gt; "chla", "chla", "chla", "chla", "chla", "chla", "ch…
-$ prediction         &lt;dbl&gt; 3.7956520, 4.1800958, 3.2470058, 3.4550993, 3.48348…</code></pre>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">"https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/forecasts/raw/T20231102190926_aquatics-2023-10-19-persistenceRW.csv.gz"</span>, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 15%">
+<col style="width: 12%">
+<col style="width: 20%">
+<col style="width: 8%">
+<col style="width: 9%">
+<col style="width: 10%">
+<col style="width: 9%">
+<col style="width: 12%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">model_id</th>
+<th style="text-align: left;">datetime</th>
+<th style="text-align: left;">reference_datetime</th>
+<th style="text-align: left;">site_id</th>
+<th style="text-align: left;">family</th>
+<th style="text-align: right;">parameter</th>
+<th style="text-align: left;">variable</th>
+<th style="text-align: right;">prediction</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">persistenceRW</td>
+<td style="text-align: left;">2023-10-20</td>
+<td style="text-align: left;">2023-10-19</td>
+<td style="text-align: left;">BARC</td>
+<td style="text-align: left;">ensemble</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">chla</td>
+<td style="text-align: right;">3.795652</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">persistenceRW</td>
+<td style="text-align: left;">2023-10-21</td>
+<td style="text-align: left;">2023-10-19</td>
+<td style="text-align: left;">BARC</td>
+<td style="text-align: left;">ensemble</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">chla</td>
+<td style="text-align: right;">4.180096</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">persistenceRW</td>
+<td style="text-align: left;">2023-10-22</td>
+<td style="text-align: left;">2023-10-19</td>
+<td style="text-align: left;">BARC</td>
+<td style="text-align: left;">ensemble</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">chla</td>
+<td style="text-align: right;">3.247006</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">persistenceRW</td>
+<td style="text-align: left;">2023-10-23</td>
+<td style="text-align: left;">2023-10-19</td>
+<td style="text-align: left;">BARC</td>
+<td style="text-align: left;">ensemble</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">chla</td>
+<td style="text-align: right;">3.455099</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">persistenceRW</td>
+<td style="text-align: left;">2023-10-24</td>
+<td style="text-align: left;">2023-10-19</td>
+<td style="text-align: left;">BARC</td>
+<td style="text-align: left;">ensemble</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">chla</td>
+<td style="text-align: right;">3.483489</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">persistenceRW</td>
+<td style="text-align: left;">2023-10-25</td>
+<td style="text-align: left;">2023-10-19</td>
+<td style="text-align: left;">BARC</td>
+<td style="text-align: left;">ensemble</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">chla</td>
+<td style="text-align: right;">3.558580</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </section>
 </section>
 <section id="submission-process" class="level2" data-number="6">
 <h2 data-number="6" class="anchored" data-anchor-id="submission-process"><span class="header-section-number">6</span> Submission process</h2>
+<section id="file-name" class="level3" data-number="6.1">
+<h3 data-number="6.1" class="anchored" data-anchor-id="file-name"><span class="header-section-number">6.1</span> File name</h3>
+<p>Save your forecast as a csv file with the following naming convention:</p>
+<p><code>theme_name-year-month-day-model_id.csv</code>. Compressed csv files with the csv.gz extension are also accepted.</p>
+<p>The <code>theme_name</code> options are: terrestrial_daily, terrestrial_30min, aquatics, beetles, ticks, or phenology.</p>
+<p>The year, month, and day are the year, month, and day the reference_datetime (horizon = 0). For example, if a forecast starts today and tomorrow is the first forecasted day, horizon = 0 would be today, and used in the file name. <code>model_id</code> is the id for the model name that you specified in the model metadata Google Form (model_id has no spaces in it).</p>
+</section>
+<section id="uploading-forecast" class="level3" data-number="6.2">
+<h3 data-number="6.2" class="anchored" data-anchor-id="uploading-forecast"><span class="header-section-number">6.2</span> Uploading forecast</h3>
 <p>Individual forecast files can be uploaded any time.</p>
 <p>Teams will submit their forecast csv files through an R function. The csv file can only contain one unique <code>model_id</code> and one unique <code>project_id</code>.</p>
 <p>The function is available using the following code</p>
@@ -353,13 +528,9 @@ $ prediction         &lt;dbl&gt; 3.7956520, 4.1800958, 3.2470058, 3.4550993, 3.4
 <p>The submit function is</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(neon4cast)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>neon4cast<span class="sc">::</span><span class="fu">submit</span>(<span class="at">forecast_file =</span> <span class="st">"your_file.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>neon4cast<span class="sc">::</span><span class="fu">submit</span>(<span class="at">forecast_file =</span> <span class="st">"theme_name-year-month-day-model_id.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>If you will be submitting multiple forecasts using the same model_id, use the following</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>neon4cast<span class="sc">::</span><span class="fu">submit</span>(<span class="at">forecast_file =</span> <span class="st">"your_file.csv"</span>,</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>                         <span class="at">first_submission =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+</section>
 </section>
 <section id="post-submission" class="level2" data-number="7">
 <h2 data-number="7" class="anchored" data-anchor-id="post-submission"><span class="header-section-number">7</span> Post-submission</h2>
@@ -369,7 +540,7 @@ $ prediction         &lt;dbl&gt; 3.7956520, 4.1800958, 3.2470058, 3.4550993, 3.4
 </section>
 <section id="evaluation" class="level3" data-number="7.2">
 <h3 data-number="7.2" class="anchored" data-anchor-id="evaluation"><span class="header-section-number">7.2</span> Evaluation</h3>
-<p>All forecasts are scored daily using new data until the full horizon of the forecast has been scored. Forecasts are scored using the <code>crps</code> and <code>logs</code> functions in the <a href="https://cran.r-project.org/web/packages/scoringRules/index.html"><code>scoringRules</code></a> R package.</p>
+<p>All forecasts are scored daily using new data until the full horizon of the forecast has been scored. Forecasts are scored using the <code>crps</code> and <code>logs</code> functions in the <a href="https://cran.r-project.org/web/packages/scoringRules/index.html"><code>scoringRules</code></a> R package. More information about the scoring metric can be found at <a href="https://projects.ecoforecast.org/neon4cast-docs/Evaluation.html">here</a></p>
 </section>
 <section id="comparison" class="level3" data-number="7.3">
 <h3 data-number="7.3" class="anchored" data-anchor-id="comparison"><span class="header-section-number">7.3</span> Comparison</h3>
@@ -377,17 +548,20 @@ $ prediction         &lt;dbl&gt; 3.7956520, 4.1800958, 3.2470058, 3.4550993, 3.4
 <ul>
 <li><code>climatology</code>: the normal distribution (mean and standard deviation) of that day-of-year in the historical observations</li>
 <li><code>persistenceRW</code>: a random walk model that assumes no change in the mean behavior. The random walk is initialized using the most resent observation.</li>
+<li><code>mean</code>: the historical mean of the data is submitted for the beetles theme.</li>
 </ul>
 <p>Our <a href="./performance.html#performance">forecast performance</a> page includes evaluations of all submitted models.</p>
 </section>
 <section id="catalog" class="level3" data-number="7.4">
 <h3 data-number="7.4" class="anchored" data-anchor-id="catalog"><span class="header-section-number">7.4</span> Catalog</h3>
-<p>Information for accessing the forecasts and scores can be found on our <a href="./catalog.html#sec-spatiotemporal-asset-catalog">forecast catalog</a> page.</p>
+<p>Information and code for accessing the forecasts and scores can be found on our <a href="./catalog.html#sec-spatiotemporal-asset-catalog">forecast catalog</a> page.</p>
 </section>
 </section>
 <section id="questions" class="level2" data-number="8">
 <h2 data-number="8" class="anchored" data-anchor-id="questions"><span class="header-section-number">8</span> Questions?</h2>
-<p>Thanks for reading this document! If you still have questions about how to submit your forecast to the VERA Forecasting Challenge, we encourage you to email Dr.&nbsp;Quinn Thomas (rqthomas{at}vt.edu).</p>
+<p>Thanks for reading this document!<br>
+</p>
+<p>If you still have questions about how to submit your forecast to the NEON Ecological Forecasting Challenge, we encourage you to email Dr.&nbsp;Quinn Thomas (rqthomas{at}vt.edu).</p>
 
 
 </section>
