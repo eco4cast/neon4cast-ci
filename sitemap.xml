@@ -2,994 +2,994 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
    <url>
       <loc>https://projects.ecoforecast.org/neon4cast-ci/catalog.html</loc>
-      <lastmod>2024-01-02</lastmod>
+      <lastmod>2024-01-12</lastmod>
    </url>
    <url>
       <loc>https://projects.ecoforecast.org/neon4cast-ci/targets.html</loc>
-      <lastmod>2024-01-02</lastmod>
+      <lastmod>2024-01-12</lastmod>
    </url>
    <url>
       <loc>https://projects.ecoforecast.org/neon4cast-ci/instructions.html</loc>
-      <lastmod>2024-01-02</lastmod>
+      <lastmod>2024-01-12</lastmod>
    </url>
    <url>
       <loc>https://projects.ecoforecast.org/neon4cast-ci/performance.html</loc>
-      <lastmod>2024-01-02</lastmod>
+      <lastmod>2024-01-12</lastmod>
    </url>
    <url>
       <loc>https://projects.ecoforecast.org/neon4cast-ci/index.html</loc>
-      <lastmod>2024-01-02</lastmod>
+      <lastmod>2024-01-12</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/catalog.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/Aquatics/Daily_Chlorophyll_a/collection.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/Aquatics/Daily_Dissolved_oxygen/collection.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/Aquatics/Daily_Water_temperature/collection.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/Aquatics/collection.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/Beetles/Weekly_beetle_community_abundance/collection.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/Beetles/Weekly_beetle_community_richness/collection.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/Beetles/collection.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/Phenology/Daily_Green_chromatic_coordinate/collection.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/Phenology/Daily_Red_chromatic_coordinate/collection.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/Phenology/collection.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/Terrestrial/30min_Net_ecosystem_exchange/collection.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/Terrestrial/30min_latent_heat_flux/collection.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/Terrestrial/Daily_Net_ecosystem_exchange/collection.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/Terrestrial/Daily_latent_heat_flux/collection.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/Terrestrial/collection.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/Ticks/Weekly_Amblyomma_americanum_population/collection.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/Ticks/collection.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/collection.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/models/collection.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/models/model_items/GLEON_JRabaey_temp_physics.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/models/model_items/GLEON_lm_lag_1day.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/models/model_items/GLEON_physics.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/models/model_items/PEG.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/models/model_items/USGSHABs1.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/models/model_items/USUNEEDAILY.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/models/model_items/air2waterSat_2.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/models/model_items/baseline_ensemble.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/models/model_items/cb_f1.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/models/model_items/cb_prophet.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/models/model_items/climatology.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/models/model_items/fARIMA.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/models/model_items/fARIMA_clim_ensemble.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/models/model_items/fTSLM_lag.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/models/model_items/flareGLM.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/models/model_items/flareGLM_noDA.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/models/model_items/flareGOTM.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/models/model_items/flareGOTM_noDA.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/models/model_items/flareSimstrat.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/models/model_items/flareSimstrat_noDA.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/models/model_items/flare_ler.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/models/model_items/flare_ler_baselines.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/models/model_items/lasso.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/models/model_items/mean.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/models/model_items/neon4cast_example.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/models/model_items/null.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/models/model_items/persistenceRW.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/models/model_items/precip_mod.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/models/model_items/procBlanchardMonod.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/models/model_items/procBlanchardSteele.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/models/model_items/procCTMIMonod.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/models/model_items/procCTMISteele.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/models/model_items/procEppleyNorbergMonod.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/models/model_items/procEppleyNorbergSteele.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/models/model_items/procHinshelwoodMonod.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/models/model_items/procHinshelwoodSteele.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/models/model_items/prophet_clim_ensemble.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/models/model_items/randfor.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/models/model_items/tg_arima.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/models/model_items/tg_auto_adam.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/models/model_items/tg_bag_mlp.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/models/model_items/tg_ets.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/models/model_items/tg_humidity_lm.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/models/model_items/tg_humidity_lm_all_sites.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/models/model_items/tg_lasso.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/models/model_items/tg_lasso_all_sites.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/models/model_items/tg_precip_lm.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/models/model_items/tg_precip_lm_all_sites.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/models/model_items/tg_randfor.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/models/model_items/tg_randfor_all_sites.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/models/model_items/tg_tbats.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/models/model_items/tg_temp_lm.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/models/model_items/tg_temp_lm_all_sites.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/models/model_items/tslm.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/models/model_items/xgboost_parallel.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/inventory/collection.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/noaa_forecasts/Pseudo/collection.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/noaa_forecasts/Stage1/collection.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/noaa_forecasts/Stage1-stats/collection.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/noaa_forecasts/Stage2/collection.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/noaa_forecasts/Stage3/collection.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/noaa_forecasts/collection.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Aquatics/Daily_Chlorophyll_a/collection.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Aquatics/Daily_Dissolved_oxygen/collection.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Aquatics/Daily_Water_temperature/collection.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Aquatics/collection.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Beetles/Weekly_beetle_community_abundance/collection.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Beetles/Weekly_beetle_community_richness/collection.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Beetles/collection.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Phenology/Daily_Green_chromatic_coordinate/collection.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Phenology/Daily_Red_chromatic_coordinate/collection.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Phenology/collection.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Terrestrial/30min_Net_ecosystem_exchange/collection.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Terrestrial/30min_latent_heat_flux/collection.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Terrestrial/Daily_Net_ecosystem_exchange/collection.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Terrestrial/Daily_latent_heat_flux/collection.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Terrestrial/collection.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Ticks/Weekly_Amblyomma_americanum_population/collection.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Ticks/collection.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/collection.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/models/collection.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/models/model_items/GLEON_JRabaey_temp_physics.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/models/model_items/GLEON_lm_lag_1day.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/models/model_items/GLEON_physics.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/models/model_items/PEG.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/models/model_items/TESTclimatology.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/models/model_items/USGSHABs1.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/models/model_items/USUNEEDAILY.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/models/model_items/air2waterSat_2.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/models/model_items/baseline_ensemble.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/models/model_items/cb_f1.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/models/model_items/cb_prophet.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/models/model_items/cfs.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/models/model_items/climatology.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/models/model_items/climatology2.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/models/model_items/ecmwf_ifs04.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/models/model_items/fARIMA.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/models/model_items/fARIMA_clim_ensemble.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/models/model_items/fTSLM_lag.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/models/model_items/fableARIMA.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/models/model_items/fableETS.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/models/model_items/fableNNETAR.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/models/model_items/flareGLM.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/models/model_items/flareGLM_noDA.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/models/model_items/flareGOTM.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/models/model_items/flareGOTM_noDA.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/models/model_items/flareSimstrat.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/models/model_items/flareSimstrat_noDA.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/models/model_items/flare_ler.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/models/model_items/flare_ler_baselines.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/models/model_items/gem_global.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/models/model_items/gfs_seamless.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/models/model_items/glm_aed_v1.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/models/model_items/icon_seamless.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/models/model_items/inflow_gefsClimAED.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/models/model_items/lasso.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/models/model_items/mean.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/models/model_items/neon4cast_example.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/models/model_items/null.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/models/model_items/persistenceFO.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/models/model_items/persistenceRW.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/models/model_items/precip_mod.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/models/model_items/procBlanchardMonod.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/models/model_items/procBlanchardSteele.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/models/model_items/procCTMIMonod.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/models/model_items/procCTMISteele.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/models/model_items/procEppleyNorbergMonod.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/models/model_items/procEppleyNorbergSteele.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/models/model_items/procHinshelwoodMonod.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/models/model_items/procHinshelwoodSteele.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/models/model_items/prophet_clim_ensemble.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/models/model_items/randfor.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/models/model_items/tg_arima.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/models/model_items/tg_auto_adam.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/models/model_items/tg_bag_mlp.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/models/model_items/tg_ets.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/models/model_items/tg_humidity_lm.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/models/model_items/tg_humidity_lm_all_sites.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/models/model_items/tg_lasso.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/models/model_items/tg_lasso_all_sites.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/models/model_items/tg_precip_lm.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/models/model_items/tg_precip_lm_all_sites.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/models/model_items/tg_randfor.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/models/model_items/tg_randfor_all_sites.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/models/model_items/tg_tbats.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/models/model_items/tg_temp_lm.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/models/model_items/tg_temp_lm_all_sites.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/models/model_items/tslm.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/models/model_items/xgboost_parallel.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/sites/collection.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Chlorophyll_a/collection.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Dissolved_oxygen/collection.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Water_temperature/collection.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/collection.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Beetles/Weekly_beetle_community_abundance/collection.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Beetles/Weekly_beetle_community_richness/collection.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Beetles/collection.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Phenology/Daily_Green_chromatic_coordinate/collection.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Phenology/Daily_Red_chromatic_coordinate/collection.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Phenology/collection.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Terrestrial/30min_Net_ecosystem_exchange/collection.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Terrestrial/30min_latent_heat_flux/collection.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Terrestrial/Daily_Net_ecosystem_exchange/collection.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Terrestrial/Daily_latent_heat_flux/collection.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Terrestrial/collection.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Ticks/Weekly_Amblyomma_americanum_population/collection.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Ticks/collection.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/collection.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/models/collection.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/models/model_items/GLEON_JRabaey_temp_physics.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/models/model_items/GLEON_lm_lag_1day.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/models/model_items/GLEON_physics.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/models/model_items/PEG.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/models/model_items/USGSHABs1.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/models/model_items/USUNEEDAILY.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/models/model_items/air2waterSat_2.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/models/model_items/baseline_ensemble.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/models/model_items/cb_f1.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/models/model_items/cb_prophet.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/models/model_items/climatology.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/models/model_items/fARIMA.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/models/model_items/fARIMA_clim_ensemble.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/models/model_items/fTSLM_lag.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/models/model_items/flareGLM.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/models/model_items/flareGLM_noDA.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/models/model_items/flareGOTM.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/models/model_items/flareGOTM_noDA.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/models/model_items/flareSimstrat.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/models/model_items/flareSimstrat_noDA.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/models/model_items/flare_ler.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/models/model_items/flare_ler_baselines.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/models/model_items/lasso.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/models/model_items/mean.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/models/model_items/neon4cast_example.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/models/model_items/null.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/models/model_items/persistenceRW.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/models/model_items/precip_mod.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/models/model_items/procBlanchardMonod.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/models/model_items/procBlanchardSteele.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/models/model_items/procCTMIMonod.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/models/model_items/procCTMISteele.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/models/model_items/procEppleyNorbergMonod.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/models/model_items/procEppleyNorbergSteele.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/models/model_items/procHinshelwoodMonod.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/models/model_items/procHinshelwoodSteele.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/models/model_items/prophet_clim_ensemble.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/models/model_items/randfor.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/models/model_items/tg_arima.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/models/model_items/tg_auto_adam.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/models/model_items/tg_bag_mlp.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/models/model_items/tg_ets.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/models/model_items/tg_humidity_lm.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/models/model_items/tg_humidity_lm_all_sites.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/models/model_items/tg_lasso.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/models/model_items/tg_lasso_all_sites.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/models/model_items/tg_precip_lm.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/models/model_items/tg_precip_lm_all_sites.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/models/model_items/tg_randfor.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/models/model_items/tg_randfor_all_sites.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/models/model_items/tg_tbats.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/models/model_items/tg_temp_lm.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/models/model_items/tg_temp_lm_all_sites.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/targets/collection.json</loc>
-      <lastmod>2023-11-23</lastmod>
+      <lastmod>2024-01-15</lastmod>
    </url>
 </urlset>
