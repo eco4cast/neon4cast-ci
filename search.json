@@ -158,7 +158,7 @@
     "href": "performance.html",
     "title": "Forecast performance",
     "section": "",
-    "text": "This page visualizes the forecasts and forecast performance for the focal target variables. Only forecasts from a subset of NEON sites are shown. If you want to see your forecasts or scores, the links can be found in our forecast catalog and [scores catalog]((https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/collection.json)"
+    "text": "This page visualizes the forecasts and forecast performance for the focal target variables. Only forecasts from a subset of NEON sites are shown. If you want to see your forecasts or scores, the links can be found in our forecast catalog and scores catalog"
   },
   {
     "objectID": "performance.html#sec-performance",
