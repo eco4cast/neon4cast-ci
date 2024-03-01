@@ -2,23 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
    <url>
       <loc>https://projects.ecoforecast.org/neon4cast-ci/catalog.html</loc>
-      <lastmod>2024-02-27</lastmod>
+      <lastmod>2024-02-28</lastmod>
    </url>
    <url>
       <loc>https://projects.ecoforecast.org/neon4cast-ci/targets.html</loc>
-      <lastmod>2024-02-27</lastmod>
+      <lastmod>2024-02-28</lastmod>
    </url>
    <url>
       <loc>https://projects.ecoforecast.org/neon4cast-ci/instructions.html</loc>
-      <lastmod>2024-02-27</lastmod>
+      <lastmod>2024-02-28</lastmod>
    </url>
    <url>
       <loc>https://projects.ecoforecast.org/neon4cast-ci/performance.html</loc>
-      <lastmod>2024-02-27</lastmod>
+      <lastmod>2024-02-28</lastmod>
    </url>
    <url>
       <loc>https://projects.ecoforecast.org/neon4cast-ci/index.html</loc>
-      <lastmod>2024-02-27</lastmod>
+      <lastmod>2024-02-28</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/catalog.json</loc>
@@ -121,6 +121,10 @@
       <lastmod>2024-02-23</lastmod>
    </url>
    <url>
+      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/models/model_items/Sujan_forecast.json</loc>
+      <lastmod>2024-02-23</lastmod>
+   </url>
+   <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/models/model_items/USGSHABs1.json</loc>
       <lastmod>2024-02-23</lastmod>
    </url>
@@ -134,6 +138,10 @@
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/models/model_items/baseline_ensemble.json</loc>
+      <lastmod>2024-02-23</lastmod>
+   </url>
+   <url>
+      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/models/model_items/bee_bake_RFModel_2024.json</loc>
       <lastmod>2024-02-23</lastmod>
    </url>
    <url>
@@ -289,6 +297,10 @@
       <lastmod>2024-02-23</lastmod>
    </url>
    <url>
+      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/models/model_items/hotdeck.json</loc>
+      <lastmod>2024-02-23</lastmod>
+   </url>
+   <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/models/model_items/lasso.json</loc>
       <lastmod>2024-02-23</lastmod>
    </url>
@@ -425,11 +437,23 @@
       <lastmod>2024-02-23</lastmod>
    </url>
    <url>
+      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/models/model_items/tidymodels_ML.json</loc>
+      <lastmod>2024-02-23</lastmod>
+   </url>
+   <url>
+      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/models/model_items/tidymodels_lm.json</loc>
+      <lastmod>2024-02-23</lastmod>
+   </url>
+   <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/models/model_items/tslm.json</loc>
       <lastmod>2024-02-23</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/models/model_items/xgboost_parallel.json</loc>
+      <lastmod>2024-02-23</lastmod>
+   </url>
+   <url>
+      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/models/model_items/zimmerman_proj1.json</loc>
       <lastmod>2024-02-23</lastmod>
    </url>
    <url>
@@ -546,6 +570,10 @@
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/models/model_items/GLEON_physics.json</loc>
+      <lastmod>2024-02-23</lastmod>
+   </url>
+   <url>
+      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/models/model_items/MAL_model_unc.json</loc>
       <lastmod>2024-02-23</lastmod>
    </url>
    <url>
@@ -1185,6 +1213,10 @@
       <lastmod>2024-02-23</lastmod>
    </url>
    <url>
+      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/models/model_items/hotdeck.json</loc>
+      <lastmod>2024-02-23</lastmod>
+   </url>
+   <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/models/model_items/lasso.json</loc>
       <lastmod>2024-02-23</lastmod>
    </url>
@@ -1318,6 +1350,14 @@
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/models/model_items/tg_temp_lm_all_sites.json</loc>
+      <lastmod>2024-02-23</lastmod>
+   </url>
+   <url>
+      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/models/model_items/tidymodels_lm.json</loc>
+      <lastmod>2024-02-23</lastmod>
+   </url>
+   <url>
+      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/models/model_items/zimmerman_proj1.json</loc>
       <lastmod>2024-02-23</lastmod>
    </url>
    <url>
