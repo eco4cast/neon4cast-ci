@@ -1,0 +1,30 @@
+# Workflow derived from https://github.com/r-lib/actions/tree/v2/examples
+# Need help debugging build failures? Start at https://github.com/r-lib/actions#where-to-find-help
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+name: bundling
+
+jobs:
+  scores:
+    runs-on:  ubuntu-latest
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      OSN_KEY: ${{ secrets.OSN_KEY }}
+      OSN_SECRET: ${{ secrets.OSN_SECRET }}
+    container: eco4cast/rocker-neon4cast:latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install
+        shell: Rscript {0}
+        run: |
+          print(options("repos"))
+          remotes::install_deps(".", dep=TRUE)
+
+      - name: Generate scores
+        shell: Rscript {0}
+        run: |
+          source("scoring/bundled-scores.R")
