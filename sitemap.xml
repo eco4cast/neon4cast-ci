@@ -2,23 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
    <url>
       <loc>https://projects.ecoforecast.org/neon4cast-ci/catalog.html</loc>
-      <lastmod>2024-07-21</lastmod>
+      <lastmod>2024-07-22</lastmod>
    </url>
    <url>
       <loc>https://projects.ecoforecast.org/neon4cast-ci/targets.html</loc>
-      <lastmod>2024-07-21</lastmod>
+      <lastmod>2024-07-22</lastmod>
    </url>
    <url>
       <loc>https://projects.ecoforecast.org/neon4cast-ci/instructions.html</loc>
-      <lastmod>2024-07-21</lastmod>
+      <lastmod>2024-07-22</lastmod>
    </url>
    <url>
       <loc>https://projects.ecoforecast.org/neon4cast-ci/performance.html</loc>
-      <lastmod>2024-07-21</lastmod>
+      <lastmod>2024-07-22</lastmod>
    </url>
    <url>
       <loc>https://projects.ecoforecast.org/neon4cast-ci/index.html</loc>
-      <lastmod>2024-07-21</lastmod>
+      <lastmod>2024-07-22</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/catalog.json</loc>
@@ -5213,6 +5213,10 @@
       <lastmod>2024-07-09</lastmod>
    </url>
    <url>
+      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Aquatics/Daily_Chlorophyll_a/models/xgboost_parallel.json</loc>
+      <lastmod>2024-07-09</lastmod>
+   </url>
+   <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Aquatics/Daily_Chlorophyll_a/models/zimmerman_proj1.json</loc>
       <lastmod>2024-07-09</lastmod>
    </url>
@@ -5222,6 +5226,14 @@
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Aquatics/Daily_Dissolved_oxygen/models/AquaticEcosystemsOxygen.json</loc>
+      <lastmod>2024-07-09</lastmod>
+   </url>
+   <url>
+      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Aquatics/Daily_Dissolved_oxygen/models/BBTW.json</loc>
+      <lastmod>2024-07-09</lastmod>
+   </url>
+   <url>
+      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Aquatics/Daily_Dissolved_oxygen/models/BTW.json</loc>
       <lastmod>2024-07-09</lastmod>
    </url>
    <url>
@@ -5245,11 +5257,23 @@
       <lastmod>2024-07-09</lastmod>
    </url>
    <url>
+      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Aquatics/Daily_Dissolved_oxygen/models/LSAMP_AWPC.json</loc>
+      <lastmod>2024-07-09</lastmod>
+   </url>
+   <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Aquatics/Daily_Dissolved_oxygen/models/MALM.json</loc>
       <lastmod>2024-07-09</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Aquatics/Daily_Dissolved_oxygen/models/MAL_model_unc.json</loc>
+      <lastmod>2024-07-09</lastmod>
+   </url>
+   <url>
+      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Aquatics/Daily_Dissolved_oxygen/models/MSU_ARIMA.json</loc>
+      <lastmod>2024-07-09</lastmod>
+   </url>
+   <url>
+      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Aquatics/Daily_Dissolved_oxygen/models/NDWaterTempDO.json</loc>
       <lastmod>2024-07-09</lastmod>
    </url>
    <url>
@@ -5601,6 +5625,18 @@
       <lastmod>2024-07-09</lastmod>
    </url>
    <url>
+      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Aquatics/Daily_Dissolved_oxygen/models/wbears_gp.json</loc>
+      <lastmod>2024-07-09</lastmod>
+   </url>
+   <url>
+      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Aquatics/Daily_Dissolved_oxygen/models/wbears_rnn.json</loc>
+      <lastmod>2024-07-09</lastmod>
+   </url>
+   <url>
+      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Aquatics/Daily_Dissolved_oxygen/models/xgboost_parallel.json</loc>
+      <lastmod>2024-07-09</lastmod>
+   </url>
+   <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Aquatics/Daily_Dissolved_oxygen/models/zimmerman_proj1.json</loc>
       <lastmod>2024-07-09</lastmod>
    </url>
@@ -5610,6 +5646,14 @@
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Aquatics/Daily_Water_temperature/models/AquaticEcosystemsOxygen.json</loc>
+      <lastmod>2024-07-09</lastmod>
+   </url>
+   <url>
+      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Aquatics/Daily_Water_temperature/models/BBTW.json</loc>
+      <lastmod>2024-07-09</lastmod>
+   </url>
+   <url>
+      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Aquatics/Daily_Water_temperature/models/BTW.json</loc>
       <lastmod>2024-07-09</lastmod>
    </url>
    <url>
@@ -5630,6 +5674,14 @@
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Aquatics/Daily_Water_temperature/models/GLEON_physics.json</loc>
+      <lastmod>2024-07-09</lastmod>
+   </url>
+   <url>
+      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Aquatics/Daily_Water_temperature/models/JorritsCrystalBall.json</loc>
+      <lastmod>2024-07-09</lastmod>
+   </url>
+   <url>
+      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Aquatics/Daily_Water_temperature/models/LSAMP_AWPC.json</loc>
       <lastmod>2024-07-09</lastmod>
    </url>
    <url>
@@ -5986,6 +6038,22 @@
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Aquatics/Daily_Water_temperature/models/tidymodels_lm.json</loc>
+      <lastmod>2024-07-09</lastmod>
+   </url>
+   <url>
+      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Aquatics/Daily_Water_temperature/models/wbears_gp.json</loc>
+      <lastmod>2024-07-09</lastmod>
+   </url>
+   <url>
+      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Aquatics/Daily_Water_temperature/models/wbears_rnn.json</loc>
+      <lastmod>2024-07-09</lastmod>
+   </url>
+   <url>
+      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Aquatics/Daily_Water_temperature/models/wtemp_lm_model.json</loc>
+      <lastmod>2024-07-09</lastmod>
+   </url>
+   <url>
+      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Aquatics/Daily_Water_temperature/models/xgboost_parallel.json</loc>
       <lastmod>2024-07-09</lastmod>
    </url>
    <url>
@@ -6793,7 +6861,27 @@
       <lastmod>2024-07-09</lastmod>
    </url>
    <url>
+      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Phenology/Daily_Green_chromatic_coordinate/models/CSP_Gwave.json</loc>
+      <lastmod>2024-07-09</lastmod>
+   </url>
+   <url>
+      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Phenology/Daily_Green_chromatic_coordinate/models/CU_Pheno.json</loc>
+      <lastmod>2024-07-09</lastmod>
+   </url>
+   <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Phenology/Daily_Green_chromatic_coordinate/models/ChlorophyllCrusaders.json</loc>
+      <lastmod>2024-07-09</lastmod>
+   </url>
+   <url>
+      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Phenology/Daily_Green_chromatic_coordinate/models/DALEC_SIP.json</loc>
+      <lastmod>2024-07-09</lastmod>
+   </url>
+   <url>
+      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Phenology/Daily_Green_chromatic_coordinate/models/EFI_U_P.json</loc>
+      <lastmod>2024-07-09</lastmod>
+   </url>
+   <url>
+      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Phenology/Daily_Green_chromatic_coordinate/models/Fourier.json</loc>
       <lastmod>2024-07-09</lastmod>
    </url>
    <url>
@@ -6821,7 +6909,19 @@
       <lastmod>2024-07-09</lastmod>
    </url>
    <url>
+      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Phenology/Daily_Green_chromatic_coordinate/models/NEFIpheno.json</loc>
+      <lastmod>2024-07-09</lastmod>
+   </url>
+   <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Phenology/Daily_Green_chromatic_coordinate/models/PEG.json</loc>
+      <lastmod>2024-07-09</lastmod>
+   </url>
+   <url>
+      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Phenology/Daily_Green_chromatic_coordinate/models/PEG_RFR.json</loc>
+      <lastmod>2024-07-09</lastmod>
+   </url>
+   <url>
+      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Phenology/Daily_Green_chromatic_coordinate/models/PEG_RFR0.json</loc>
       <lastmod>2024-07-09</lastmod>
    </url>
    <url>
@@ -6833,11 +6933,19 @@
       <lastmod>2024-07-09</lastmod>
    </url>
    <url>
+      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Phenology/Daily_Green_chromatic_coordinate/models/UCSC_P_EDM.json</loc>
+      <lastmod>2024-07-09</lastmod>
+   </url>
+   <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Phenology/Daily_Green_chromatic_coordinate/models/USGSHABs1.json</loc>
       <lastmod>2024-07-09</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Phenology/Daily_Green_chromatic_coordinate/models/USUNEEDAILY.json</loc>
+      <lastmod>2024-07-09</lastmod>
+   </url>
+   <url>
+      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Phenology/Daily_Green_chromatic_coordinate/models/VT_Ph_GDD.json</loc>
       <lastmod>2024-07-09</lastmod>
    </url>
    <url>
@@ -7005,6 +7113,10 @@
       <lastmod>2024-07-09</lastmod>
    </url>
    <url>
+      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Phenology/Daily_Green_chromatic_coordinate/models/greenbears.json</loc>
+      <lastmod>2024-07-09</lastmod>
+   </url>
+   <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Phenology/Daily_Green_chromatic_coordinate/models/hotdeck.json</loc>
       <lastmod>2024-07-09</lastmod>
    </url>
@@ -7166,6 +7278,10 @@
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Phenology/Daily_Green_chromatic_coordinate/models/tidymodels_lm.json</loc>
+      <lastmod>2024-07-09</lastmod>
+   </url>
+   <url>
+      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Phenology/Daily_Green_chromatic_coordinate/models/xgboost_parallel.json</loc>
       <lastmod>2024-07-09</lastmod>
    </url>
    <url>
@@ -7557,6 +7673,10 @@
       <lastmod>2024-07-09</lastmod>
    </url>
    <url>
+      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Phenology/Daily_Red_chromatic_coordinate/models/xgboost_parallel.json</loc>
+      <lastmod>2024-07-09</lastmod>
+   </url>
+   <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Phenology/Daily_Red_chromatic_coordinate/models/zimmerman_proj1.json</loc>
       <lastmod>2024-07-09</lastmod>
    </url>
@@ -7574,6 +7694,10 @@
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Terrestrial/30min_Net_ecosystem_exchange/models/AquaticEcosystemsOxygen.json</loc>
+      <lastmod>2024-07-09</lastmod>
+   </url>
+   <url>
+      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Terrestrial/30min_Net_ecosystem_exchange/models/BU_SIPNET.json</loc>
       <lastmod>2024-07-09</lastmod>
    </url>
    <url>
@@ -7597,6 +7721,10 @@
       <lastmod>2024-07-09</lastmod>
    </url>
    <url>
+      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Terrestrial/30min_Net_ecosystem_exchange/models/IU_Eco2021.json</loc>
+      <lastmod>2024-07-09</lastmod>
+   </url>
+   <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Terrestrial/30min_Net_ecosystem_exchange/models/MALM.json</loc>
       <lastmod>2024-07-09</lastmod>
    </url>
@@ -7617,11 +7745,19 @@
       <lastmod>2024-07-09</lastmod>
    </url>
    <url>
+      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Terrestrial/30min_Net_ecosystem_exchange/models/UCB_XT.json</loc>
+      <lastmod>2024-07-09</lastmod>
+   </url>
+   <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Terrestrial/30min_Net_ecosystem_exchange/models/USGSHABs1.json</loc>
       <lastmod>2024-07-09</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Terrestrial/30min_Net_ecosystem_exchange/models/USUNEEDAILY.json</loc>
+      <lastmod>2024-07-09</lastmod>
+   </url>
+   <url>
+      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Terrestrial/30min_Net_ecosystem_exchange/models/VT_NEET.json</loc>
       <lastmod>2024-07-09</lastmod>
    </url>
    <url>
@@ -7786,6 +7922,10 @@
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Terrestrial/30min_Net_ecosystem_exchange/models/flare_ler_baselines.json</loc>
+      <lastmod>2024-07-09</lastmod>
+   </url>
+   <url>
+      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Terrestrial/30min_Net_ecosystem_exchange/models/hist30min.json</loc>
       <lastmod>2024-07-09</lastmod>
    </url>
    <url>
@@ -7965,6 +8105,10 @@
       <lastmod>2024-07-09</lastmod>
    </url>
    <url>
+      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Terrestrial/30min_latent_heat_flux/models/BU_SIPNET.json</loc>
+      <lastmod>2024-07-09</lastmod>
+   </url>
+   <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Terrestrial/30min_latent_heat_flux/models/ChlorophyllCrusaders.json</loc>
       <lastmod>2024-07-09</lastmod>
    </url>
@@ -7982,6 +8126,10 @@
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Terrestrial/30min_latent_heat_flux/models/GLEON_physics.json</loc>
+      <lastmod>2024-07-09</lastmod>
+   </url>
+   <url>
+      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Terrestrial/30min_latent_heat_flux/models/IU_Eco2021.json</loc>
       <lastmod>2024-07-09</lastmod>
    </url>
    <url>
@@ -8005,11 +8153,19 @@
       <lastmod>2024-07-09</lastmod>
    </url>
    <url>
+      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Terrestrial/30min_latent_heat_flux/models/UCB_XT.json</loc>
+      <lastmod>2024-07-09</lastmod>
+   </url>
+   <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Terrestrial/30min_latent_heat_flux/models/USGSHABs1.json</loc>
       <lastmod>2024-07-09</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Terrestrial/30min_latent_heat_flux/models/USUNEEDAILY.json</loc>
+      <lastmod>2024-07-09</lastmod>
+   </url>
+   <url>
+      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Terrestrial/30min_latent_heat_flux/models/VT_NEET.json</loc>
       <lastmod>2024-07-09</lastmod>
    </url>
    <url>
@@ -8174,6 +8330,10 @@
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Terrestrial/30min_latent_heat_flux/models/flare_ler_baselines.json</loc>
+      <lastmod>2024-07-09</lastmod>
+   </url>
+   <url>
+      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Terrestrial/30min_latent_heat_flux/models/hist30min.json</loc>
       <lastmod>2024-07-09</lastmod>
    </url>
    <url>
@@ -9133,6 +9293,10 @@
       <lastmod>2024-07-09</lastmod>
    </url>
    <url>
+      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Ticks/Weekly_Amblyomma_americanum_population/models/BU_Dem.json</loc>
+      <lastmod>2024-07-09</lastmod>
+   </url>
+   <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Ticks/Weekly_Amblyomma_americanum_population/models/ChlorophyllCrusaders.json</loc>
       <lastmod>2024-07-09</lastmod>
    </url>
@@ -9161,6 +9325,14 @@
       <lastmod>2024-07-09</lastmod>
    </url>
    <url>
+      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Ticks/Weekly_Amblyomma_americanum_population/models/NJC_ETS_PF.json</loc>
+      <lastmod>2024-07-09</lastmod>
+   </url>
+   <url>
+      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Ticks/Weekly_Amblyomma_americanum_population/models/NJC_Ticks.json</loc>
+      <lastmod>2024-07-09</lastmod>
+   </url>
+   <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Ticks/Weekly_Amblyomma_americanum_population/models/PEG.json</loc>
       <lastmod>2024-07-09</lastmod>
    </url>
@@ -9173,11 +9345,27 @@
       <lastmod>2024-07-09</lastmod>
    </url>
    <url>
+      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Ticks/Weekly_Amblyomma_americanum_population/models/TickBench.json</loc>
+      <lastmod>2024-07-09</lastmod>
+   </url>
+   <url>
+      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Ticks/Weekly_Amblyomma_americanum_population/models/Ticks_288.json</loc>
+      <lastmod>2024-07-09</lastmod>
+   </url>
+   <url>
+      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Ticks/Weekly_Amblyomma_americanum_population/models/UCLA_2022.json</loc>
+      <lastmod>2024-07-09</lastmod>
+   </url>
+   <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Ticks/Weekly_Amblyomma_americanum_population/models/USGSHABs1.json</loc>
       <lastmod>2024-07-09</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Ticks/Weekly_Amblyomma_americanum_population/models/USUNEEDAILY.json</loc>
+      <lastmod>2024-07-09</lastmod>
+   </url>
+   <url>
+      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Ticks/Weekly_Amblyomma_americanum_population/models/VTicks.json</loc>
       <lastmod>2024-07-09</lastmod>
    </url>
    <url>
