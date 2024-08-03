@@ -84,13 +84,15 @@ source("R/score_joined_table.R") #crps_logs_score slightly modified
 
 fs::dir_delete("new_scores/")
 
-pb <- progress::progress_bar$new(format = "  scoring [:bar] :percent in :elapsed",
-                                 total = total, clear = FALSE, width= 60)
+library(progress)
+pb <- progress_bar$new(format = "  scoring [:bar] :percent in :elapsed",
+                       total = total, clear = FALSE, width= 60)
 for (i in 1:total) {
   pb$tick()
   fc |>
     inner_join(groups[i,], copy=TRUE,
-               by = join_by(project_id, duration, variable, model_id)) |>
+               by = join_by(project_id, duration, variable, model_id)
+               ) |>
     collect() |>
     score_joined_table() |>
     group_by(project_id, duration, variable, model_id) |>
