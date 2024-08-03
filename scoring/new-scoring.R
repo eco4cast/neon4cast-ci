@@ -74,9 +74,15 @@ bench::bench_time({ #13s (6mo)
 
 
 
+## now just score the "score_me.parquet"
 
+## We could just pull full scores, join, and push...
 
-
+## And tidy up
+unlink("scores.parquet")
+unlink("targets.parquet")
+unlink("forecasts.parquet")
+unlink("score_me.parquet")
 
 
 
