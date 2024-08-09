@@ -44,3 +44,4 @@ archive/
 *.gz
 *.csv
 forecasts
+*.parquet
