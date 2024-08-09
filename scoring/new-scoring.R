@@ -88,24 +88,27 @@ bench::bench_time({ # ~ 13s
 
 ## Now score it.  score4cast is all in RAM, so we must score in chunks.
 ## But we can chunk naturally with dplyr distinct
+# remotes::install_github("eco4cast/score4cast")
 
+library(score4cast)
 fc <- open_dataset("score_me.parquet") |> filter(!is.na(model_id))
 groups <- fc |> distinct(project_id, duration, variable, model_id) |> collect()
 total <- nrow(groups)
 
 
 source("R/score_joined_table.R") #crps_logs_score slightly modified
-fs::dir_delete("new_scores/")
-
+#fs::dir_delete("new_scores/")
 
 pb <- progress_bar$new(format = "  scoring [:bar] :percent in :elapsed",
                        total = total, clear = FALSE, width= 60)
 # If we have lots to score this can take a while
+
 for (i in 1:total) {
   pb$tick()
   fc |>
     inner_join(groups[i,], copy=TRUE,
-               by = join_by(project_id, duration, variable, model_id)) |>
+               by = join_by(project_id, duration, variable, model_id)
+               ) |>
     collect() |>
     score_joined_table() |>
     group_by(project_id, duration, variable, model_id) |>
