@@ -31,9 +31,8 @@ bench::bench_time({
   union_all(bundled_summaries, new_summaries) |>
     group_by(across(any_of(grouping))) |>
     slice_max(pub_datetime) |>
-    write_dataset("tmp")
-  #    write_dataset("forecasts/bundled-summaries/project_id=neon4cast",
-  #                  partitioning = c("duration", 'variable', "model_id"))
+      write_dataset("forecasts/bundled-summaries/project_id=neon4cast",
+                    partitioning = c("duration", 'variable', "model_id"))
 
 })
 
@@ -57,6 +56,9 @@ bench::bench_time({ # 14 min
     gc()
   }
 })
+
+
+
 
 # check that we have no corruption
 test <- open_dataset("forecasts/bundled-summaries/") |> count() |> collect()
