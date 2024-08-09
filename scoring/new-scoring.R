@@ -1,5 +1,7 @@
 library(dplyr)
 library(duckdbfs)
+library(progress)
+library(bench)
 
 project <- "neon4cast"
 cut_off_date <- Sys.Date() - lubridate::dmonths(6)
@@ -16,9 +18,9 @@ targets <-
          datetime > {cut_off_date})
 
 # No point in trying to score any forecasts still in future (relative to last observed)
-last_observed_date <-
-  targets |> select(datetime) |> distinct() |>
-  filter(datetime == max(datetime)) |> pull(datetime)
+# (pull forces eval, can take a minute)
+last_observed_date <- targets |> select(datetime) |> distinct() |>
+                      filter(datetime == max(datetime)) |> pull(datetime)
 
 forecasts <-
   open_dataset("s3://bio230014-bucket01/challenges/forecasts/bundled-parquet/",
@@ -29,24 +31,32 @@ forecasts <-
          datetime <= {last_observed_date}
   )
 
-scores <- duckdbfs::open_dataset("s3://bio230014-bucket01/challenges/scores/bundled-parquet/",
-                                 s3_endpoint = "sdsc.osn.xsede.org",
-                                     anonymous=TRUE) |>
+scores <- open_dataset("s3://bio230014-bucket01/challenges/scores/bundled-parquet/",
+                        s3_endpoint = "sdsc.osn.xsede.org",
+                        anonymous=TRUE) |>
   filter(project_id == {project},
          datetime > {cut_off_date},
          !is.na(observation)
          )
 
+
 tol <- 1e-2
 if(rescore) {
-  # drop those rows where scores and targets disagree
+  # drop those rows froms scores if the scores-obs and targets disagree
   scores <- scores |>
     inner_join(targets, by = obs_key_cols) |>
     filter( abs(observation.x - observation.y)/observation.x < {tol})
-}
 
-# one-shot -- not great with RAM or speed, even with disk-backed conn
-# bench::bench_time({ #5.92m (1mo)
+  ## FIXME Okay (how) do we want to track these events?
+  ## i.e. naming convention for observation.x vs observation.y
+  ## or just not track this??
+
+  }
+
+
+
+# NOTE In theory we just want to do this:
+# bench::bench_time({
 #  forecasts |>
 #    anti_join(scores) |> # forecast is unscored
 #    inner_join(targets) |> # forecast has targets available
@@ -54,38 +64,43 @@ if(rescore) {
 #})
 
 
-## Piecewise download, much better for RAM and speed
-bench::bench_time({ # 5.4m (6mo)
+## INSTEAD, we pull our subset to local disk first.
+## This looks ridiculuous but is much better for RAM and speed!!
+bench::bench_time({ # ~ 5.4m (w/ 6mo cutoff)
   forecasts |> write_dataset("forecasts.parquet")
   scores |> write_dataset("scores.parquet")
   targets |> write_dataset("targets.parquet")
 
-})
-
-bench::bench_time({ #13s (6mo)
   forecasts <- open_dataset("forecasts.parquet")
   scores <- open_dataset("scores.parquet")
   targets <- open_dataset("targets.parquet")
+})
+
+## Magic rock&roll time: Subset unscored + targets available:
+bench::bench_time({ # ~ 13s
 
   forecasts |>
     anti_join(scores) |> # forecast is unscored
     inner_join(targets) |> # forecast has targets available
     write_dataset("score_me.parquet")
+
 })
 
-## Now score it:
+## Now score it.  score4cast is all in RAM, so we must score in chunks.
+## But we can chunk naturally with dplyr distinct
 
 fc <- open_dataset("score_me.parquet") |> filter(!is.na(model_id))
-
-# We need to chunk into pieces small enough that we can safely collect()
 groups <- fc |> distinct(project_id, duration, variable, model_id) |> collect()
 total <- nrow(groups)
-source("R/score_joined_table.R") #crps_logs_score slightly modified
 
+
+source("R/score_joined_table.R") #crps_logs_score slightly modified
 fs::dir_delete("new_scores/")
 
-pb <- progress::progress_bar$new(format = "  scoring [:bar] :percent in :elapsed",
-                                 total = total, clear = FALSE, width= 60)
+
+pb <- progress_bar$new(format = "  scoring [:bar] :percent in :elapsed",
+                       total = total, clear = FALSE, width= 60)
+# If we have lots to score this can take a while
 for (i in 1:total) {
   pb$tick()
   fc |>
@@ -97,7 +112,7 @@ for (i in 1:total) {
     write_dataset("new_scores/")
 }
 
-
+## Compare to existing score partitions?
 
 ## We could just pull full scores, join, and push...
 

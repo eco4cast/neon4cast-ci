@@ -5,24 +5,27 @@ library(bench)
 
 mc_alias_set("osn", "sdsc.osn.xsede.org", Sys.getenv("OSN_KEY"), Sys.getenv("OSN_SECRET"))
 
+local <- fs::dir_create("osn-scores")
+
 # Sync local scores, fastest way to access all the bytes.
+# not strictly necessary
 bench::bench_time({ # 13.7s
 
-  mc_mirror("osn/bio230014-bucket01/challenges/scores/parquet/project_id=neon4cast/",
-          "project_id=neon4cast")
+  mc_mirror("osn/bio230014-bucket01/challenges/scores",
+            local)
 })
 
 # Merely write out locally with new partition via duckdb, fast!
 # Sync bytes in bulk again, faster.
-fs::dir_create("bundled-parquet")
+fs::dir_create(fs::path(local, "bundled-parquet"))
+
 bench::bench_time({ # 34.38s
-
-  open_dataset("project_id=neon4cast/**") |>
+  open_dataset(fs::path(local, "parquet", "/**")) |>
   select(-date) |> # (date is a short version of datetime from partitioning, drop it)
-  write_dataset("bundled-parquet/project_id=neon4cast",
-                partitioning = c("duration", 'variable', "model_id"))
+  write_dataset("bundled-parquet",
+                partitioning = c("project_id", "duration", 'variable', "model_id"))
 
-  mc_mirror("bundled-parquet/",
+  mc_mirror(fs::path(local, "bundled-parquet"),
             "osn/bio230014-bucket01/challenges/scores/bundled-parquet")
 })
 
