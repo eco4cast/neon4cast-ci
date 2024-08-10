@@ -10,7 +10,7 @@ mc_alias_set("osn", "sdsc.osn.xsede.org", Sys.getenv("OSN_KEY"), Sys.getenv("OSN
 # Sync local scores, fastest way to access all the bytes.
 bench::bench_time({ # 17.5 min from scratch, 114 GB
   # mirror everything(!) crazy
-  mc_mirror("osn/bio230014-bucket01/challenges/forecasts/", "forecasts/parquet", overwrite = TRUE)
+  mc_mirror("osn/bio230014-bucket01/challenges/forecasts/parquet/", "forecasts/parquet/", overwrite = TRUE)
 
 })
 
@@ -38,7 +38,15 @@ bench::bench_time({ # 14 min
 })
 
 
+# PURGE
+all_fc_files <- fs::dir_ls("forecasts/parquet/project_id=neon4cast", type="file", recurse = TRUE)
+yrs <- all_fc_files |> stringr::str_extract("reference_date=(\\d{4})/", 1)
+all_fc_files[!is.na(yrs)] |> fs::file_delete()
 
+all_fc_files <- fs::dir_ls("forecasts/parquet/project_id=neon4cast", type="file", recurse = TRUE)
+dates <- all_fc_files |> stringr::str_extract("reference_date=(\\d{4}-\\d{2}-\\d{2})/", 1)  |> as.Date()
+drop <- dates < Sys.Date() - lubridate::dmonths(1)
+all_fc_files[drop] |> fs::file_delete()
 
 # check that we have no corruption
 test <- open_dataset("forecasts/bundled-summaries/") |> count() |> collect()
@@ -48,7 +56,7 @@ test <- open_dataset("forecasts/bundled-parquet/") |> count() |> collect()
 
 bench::bench_time({ # 12.1m
   mc_mirror("forecasts",
-            "osn/bio230014-bucket01/challenges/forecasts", overwrite=TRUE)
+            "osn/bio230014-bucket01/challenges/forecasts", overwrite=TRUE, remove = TRUE)
 })
 
 ## We are done.
