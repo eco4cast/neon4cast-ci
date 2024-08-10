@@ -44,7 +44,7 @@ jobs:
           print(options("repos"))
           remotes::install_deps(".", dep=TRUE)
 
-      - name: Generate scores
+      - name: bundle forecasts
         shell: Rscript {0}
         run: |
           source("scoring/bundled-forecasts.R")
