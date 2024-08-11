@@ -24,9 +24,21 @@ bench::bench_time({ # 34.38s
   select(-date) |> # (date is a short version of datetime from partitioning, drop it)
   write_dataset("bundled-parquet",
                 partitioning = c("project_id", "duration", 'variable', "model_id"))
+})
 
-  mc_mirror(fs::path(local, "bundled-parquet"),
-            "osn/bio230014-bucket01/challenges/scores/bundled-parquet")
+
+
+# PURGE
+all_files <- fs::dir_ls(fs::path(local, "/parquet/project_id=neon4cast"), type="file", recurse = TRUE)
+dates <- all_files |> stringr::str_extract("date=(\\d{4}-\\d{2}-\\d{2})/", 1)  |> as.Date()
+stopifnot(any(!is.na(dates)))
+drop <- dates < Sys.Date() - lubridate::dmonths(2)
+all_files[drop] |> fs::file_delete()
+
+
+bench::bench_time({
+  mc_mirror(local,
+            "osn/bio230014-bucket01/challenges/scores", remove=TRUE)
 })
 
 ## We are done.

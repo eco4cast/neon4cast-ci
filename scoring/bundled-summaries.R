@@ -17,6 +17,7 @@ bench::bench_time({ # 17.5 min from scratch, 114 GB
   # mirror everything(!) crazy
   # Could focus on summaries here
   mc_mirror("osn/bio230014-bucket01/challenges/forecasts/summaries/", "forecasts/summaries/", overwrite = TRUE)
+  mc_mirror("osn/bio230014-bucket01/challenges/forecasts/bundled-summaries/", "forecasts/bundled-summaries/", overwrite = TRUE)
 
 })
 
@@ -34,6 +35,12 @@ bench::bench_time({
 
 })
 
+
+# PURGE all but last 2 months from un-bundled
+all_fc_files <- fs::dir_ls("forecasts/bundled-summaries/project_id=neon4cast", type="file", recurse = TRUE)
+dates <- all_fc_files |> stringr::str_extract("reference_date=(\\d{4}-\\d{2}-\\d{2})/", 1)  |> as.Date()
+drop <- dates < Sys.Date() - lubridate::dmonths(2)
+all_fc_files[drop] |> fs::file_delete()
 
 # check that we have no corruption
 test <- open_dataset("forecasts/bundled-summaries/") |> count() |> collect()

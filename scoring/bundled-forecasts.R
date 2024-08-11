@@ -38,14 +38,10 @@ bench::bench_time({ # 14 min
 })
 
 
-# PURGE
-all_fc_files <- fs::dir_ls("forecasts/parquet/project_id=neon4cast", type="file", recurse = TRUE)
-yrs <- all_fc_files |> stringr::str_extract("reference_date=(\\d{4})/", 1)
-all_fc_files[!is.na(yrs)] |> fs::file_delete()
-
+# PURGE all but last 2 months from un-bundled
 all_fc_files <- fs::dir_ls("forecasts/parquet/project_id=neon4cast", type="file", recurse = TRUE)
 dates <- all_fc_files |> stringr::str_extract("reference_date=(\\d{4}-\\d{2}-\\d{2})/", 1)  |> as.Date()
-drop <- dates < Sys.Date() - lubridate::dmonths(1)
+drop <- dates < Sys.Date() - lubridate::dmonths(2)
 all_fc_files[drop] |> fs::file_delete()
 
 # check that we have no corruption
