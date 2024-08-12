@@ -30,7 +30,7 @@ bench::bench_time({ # 14 min
       path = glue("./forecasts/parquet/project_id=neon4cast/{dur}{var}")
       print(path)
       open_dataset(path) |>
-        select(-any_of("date")) |> # (date is a short version of datetime from partitioning, drop it)
+        select(-any_of(c("date", "...1"))) |> # (date is a short version of datetime from partitioning, drop it)
         write_dataset("forecasts/bundled-parquet/project_id=neon4cast",
                       partitioning = c("duration", 'variable', "model_id"))
 
@@ -69,8 +69,10 @@ all_fc_files[drop] |> fs::file_delete()
 
 
 bench::bench_time({ # 12.1m
-  mc_mirror("forecasts",
-            "osn/bio230014-bucket01/challenges/forecasts", overwrite=TRUE, remove = TRUE)
+  mc_mirror("forecasts/bundled-parquet",
+            "osn/bio230014-bucket01/challenges/forecasts/bundled-parquet", overwrite = TRUE)
+  mc_mirror("forecasts/parquet",
+            "osn/bio230014-bucket01/challenges/forecasts/parquet", remove = TRUE)
 })
 
 ## We are done.

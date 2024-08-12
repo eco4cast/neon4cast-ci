@@ -38,7 +38,7 @@ open_dataset(fs::path(local, "bundled-parquet/")) |>
 
 
 # PURGE
-all_files <- fs::dir_ls(fs::path(local, "/parquet/project_id=neon4cast"), type="file", recurse = TRUE)
+all_files <- fs::dir_ls(fs::path(local, "/parquet"), type="file", recurse = TRUE)
 dates <- all_files |> stringr::str_extract("date=(\\d{4}-\\d{2}-\\d{2})/", 1)  |> as.Date()
 stopifnot(all(!is.na(dates)))
 drop <- dates < Sys.Date() - lubridate::dmonths(2)
@@ -46,8 +46,10 @@ all_files[drop] |> fs::file_delete()
 
 
 bench::bench_time({
-  mc_mirror(local,
-            "osn/bio230014-bucket01/challenges/scores", overwrite = TRUE, remove=TRUE)
+  mc_mirror(fs::path(local, "parquet"),
+            "osn/bio230014-bucket01/challenges/scores/parquet", remove=TRUE)
+  mc_mirror(fs::path(local, "bundled-parquet"),
+            "osn/bio230014-bucket01/challenges/scores/bundled-parquet", overwrite=TRUE)
 })
 
 ## We are done.
