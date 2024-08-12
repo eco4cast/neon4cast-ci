@@ -14,6 +14,9 @@ bench::bench_time({ # 17.5 min from scratch, 114 GB
 
 })
 
+
+
+
 fs::dir_create("forecasts/bundled-parquet")
 ## archive
 
@@ -37,16 +40,31 @@ bench::bench_time({ # 14 min
   }
 })
 
+duckdbfs::close_connection()
 
-# PURGE all but last 2 months from un-bundled
+# check that we have no corruption
+#n_raw <- open_dataset("forecasts/parquet/") |> count() |> collect()
+n <- open_dataset("forecasts/bundled-parquet/") |> count() |> collect()
+n_groups <- open_dataset(fs::path("forecasts", "bundled-parquet/")) |>
+  distinct(duration, variable, model_id) |> count() |> collect()
+
+## earliest date
+open_dataset(fs::path("forecasts", "bundled-parquet/")) |>
+  summarise(first = min(reference_datetime)) |> collect()
+
+duckdbfs::close_connection()
+
+
+
+# PURGE all but last 2 months from un-bundled. also yr bundles.
+#all_fc_files <- fs::dir_ls("forecasts/parquet/project_id=neon4cast", type="file", recurse = TRUE)
+#yrs <- all_fc_files |> stringr::str_extract("reference_date=(\\d{4})/", 1)
+#all_fc_files[!is.na(yrs)] |> fs::file_delete()
+
 all_fc_files <- fs::dir_ls("forecasts/parquet/project_id=neon4cast", type="file", recurse = TRUE)
 dates <- all_fc_files |> stringr::str_extract("reference_date=(\\d{4}-\\d{2}-\\d{2})/", 1)  |> as.Date()
 drop <- dates < Sys.Date() - lubridate::dmonths(2)
 all_fc_files[drop] |> fs::file_delete()
-
-# check that we have no corruption
-test <- open_dataset("forecasts/bundled-summaries/") |> count() |> collect()
-test <- open_dataset("forecasts/bundled-parquet/") |> count() |> collect()
 
 
 

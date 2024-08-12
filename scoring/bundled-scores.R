@@ -28,17 +28,26 @@ bench::bench_time({ # 34.38s
 
 
 
+# check that we have no corruption
+n_bundled <- open_dataset(fs::path(local, "bundled-parquet/")) |> count() |> collect()
+n_groups <- open_dataset(fs::path(local, "bundled-parquet/")) |>
+  distinct(duration, variable, model_id) |> count() |> collect()
+open_dataset(fs::path(local, "bundled-parquet/")) |>
+  summarise(first = min(reference_datetime),
+            date = min(datetime)) |> collect()
+
+
 # PURGE
 all_files <- fs::dir_ls(fs::path(local, "/parquet/project_id=neon4cast"), type="file", recurse = TRUE)
 dates <- all_files |> stringr::str_extract("date=(\\d{4}-\\d{2}-\\d{2})/", 1)  |> as.Date()
-stopifnot(any(!is.na(dates)))
+stopifnot(all(!is.na(dates)))
 drop <- dates < Sys.Date() - lubridate::dmonths(2)
 all_files[drop] |> fs::file_delete()
 
 
 bench::bench_time({
   mc_mirror(local,
-            "osn/bio230014-bucket01/challenges/scores", remove=TRUE)
+            "osn/bio230014-bucket01/challenges/scores", overwrite = TRUE, remove=TRUE)
 })
 
 ## We are done.
