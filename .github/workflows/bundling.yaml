@@ -47,7 +47,7 @@ jobs:
       - name: Bundle summaries
         shell: Rscript {0}
         run: |
-          source("scoring/bundled-forecasts.R")
+          source("scoring/bundled-summaries.R")
 
       - name: Bundle forecasts
         shell: Rscript {0}
