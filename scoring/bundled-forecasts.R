@@ -10,7 +10,7 @@ mc_alias_set("osn", "sdsc.osn.xsede.org", Sys.getenv("OSN_KEY"), Sys.getenv("OSN
 # Sync local scores, fastest way to access all the bytes.
 bench::bench_time({ # 17.5 min from scratch, 114 GB
   # mirror everything(!) crazy
-  mc_mirror("osn/bio230014-bucket01/challenges/forecasts/parquet/", "forecasts/parquet/", overwrite = TRUE)
+  mc_mirror("osn/bio230014-bucket01/challenges/forecasts/parquet/", "forecasts/parquet/", overwrite = TRUE, remove = TRUE)
 
 })
 
@@ -18,6 +18,8 @@ bench::bench_time({ # 17.5 min from scratch, 114 GB
 
 
 fs::dir_create("forecasts/bundled-parquet")
+fs::dir_create("new-forecasts/bundled-parquet")
+
 ## archive
 
 
@@ -29,31 +31,40 @@ bench::bench_time({ # 14 min
     for (var in variables) {
       path = glue("./forecasts/parquet/project_id=neon4cast/{dur}{var}")
       print(path)
-      open_dataset(path) |>
-        select(-any_of(c("date", "...1"))) |> # (date is a short version of datetime from partitioning, drop it)
-        write_dataset("forecasts/bundled-parquet/project_id=neon4cast",
+      fc <- open_dataset(path) |>
+        select(-any_of(c("date", "...1")))  # (date is a short version of datetime from partitioning, drop it)
+
+
+      bundles <- glue("forecasts/bundled-parquet/project_id=neon4cast/{dur}{var}")
+      if (fs::dir_exists(bundles)) {
+        already_bundled <- open_dataset(bundles)
+        fc <- fc |> union_all(already_bundled)
+      }
+      fc |>
+        write_dataset("new-forecasts/bundled-parquet/project_id=neon4cast",
                       partitioning = c("duration", 'variable', "model_id"))
 
-      gc()
     }
-    gc()
+    duckdbfs::close_connection()
   }
 })
 
-duckdbfs::close_connection()
 
 # check that we have no corruption
-#n_raw <- open_dataset("forecasts/parquet/") |> count() |> collect()
-n <- open_dataset("forecasts/bundled-parquet/") |> count() |> collect()
-n_groups <- open_dataset(fs::path("forecasts", "bundled-parquet/")) |>
+n <- open_dataset("new-forecasts/bundled-parquet/") |> count() |> collect()
+n_groups <- open_dataset(fs::path("new-forecasts/", "bundled-parquet/")) |>
   distinct(duration, variable, model_id) |> count() |> collect()
 
 ## earliest date
-open_dataset(fs::path("forecasts", "bundled-parquet/")) |>
+open_dataset(fs::path("new-forecasts/", "bundled-parquet/")) |>
   summarise(first = min(reference_datetime)) |> collect()
 
 duckdbfs::close_connection()
 
+
+## Now, new-bundled overwrites bundled
+fs::dir_delete("forecasts/bundled-parquet/")
+fs::file_move("new-forecasts/bundled-parquet/", "forecasts/bundled-parquet/")
 
 
 # PURGE all but last 2 months from un-bundled. also yr bundles.
@@ -65,7 +76,6 @@ all_fc_files <- fs::dir_ls("forecasts/parquet/project_id=neon4cast", type="file"
 dates <- all_fc_files |> stringr::str_extract("reference_date=(\\d{4}-\\d{2}-\\d{2})/", 1)  |> as.Date()
 drop <- dates < Sys.Date() - lubridate::dmonths(2)
 all_fc_files[drop] |> fs::file_delete()
-
 
 
 bench::bench_time({ # 12.1m

@@ -22,19 +22,32 @@ fs::dir_create(fs::path(local, "bundled-parquet"))
 bench::bench_time({ # 34.38s
   open_dataset(fs::path(local, "parquet", "/**")) |>
   select(-date) |> # (date is a short version of datetime from partitioning, drop it)
-  write_dataset("bundled-parquet",
+  union_all(open_dataset(fs::path(local, "bundled-parquet", "/**"))) |>
+  write_dataset("new-bundled-parquet",
                 partitioning = c("project_id", "duration", 'variable', "model_id"))
 })
 
 
+duckdbfs::close_connection()
 
 # check that we have no corruption
 n_bundled <- open_dataset(fs::path(local, "bundled-parquet/")) |> count() |> collect()
 n_groups <- open_dataset(fs::path(local, "bundled-parquet/")) |>
   distinct(duration, variable, model_id) |> count() |> collect()
+n_bundled <- open_dataset(fs::path("new-bundled-parquet/")) |> count() |> collect()
+n_groups <- open_dataset(fs::path("new-bundled-parquet/")) |>
+  distinct(duration, variable, model_id) |> count() |> collect()
 open_dataset(fs::path(local, "bundled-parquet/")) |>
   summarise(first = min(reference_datetime),
             date = min(datetime)) |> collect()
+
+duckdbfs::close_connection()
+
+
+## Now, new-bundled overwrites bundled
+fs::dir_delete(fs::path(local, "bundled-parquet/"))
+fs::file_move("new-bundled-parquet/", fs::path(local, "bundled-parquet/"))
+
 
 
 # PURGE
@@ -65,7 +78,6 @@ bench::bench_time({
 #})
 
 
-
 # TESTING: single URL is fast
 url <- paste0("https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/",
               "scores/bundled-parquet/project_id=neon4cast/duration=P1D/",
@@ -84,3 +96,5 @@ bench::bench_time({ # 3.43s
     count(model_id, datetime) |>
     collect()
 })
+
+duckdbfs::close_connection()

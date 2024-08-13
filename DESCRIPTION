@@ -35,6 +35,7 @@ Imports:
     future
 Remotes: 
     github::eco4cast/score4cast,
+    github::cboettig/duckdbfs,
     github::cboettig/minioclient,
     github::eco4cast/neon4cast,
     github::eco4cast/stac4cast
