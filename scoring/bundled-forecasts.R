@@ -11,6 +11,7 @@ mc_alias_set("osn", "sdsc.osn.xsede.org", Sys.getenv("OSN_KEY"), Sys.getenv("OSN
 bench::bench_time({ # 17.5 min from scratch, 114 GB
   # mirror everything(!) crazy
   mc_mirror("osn/bio230014-bucket01/challenges/forecasts/parquet/", "forecasts/parquet/", overwrite = TRUE, remove = TRUE)
+  mc_mirror("osn/bio230014-bucket01/challenges/forecasts/bundled-parquet/", "forecasts/bundled-parquet/", overwrite = TRUE, remove = TRUE)
 
 })
 
