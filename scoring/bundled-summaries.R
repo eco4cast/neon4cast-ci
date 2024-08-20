@@ -27,7 +27,7 @@ grouping <- c("model_id", "reference_datetime", "site_id",
 bench::bench_time({
   bundled_summaries <- open_dataset("./forecasts/bundled-summaries/project_id=neon4cast")
   new_summaries <- open_dataset("./forecasts/summaries/project_id=neon4cast/")
-  union_all(bundled_summaries, new_summaries) |>
+  union(bundled_summaries, new_summaries) |>
     group_by(across(any_of(grouping))) |>
     slice_max(pub_datetime) |>
       write_dataset("forecasts/bundled-summaries/project_id=neon4cast",
