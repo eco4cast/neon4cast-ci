@@ -5,9 +5,7 @@
   ],
   "type": "Feature",
   "id": "tg_tbats_le_P1D_forecast",
-  "bbox": [
-    [-156.6194, 17.9696, -66.8687, 71.2824]
-  ],
+  "bbox": [-156.6194, 17.9696, -66.8687, 71.2824],
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [
@@ -63,11 +61,12 @@
   "properties": {
     "title": "tg_tbats",
     "description": "All forecasts for the Daily_latent_heat_flux variable for the tg_tbats model. Information for the model is provided as follows: The tg_tbats model is a TBATS (Trigonometric seasonality, Box-Cox transformation, ARMA\nerrors, Trend and Seasonal components) model fit using the function tbats() from the forecast package in\nR (Hyndman et al. 2023; Hyndman et al., 2008). This is an empirical time series model with no\ncovariates..\n                                    The model predicts this variable at the following sites: MOAB, NIWO, NOGP, OAES, ONAQ, ORNL, OSBS, PUUM, RMNP, SCBI, SERC, SJER, SOAP, SRER, STEI, STER, TALL, TEAK, TOOL, TREE, UKFS, UNDE, WOOD, WREF, YELL, ABBY, BARR, BART, BLAN, BONA, CLBJ, CPER, DCFS, DEJU, DELA, DSNY, GRSM, GUAN, HARV, HEAL, JERC, JORN, KONA, KONZ, LAJA, LENO, MLBS.\n                                    Forecasts are the raw forecasts that includes all ensemble members or distribution parameters. Due to the size of the raw forecasts, we recommend accessing the forecast summaries or scores to analyze forecasts (unless you need the individual ensemble members)",
-    "start_datetime": "2023-01-01",
-    "end_datetime": "2024-02-09",
+    "datetime": "2024-08-26T00:00:00Z",
+    "start_datetime": "2023-01-01T00:00:00Z",
+    "end_datetime": "2024-08-02T00:00:00Z",
     "providers": [
       {
-        "url": "aslewis@vt.edu",
+        "url": "https://github.com/eco4cast/Forecast_submissions/blob/main/Generate_forecasts",
         "name": "Abigail Lewis",
         "roles": [
           "producer",
@@ -178,9 +177,14 @@
         "description": "datetime that forecast was submitted"
       },
       {
-        "name": "date",
-        "type": "date32[day]",
-        "description": {}
+        "name": "duration",
+        "type": "string",
+        "description": "temporal duration of forecast (hourly, daily, etc.); follows ISO 8601 duration convention"
+      },
+      {
+        "name": "model_id",
+        "type": "string",
+        "description": "unique model identifier"
       },
       {
         "name": "project_id",
@@ -188,19 +192,9 @@
         "description": "unique identifier for the forecast project"
       },
       {
-        "name": "duration",
-        "type": "string",
-        "description": "temporal duration of forecast (hourly, daily, etc.); follows ISO 8601 duration convention"
-      },
-      {
         "name": "variable",
         "type": "string",
         "description": "name of forecasted variable"
-      },
-      {
-        "name": "model_id",
-        "type": "string",
-        "description": "unique model identifier"
       }
     ]
   },
@@ -235,6 +229,18 @@
       "href": "https://github.com/eco4cast/Forecast_submissions/blob/main/Generate_forecasts",
       "type": "text/html",
       "title": "Link for Model Code"
+    },
+    {
+      "rel": "item",
+      "href": "https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/Terrestrial/Daily_latent_heat_flux/models/tg_tbats.json",
+      "type": "text/html",
+      "title": "Link for rendered STAC item"
+    },
+    {
+      "rel": "item",
+      "href": "https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/Terrestrial/Daily_latent_heat_flux/models/tg_tbats.json",
+      "type": "text/html",
+      "title": "Link for raw JSON file"
     }
   ],
   "assets": {

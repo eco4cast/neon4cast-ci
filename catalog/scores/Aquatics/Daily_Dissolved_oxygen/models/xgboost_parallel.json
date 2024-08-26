@@ -1,0 +1,280 @@
+{
+  "stac_version": "1.0.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/table/v1.2.0/schema.json"
+  ],
+  "type": "Feature",
+  "id": "xgboost_parallel_oxygen_P1D_scores",
+  "bbox": [-149.6106, 18.1135, -66.7987, 68.6698],
+  "geometry": {
+    "type": "MultiPoint",
+    "coordinates": [
+      [-66.7987, 18.1741],
+      [-72.3295, 42.4719],
+      [-96.6038, 39.1051],
+      [-83.5038, 35.6904],
+      [-77.9832, 39.0956],
+      [-89.7048, 45.9983],
+      [-121.9338, 45.7908],
+      [-87.4077, 32.9604],
+      [-96.443, 38.9459],
+      [-122.1655, 44.2596],
+      [-149.143, 68.6698],
+      [-78.1473, 38.8943],
+      [-97.7823, 33.3785],
+      [-99.1139, 47.1591],
+      [-99.2531, 47.1298],
+      [-111.7979, 40.7839],
+      [-82.0177, 29.6878],
+      [-119.0274, 36.9559],
+      [-149.6106, 68.6307],
+      [-84.2793, 35.9574],
+      [-105.9154, 39.8914],
+      [-102.4471, 39.7582],
+      [-82.0084, 29.676],
+      [-119.2575, 37.0597],
+      [-110.5871, 44.9501],
+      [-96.6242, 34.4442],
+      [-87.7982, 32.5415],
+      [-147.504, 65.1532],
+      [-105.5442, 40.035],
+      [-89.4737, 46.2097],
+      [-66.9868, 18.1135],
+      [-84.4374, 31.1854],
+      [-111.5081, 33.751],
+      [-88.1589, 31.8534]
+    ]
+  },
+  "properties": {
+    "title": "xgboost_parallel",
+    "description": "All scores for the Daily_Dissolved_oxygen variable for the xgboost_parallel model. Information for the model is provided as follows: The XGBoost model is an extreme gradient boosted random forest (XGBoost) machine learning\nmodel that uses predicted atmospheric conditions and day of year as covariates. This model utilises the\nxgboost R package (Chen & Guestrin 2016; Chen et al., 2023)..\n                                    The model predicts this variable at the following sites: GUIL, HOPB, KING, LECO, LEWI, LIRO, MART, MAYF, MCDI, MCRA, OKSR, POSE, PRIN, PRLA, PRPO, REDB, SUGG, TECR, TOOK, WALK, WLOU, ARIK, BARC, BIGC, BLDE, BLUE, BLWA, CARI, COMO, CRAM, CUPE, FLNT, SYCA, TOMB.\n                                    Scores are metrics that describe how well forecasts compare to observations. The scores catalog includes are summaries of the forecasts (i.e., mean, median, confidence intervals), matched observations (if available), and scores (metrics of how well the model distribution compares to observations)",
+    "datetime": "2024-08-25T00:00:00Z",
+    "start_datetime": "2023-01-01T00:00:00Z",
+    "end_datetime": "2023-12-08T00:00:00Z",
+    "providers": [
+      {
+        "url": "https://projects.ecoforecast.org/neon4cast-ci/",
+        "name": "NEON Ecological Forecasting Project",
+        "roles": [
+          "producer",
+          "processor",
+          "licensor"
+        ]
+      },
+      {
+        "url": "https://www.ecoforecastprojectvt.org",
+        "name": "Ecoforecast Challenge",
+        "roles": [
+          "host"
+        ]
+      }
+    ],
+    "license": "CC0-1.0",
+    "keywords": [
+      "Scores",
+      "neon4cast",
+      "Aquatics",
+      "xgboost_parallel",
+      "Dissolved_oxygen",
+      "oxygen",
+      "Daily",
+      "P1D",
+      "GUIL",
+      "HOPB",
+      "KING",
+      "LECO",
+      "LEWI",
+      "LIRO",
+      "MART",
+      "MAYF",
+      "MCDI",
+      "MCRA",
+      "OKSR",
+      "POSE",
+      "PRIN",
+      "PRLA",
+      "PRPO",
+      "REDB",
+      "SUGG",
+      "TECR",
+      "TOOK",
+      "WALK",
+      "WLOU",
+      "ARIK",
+      "BARC",
+      "BIGC",
+      "BLDE",
+      "BLUE",
+      "BLWA",
+      "CARI",
+      "COMO",
+      "CRAM",
+      "CUPE",
+      "FLNT",
+      "SYCA",
+      "TOMB"
+    ],
+    "table:columns": [
+      {
+        "name": "reference_datetime",
+        "type": "timestamp[us, tz=UTC]",
+        "description": "datetime that the forecast was initiated (horizon = 0)"
+      },
+      {
+        "name": "site_id",
+        "type": "string",
+        "description": "For forecasts that are not on a spatial grid, use of a site dimension that maps to a more detailed geometry (points, polygons, etc.) is allowable. In general this would be documented in the external metadata (e.g., alook-up table that provides lon and lat); however in netCDF this could be handled by the CF Discrete Sampling Geometry data model."
+      },
+      {
+        "name": "datetime",
+        "type": "timestamp[us, tz=UTC]",
+        "description": "datetime of the forecasted value (ISO 8601)"
+      },
+      {
+        "name": "family",
+        "type": "string",
+        "description": "For ensembles: “ensemble.” Default value if unspecified For probability distributions: Name of the statistical distribution associated with the reported statistics. The “sample” distribution is synonymous with “ensemble.” For summary statistics: “summary.”If this dimension does not vary, it is permissible to specify family as a variable attribute if the file format being used supports this (e.g.,netCDF)."
+      },
+      {
+        "name": "pub_datetime",
+        "type": "timestamp[us, tz=UTC]",
+        "description": "datetime that forecast was submitted"
+      },
+      {
+        "name": "observation",
+        "type": "double",
+        "description": "observed value for variable"
+      },
+      {
+        "name": "crps",
+        "type": "double",
+        "description": "crps forecast score"
+      },
+      {
+        "name": "logs",
+        "type": "double",
+        "description": "logs forecast score"
+      },
+      {
+        "name": "mean",
+        "type": "double",
+        "description": "mean forecast prediction"
+      },
+      {
+        "name": "median",
+        "type": "double",
+        "description": "median forecast prediction"
+      },
+      {
+        "name": "sd",
+        "type": "double",
+        "description": "standard deviation forecasts"
+      },
+      {
+        "name": "quantile97.5",
+        "type": "double",
+        "description": "upper 97.5 percentile value of forecast"
+      },
+      {
+        "name": "quantile02.5",
+        "type": "double",
+        "description": "upper 2.5 percentile value of forecast"
+      },
+      {
+        "name": "quantile90",
+        "type": "double",
+        "description": "upper 90 percentile value of forecast"
+      },
+      {
+        "name": "quantile10",
+        "type": "double",
+        "description": "upper 10 percentile value of forecast"
+      },
+      {
+        "name": "duration",
+        "type": "string",
+        "description": "temporal duration of forecast (hourly = PT1H, daily = P1D, etc.); follows ISO 8601 duration convention"
+      },
+      {
+        "name": "model_id",
+        "type": "string",
+        "description": "unique model identifier"
+      },
+      {
+        "name": "variable",
+        "type": "string",
+        "description": "name of forecasted variable"
+      },
+      {
+        "name": "project_id",
+        "type": "string",
+        "description": "unique project identifier"
+      }
+    ]
+  },
+  "collection": "scores",
+  "links": [
+    {
+      "rel": "collection",
+      "href": "../collection.json",
+      "type": "application/json",
+      "title": "xgboost_parallel"
+    },
+    {
+      "rel": "root",
+      "href": "../../../catalog.json",
+      "type": "application/json",
+      "title": "Forecast Catalog"
+    },
+    {
+      "rel": "parent",
+      "href": "../collection.json",
+      "type": "application/json",
+      "title": "xgboost_parallel"
+    },
+    {
+      "rel": "self",
+      "href": "xgboost_parallel.json",
+      "type": "application/json",
+      "title": "Model Forecast"
+    },
+    {
+      "rel": "item",
+      "href": "https://github.com/Grepath/XGBoostNeon4Casts/blob/main/Aquatics_ParallelXGB.R",
+      "type": "text/html",
+      "title": "Link for Model Code"
+    },
+    {
+      "rel": "item",
+      "href": "https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Aquatics/Daily_Dissolved_oxygen/models/xgboost_parallel.json",
+      "type": "text/html",
+      "title": "Link for rendered STAC item"
+    },
+    {
+      "rel": "item",
+      "href": "https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Aquatics/Daily_Dissolved_oxygen/models/xgboost_parallel.json",
+      "type": "text/html",
+      "title": "Link for raw JSON file"
+    }
+  ],
+  "assets": {
+    "1": {
+      "type": "application/json",
+      "title": "Model Metadata",
+      "href": "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/metadata/model_id/xgboost_parallel.json",
+      "description": "Use `jsonlite::fromJSON()` to download the model metadata JSON file. This R code will return metadata provided during the model registration.\n      \n\n### R\n\n```{r}\n# Use code below\n\nmodel_metadata <- jsonlite::fromJSON(\"https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/metadata/model_id/xgboost_parallel.json\")\n\n"
+    },
+    "2": {
+      "type": "text/html",
+      "title": "Link for Model Code",
+      "href": "https://github.com/Grepath/XGBoostNeon4Casts/blob/main/Aquatics_ParallelXGB.R",
+      "description": "The link to the model code provided by the model submission team"
+    },
+    "3": {
+      "type": "application/x-parquet",
+      "title": "Database Access for Daily Dissolved_oxygen",
+      "href": "s3://anonymous@bio230014-bucket01/challenges/scores/parquet/project_id=neon4cast/duration=P1D/variable=oxygen/model_id=xgboost_parallel?endpoint_override=sdsc.osn.xsede.org",
+      "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(\"s3://anonymous@bio230014-bucket01/challenges/scores/parquet/project_id=neon4cast/duration=P1D/variable=oxygen/model_id=xgboost_parallel?endpoint_override=sdsc.osn.xsede.org\")\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
+    }
+  }
+}

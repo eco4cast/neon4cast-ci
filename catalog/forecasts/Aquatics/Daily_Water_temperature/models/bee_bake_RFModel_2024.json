@@ -5,29 +5,28 @@
   ],
   "type": "Feature",
   "id": "bee_bake_RFModel_2024_temperature_P1D_forecast",
-  "bbox": [
-    [-149.6106, 29.676, -82.0084, 68.6307]
-  ],
+  "bbox": [-149.6106, 29.676, -82.0084, 68.6307],
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [
-      [-89.4737, 46.2097],
+      [-89.7048, 45.9983],
+      [-99.2531, 47.1298],
       [-82.0084, 29.676],
+      [-89.4737, 46.2097],
       [-99.1139, 47.1591],
       [-82.0177, 29.6878],
-      [-99.2531, 47.1298],
-      [-89.7048, 45.9983],
       [-149.6106, 68.6307]
     ]
   },
   "properties": {
     "title": "bee_bake_RFModel_2024",
-    "description": "All forecasts for the Daily_Water_temperature variable for the bee_bake_RFModel_2024 model. Information for the model is provided as follows: Random Forest.\n                                    The model predicts this variable at the following sites: CRAM, BARC, PRLA, SUGG, PRPO, LIRO, TOOK.\n                                    Forecasts are the raw forecasts that includes all ensemble members or distribution parameters. Due to the size of the raw forecasts, we recommend accessing the forecast summaries or scores to analyze forecasts (unless you need the individual ensemble members)",
-    "start_datetime": "2024-02-29",
-    "end_datetime": "2024-07-30",
+    "description": "All forecasts for the Daily_Water_temperature variable for the bee_bake_RFModel_2024 model. Information for the model is provided as follows: Random Forest.\n                                    The model predicts this variable at the following sites: LIRO, PRPO, BARC, CRAM, PRLA, SUGG, TOOK.\n                                    Forecasts are the raw forecasts that includes all ensemble members or distribution parameters. Due to the size of the raw forecasts, we recommend accessing the forecast summaries or scores to analyze forecasts (unless you need the individual ensemble members)",
+    "datetime": "2024-08-26T00:00:00Z",
+    "start_datetime": "2024-02-29T00:00:00Z",
+    "end_datetime": "2024-09-24T00:00:00Z",
     "providers": [
       {
-        "url": "rqthomas@vt.edu",
+        "url": null,
         "name": "Quinn Thomas",
         "roles": [
           "producer",
@@ -53,12 +52,12 @@
       "temperature",
       "Daily",
       "P1D",
-      "CRAM",
+      "LIRO",
+      "PRPO",
       "BARC",
+      "CRAM",
       "PRLA",
       "SUGG",
-      "PRPO",
-      "LIRO",
       "TOOK"
     ],
     "table:columns": [
@@ -98,9 +97,14 @@
         "description": "datetime that forecast was submitted"
       },
       {
-        "name": "date",
-        "type": "date32[day]",
-        "description": {}
+        "name": "duration",
+        "type": "string",
+        "description": "temporal duration of forecast (hourly, daily, etc.); follows ISO 8601 duration convention"
+      },
+      {
+        "name": "model_id",
+        "type": "string",
+        "description": "unique model identifier"
       },
       {
         "name": "project_id",
@@ -108,19 +112,9 @@
         "description": "unique identifier for the forecast project"
       },
       {
-        "name": "duration",
-        "type": "string",
-        "description": "temporal duration of forecast (hourly, daily, etc.); follows ISO 8601 duration convention"
-      },
-      {
         "name": "variable",
         "type": "string",
         "description": "name of forecasted variable"
-      },
-      {
-        "name": "model_id",
-        "type": "string",
-        "description": "unique model identifier"
       }
     ]
   },
@@ -152,9 +146,21 @@
     },
     {
       "rel": "item",
-      "href": null,
+      "href": "https://projects.ecoforecast.org/neon4cast-ci/",
       "type": "text/html",
       "title": "Link for Model Code"
+    },
+    {
+      "rel": "item",
+      "href": "https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/Aquatics/Daily_Water_temperature/models/bee_bake_RFModel_2024.json",
+      "type": "text/html",
+      "title": "Link for rendered STAC item"
+    },
+    {
+      "rel": "item",
+      "href": "https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/Aquatics/Daily_Water_temperature/models/bee_bake_RFModel_2024.json",
+      "type": "text/html",
+      "title": "Link for raw JSON file"
     }
   ],
   "assets": {
@@ -167,7 +173,7 @@
     "2": {
       "type": "text/html",
       "title": "Link for Model Code",
-      "href": null,
+      "href": "https://projects.ecoforecast.org/neon4cast-ci/",
       "description": "The link to the model code provided by the model submission team"
     },
     "3": {

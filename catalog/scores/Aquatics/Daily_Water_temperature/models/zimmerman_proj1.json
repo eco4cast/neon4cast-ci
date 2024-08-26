@@ -5,9 +5,7 @@
   ],
   "type": "Feature",
   "id": "zimmerman_proj1_temperature_P1D_scores",
-  "bbox": [
-    [-149.6106, 29.676, -82.0084, 68.6307]
-  ],
+  "bbox": [-149.6106, 29.676, -82.0084, 68.6307],
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [
@@ -23,11 +21,12 @@
   "properties": {
     "title": "zimmerman_proj1",
     "description": "All scores for the Daily_Water_temperature variable for the zimmerman_proj1 model. Information for the model is provided as follows: I used an ARIMA model with one autoregressive term. I also included air pressure and air temperature.\n                                    The model predicts this variable at the following sites: BARC, CRAM, LIRO, PRLA, PRPO, SUGG, TOOK.\n                                    Scores are metrics that describe how well forecasts compare to observations. The scores catalog includes are summaries of the forecasts (i.e., mean, median, confidence intervals), matched observations (if available), and scores (metrics of how well the model distribution compares to observations)",
-    "start_datetime": "2024-02-28",
-    "end_datetime": "2024-06-01",
+    "datetime": "2024-08-26T00:00:00Z",
+    "start_datetime": "2024-02-28T00:00:00Z",
+    "end_datetime": "2024-07-27T00:00:00Z",
     "providers": [
       {
-        "url": "poz3615@vt.edu",
+        "url": "https://github.com/poz3615/NEON-forecast-challenge-workshop/blob/main/Submit_forecast/forecast_code_template.Rmd",
         "name": "Piper Zimmerman",
         "roles": [
           "producer",
@@ -138,14 +137,14 @@
         "description": "upper 10 percentile value of forecast"
       },
       {
-        "name": "project_id",
-        "type": "string",
-        "description": "unique project identifier"
-      },
-      {
         "name": "duration",
         "type": "string",
         "description": "temporal duration of forecast (hourly = PT1H, daily = P1D, etc.); follows ISO 8601 duration convention"
+      },
+      {
+        "name": "model_id",
+        "type": "string",
+        "description": "unique model identifier"
       },
       {
         "name": "variable",
@@ -153,9 +152,9 @@
         "description": "name of forecasted variable"
       },
       {
-        "name": "model_id",
+        "name": "project_id",
         "type": "string",
-        "description": "unique model identifier"
+        "description": "unique project identifier"
       }
     ]
   },
@@ -190,6 +189,18 @@
       "href": "https://github.com/poz3615/NEON-forecast-challenge-workshop/blob/main/Submit_forecast/forecast_code_template.Rmd",
       "type": "text/html",
       "title": "Link for Model Code"
+    },
+    {
+      "rel": "item",
+      "href": "https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Aquatics/Daily_Water_temperature/models/zimmerman_proj1.json",
+      "type": "text/html",
+      "title": "Link for rendered STAC item"
+    },
+    {
+      "rel": "item",
+      "href": "https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Aquatics/Daily_Water_temperature/models/zimmerman_proj1.json",
+      "type": "text/html",
+      "title": "Link for raw JSON file"
     }
   ],
   "assets": {

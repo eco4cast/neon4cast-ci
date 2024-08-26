@@ -5,9 +5,7 @@
   ],
   "type": "Feature",
   "id": "hotdeck_temperature_P1D_scores",
-  "bbox": [
-    [-147.504, 18.1135, -66.7987, 65.1532]
-  ],
+  "bbox": [-147.504, 18.1135, -66.7987, 65.1532],
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [
@@ -46,11 +44,12 @@
   "properties": {
     "title": "hotdeck",
     "description": "All scores for the Daily_Water_temperature variable for the hotdeck model. Information for the model is provided as follows: Uses a hot deck approach: - Take the latest observation/forecast. - Past observations from around the same window of the season are collected. - Values close to the latest observation/forecast are collected. - One of these is randomly sampled. - Its \"tomorrow\" observation is used as the forecast. - Repeat until forecast at step h..\n                                    The model predicts this variable at the following sites: BARC, SUGG, BLWA, FLNT, KING, LECO, LEWI, MAYF, POSE, PRIN, SYCA, TOMB, ARIK, HOPB, MCRA, REDB, TECR, BLDE, COMO, WLOU, CRAM, CARI, BIGC, BLUE, CUPE, GUIL, WALK, LIRO, PRLA, PRPO.\n                                    Scores are metrics that describe how well forecasts compare to observations. The scores catalog includes are summaries of the forecasts (i.e., mean, median, confidence intervals), matched observations (if available), and scores (metrics of how well the model distribution compares to observations)",
-    "start_datetime": "2024-02-28",
-    "end_datetime": "2024-06-01",
+    "datetime": "2024-08-26T00:00:00Z",
+    "start_datetime": "2024-02-28T00:00:00Z",
+    "end_datetime": "2024-07-27T00:00:00Z",
     "providers": [
       {
-        "url": "swpease@gmail.com",
+        "url": "https://github.com/swpease/hotdeckfc",
         "name": "Scott Pease",
         "roles": [
           "producer",
@@ -184,14 +183,14 @@
         "description": "upper 10 percentile value of forecast"
       },
       {
-        "name": "project_id",
-        "type": "string",
-        "description": "unique project identifier"
-      },
-      {
         "name": "duration",
         "type": "string",
         "description": "temporal duration of forecast (hourly = PT1H, daily = P1D, etc.); follows ISO 8601 duration convention"
+      },
+      {
+        "name": "model_id",
+        "type": "string",
+        "description": "unique model identifier"
       },
       {
         "name": "variable",
@@ -199,9 +198,9 @@
         "description": "name of forecasted variable"
       },
       {
-        "name": "model_id",
+        "name": "project_id",
         "type": "string",
-        "description": "unique model identifier"
+        "description": "unique project identifier"
       }
     ]
   },
@@ -236,6 +235,18 @@
       "href": "https://github.com/swpease/hotdeckfc",
       "type": "text/html",
       "title": "Link for Model Code"
+    },
+    {
+      "rel": "item",
+      "href": "https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Aquatics/Daily_Water_temperature/models/hotdeck.json",
+      "type": "text/html",
+      "title": "Link for rendered STAC item"
+    },
+    {
+      "rel": "item",
+      "href": "https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Aquatics/Daily_Water_temperature/models/hotdeck.json",
+      "type": "text/html",
+      "title": "Link for raw JSON file"
     }
   ],
   "assets": {

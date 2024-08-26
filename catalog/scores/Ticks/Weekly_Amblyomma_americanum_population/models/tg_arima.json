@@ -5,31 +5,30 @@
   ],
   "type": "Feature",
   "id": "tg_arima_amblyomma_americanum_P1W_scores",
-  "bbox": [
-    [-96.5631, 29.6893, -76.56, 39.1008]
-  ],
+  "bbox": [-96.5631, 29.6893, -76.56, 39.1008],
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [
-      [-78.0418, 39.0337],
-      [-96.5631, 39.1008],
       [-88.1612, 31.8539],
+      [-96.5631, 39.1008],
       [-84.2826, 35.9641],
       [-81.9934, 29.6893],
       [-78.1395, 38.8929],
       [-76.56, 38.8901],
       [-87.3933, 32.9505],
-      [-95.1921, 39.0404]
+      [-95.1921, 39.0404],
+      [-78.0418, 39.0337]
     ]
   },
   "properties": {
     "title": "tg_arima",
-    "description": "All scores for the Weekly_Amblyomma_americanum_population variable for the tg_arima model. Information for the model is provided as follows: The tg_arima model is an AutoRegressive Integrated Moving Average (ARIMA) model fit using\nthe function auto.arima() from the forecast package in R (Hyndman et al. 2023; Hyndman et al., 2008).\nThis is an empirical time series model with no covariates.\n                                    The model predicts this variable at the following sites: BLAN, KONZ, LENO, ORNL, OSBS, SCBI, SERC, TALL, UKFS.\n                                    Scores are metrics that describe how well forecasts compare to observations. The scores catalog includes are summaries of the forecasts (i.e., mean, median, confidence intervals), matched observations (if available), and scores (metrics of how well the model distribution compares to observations)",
-    "start_datetime": "2023-02-13",
-    "end_datetime": "2023-09-25",
+    "description": "All scores for the Weekly_Amblyomma_americanum_population variable for the tg_arima model. Information for the model is provided as follows: The tg_arima model is an AutoRegressive Integrated Moving Average (ARIMA) model fit using\nthe function auto.arima() from the forecast package in R (Hyndman et al. 2023; Hyndman et al., 2008).\nThis is an empirical time series model with no covariates.\n                                    The model predicts this variable at the following sites: LENO, KONZ, ORNL, OSBS, SCBI, SERC, TALL, UKFS, BLAN.\n                                    Scores are metrics that describe how well forecasts compare to observations. The scores catalog includes are summaries of the forecasts (i.e., mean, median, confidence intervals), matched observations (if available), and scores (metrics of how well the model distribution compares to observations)",
+    "datetime": "2024-08-26T00:00:00Z",
+    "start_datetime": "2021-06-07T00:00:00Z",
+    "end_datetime": "2023-12-25T00:00:00Z",
     "providers": [
       {
-        "url": "aslewis@vt.edu",
+        "url": "https://github.com/eco4cast/Forecast_submissions/blob/main/Generate_forecasts",
         "name": "Abigail Lewis",
         "roles": [
           "producer",
@@ -55,15 +54,15 @@
       "amblyomma_americanum",
       "Weekly",
       "P1W",
-      "BLAN",
-      "KONZ",
       "LENO",
+      "KONZ",
       "ORNL",
       "OSBS",
       "SCBI",
       "SERC",
       "TALL",
-      "UKFS"
+      "UKFS",
+      "BLAN"
     ],
     "table:columns": [
       {
@@ -142,14 +141,14 @@
         "description": "upper 10 percentile value of forecast"
       },
       {
-        "name": "project_id",
-        "type": "string",
-        "description": "unique project identifier"
-      },
-      {
         "name": "duration",
         "type": "string",
         "description": "temporal duration of forecast (hourly = PT1H, daily = P1D, etc.); follows ISO 8601 duration convention"
+      },
+      {
+        "name": "model_id",
+        "type": "string",
+        "description": "unique model identifier"
       },
       {
         "name": "variable",
@@ -157,9 +156,9 @@
         "description": "name of forecasted variable"
       },
       {
-        "name": "model_id",
+        "name": "project_id",
         "type": "string",
-        "description": "unique model identifier"
+        "description": "unique project identifier"
       }
     ]
   },
@@ -194,6 +193,18 @@
       "href": "https://github.com/eco4cast/Forecast_submissions/blob/main/Generate_forecasts",
       "type": "text/html",
       "title": "Link for Model Code"
+    },
+    {
+      "rel": "item",
+      "href": "https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Ticks/Weekly_Amblyomma_americanum_population/models/tg_arima.json",
+      "type": "text/html",
+      "title": "Link for rendered STAC item"
+    },
+    {
+      "rel": "item",
+      "href": "https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Ticks/Weekly_Amblyomma_americanum_population/models/tg_arima.json",
+      "type": "text/html",
+      "title": "Link for raw JSON file"
     }
   ],
   "assets": {

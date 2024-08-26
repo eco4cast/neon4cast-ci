@@ -5,9 +5,7 @@
   ],
   "type": "Feature",
   "id": "ChlorophyllCrusaders_gcc_90_P1D_forecast",
-  "bbox": [
-    [-149.2133, 42.5369, -72.1727, 63.8758]
-  ],
+  "bbox": [-149.2133, 42.5369, -72.1727, 63.8758],
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [
@@ -18,11 +16,12 @@
   "properties": {
     "title": "ChlorophyllCrusaders",
     "description": "All forecasts for the Daily_Green_chromatic_coordinate variable for the ChlorophyllCrusaders model. Information for the model is provided as follows: Our project utilizes a historical GCC data to fit a Dynamic Linear Model (DLM). After this DLM is trained, we utilize forecasted temperature data to predict future GCC data..\n                                    The model predicts this variable at the following sites: HARV, HEAL.\n                                    Forecasts are the raw forecasts that includes all ensemble members or distribution parameters. Due to the size of the raw forecasts, we recommend accessing the forecast summaries or scores to analyze forecasts (unless you need the individual ensemble members)",
-    "start_datetime": "2024-04-26",
-    "end_datetime": "2024-06-20",
+    "datetime": "2024-08-26T00:00:00Z",
+    "start_datetime": "2024-04-26T00:00:00Z",
+    "end_datetime": "2024-06-20T00:00:00Z",
     "providers": [
       {
-        "url": "dietze@bu.edu",
+        "url": "https://github.com/EcoForecast/ChlorophyllCrusaders",
         "name": "michael dietze",
         "roles": [
           "producer",
@@ -88,9 +87,14 @@
         "description": "datetime that forecast was submitted"
       },
       {
-        "name": "date",
-        "type": "date32[day]",
-        "description": {}
+        "name": "duration",
+        "type": "string",
+        "description": "temporal duration of forecast (hourly, daily, etc.); follows ISO 8601 duration convention"
+      },
+      {
+        "name": "model_id",
+        "type": "string",
+        "description": "unique model identifier"
       },
       {
         "name": "project_id",
@@ -98,19 +102,9 @@
         "description": "unique identifier for the forecast project"
       },
       {
-        "name": "duration",
-        "type": "string",
-        "description": "temporal duration of forecast (hourly, daily, etc.); follows ISO 8601 duration convention"
-      },
-      {
         "name": "variable",
         "type": "string",
         "description": "name of forecasted variable"
-      },
-      {
-        "name": "model_id",
-        "type": "string",
-        "description": "unique model identifier"
       }
     ]
   },
@@ -145,6 +139,18 @@
       "href": "https://github.com/EcoForecast/ChlorophyllCrusaders",
       "type": "text/html",
       "title": "Link for Model Code"
+    },
+    {
+      "rel": "item",
+      "href": "https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/Phenology/Daily_Green_chromatic_coordinate/models/ChlorophyllCrusaders.json",
+      "type": "text/html",
+      "title": "Link for rendered STAC item"
+    },
+    {
+      "rel": "item",
+      "href": "https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/Phenology/Daily_Green_chromatic_coordinate/models/ChlorophyllCrusaders.json",
+      "type": "text/html",
+      "title": "Link for raw JSON file"
     }
   ],
   "assets": {

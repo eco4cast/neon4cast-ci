@@ -5,15 +5,17 @@
   ],
   "type": "Feature",
   "id": "tg_arima_oxygen_P1D_scores",
-  "bbox": [
-    [-149.6106, 18.1135, -66.7987, 68.6698]
-  ],
+  "bbox": [-149.6106, 18.1135, -66.7987, 68.6698],
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [
-      [-119.0274, 36.9559],
-      [-88.1589, 31.8534],
+      [-149.143, 68.6698],
       [-149.6106, 68.6307],
+      [-99.1139, 47.1591],
+      [-89.7048, 45.9983],
+      [-99.2531, 47.1298],
+      [-89.4737, 46.2097],
+      [-88.1589, 31.8534],
       [-84.2793, 35.9574],
       [-105.9154, 39.8914],
       [-102.4471, 39.7582],
@@ -24,7 +26,6 @@
       [-87.7982, 32.5415],
       [-147.504, 65.1532],
       [-105.5442, 40.035],
-      [-89.4737, 46.2097],
       [-66.9868, 18.1135],
       [-84.4374, 31.1854],
       [-66.7987, 18.1741],
@@ -32,29 +33,27 @@
       [-96.6038, 39.1051],
       [-83.5038, 35.6904],
       [-77.9832, 39.0956],
-      [-89.7048, 45.9983],
       [-121.9338, 45.7908],
       [-87.4077, 32.9604],
       [-96.443, 38.9459],
       [-122.1655, 44.2596],
-      [-149.143, 68.6698],
       [-78.1473, 38.8943],
       [-97.7823, 33.3785],
-      [-99.1139, 47.1591],
-      [-99.2531, 47.1298],
       [-111.7979, 40.7839],
       [-82.0177, 29.6878],
-      [-111.5081, 33.751]
+      [-111.5081, 33.751],
+      [-119.0274, 36.9559]
     ]
   },
   "properties": {
     "title": "tg_arima",
-    "description": "All scores for the Daily_Dissolved_oxygen variable for the tg_arima model. Information for the model is provided as follows: The tg_arima model is an AutoRegressive Integrated Moving Average (ARIMA) model fit using\nthe function auto.arima() from the forecast package in R (Hyndman et al. 2023; Hyndman et al., 2008).\nThis is an empirical time series model with no covariates.\n                                    The model predicts this variable at the following sites: TECR, TOMB, TOOK, WALK, WLOU, ARIK, BARC, BIGC, BLDE, BLUE, BLWA, CARI, COMO, CRAM, CUPE, FLNT, GUIL, HOPB, KING, LECO, LEWI, LIRO, MART, MAYF, MCDI, MCRA, OKSR, POSE, PRIN, PRLA, PRPO, REDB, SUGG, SYCA.\n                                    Scores are metrics that describe how well forecasts compare to observations. The scores catalog includes are summaries of the forecasts (i.e., mean, median, confidence intervals), matched observations (if available), and scores (metrics of how well the model distribution compares to observations)",
-    "start_datetime": "2023-01-01",
-    "end_datetime": "2024-02-12",
+    "description": "All scores for the Daily_Dissolved_oxygen variable for the tg_arima model. Information for the model is provided as follows: The tg_arima model is an AutoRegressive Integrated Moving Average (ARIMA) model fit using\nthe function auto.arima() from the forecast package in R (Hyndman et al. 2023; Hyndman et al., 2008).\nThis is an empirical time series model with no covariates.\n                                    The model predicts this variable at the following sites: OKSR, TOOK, PRLA, LIRO, PRPO, CRAM, TOMB, WALK, WLOU, ARIK, BARC, BIGC, BLDE, BLUE, BLWA, CARI, COMO, CUPE, FLNT, GUIL, HOPB, KING, LECO, LEWI, MART, MAYF, MCDI, MCRA, POSE, PRIN, REDB, SUGG, SYCA, TECR.\n                                    Scores are metrics that describe how well forecasts compare to observations. The scores catalog includes are summaries of the forecasts (i.e., mean, median, confidence intervals), matched observations (if available), and scores (metrics of how well the model distribution compares to observations)",
+    "datetime": "2024-08-25T00:00:00Z",
+    "start_datetime": "2022-09-21T00:00:00Z",
+    "end_datetime": "2024-07-28T00:00:00Z",
     "providers": [
       {
-        "url": "aslewis@vt.edu",
+        "url": "https://github.com/eco4cast/Forecast_submissions/blob/main/Generate_forecasts",
         "name": "Abigail Lewis",
         "roles": [
           "producer",
@@ -80,9 +79,13 @@
       "oxygen",
       "Daily",
       "P1D",
-      "TECR",
-      "TOMB",
+      "OKSR",
       "TOOK",
+      "PRLA",
+      "LIRO",
+      "PRPO",
+      "CRAM",
+      "TOMB",
       "WALK",
       "WLOU",
       "ARIK",
@@ -93,7 +96,6 @@
       "BLWA",
       "CARI",
       "COMO",
-      "CRAM",
       "CUPE",
       "FLNT",
       "GUIL",
@@ -101,19 +103,16 @@
       "KING",
       "LECO",
       "LEWI",
-      "LIRO",
       "MART",
       "MAYF",
       "MCDI",
       "MCRA",
-      "OKSR",
       "POSE",
       "PRIN",
-      "PRLA",
-      "PRPO",
       "REDB",
       "SUGG",
-      "SYCA"
+      "SYCA",
+      "TECR"
     ],
     "table:columns": [
       {
@@ -192,14 +191,14 @@
         "description": "upper 10 percentile value of forecast"
       },
       {
-        "name": "project_id",
-        "type": "string",
-        "description": "unique project identifier"
-      },
-      {
         "name": "duration",
         "type": "string",
         "description": "temporal duration of forecast (hourly = PT1H, daily = P1D, etc.); follows ISO 8601 duration convention"
+      },
+      {
+        "name": "model_id",
+        "type": "string",
+        "description": "unique model identifier"
       },
       {
         "name": "variable",
@@ -207,9 +206,9 @@
         "description": "name of forecasted variable"
       },
       {
-        "name": "model_id",
+        "name": "project_id",
         "type": "string",
-        "description": "unique model identifier"
+        "description": "unique project identifier"
       }
     ]
   },
@@ -244,6 +243,18 @@
       "href": "https://github.com/eco4cast/Forecast_submissions/blob/main/Generate_forecasts",
       "type": "text/html",
       "title": "Link for Model Code"
+    },
+    {
+      "rel": "item",
+      "href": "https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Aquatics/Daily_Dissolved_oxygen/models/tg_arima.json",
+      "type": "text/html",
+      "title": "Link for rendered STAC item"
+    },
+    {
+      "rel": "item",
+      "href": "https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Aquatics/Daily_Dissolved_oxygen/models/tg_arima.json",
+      "type": "text/html",
+      "title": "Link for raw JSON file"
     }
   ],
   "assets": {

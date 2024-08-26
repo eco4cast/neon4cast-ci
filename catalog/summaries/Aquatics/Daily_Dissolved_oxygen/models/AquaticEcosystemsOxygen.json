@@ -5,26 +5,25 @@
   ],
   "type": "Feature",
   "id": "AquaticEcosystemsOxygen_oxygen_P1D_summaries",
-  "bbox": [
-    [-105.9154, 29.676, -82.0084, 39.8914]
-  ],
+  "bbox": [-105.9154, 29.676, -82.0084, 39.8914],
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [
       [-82.0084, 29.676],
-      [-102.4471, 39.7582],
-      [-105.9154, 39.8914]
+      [-105.9154, 39.8914],
+      [-102.4471, 39.7582]
     ]
   },
   "properties": {
     "title": "AquaticEcosystemsOxygen",
-    "description": "All summaries for the Daily_Dissolved_oxygen variable for the AquaticEcosystemsOxygen model. Information for the model is provided as follows: Used a Bayesian Dynamic Linear Model using the fit_dlm function from the ecoforecastR package.\n                                    The model predicts this variable at the following sites: BARC, ARIK, WLOU.\n                                    Summaries are the forecasts statistics of the raw forecasts (i.e., mean, median, confidence intervals)",
-    "start_datetime": "2024-04-18",
-    "end_datetime": "2024-07-25",
+    "description": "All summaries for the Daily_Dissolved_oxygen variable for the AquaticEcosystemsOxygen model. Information for the model is provided as follows: Used a Bayesian Dynamic Linear Model using the fit_dlm function from the ecoforecastR package.\n                                    The model predicts this variable at the following sites: BARC, WLOU, ARIK.\n                                    Summaries are the forecasts statistics of the raw forecasts (i.e., mean, median, confidence intervals)",
+    "datetime": "2024-08-26T00:00:00Z",
+    "start_datetime": "2024-04-03T00:00:00Z",
+    "end_datetime": "2024-08-04T00:00:00Z",
     "providers": [
       {
-        "url": "pending",
-        "name": "pending",
+        "url": "https://projects.ecoforecast.org/neon4cast-ci/",
+        "name": "NEON Ecological Forecasting Project",
         "roles": [
           "producer",
           "processor",
@@ -50,8 +49,8 @@
       "Daily",
       "P1D",
       "BARC",
-      "ARIK",
-      "WLOU"
+      "WLOU",
+      "ARIK"
     ],
     "table:columns": [
       {
@@ -167,6 +166,18 @@
       "href": "https://github.com/EcoForecast/AquaticEcosystems",
       "type": "text/html",
       "title": "Link for Model Code"
+    },
+    {
+      "rel": "item",
+      "href": "https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Dissolved_oxygen/models/AquaticEcosystemsOxygen.json",
+      "type": "text/html",
+      "title": "Link for rendered STAC item"
+    },
+    {
+      "rel": "item",
+      "href": "https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Dissolved_oxygen/models/AquaticEcosystemsOxygen.json",
+      "type": "text/html",
+      "title": "Link for raw JSON file"
     }
   ],
   "assets": {

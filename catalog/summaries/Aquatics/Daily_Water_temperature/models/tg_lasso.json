@@ -5,9 +5,7 @@
   ],
   "type": "Feature",
   "id": "tg_lasso_temperature_P1D_summaries",
-  "bbox": [
-    [-149.6106, 18.1135, -66.7987, 68.6698]
-  ],
+  "bbox": [-149.6106, 18.1135, -66.7987, 68.6698],
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [
@@ -50,11 +48,12 @@
   "properties": {
     "title": "tg_lasso",
     "description": "All summaries for the Daily_Water_temperature variable for the tg_lasso model. Information for the model is provided as follows: Lasso is a machine learning model implemented in the same workflow as tg_randfor, but with\ndifferent hyperparameter tuning. The model drivers are unlagged air temperature, air pressure, relative\nhumidity, surface downwelling longwave and shortwave radiation, precipitation, and northward and\neastward wind. Lasso regressions were fitted with the function glmnet() in\nthe package glmnet (Tay et al. 2023), where the regularization hyperparameter (lambda) is tuned and\nselected with 10-fold cross validation..\n                                    The model predicts this variable at the following sites: TOOK, WALK, WLOU, ARIK, BARC, BIGC, BLDE, BLUE, BLWA, CARI, COMO, CRAM, CUPE, FLNT, GUIL, HOPB, KING, LECO, LEWI, LIRO, MART, MAYF, MCDI, MCRA, OKSR, POSE, PRIN, PRLA, PRPO, REDB, SUGG, SYCA, TECR, TOMB.\n                                    Summaries are the forecasts statistics of the raw forecasts (i.e., mean, median, confidence intervals)",
-    "start_datetime": "2023-11-14",
-    "end_datetime": "2024-02-15",
+    "datetime": "2024-08-26T00:00:00Z",
+    "start_datetime": "2023-11-14T00:00:00Z",
+    "end_datetime": "2024-03-04T00:00:00Z",
     "providers": [
       {
-        "url": "aslewis@vt.edu",
+        "url": "https://github.com/eco4cast/Forecast_submissions/blob/main/Generate_forecasts/tg_lasso/forecast_model.RR",
         "name": "Abigail Lewis",
         "roles": [
           "producer",
@@ -229,6 +228,18 @@
       "href": "https://github.com/eco4cast/Forecast_submissions/blob/main/Generate_forecasts/tg_lasso/forecast_model.RR",
       "type": "text/html",
       "title": "Link for Model Code"
+    },
+    {
+      "rel": "item",
+      "href": "https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Water_temperature/models/tg_lasso.json",
+      "type": "text/html",
+      "title": "Link for rendered STAC item"
+    },
+    {
+      "rel": "item",
+      "href": "https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Water_temperature/models/tg_lasso.json",
+      "type": "text/html",
+      "title": "Link for raw JSON file"
     }
   ],
   "assets": {

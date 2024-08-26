@@ -5,12 +5,20 @@
   ],
   "type": "Feature",
   "id": "tg_tbats_richness_P1W_scores",
-  "bbox": [
-    [-156.6194, 17.9696, -66.8687, 71.2824]
-  ],
+  "bbox": [-156.6194, 17.9696, -66.8687, 71.2824],
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [
+      [-103.0293, 40.4619],
+      [-87.3933, 32.9505],
+      [-119.006, 37.0058],
+      [-149.3705, 68.6611],
+      [-89.5857, 45.4937],
+      [-95.1921, 39.0404],
+      [-89.5373, 46.2339],
+      [-99.2413, 47.1282],
+      [-121.9519, 45.8205],
+      [-110.5391, 44.9535],
       [-122.3303, 45.7624],
       [-156.6194, 71.2824],
       [-71.2874, 44.0639],
@@ -36,7 +44,6 @@
       [-109.3883, 38.2483],
       [-105.5824, 40.0543],
       [-100.9154, 46.7697],
-      [-99.0588, 35.4106],
       [-112.4524, 40.1776],
       [-84.2826, 35.9641],
       [-81.9934, 29.6893],
@@ -44,30 +51,22 @@
       [-105.546, 40.2759],
       [-78.1395, 38.8929],
       [-76.56, 38.8901],
-      [-119.7323, 37.1088],
       [-119.2622, 37.0334],
       [-110.8355, 31.9107],
       [-89.5864, 45.5089],
-      [-103.0293, 40.4619],
-      [-87.3933, 32.9505],
-      [-119.006, 37.0058],
-      [-149.3705, 68.6611],
-      [-89.5857, 45.4937],
-      [-95.1921, 39.0404],
-      [-89.5373, 46.2339],
-      [-99.2413, 47.1282],
-      [-121.9519, 45.8205],
-      [-110.5391, 44.9535]
+      [-99.0588, 35.4106],
+      [-119.7323, 37.1088]
     ]
   },
   "properties": {
     "title": "tg_tbats",
-    "description": "All scores for the Weekly_beetle_community_richness variable for the tg_tbats model. Information for the model is provided as follows: The tg_tbats model is a TBATS (Trigonometric seasonality, Box-Cox transformation, ARMA\nerrors, Trend and Seasonal components) model fit using the function tbats() from the forecast package in\nR (Hyndman et al. 2023; Hyndman et al., 2008). This is an empirical time series model with no\ncovariates..\n                                    The model predicts this variable at the following sites: ABBY, BARR, BART, BLAN, BONA, CLBJ, CPER, DCFS, DEJU, DELA, DSNY, GRSM, GUAN, HARV, HEAL, JERC, JORN, KONA, KONZ, LAJA, LENO, MLBS, MOAB, NIWO, NOGP, OAES, ONAQ, ORNL, OSBS, PUUM, RMNP, SCBI, SERC, SJER, SOAP, SRER, STEI, STER, TALL, TEAK, TOOL, TREE, UKFS, UNDE, WOOD, WREF, YELL.\n                                    Scores are metrics that describe how well forecasts compare to observations. The scores catalog includes are summaries of the forecasts (i.e., mean, median, confidence intervals), matched observations (if available), and scores (metrics of how well the model distribution compares to observations)",
-    "start_datetime": "2023-01-02",
-    "end_datetime": "2024-05-13",
+    "description": "All scores for the Weekly_beetle_community_richness variable for the tg_tbats model. Information for the model is provided as follows: The tg_tbats model is a TBATS (Trigonometric seasonality, Box-Cox transformation, ARMA\nerrors, Trend and Seasonal components) model fit using the function tbats() from the forecast package in\nR (Hyndman et al. 2023; Hyndman et al., 2008). This is an empirical time series model with no\ncovariates..\n                                    The model predicts this variable at the following sites: STER, TALL, TEAK, TOOL, TREE, UKFS, UNDE, WOOD, WREF, YELL, ABBY, BARR, BART, BLAN, BONA, CLBJ, CPER, DCFS, DEJU, DELA, DSNY, GRSM, GUAN, HARV, HEAL, JERC, JORN, KONA, KONZ, LAJA, LENO, MLBS, MOAB, NIWO, NOGP, ONAQ, ORNL, OSBS, PUUM, RMNP, SCBI, SERC, SOAP, SRER, STEI, OAES, SJER.\n                                    Scores are metrics that describe how well forecasts compare to observations. The scores catalog includes are summaries of the forecasts (i.e., mean, median, confidence intervals), matched observations (if available), and scores (metrics of how well the model distribution compares to observations)",
+    "datetime": "2024-08-26T00:00:00Z",
+    "start_datetime": "2021-05-17T00:00:00Z",
+    "end_datetime": "2024-07-15T00:00:00Z",
     "providers": [
       {
-        "url": "aslewis@vt.edu",
+        "url": "https://github.com/eco4cast/Forecast_submissions/blob/main/Generate_forecasts",
         "name": "Abigail Lewis",
         "roles": [
           "producer",
@@ -93,6 +92,16 @@
       "richness",
       "Weekly",
       "P1W",
+      "STER",
+      "TALL",
+      "TEAK",
+      "TOOL",
+      "TREE",
+      "UKFS",
+      "UNDE",
+      "WOOD",
+      "WREF",
+      "YELL",
       "ABBY",
       "BARR",
       "BART",
@@ -118,7 +127,6 @@
       "MOAB",
       "NIWO",
       "NOGP",
-      "OAES",
       "ONAQ",
       "ORNL",
       "OSBS",
@@ -126,20 +134,11 @@
       "RMNP",
       "SCBI",
       "SERC",
-      "SJER",
       "SOAP",
       "SRER",
       "STEI",
-      "STER",
-      "TALL",
-      "TEAK",
-      "TOOL",
-      "TREE",
-      "UKFS",
-      "UNDE",
-      "WOOD",
-      "WREF",
-      "YELL"
+      "OAES",
+      "SJER"
     ],
     "table:columns": [
       {
@@ -218,14 +217,14 @@
         "description": "upper 10 percentile value of forecast"
       },
       {
-        "name": "project_id",
-        "type": "string",
-        "description": "unique project identifier"
-      },
-      {
         "name": "duration",
         "type": "string",
         "description": "temporal duration of forecast (hourly = PT1H, daily = P1D, etc.); follows ISO 8601 duration convention"
+      },
+      {
+        "name": "model_id",
+        "type": "string",
+        "description": "unique model identifier"
       },
       {
         "name": "variable",
@@ -233,9 +232,9 @@
         "description": "name of forecasted variable"
       },
       {
-        "name": "model_id",
+        "name": "project_id",
         "type": "string",
-        "description": "unique model identifier"
+        "description": "unique project identifier"
       }
     ]
   },
@@ -270,6 +269,18 @@
       "href": "https://github.com/eco4cast/Forecast_submissions/blob/main/Generate_forecasts",
       "type": "text/html",
       "title": "Link for Model Code"
+    },
+    {
+      "rel": "item",
+      "href": "https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Beetles/Weekly_beetle_community_richness/models/tg_tbats.json",
+      "type": "text/html",
+      "title": "Link for rendered STAC item"
+    },
+    {
+      "rel": "item",
+      "href": "https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Beetles/Weekly_beetle_community_richness/models/tg_tbats.json",
+      "type": "text/html",
+      "title": "Link for raw JSON file"
     }
   ],
   "assets": {

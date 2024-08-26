@@ -5,17 +5,19 @@
   ],
   "type": "Feature",
   "id": "cb_prophet_le_P1D_summaries",
-  "bbox": [
-    [-156.6194, 17.9696, -66.8687, 71.2824]
-  ],
+  "bbox": [-156.6194, 17.9696, -66.8687, 71.2824],
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [
+      [-97.57, 33.4012],
+      [-119.7323, 37.1088],
+      [-112.4524, 40.1776],
       [-81.4362, 28.1251],
       [-78.1395, 38.8929],
       [-109.3883, 38.2483],
       [-155.3173, 19.5531],
       [-66.8687, 17.9696],
+      [-81.9934, 29.6893],
       [-71.2874, 44.0639],
       [-104.7456, 40.8155],
       [-72.1727, 42.5369],
@@ -52,22 +54,19 @@
       [-121.9519, 45.8205],
       [-67.0769, 18.0213],
       [-119.006, 37.0058],
-      [-97.57, 33.4012],
-      [-119.7323, 37.1088],
-      [-81.9934, 29.6893],
-      [-147.5026, 65.154],
-      [-112.4524, 40.1776]
+      [-147.5026, 65.154]
     ]
   },
   "properties": {
     "title": "cb_prophet",
-    "description": "All summaries for the Daily_latent_heat_flux variable for the cb_prophet model. Information for the model is provided as follows: The Prophet model is an empirical model, specifically a non-linear regression model that includes\nseasonality effects (Taylor & Letham, 2018). The model relies on Bayesian estimation with an additive\nwhite noise error term.\n                                    The model predicts this variable at the following sites: DSNY, SCBI, MOAB, PUUM, GUAN, BART, CPER, HARV, UNDE, STER, KONA, TREE, ABBY, LENO, UKFS, DEJU, KONZ, RMNP, BARR, JORN, SOAP, STEI, TALL, DCFS, TOOL, WOOD, OAES, HEAL, SERC, BLAN, GRSM, ORNL, SRER, NOGP, JERC, DELA, MLBS, NIWO, WREF, LAJA, TEAK, CLBJ, SJER, OSBS, BONA, ONAQ.\n                                    Summaries are the forecasts statistics of the raw forecasts (i.e., mean, median, confidence intervals)",
-    "start_datetime": "2023-11-14",
-    "end_datetime": "2024-03-04",
+    "description": "All summaries for the Daily_latent_heat_flux variable for the cb_prophet model. Information for the model is provided as follows: The Prophet model is an empirical model, specifically a non-linear regression model that includes\nseasonality effects (Taylor & Letham, 2018). The model relies on Bayesian estimation with an additive\nwhite noise error term.\n                                    The model predicts this variable at the following sites: CLBJ, SJER, ONAQ, DSNY, SCBI, MOAB, PUUM, GUAN, OSBS, BART, CPER, HARV, UNDE, STER, KONA, TREE, ABBY, LENO, UKFS, DEJU, KONZ, RMNP, BARR, JORN, SOAP, STEI, TALL, DCFS, TOOL, WOOD, OAES, HEAL, SERC, BLAN, GRSM, ORNL, SRER, NOGP, JERC, DELA, MLBS, NIWO, WREF, LAJA, TEAK, BONA.\n                                    Summaries are the forecasts statistics of the raw forecasts (i.e., mean, median, confidence intervals)",
+    "datetime": "2024-08-26T00:00:00Z",
+    "start_datetime": "2023-11-14T00:00:00Z",
+    "end_datetime": "2024-03-04T00:00:00Z",
     "providers": [
       {
-        "url": "cboettig@berkeley.edu",
-        "name": "Carl Boettiger",
+        "url": "https://github.com/cboettig/forecasts-darts-framework",
+        "name": "Quinn Thomas",
         "roles": [
           "producer",
           "processor",
@@ -92,11 +91,15 @@
       "le",
       "Daily",
       "P1D",
+      "CLBJ",
+      "SJER",
+      "ONAQ",
       "DSNY",
       "SCBI",
       "MOAB",
       "PUUM",
       "GUAN",
+      "OSBS",
       "BART",
       "CPER",
       "HARV",
@@ -133,11 +136,7 @@
       "WREF",
       "LAJA",
       "TEAK",
-      "CLBJ",
-      "SJER",
-      "OSBS",
-      "BONA",
-      "ONAQ"
+      "BONA"
     ],
     "table:columns": [
       {
@@ -253,6 +252,18 @@
       "href": "https://github.com/cboettig/forecasts-darts-framework",
       "type": "text/html",
       "title": "Link for Model Code"
+    },
+    {
+      "rel": "item",
+      "href": "https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Terrestrial/Daily_latent_heat_flux/models/cb_prophet.json",
+      "type": "text/html",
+      "title": "Link for rendered STAC item"
+    },
+    {
+      "rel": "item",
+      "href": "https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Terrestrial/Daily_latent_heat_flux/models/cb_prophet.json",
+      "type": "text/html",
+      "title": "Link for raw JSON file"
     }
   ],
   "assets": {

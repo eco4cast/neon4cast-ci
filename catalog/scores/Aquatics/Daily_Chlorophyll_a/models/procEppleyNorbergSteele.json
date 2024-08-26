@@ -5,30 +5,29 @@
   ],
   "type": "Feature",
   "id": "procEppleyNorbergSteele_chla_P1D_scores",
-  "bbox": [
-    [-149.6106, 29.676, -82.0084, 68.6307]
-  ],
+  "bbox": [-149.6106, 29.676, -82.0084, 68.6307],
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [
+      [-82.0177, 29.6878],
+      [-149.6106, 68.6307],
       [-82.0084, 29.676],
       [-89.4737, 46.2097],
       [-89.7048, 45.9983],
       [-99.1139, 47.1591],
-      [-99.2531, 47.1298],
-      [-82.0177, 29.6878],
-      [-149.6106, 68.6307]
+      [-99.2531, 47.1298]
     ]
   },
   "properties": {
     "title": "procEppleyNorbergSteele",
-    "description": "All scores for the Daily_Chlorophyll_a variable for the procEppleyNorbergSteele model. Information for the model is provided as follows: NA.\n                                    The model predicts this variable at the following sites: BARC, CRAM, LIRO, PRLA, PRPO, SUGG, TOOK.\n                                    Scores are metrics that describe how well forecasts compare to observations. The scores catalog includes are summaries of the forecasts (i.e., mean, median, confidence intervals), matched observations (if available), and scores (metrics of how well the model distribution compares to observations)",
-    "start_datetime": "2023-11-13",
-    "end_datetime": "2024-03-06",
+    "description": "All scores for the Daily_Chlorophyll_a variable for the procEppleyNorbergSteele model. Information for the model is provided as follows: NA.\n                                    The model predicts this variable at the following sites: SUGG, TOOK, BARC, CRAM, LIRO, PRLA, PRPO.\n                                    Scores are metrics that describe how well forecasts compare to observations. The scores catalog includes are summaries of the forecasts (i.e., mean, median, confidence intervals), matched observations (if available), and scores (metrics of how well the model distribution compares to observations)",
+    "datetime": "2024-08-26T00:00:00Z",
+    "start_datetime": "2023-01-01T00:00:00Z",
+    "end_datetime": "2024-03-06T00:00:00Z",
     "providers": [
       {
-        "url": "pending",
-        "name": "pending",
+        "url": "https://projects.ecoforecast.org/neon4cast-ci/",
+        "name": "NEON Ecological Forecasting Project",
         "roles": [
           "producer",
           "processor",
@@ -53,13 +52,13 @@
       "chla",
       "Daily",
       "P1D",
+      "SUGG",
+      "TOOK",
       "BARC",
       "CRAM",
       "LIRO",
       "PRLA",
-      "PRPO",
-      "SUGG",
-      "TOOK"
+      "PRPO"
     ],
     "table:columns": [
       {
@@ -138,14 +137,14 @@
         "description": "upper 10 percentile value of forecast"
       },
       {
-        "name": "project_id",
-        "type": "string",
-        "description": "unique project identifier"
-      },
-      {
         "name": "duration",
         "type": "string",
         "description": "temporal duration of forecast (hourly = PT1H, daily = P1D, etc.); follows ISO 8601 duration convention"
+      },
+      {
+        "name": "model_id",
+        "type": "string",
+        "description": "unique model identifier"
       },
       {
         "name": "variable",
@@ -153,9 +152,9 @@
         "description": "name of forecasted variable"
       },
       {
-        "name": "model_id",
+        "name": "project_id",
         "type": "string",
-        "description": "unique model identifier"
+        "description": "unique project identifier"
       }
     ]
   },
@@ -190,6 +189,18 @@
       "href": null,
       "type": "text/html",
       "title": "Link for Model Code"
+    },
+    {
+      "rel": "item",
+      "href": "https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Aquatics/Daily_Chlorophyll_a/models/procEppleyNorbergSteele.json",
+      "type": "text/html",
+      "title": "Link for rendered STAC item"
+    },
+    {
+      "rel": "item",
+      "href": "https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Aquatics/Daily_Chlorophyll_a/models/procEppleyNorbergSteele.json",
+      "type": "text/html",
+      "title": "Link for raw JSON file"
     }
   ],
   "assets": {

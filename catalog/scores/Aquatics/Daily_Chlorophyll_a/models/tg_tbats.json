@@ -5,32 +5,31 @@
   ],
   "type": "Feature",
   "id": "tg_tbats_chla_P1D_scores",
-  "bbox": [
-    [-149.6106, 29.676, -82.0084, 68.6307]
-  ],
+  "bbox": [-149.6106, 29.676, -82.0084, 68.6307],
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [
-      [-82.0084, 29.676],
-      [-87.7982, 32.5415],
-      [-89.4737, 46.2097],
-      [-84.4374, 31.1854],
-      [-89.7048, 45.9983],
       [-99.1139, 47.1591],
       [-99.2531, 47.1298],
       [-82.0177, 29.6878],
       [-88.1589, 31.8534],
-      [-149.6106, 68.6307]
+      [-149.6106, 68.6307],
+      [-82.0084, 29.676],
+      [-87.7982, 32.5415],
+      [-89.4737, 46.2097],
+      [-84.4374, 31.1854],
+      [-89.7048, 45.9983]
     ]
   },
   "properties": {
     "title": "tg_tbats",
-    "description": "All scores for the Daily_Chlorophyll_a variable for the tg_tbats model. Information for the model is provided as follows: The tg_tbats model is a TBATS (Trigonometric seasonality, Box-Cox transformation, ARMA\nerrors, Trend and Seasonal components) model fit using the function tbats() from the forecast package in\nR (Hyndman et al. 2023; Hyndman et al., 2008). This is an empirical time series model with no\ncovariates..\n                                    The model predicts this variable at the following sites: BARC, BLWA, CRAM, FLNT, LIRO, PRLA, PRPO, SUGG, TOMB, TOOK.\n                                    Scores are metrics that describe how well forecasts compare to observations. The scores catalog includes are summaries of the forecasts (i.e., mean, median, confidence intervals), matched observations (if available), and scores (metrics of how well the model distribution compares to observations)",
-    "start_datetime": "2023-01-01",
-    "end_datetime": "2024-02-12",
+    "description": "All scores for the Daily_Chlorophyll_a variable for the tg_tbats model. Information for the model is provided as follows: The tg_tbats model is a TBATS (Trigonometric seasonality, Box-Cox transformation, ARMA\nerrors, Trend and Seasonal components) model fit using the function tbats() from the forecast package in\nR (Hyndman et al. 2023; Hyndman et al., 2008). This is an empirical time series model with no\ncovariates..\n                                    The model predicts this variable at the following sites: PRLA, PRPO, SUGG, TOMB, TOOK, BARC, BLWA, CRAM, FLNT, LIRO.\n                                    Scores are metrics that describe how well forecasts compare to observations. The scores catalog includes are summaries of the forecasts (i.e., mean, median, confidence intervals), matched observations (if available), and scores (metrics of how well the model distribution compares to observations)",
+    "datetime": "2024-08-26T00:00:00Z",
+    "start_datetime": "2022-09-21T00:00:00Z",
+    "end_datetime": "2024-07-27T00:00:00Z",
     "providers": [
       {
-        "url": "aslewis@vt.edu",
+        "url": "https://github.com/eco4cast/Forecast_submissions/blob/main/Generate_forecasts",
         "name": "Abigail Lewis",
         "roles": [
           "producer",
@@ -56,16 +55,16 @@
       "chla",
       "Daily",
       "P1D",
-      "BARC",
-      "BLWA",
-      "CRAM",
-      "FLNT",
-      "LIRO",
       "PRLA",
       "PRPO",
       "SUGG",
       "TOMB",
-      "TOOK"
+      "TOOK",
+      "BARC",
+      "BLWA",
+      "CRAM",
+      "FLNT",
+      "LIRO"
     ],
     "table:columns": [
       {
@@ -144,14 +143,14 @@
         "description": "upper 10 percentile value of forecast"
       },
       {
-        "name": "project_id",
-        "type": "string",
-        "description": "unique project identifier"
-      },
-      {
         "name": "duration",
         "type": "string",
         "description": "temporal duration of forecast (hourly = PT1H, daily = P1D, etc.); follows ISO 8601 duration convention"
+      },
+      {
+        "name": "model_id",
+        "type": "string",
+        "description": "unique model identifier"
       },
       {
         "name": "variable",
@@ -159,9 +158,9 @@
         "description": "name of forecasted variable"
       },
       {
-        "name": "model_id",
+        "name": "project_id",
         "type": "string",
-        "description": "unique model identifier"
+        "description": "unique project identifier"
       }
     ]
   },
@@ -196,6 +195,18 @@
       "href": "https://github.com/eco4cast/Forecast_submissions/blob/main/Generate_forecasts",
       "type": "text/html",
       "title": "Link for Model Code"
+    },
+    {
+      "rel": "item",
+      "href": "https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Aquatics/Daily_Chlorophyll_a/models/tg_tbats.json",
+      "type": "text/html",
+      "title": "Link for rendered STAC item"
+    },
+    {
+      "rel": "item",
+      "href": "https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Aquatics/Daily_Chlorophyll_a/models/tg_tbats.json",
+      "type": "text/html",
+      "title": "Link for raw JSON file"
     }
   ],
   "assets": {

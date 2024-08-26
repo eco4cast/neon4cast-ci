@@ -5,9 +5,7 @@
   ],
   "type": "Feature",
   "id": "USUNEEDAILY_nee_P1D_scores",
-  "bbox": [
-    [-155.3173, 19.5531, -155.3173, 19.5531]
-  ],
+  "bbox": [-155.3173, 19.5531, -155.3173, 19.5531],
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [
@@ -17,11 +15,12 @@
   "properties": {
     "title": "USUNEEDAILY",
     "description": "All scores for the Daily_Net_ecosystem_exchange variable for the USUNEEDAILY model. Information for the model is provided as follows: \"Home brew ARIMA.\" We didn't use a formal time series framework because of all the missing values in both our response variable and the weather covariates. So we used a GAM to fit a seasonal component based on day of year, and we included NEE the previous day as as an AR 1 term. We did some model selection, using cross validation, to identify temperature and relative humidity as weather covariates..\n                                    The model predicts this variable at the following sites: PUUM.\n                                    Scores are metrics that describe how well forecasts compare to observations. The scores catalog includes are summaries of the forecasts (i.e., mean, median, confidence intervals), matched observations (if available), and scores (metrics of how well the model distribution compares to observations)",
-    "start_datetime": "2023-12-12",
-    "end_datetime": "2024-01-16",
+    "datetime": "2024-08-26T00:00:00Z",
+    "start_datetime": "2023-12-12T00:00:00Z",
+    "end_datetime": "2024-01-16T00:00:00Z",
     "providers": [
       {
-        "url": "peter.adler@usu.edu",
+        "url": "https://drive.google.com/file/d/10uvb3HWR0nHOHrBSQTTPc9vZnYgFgbVa/view?usp=sharing",
         "name": "Peter Adler",
         "roles": [
           "producer",
@@ -126,14 +125,14 @@
         "description": "upper 10 percentile value of forecast"
       },
       {
-        "name": "project_id",
-        "type": "string",
-        "description": "unique project identifier"
-      },
-      {
         "name": "duration",
         "type": "string",
         "description": "temporal duration of forecast (hourly = PT1H, daily = P1D, etc.); follows ISO 8601 duration convention"
+      },
+      {
+        "name": "model_id",
+        "type": "string",
+        "description": "unique model identifier"
       },
       {
         "name": "variable",
@@ -141,9 +140,9 @@
         "description": "name of forecasted variable"
       },
       {
-        "name": "model_id",
+        "name": "project_id",
         "type": "string",
-        "description": "unique model identifier"
+        "description": "unique project identifier"
       }
     ]
   },
@@ -178,6 +177,18 @@
       "href": "https://drive.google.com/file/d/10uvb3HWR0nHOHrBSQTTPc9vZnYgFgbVa/view?usp=sharing",
       "type": "text/html",
       "title": "Link for Model Code"
+    },
+    {
+      "rel": "item",
+      "href": "https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Terrestrial/Daily_Net_ecosystem_exchange/models/USUNEEDAILY.json",
+      "type": "text/html",
+      "title": "Link for rendered STAC item"
+    },
+    {
+      "rel": "item",
+      "href": "https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Terrestrial/Daily_Net_ecosystem_exchange/models/USUNEEDAILY.json",
+      "type": "text/html",
+      "title": "Link for raw JSON file"
     }
   ],
   "assets": {

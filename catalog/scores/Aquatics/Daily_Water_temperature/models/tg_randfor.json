@@ -5,23 +5,10 @@
   ],
   "type": "Feature",
   "id": "tg_randfor_temperature_P1D_scores",
-  "bbox": [
-    [-149.6106, 18.1135, -66.7987, 68.6698]
-  ],
+  "bbox": [-149.6106, 18.1135, -66.7987, 68.6698],
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [
-      [-102.4471, 39.7582],
-      [-82.0084, 29.676],
-      [-119.2575, 37.0597],
-      [-110.5871, 44.9501],
-      [-96.6242, 34.4442],
-      [-87.7982, 32.5415],
-      [-147.504, 65.1532],
-      [-105.5442, 40.035],
-      [-89.4737, 46.2097],
-      [-66.9868, 18.1135],
-      [-84.4374, 31.1854],
       [-66.7987, 18.1741],
       [-72.3295, 42.4719],
       [-96.6038, 39.1051],
@@ -44,18 +31,30 @@
       [-88.1589, 31.8534],
       [-149.6106, 68.6307],
       [-84.2793, 35.9574],
-      [-105.9154, 39.8914]
+      [-105.9154, 39.8914],
+      [-102.4471, 39.7582],
+      [-82.0084, 29.676],
+      [-119.2575, 37.0597],
+      [-110.5871, 44.9501],
+      [-96.6242, 34.4442],
+      [-87.7982, 32.5415],
+      [-147.504, 65.1532],
+      [-105.5442, 40.035],
+      [-89.4737, 46.2097],
+      [-66.9868, 18.1135],
+      [-84.4374, 31.1854]
     ]
   },
   "properties": {
     "title": "tg_randfor",
-    "description": "All scores for the Daily_Water_temperature variable for the tg_randfor model. Information for the model is provided as follows: Random Forest is a machine learning model that is fitted with the ranger() function in the ranger\nR package (Wright & Ziegler 2017) within the tidymodels framework (Kuhn & Wickham 2020). The\nmodel drivers are unlagged air temperature, air pressure, relative humidity, surface downwelling\nlongwave and shortwave radiation, precipitation, and northward and eastward wind.\n                                    The model predicts this variable at the following sites: ARIK, BARC, BIGC, BLDE, BLUE, BLWA, CARI, COMO, CRAM, CUPE, FLNT, GUIL, HOPB, KING, LECO, LEWI, LIRO, MART, MAYF, MCDI, MCRA, OKSR, POSE, PRIN, PRLA, PRPO, REDB, SUGG, SYCA, TECR, TOMB, TOOK, WALK, WLOU.\n                                    Scores are metrics that describe how well forecasts compare to observations. The scores catalog includes are summaries of the forecasts (i.e., mean, median, confidence intervals), matched observations (if available), and scores (metrics of how well the model distribution compares to observations)",
-    "start_datetime": "2023-11-14",
-    "end_datetime": "2024-02-15",
+    "description": "All scores for the Daily_Water_temperature variable for the tg_randfor model. Information for the model is provided as follows: Random Forest is a machine learning model that is fitted with the ranger() function in the ranger\nR package (Wright & Ziegler 2017) within the tidymodels framework (Kuhn & Wickham 2020). The\nmodel drivers are unlagged air temperature, air pressure, relative humidity, surface downwelling\nlongwave and shortwave radiation, precipitation, and northward and eastward wind.\n                                    The model predicts this variable at the following sites: GUIL, HOPB, KING, LECO, LEWI, LIRO, MART, MAYF, MCDI, MCRA, OKSR, POSE, PRIN, PRLA, PRPO, REDB, SUGG, SYCA, TECR, TOMB, TOOK, WALK, WLOU, ARIK, BARC, BIGC, BLDE, BLUE, BLWA, CARI, COMO, CRAM, CUPE, FLNT.\n                                    Scores are metrics that describe how well forecasts compare to observations. The scores catalog includes are summaries of the forecasts (i.e., mean, median, confidence intervals), matched observations (if available), and scores (metrics of how well the model distribution compares to observations)",
+    "datetime": "2024-08-26T00:00:00Z",
+    "start_datetime": "2023-01-01T00:00:00Z",
+    "end_datetime": "2024-03-04T00:00:00Z",
     "providers": [
       {
-        "url": "aslewis@vt.edu",
-        "name": "Abigail Lewis",
+        "url": "https://projects.ecoforecast.org/neon4cast-ci/",
+        "name": "NEON Ecological Forecasting Project",
         "roles": [
           "producer",
           "processor",
@@ -80,17 +79,6 @@
       "temperature",
       "Daily",
       "P1D",
-      "ARIK",
-      "BARC",
-      "BIGC",
-      "BLDE",
-      "BLUE",
-      "BLWA",
-      "CARI",
-      "COMO",
-      "CRAM",
-      "CUPE",
-      "FLNT",
       "GUIL",
       "HOPB",
       "KING",
@@ -113,7 +101,18 @@
       "TOMB",
       "TOOK",
       "WALK",
-      "WLOU"
+      "WLOU",
+      "ARIK",
+      "BARC",
+      "BIGC",
+      "BLDE",
+      "BLUE",
+      "BLWA",
+      "CARI",
+      "COMO",
+      "CRAM",
+      "CUPE",
+      "FLNT"
     ],
     "table:columns": [
       {
@@ -192,14 +191,14 @@
         "description": "upper 10 percentile value of forecast"
       },
       {
-        "name": "project_id",
-        "type": "string",
-        "description": "unique project identifier"
-      },
-      {
         "name": "duration",
         "type": "string",
         "description": "temporal duration of forecast (hourly = PT1H, daily = P1D, etc.); follows ISO 8601 duration convention"
+      },
+      {
+        "name": "model_id",
+        "type": "string",
+        "description": "unique model identifier"
       },
       {
         "name": "variable",
@@ -207,9 +206,9 @@
         "description": "name of forecasted variable"
       },
       {
-        "name": "model_id",
+        "name": "project_id",
         "type": "string",
-        "description": "unique model identifier"
+        "description": "unique project identifier"
       }
     ]
   },
@@ -244,6 +243,18 @@
       "href": "https://github.com/eco4cast/Forecast_submissions/blob/main/Generate_forecasts/tg_randfor/train",
       "type": "text/html",
       "title": "Link for Model Code"
+    },
+    {
+      "rel": "item",
+      "href": "https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Aquatics/Daily_Water_temperature/models/tg_randfor.json",
+      "type": "text/html",
+      "title": "Link for rendered STAC item"
+    },
+    {
+      "rel": "item",
+      "href": "https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Aquatics/Daily_Water_temperature/models/tg_randfor.json",
+      "type": "text/html",
+      "title": "Link for raw JSON file"
     }
   ],
   "assets": {

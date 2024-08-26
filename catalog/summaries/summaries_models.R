@@ -66,7 +66,7 @@ stac4cast::build_forecast_scores(table_schema = summaries_theme_df,
                                  about_title = catalog_config$about_title,
                                  theme_title = "Forecast Summaries",
                                  destination_path = catalog_config$summaries_path,
-                                 aws_download_path = catalog_config$summaries_download_path,
+                                 aws_download_path = catalog_config$aws_download_path_summaries,
                                  link_items = stac4cast::generate_group_values(group_values = names(config$variable_groups)),
                                  thumbnail_link = catalog_config$summaries_thumbnail,
                                  thumbnail_title = catalog_config$summaries_thumbnail_title,
@@ -100,7 +100,7 @@ for (i in 1:length(config$variable_groups)){ # LOOP OVER VARIABLE GROUPS -- BUIL
   }
 
   ## REMOVE STALE OR UNUSED DIRECTORIES
-  current_var_path <- paste0(catalog_config$summaries_path,names(config$variable_groups[i]))
+  current_var_path <- paste0(catalog_config$summaries_path,'/',names(config$variable_groups[i]))
   current_var_dirs <- list.dirs(current_var_path, recursive = FALSE, full.names = TRUE)
   unlink(current_var_dirs, recursive = TRUE)
 
@@ -219,6 +219,8 @@ for (i in 1:length(config$variable_groups)){ # LOOP OVER VARIABLE GROUPS -- BUIL
                                        thumbnail_link = config$variable_groups[[i]]$thumbnail_link,
                                        thumbnail_title = "Thumbnail Image",
                                        group_var_vector = NULL,
+                                       single_var_name = var_name,
+                                       group_duration_value = duration_value,
                                        group_sites = find_var_sites$site_id,
                                        citation_values = var_citations,
                                        doi_values = var_doi)
@@ -303,6 +305,17 @@ for (i in 1:length(config$variable_groups)){ # LOOP OVER VARIABLE GROUPS -- BUIL
         model_keywords <- c(list('Summaries',config$project_id, names(config$variable_groups)[i], m, var_name_full[j], var_name, duration_value, duration_name),
                             as.list(model_sites$site_id))
 
+        ## build radiantearth stac and raw json link
+        stac_link <- paste0('https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/',
+                            names(config$variable_groups)[i],'/',
+                            var_formal_name, '/models/',
+                            m,'.json')
+
+        json_link <- paste0('https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/',
+                            names(config$variable_groups)[i],'/',
+                            var_formal_name, '/models/',
+                            m,'.json')
+
         stac4cast::build_model(model_id = m,
                                stac_id = stac_id,
                                team_name = registered_model_id$`Long name of the model (can include spaces)`[idx],
@@ -310,6 +323,7 @@ for (i in 1:length(config$variable_groups)){ # LOOP OVER VARIABLE GROUPS -- BUIL
                                start_date = model_min_date,
                                end_date = model_max_date,
                                var_values = model_vars$var_duration_name,
+                               duration_value = duration_name,
                                duration_names = model_var_duration_df$duration,
                                site_values = model_sites$site_id,
                                site_table = catalog_config$site_metadata_url,
@@ -322,7 +336,9 @@ for (i in 1:length(config$variable_groups)){ # LOOP OVER VARIABLE GROUPS -- BUIL
                                table_description = summaries_description_create,
                                full_var_df = model_vars,
                                code_web_link = model_code_link,
-                               model_keywords = model_keywords)
+                               model_keywords = model_keywords,
+                               stac_web_link = stac_link,
+                               raw_json_link = json_link)
 
         } ## end model loop
 
@@ -348,6 +364,8 @@ for (i in 1:length(config$variable_groups)){ # LOOP OVER VARIABLE GROUPS -- BUIL
                                    thumbnail_link = config$variable_groups[[i]]$thumbnail_link,
                                    thumbnail_title = config$variable_groups[[i]]$thumbnail_title,
                                    group_var_vector = unique(var_values),
+                                   group_duration_value = NULL,
+                                   single_var_name = NULL,
                                    group_sites = find_group_sites$site_id,
                                    citation_values = citation_build,
                                    doi_values = doi_build)

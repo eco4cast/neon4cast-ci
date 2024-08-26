@@ -5,12 +5,18 @@
   ],
   "type": "Feature",
   "id": "persistenceRW_gcc_90_P1D_scores",
-  "bbox": [
-    [-156.6194, 17.9696, -66.8687, 71.2824]
-  ],
+  "bbox": [-156.6194, 17.9696, -66.8687, 71.2824],
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [
+      [-119.006, 37.0058],
+      [-149.3705, 68.6611],
+      [-89.5857, 45.4937],
+      [-95.1921, 39.0404],
+      [-89.5373, 46.2339],
+      [-99.2413, 47.1282],
+      [-121.9519, 45.8205],
+      [-110.5391, 44.9535],
       [-122.3303, 45.7624],
       [-156.6194, 71.2824],
       [-71.2874, 44.0639],
@@ -49,26 +55,19 @@
       [-110.8355, 31.9107],
       [-89.5864, 45.5089],
       [-103.0293, 40.4619],
-      [-87.3933, 32.9505],
-      [-119.006, 37.0058],
-      [-149.3705, 68.6611],
-      [-89.5857, 45.4937],
-      [-95.1921, 39.0404],
-      [-89.5373, 46.2339],
-      [-99.2413, 47.1282],
-      [-121.9519, 45.8205],
-      [-110.5391, 44.9535]
+      [-87.3933, 32.9505]
     ]
   },
   "properties": {
     "title": "persistenceRW",
-    "description": "All scores for the Daily_Green_chromatic_coordinate variable for the persistenceRW model. Information for the model is provided as follows: Random walk from the fable package with ensembles used to represent uncertainty.\n                                    The model predicts this variable at the following sites: ABBY, BARR, BART, BLAN, BONA, CLBJ, CPER, DCFS, DEJU, DELA, DSNY, GRSM, GUAN, HARV, HEAL, JERC, JORN, KONA, KONZ, LAJA, LENO, MLBS, MOAB, NIWO, NOGP, OAES, ONAQ, ORNL, OSBS, PUUM, RMNP, SCBI, SERC, SJER, SOAP, SRER, STEI, STER, TALL, TEAK, TOOL, TREE, UKFS, UNDE, WOOD, WREF, YELL.\n                                    Scores are metrics that describe how well forecasts compare to observations. The scores catalog includes are summaries of the forecasts (i.e., mean, median, confidence intervals), matched observations (if available), and scores (metrics of how well the model distribution compares to observations)",
-    "start_datetime": "2023-11-15",
-    "end_datetime": "2024-06-02",
+    "description": "All scores for the Daily_Green_chromatic_coordinate variable for the persistenceRW model. Information for the model is provided as follows: Random walk from the fable package with ensembles used to represent uncertainty.\n                                    The model predicts this variable at the following sites: TEAK, TOOL, TREE, UKFS, UNDE, WOOD, WREF, YELL, ABBY, BARR, BART, BLAN, BONA, CLBJ, CPER, DCFS, DEJU, DELA, DSNY, GRSM, GUAN, HARV, HEAL, JERC, JORN, KONA, KONZ, LAJA, LENO, MLBS, MOAB, NIWO, NOGP, OAES, ONAQ, ORNL, OSBS, PUUM, RMNP, SCBI, SERC, SJER, SOAP, SRER, STEI, STER, TALL.\n                                    Scores are metrics that describe how well forecasts compare to observations. The scores catalog includes are summaries of the forecasts (i.e., mean, median, confidence intervals), matched observations (if available), and scores (metrics of how well the model distribution compares to observations)",
+    "datetime": "2024-08-26T00:00:00Z",
+    "start_datetime": "2022-08-24T00:00:00Z",
+    "end_datetime": "2024-07-28T00:00:00Z",
     "providers": [
       {
-        "url": "rqthomas@vt.edu",
-        "name": "Quinn Thomas",
+        "url": "https://projects.ecoforecast.org/neon4cast-ci/",
+        "name": "NEON Ecological Forecasting Project",
         "roles": [
           "producer",
           "processor",
@@ -93,6 +92,14 @@
       "gcc_90",
       "Daily",
       "P1D",
+      "TEAK",
+      "TOOL",
+      "TREE",
+      "UKFS",
+      "UNDE",
+      "WOOD",
+      "WREF",
+      "YELL",
       "ABBY",
       "BARR",
       "BART",
@@ -131,15 +138,7 @@
       "SRER",
       "STEI",
       "STER",
-      "TALL",
-      "TEAK",
-      "TOOL",
-      "TREE",
-      "UKFS",
-      "UNDE",
-      "WOOD",
-      "WREF",
-      "YELL"
+      "TALL"
     ],
     "table:columns": [
       {
@@ -218,14 +217,14 @@
         "description": "upper 10 percentile value of forecast"
       },
       {
-        "name": "project_id",
-        "type": "string",
-        "description": "unique project identifier"
-      },
-      {
         "name": "duration",
         "type": "string",
         "description": "temporal duration of forecast (hourly = PT1H, daily = P1D, etc.); follows ISO 8601 duration convention"
+      },
+      {
+        "name": "model_id",
+        "type": "string",
+        "description": "unique model identifier"
       },
       {
         "name": "variable",
@@ -233,9 +232,9 @@
         "description": "name of forecasted variable"
       },
       {
-        "name": "model_id",
+        "name": "project_id",
         "type": "string",
-        "description": "unique model identifier"
+        "description": "unique project identifier"
       }
     ]
   },
@@ -267,9 +266,21 @@
     },
     {
       "rel": "item",
-      "href": "https://github.com/eco4cast/neon4cast-ci/blob/main/baseline_models/models/aquatics_persistenceRW.R",
+      "href": "https://github.com/LTREB-reservoirs/vera4cast/blob/main/models/run_terrestrial_baselines.R",
       "type": "text/html",
       "title": "Link for Model Code"
+    },
+    {
+      "rel": "item",
+      "href": "https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Phenology/Daily_Green_chromatic_coordinate/models/persistenceRW.json",
+      "type": "text/html",
+      "title": "Link for rendered STAC item"
+    },
+    {
+      "rel": "item",
+      "href": "https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Phenology/Daily_Green_chromatic_coordinate/models/persistenceRW.json",
+      "type": "text/html",
+      "title": "Link for raw JSON file"
     }
   ],
   "assets": {
@@ -282,7 +293,7 @@
     "2": {
       "type": "text/html",
       "title": "Link for Model Code",
-      "href": "https://github.com/eco4cast/neon4cast-ci/blob/main/baseline_models/models/aquatics_persistenceRW.R",
+      "href": "https://github.com/LTREB-reservoirs/vera4cast/blob/main/models/run_terrestrial_baselines.R",
       "description": "The link to the model code provided by the model submission team"
     },
     "3": {

@@ -5,9 +5,7 @@
   ],
   "type": "Feature",
   "id": "tg_humidity_lm_abundance_P1W_summaries",
-  "bbox": [
-    [-156.6194, 17.9696, -66.8687, 71.2824]
-  ],
+  "bbox": [-156.6194, 17.9696, -66.8687, 71.2824],
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [
@@ -63,11 +61,12 @@
   "properties": {
     "title": "tg_humidity_lm",
     "description": "All summaries for the Weekly_beetle_community_abundance variable for the tg_humidity_lm model. Information for the model is provided as follows: The tg_humidity_lm model is a linear model fit using the function lm() in R. This is a very simple\nmodel with only one covariate: relative humidity.\n                                    The model predicts this variable at the following sites: ABBY, BARR, BART, BLAN, BONA, CLBJ, CPER, DCFS, DEJU, DELA, DSNY, GRSM, GUAN, HARV, HEAL, JERC, JORN, KONA, KONZ, LAJA, LENO, MLBS, MOAB, NIWO, NOGP, OAES, ONAQ, ORNL, OSBS, PUUM, RMNP, SCBI, SERC, SJER, SOAP, SRER, STEI, STER, TALL, TEAK, TOOL, TREE, UKFS, UNDE, WOOD, WREF, YELL.\n                                    Summaries are the forecasts statistics of the raw forecasts (i.e., mean, median, confidence intervals)",
-    "start_datetime": "2023-11-20",
-    "end_datetime": "2024-02-05",
+    "datetime": "2024-08-26T00:00:00Z",
+    "start_datetime": "2023-11-20T00:00:00Z",
+    "end_datetime": "2024-02-26T00:00:00Z",
     "providers": [
       {
-        "url": "aslewis@vt.edu",
+        "url": "https://github.com/eco4cast/Forecast_submissions/blob/main/Generate_forecasts",
         "name": "Abigail Lewis",
         "roles": [
           "producer",
@@ -255,6 +254,18 @@
       "href": "https://github.com/eco4cast/Forecast_submissions/blob/main/Generate_forecasts",
       "type": "text/html",
       "title": "Link for Model Code"
+    },
+    {
+      "rel": "item",
+      "href": "https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Beetles/Weekly_beetle_community_abundance/models/tg_humidity_lm.json",
+      "type": "text/html",
+      "title": "Link for rendered STAC item"
+    },
+    {
+      "rel": "item",
+      "href": "https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Beetles/Weekly_beetle_community_abundance/models/tg_humidity_lm.json",
+      "type": "text/html",
+      "title": "Link for raw JSON file"
     }
   ],
   "assets": {

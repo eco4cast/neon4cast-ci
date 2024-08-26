@@ -5,9 +5,7 @@
   ],
   "type": "Feature",
   "id": "bookcast_forest_nee_P1D_summaries",
-  "bbox": [
-    [-87.3933, 29.6893, -81.9934, 32.9505]
-  ],
+  "bbox": [-87.3933, 29.6893, -81.9934, 32.9505],
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [
@@ -18,11 +16,12 @@
   "properties": {
     "title": "bookcast_forest",
     "description": "All summaries for the Daily_Net_ecosystem_exchange variable for the bookcast_forest model. Information for the model is provided as follows: A simple daily timestep process-based model of a terrestrial carbon cycle.  It includes leaves, wood, and soil pools.  It uses a light-use efficiency GPP model to convert PAR to carbon. The model is derived from https://github.com/mdietze/FluxCourseForecast..\n                                    The model predicts this variable at the following sites: TALL, OSBS.\n                                    Summaries are the forecasts statistics of the raw forecasts (i.e., mean, median, confidence intervals)",
-    "start_datetime": "2024-01-10",
-    "end_datetime": "2024-07-12",
+    "datetime": "2024-08-26T00:00:00Z",
+    "start_datetime": "2024-01-10T00:00:00Z",
+    "end_datetime": "2024-07-12T00:00:00Z",
     "providers": [
       {
-        "url": "rqthomas@vt.edu",
+        "url": "https://github.com/frec-5174/frec-5174-docs",
         "name": "Quinn Thomas",
         "roles": [
           "producer",
@@ -165,6 +164,18 @@
       "href": "https://github.com/frec-5174/frec-5174-docs",
       "type": "text/html",
       "title": "Link for Model Code"
+    },
+    {
+      "rel": "item",
+      "href": "https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Terrestrial/Daily_Net_ecosystem_exchange/models/bookcast_forest.json",
+      "type": "text/html",
+      "title": "Link for rendered STAC item"
+    },
+    {
+      "rel": "item",
+      "href": "https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Terrestrial/Daily_Net_ecosystem_exchange/models/bookcast_forest.json",
+      "type": "text/html",
+      "title": "Link for raw JSON file"
     }
   ],
   "assets": {

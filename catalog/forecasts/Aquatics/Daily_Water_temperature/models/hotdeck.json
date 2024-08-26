@@ -5,9 +5,7 @@
   ],
   "type": "Feature",
   "id": "hotdeck_temperature_P1D_forecast",
-  "bbox": [
-    [-147.504, 18.1135, -66.7987, 65.1532]
-  ],
+  "bbox": [-147.504, 18.1135, -66.7987, 65.1532],
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [
@@ -16,6 +14,7 @@
       [-88.1589, 31.8534],
       [-87.7982, 32.5415],
       [-84.4374, 31.1854],
+      [-122.1655, 44.2596],
       [-96.6038, 39.1051],
       [-111.5081, 33.751],
       [-78.1473, 38.8943],
@@ -23,7 +22,6 @@
       [-87.4077, 32.9604],
       [-77.9832, 39.0956],
       [-83.5038, 35.6904],
-      [-122.1655, 44.2596],
       [-102.4471, 39.7582],
       [-72.3295, 42.4719],
       [-111.7979, 40.7839],
@@ -45,12 +43,13 @@
   },
   "properties": {
     "title": "hotdeck",
-    "description": "All forecasts for the Daily_Water_temperature variable for the hotdeck model. Information for the model is provided as follows: Uses a hot deck approach: - Take the latest observation/forecast. - Past observations from around the same window of the season are collected. - Values close to the latest observation/forecast are collected. - One of these is randomly sampled. - Its \"tomorrow\" observation is used as the forecast. - Repeat until forecast at step h..\n                                    The model predicts this variable at the following sites: BARC, SUGG, TOMB, BLWA, FLNT, KING, SYCA, POSE, PRIN, MAYF, LEWI, LECO, MCRA, ARIK, HOPB, REDB, TECR, BLDE, COMO, WLOU, CRAM, CARI, BIGC, BLUE, CUPE, GUIL, WALK, LIRO, PRLA, PRPO.\n                                    Forecasts are the raw forecasts that includes all ensemble members or distribution parameters. Due to the size of the raw forecasts, we recommend accessing the forecast summaries or scores to analyze forecasts (unless you need the individual ensemble members)",
-    "start_datetime": "2024-02-28",
-    "end_datetime": "2024-07-27",
+    "description": "All forecasts for the Daily_Water_temperature variable for the hotdeck model. Information for the model is provided as follows: Uses a hot deck approach: - Take the latest observation/forecast. - Past observations from around the same window of the season are collected. - Values close to the latest observation/forecast are collected. - One of these is randomly sampled. - Its \"tomorrow\" observation is used as the forecast. - Repeat until forecast at step h..\n                                    The model predicts this variable at the following sites: BARC, SUGG, TOMB, BLWA, FLNT, MCRA, KING, SYCA, POSE, PRIN, MAYF, LEWI, LECO, ARIK, HOPB, REDB, TECR, BLDE, COMO, WLOU, CRAM, CARI, BIGC, BLUE, CUPE, GUIL, WALK, LIRO, PRLA, PRPO.\n                                    Forecasts are the raw forecasts that includes all ensemble members or distribution parameters. Due to the size of the raw forecasts, we recommend accessing the forecast summaries or scores to analyze forecasts (unless you need the individual ensemble members)",
+    "datetime": "2024-08-26T00:00:00Z",
+    "start_datetime": "2024-02-28T00:00:00Z",
+    "end_datetime": "2024-09-21T00:00:00Z",
     "providers": [
       {
-        "url": "swpease@gmail.com",
+        "url": "https://github.com/swpease/hotdeckfc",
         "name": "Scott Pease",
         "roles": [
           "producer",
@@ -81,6 +80,7 @@
       "TOMB",
       "BLWA",
       "FLNT",
+      "MCRA",
       "KING",
       "SYCA",
       "POSE",
@@ -88,7 +88,6 @@
       "MAYF",
       "LEWI",
       "LECO",
-      "MCRA",
       "ARIK",
       "HOPB",
       "REDB",
@@ -144,9 +143,14 @@
         "description": "datetime that forecast was submitted"
       },
       {
-        "name": "date",
-        "type": "date32[day]",
-        "description": {}
+        "name": "duration",
+        "type": "string",
+        "description": "temporal duration of forecast (hourly, daily, etc.); follows ISO 8601 duration convention"
+      },
+      {
+        "name": "model_id",
+        "type": "string",
+        "description": "unique model identifier"
       },
       {
         "name": "project_id",
@@ -154,19 +158,9 @@
         "description": "unique identifier for the forecast project"
       },
       {
-        "name": "duration",
-        "type": "string",
-        "description": "temporal duration of forecast (hourly, daily, etc.); follows ISO 8601 duration convention"
-      },
-      {
         "name": "variable",
         "type": "string",
         "description": "name of forecasted variable"
-      },
-      {
-        "name": "model_id",
-        "type": "string",
-        "description": "unique model identifier"
       }
     ]
   },
@@ -201,6 +195,18 @@
       "href": "https://github.com/swpease/hotdeckfc",
       "type": "text/html",
       "title": "Link for Model Code"
+    },
+    {
+      "rel": "item",
+      "href": "https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/Aquatics/Daily_Water_temperature/models/hotdeck.json",
+      "type": "text/html",
+      "title": "Link for rendered STAC item"
+    },
+    {
+      "rel": "item",
+      "href": "https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/Aquatics/Daily_Water_temperature/models/hotdeck.json",
+      "type": "text/html",
+      "title": "Link for raw JSON file"
     }
   ],
   "assets": {

@@ -5,9 +5,7 @@
   ],
   "type": "Feature",
   "id": "procEppleyNorbergMonod_chla_P1D_summaries",
-  "bbox": [
-    [-149.6106, 29.676, -82.0084, 68.6307]
-  ],
+  "bbox": [-149.6106, 29.676, -82.0084, 68.6307],
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [
@@ -23,12 +21,13 @@
   "properties": {
     "title": "procEppleyNorbergMonod",
     "description": "All summaries for the Daily_Chlorophyll_a variable for the procEppleyNorbergMonod model. Information for the model is provided as follows: NA.\n                                    The model predicts this variable at the following sites: BARC, CRAM, LIRO, PRLA, PRPO, SUGG, TOOK.\n                                    Summaries are the forecasts statistics of the raw forecasts (i.e., mean, median, confidence intervals)",
-    "start_datetime": "2023-11-13",
-    "end_datetime": "2024-03-06",
+    "datetime": "2024-08-26T00:00:00Z",
+    "start_datetime": "2023-11-13T00:00:00Z",
+    "end_datetime": "2024-03-06T00:00:00Z",
     "providers": [
       {
-        "url": "pending",
-        "name": "pending",
+        "url": "https://projects.ecoforecast.org/neon4cast-ci/",
+        "name": "NEON Ecological Forecasting Project",
         "roles": [
           "producer",
           "processor",
@@ -175,6 +174,18 @@
       "href": null,
       "type": "text/html",
       "title": "Link for Model Code"
+    },
+    {
+      "rel": "item",
+      "href": "https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Chlorophyll_a/models/procEppleyNorbergMonod.json",
+      "type": "text/html",
+      "title": "Link for rendered STAC item"
+    },
+    {
+      "rel": "item",
+      "href": "https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Chlorophyll_a/models/procEppleyNorbergMonod.json",
+      "type": "text/html",
+      "title": "Link for raw JSON file"
     }
   ],
   "assets": {

@@ -5,9 +5,7 @@
   ],
   "type": "Feature",
   "id": "fARIMA_clim_ensemble_temperature_P1D_summaries",
-  "bbox": [
-    [-149.6106, 18.1135, -66.7987, 68.6698]
-  ],
+  "bbox": [-149.6106, 18.1135, -66.7987, 68.6698],
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [
@@ -40,8 +38,8 @@
       [-89.4737, 46.2097],
       [-111.5081, 33.751],
       [-89.7048, 45.9983],
-      [-99.2531, 47.1298],
       [-99.1139, 47.1591],
+      [-99.2531, 47.1298],
       [-147.504, 65.1532],
       [-149.143, 68.6698],
       [-149.6106, 68.6307]
@@ -49,12 +47,13 @@
   },
   "properties": {
     "title": "fARIMA_clim_ensemble",
-    "description": "All summaries for the Daily_Water_temperature variable for the fARIMA_clim_ensemble model. Information for the model is provided as follows: The fAMIRA-DOY MME is a multi-model ensemble (MME) composed of two empirical\nmodels: an ARIMA model (fARIMA) and day-of-year model.\n                                    The model predicts this variable at the following sites: LECO, LEWI, MART, MAYF, MCDI, MCRA, COMO, CUPE, GUIL, HOPB, KING, ARIK, BARC, BLUE, BLWA, WALK, WLOU, POSE, PRIN, REDB, SUGG, TECR, TOMB, BIGC, BLDE, FLNT, CRAM, SYCA, LIRO, PRPO, PRLA, CARI, OKSR, TOOK.\n                                    Summaries are the forecasts statistics of the raw forecasts (i.e., mean, median, confidence intervals)",
-    "start_datetime": "2023-11-10",
-    "end_datetime": "2024-07-25",
+    "description": "All summaries for the Daily_Water_temperature variable for the fARIMA_clim_ensemble model. Information for the model is provided as follows: The fAMIRA-DOY MME is a multi-model ensemble (MME) composed of two empirical\nmodels: an ARIMA model (fARIMA) and day-of-year model.\n                                    The model predicts this variable at the following sites: LECO, LEWI, MART, MAYF, MCDI, MCRA, COMO, CUPE, GUIL, HOPB, KING, ARIK, BARC, BLUE, BLWA, WALK, WLOU, POSE, PRIN, REDB, SUGG, TECR, TOMB, BIGC, BLDE, FLNT, CRAM, SYCA, LIRO, PRLA, PRPO, CARI, OKSR, TOOK.\n                                    Summaries are the forecasts statistics of the raw forecasts (i.e., mean, median, confidence intervals)",
+    "datetime": "2024-08-26T00:00:00Z",
+    "start_datetime": "2023-11-10T00:00:00Z",
+    "end_datetime": "2024-08-02T00:00:00Z",
     "providers": [
       {
-        "url": "freyao@vt.edu",
+        "url": "https://github.com/OlssonF/NEON-simple-baselines/blob/main/Models/fARIMA_clim_ensemble.R",
         "name": "Freya Olsson",
         "roles": [
           "producer",
@@ -109,8 +108,8 @@
       "CRAM",
       "SYCA",
       "LIRO",
-      "PRPO",
       "PRLA",
+      "PRPO",
       "CARI",
       "OKSR",
       "TOOK"
@@ -229,6 +228,18 @@
       "href": "https://github.com/OlssonF/NEON-simple-baselines/blob/main/Models/fARIMA_clim_ensemble.R",
       "type": "text/html",
       "title": "Link for Model Code"
+    },
+    {
+      "rel": "item",
+      "href": "https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Water_temperature/models/fARIMA_clim_ensemble.json",
+      "type": "text/html",
+      "title": "Link for rendered STAC item"
+    },
+    {
+      "rel": "item",
+      "href": "https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Water_temperature/models/fARIMA_clim_ensemble.json",
+      "type": "text/html",
+      "title": "Link for raw JSON file"
     }
   ],
   "assets": {

@@ -5,15 +5,11 @@
   ],
   "type": "Feature",
   "id": "air2waterSat_2_temperature_P1D_summaries",
-  "bbox": [
-    [-149.6106, 18.1135, -66.7987, 68.6698]
-  ],
+  "bbox": [-149.6106, 18.1135, -66.7987, 68.6698],
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [
-      [-149.6106, 68.6307],
-      [-84.2793, 35.9574],
-      [-105.9154, 39.8914],
+      [-77.9832, 39.0956],
       [-89.7048, 45.9983],
       [-121.9338, 45.7908],
       [-87.4077, 32.9604],
@@ -44,17 +40,20 @@
       [-72.3295, 42.4719],
       [-96.6038, 39.1051],
       [-83.5038, 35.6904],
-      [-77.9832, 39.0956]
+      [-149.6106, 68.6307],
+      [-84.2793, 35.9574],
+      [-105.9154, 39.8914]
     ]
   },
   "properties": {
     "title": "air2waterSat_2",
-    "description": "All summaries for the Daily_Water_temperature variable for the air2waterSat_2 model. Information for the model is provided as follows: The air2water model is a linear model fit using the function lm() in R and uses air temperature as\na covariate.\n                                    The model predicts this variable at the following sites: TOOK, WALK, WLOU, LIRO, MART, MAYF, MCDI, MCRA, OKSR, POSE, PRIN, PRLA, PRPO, REDB, SUGG, SYCA, TECR, TOMB, ARIK, BARC, BIGC, BLDE, BLUE, BLWA, CARI, COMO, CRAM, CUPE, FLNT, GUIL, HOPB, KING, LECO, LEWI.\n                                    Summaries are the forecasts statistics of the raw forecasts (i.e., mean, median, confidence intervals)",
-    "start_datetime": "2023-11-14",
-    "end_datetime": "2024-03-05",
+    "description": "All summaries for the Daily_Water_temperature variable for the air2waterSat_2 model. Information for the model is provided as follows: The air2water model is a linear model fit using the function lm() in R and uses air temperature as\na covariate.\n                                    The model predicts this variable at the following sites: LEWI, LIRO, MART, MAYF, MCDI, MCRA, OKSR, POSE, PRIN, PRLA, PRPO, REDB, SUGG, SYCA, TECR, TOMB, ARIK, BARC, BIGC, BLDE, BLUE, BLWA, CARI, COMO, CRAM, CUPE, FLNT, GUIL, HOPB, KING, LECO, TOOK, WALK, WLOU.\n                                    Summaries are the forecasts statistics of the raw forecasts (i.e., mean, median, confidence intervals)",
+    "datetime": "2024-08-26T00:00:00Z",
+    "start_datetime": "2023-11-14T00:00:00Z",
+    "end_datetime": "2024-03-05T00:00:00Z",
     "providers": [
       {
-        "url": "freyao@vt.edu",
+        "url": "https://github.com/rqthomas/neon4cast-example/blob/main/forecast_model.R",
         "name": "Freya Olsson",
         "roles": [
           "producer",
@@ -80,9 +79,7 @@
       "temperature",
       "Daily",
       "P1D",
-      "TOOK",
-      "WALK",
-      "WLOU",
+      "LEWI",
       "LIRO",
       "MART",
       "MAYF",
@@ -113,7 +110,9 @@
       "HOPB",
       "KING",
       "LECO",
-      "LEWI"
+      "TOOK",
+      "WALK",
+      "WLOU"
     ],
     "table:columns": [
       {
@@ -229,6 +228,18 @@
       "href": "https://github.com/rqthomas/neon4cast-example/blob/main/forecast_model.R",
       "type": "text/html",
       "title": "Link for Model Code"
+    },
+    {
+      "rel": "item",
+      "href": "https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Water_temperature/models/air2waterSat_2.json",
+      "type": "text/html",
+      "title": "Link for rendered STAC item"
+    },
+    {
+      "rel": "item",
+      "href": "https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Water_temperature/models/air2waterSat_2.json",
+      "type": "text/html",
+      "title": "Link for raw JSON file"
     }
   ],
   "assets": {

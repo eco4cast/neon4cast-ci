@@ -5,12 +5,25 @@
   ],
   "type": "Feature",
   "id": "tg_lasso_richness_P1W_scores",
-  "bbox": [
-    [-155.3173, 17.9696, -66.8687, 65.154]
-  ],
+  "bbox": [-155.3173, 17.9696, -66.8687, 65.154],
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [
+      [-78.1395, 38.8929],
+      [-76.56, 38.8901],
+      [-119.7323, 37.1088],
+      [-119.2622, 37.0334],
+      [-110.8355, 31.9107],
+      [-89.5864, 45.5089],
+      [-103.0293, 40.4619],
+      [-87.3933, 32.9505],
+      [-119.006, 37.0058],
+      [-89.5857, 45.4937],
+      [-95.1921, 39.0404],
+      [-89.5373, 46.2339],
+      [-99.2413, 47.1282],
+      [-121.9519, 45.8205],
+      [-110.5391, 44.9535],
       [-122.3303, 45.7624],
       [-71.2874, 44.0639],
       [-78.0418, 39.0337],
@@ -40,32 +53,18 @@
       [-84.2826, 35.9641],
       [-81.9934, 29.6893],
       [-155.3173, 19.5531],
-      [-105.546, 40.2759],
-      [-78.1395, 38.8929],
-      [-76.56, 38.8901],
-      [-119.7323, 37.1088],
-      [-119.2622, 37.0334],
-      [-110.8355, 31.9107],
-      [-89.5864, 45.5089],
-      [-103.0293, 40.4619],
-      [-87.3933, 32.9505],
-      [-119.006, 37.0058],
-      [-89.5857, 45.4937],
-      [-95.1921, 39.0404],
-      [-89.5373, 46.2339],
-      [-99.2413, 47.1282],
-      [-121.9519, 45.8205],
-      [-110.5391, 44.9535]
+      [-105.546, 40.2759]
     ]
   },
   "properties": {
     "title": "tg_lasso",
-    "description": "All scores for the Weekly_beetle_community_richness variable for the tg_lasso model. Information for the model is provided as follows: Lasso is a machine learning model implemented in the same workflow as tg_randfor, but with\ndifferent hyperparameter tuning. The model drivers are unlagged air temperature, air pressure, relative\nhumidity, surface downwelling longwave and shortwave radiation, precipitation, and northward and\neastward wind. Lasso regressions were fitted with the function glmnet() in\nthe package glmnet (Tay et al. 2023), where the regularization hyperparameter (lambda) is tuned and\nselected with 10-fold cross validation..\n                                    The model predicts this variable at the following sites: ABBY, BART, BLAN, BONA, CLBJ, CPER, DCFS, DEJU, DELA, DSNY, GRSM, GUAN, HARV, HEAL, JERC, JORN, KONA, KONZ, LAJA, LENO, MLBS, MOAB, NIWO, NOGP, OAES, ONAQ, ORNL, OSBS, PUUM, RMNP, SCBI, SERC, SJER, SOAP, SRER, STEI, STER, TALL, TEAK, TREE, UKFS, UNDE, WOOD, WREF, YELL.\n                                    Scores are metrics that describe how well forecasts compare to observations. The scores catalog includes are summaries of the forecasts (i.e., mean, median, confidence intervals), matched observations (if available), and scores (metrics of how well the model distribution compares to observations)",
-    "start_datetime": "2023-11-20",
-    "end_datetime": "2024-02-05",
+    "description": "All scores for the Weekly_beetle_community_richness variable for the tg_lasso model. Information for the model is provided as follows: Lasso is a machine learning model implemented in the same workflow as tg_randfor, but with\ndifferent hyperparameter tuning. The model drivers are unlagged air temperature, air pressure, relative\nhumidity, surface downwelling longwave and shortwave radiation, precipitation, and northward and\neastward wind. Lasso regressions were fitted with the function glmnet() in\nthe package glmnet (Tay et al. 2023), where the regularization hyperparameter (lambda) is tuned and\nselected with 10-fold cross validation..\n                                    The model predicts this variable at the following sites: SCBI, SERC, SJER, SOAP, SRER, STEI, STER, TALL, TEAK, TREE, UKFS, UNDE, WOOD, WREF, YELL, ABBY, BART, BLAN, BONA, CLBJ, CPER, DCFS, DEJU, DELA, DSNY, GRSM, GUAN, HARV, HEAL, JERC, JORN, KONA, KONZ, LAJA, LENO, MLBS, MOAB, NIWO, NOGP, OAES, ONAQ, ORNL, OSBS, PUUM, RMNP.\n                                    Scores are metrics that describe how well forecasts compare to observations. The scores catalog includes are summaries of the forecasts (i.e., mean, median, confidence intervals), matched observations (if available), and scores (metrics of how well the model distribution compares to observations)",
+    "datetime": "2024-08-26T00:00:00Z",
+    "start_datetime": "2022-12-26T00:00:00Z",
+    "end_datetime": "2024-02-26T00:00:00Z",
     "providers": [
       {
-        "url": "aslewis@vt.edu",
+        "url": "https://github.com/eco4cast/Forecast_submissions/blob/main/Generate_forecasts/tg_lasso/forecast_model.RR",
         "name": "Abigail Lewis",
         "roles": [
           "producer",
@@ -91,6 +90,21 @@
       "richness",
       "Weekly",
       "P1W",
+      "SCBI",
+      "SERC",
+      "SJER",
+      "SOAP",
+      "SRER",
+      "STEI",
+      "STER",
+      "TALL",
+      "TEAK",
+      "TREE",
+      "UKFS",
+      "UNDE",
+      "WOOD",
+      "WREF",
+      "YELL",
       "ABBY",
       "BART",
       "BLAN",
@@ -120,22 +134,7 @@
       "ORNL",
       "OSBS",
       "PUUM",
-      "RMNP",
-      "SCBI",
-      "SERC",
-      "SJER",
-      "SOAP",
-      "SRER",
-      "STEI",
-      "STER",
-      "TALL",
-      "TEAK",
-      "TREE",
-      "UKFS",
-      "UNDE",
-      "WOOD",
-      "WREF",
-      "YELL"
+      "RMNP"
     ],
     "table:columns": [
       {
@@ -214,14 +213,14 @@
         "description": "upper 10 percentile value of forecast"
       },
       {
-        "name": "project_id",
-        "type": "string",
-        "description": "unique project identifier"
-      },
-      {
         "name": "duration",
         "type": "string",
         "description": "temporal duration of forecast (hourly = PT1H, daily = P1D, etc.); follows ISO 8601 duration convention"
+      },
+      {
+        "name": "model_id",
+        "type": "string",
+        "description": "unique model identifier"
       },
       {
         "name": "variable",
@@ -229,9 +228,9 @@
         "description": "name of forecasted variable"
       },
       {
-        "name": "model_id",
+        "name": "project_id",
         "type": "string",
-        "description": "unique model identifier"
+        "description": "unique project identifier"
       }
     ]
   },
@@ -266,6 +265,18 @@
       "href": "https://github.com/eco4cast/Forecast_submissions/blob/main/Generate_forecasts/tg_lasso/forecast_model.RR",
       "type": "text/html",
       "title": "Link for Model Code"
+    },
+    {
+      "rel": "item",
+      "href": "https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Beetles/Weekly_beetle_community_richness/models/tg_lasso.json",
+      "type": "text/html",
+      "title": "Link for rendered STAC item"
+    },
+    {
+      "rel": "item",
+      "href": "https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Beetles/Weekly_beetle_community_richness/models/tg_lasso.json",
+      "type": "text/html",
+      "title": "Link for raw JSON file"
     }
   ],
   "assets": {

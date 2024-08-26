@@ -5,22 +5,25 @@
   ],
   "type": "Feature",
   "id": "fTSLM_lag_chla_P1D_scores",
-  "bbox": [
-    ["Inf", "Inf", "-Inf", "-Inf"]
-  ],
+  "bbox": [-88.1589, 31.1854, -84.4374, 32.5415],
   "geometry": {
     "type": "MultiPoint",
-    "coordinates": []
+    "coordinates": [
+      [-87.7982, 32.5415],
+      [-84.4374, 31.1854],
+      [-88.1589, 31.8534]
+    ]
   },
   "properties": {
     "title": "fTSLM_lag",
-    "description": "This page includes scores for the Daily_Chlorophyll_a variable for the fTSLM_lag model. Information for the model is provided as follows: This is a simple time series linear model in which water temperature is a function of air\ntemperature of that day and the previous day’s air temperature.\n                                    The model predicts this variable at the following sites: .\n                                    Scores are metrics that describe how well forecasts compare to observations. The scores catalog includes are summaries of the forecasts (i.e., mean, median, confidence intervals), matched observations (if available), and scores (metrics of how well the model distribution compares to observations). We provide the code to access the scores data as an asset",
-    "start_datetime": "Inf",
-    "end_datetime": "-Inf",
+    "description": "All scores for the Daily_Chlorophyll_a variable for the fTSLM_lag model. Information for the model is provided as follows: This is a simple time series linear model in which water temperature is a function of air\ntemperature of that day and the previous day’s air temperature.\n                                    The model predicts this variable at the following sites: BLWA, FLNT, TOMB.\n                                    Scores are metrics that describe how well forecasts compare to observations. The scores catalog includes are summaries of the forecasts (i.e., mean, median, confidence intervals), matched observations (if available), and scores (metrics of how well the model distribution compares to observations)",
+    "datetime": "2024-08-26T00:00:00Z",
+    "start_datetime": "2022-11-22T00:00:00Z",
+    "end_datetime": "2023-01-07T00:00:00Z",
     "providers": [
       {
-        "url": "pending",
-        "name": "pending",
+        "url": "https://github.com/OlssonF/NEON-simple-baselines/blob/main/Models/ARIMA_model.R",
+        "name": "Joseph Rabaey",
         "roles": [
           "producer",
           "processor",
@@ -43,14 +46,13 @@
       "fTSLM_lag",
       "Chlorophyll_a",
       "chla",
-      "Daily"
+      "Daily",
+      "P1D",
+      "BLWA",
+      "FLNT",
+      "TOMB"
     ],
     "table:columns": [
-      {
-        "name": "20 columns",
-        "type": null,
-        "description": {}
-      },
       {
         "name": "reference_datetime",
         "type": "timestamp[us, tz=UTC]",
@@ -127,14 +129,14 @@
         "description": "upper 10 percentile value of forecast"
       },
       {
-        "name": "project_id",
-        "type": "string",
-        "description": "unique project identifier"
-      },
-      {
         "name": "duration",
         "type": "string",
         "description": "temporal duration of forecast (hourly = PT1H, daily = P1D, etc.); follows ISO 8601 duration convention"
+      },
+      {
+        "name": "model_id",
+        "type": "string",
+        "description": "unique model identifier"
       },
       {
         "name": "variable",
@@ -142,9 +144,9 @@
         "description": "name of forecasted variable"
       },
       {
-        "name": "model_id",
+        "name": "project_id",
         "type": "string",
-        "description": "unique model identifier"
+        "description": "unique project identifier"
       }
     ]
   },
@@ -179,6 +181,18 @@
       "href": "https://github.com/OlssonF/NEON-simple-baselines/blob/main/Models/ARIMA_model.R",
       "type": "text/html",
       "title": "Link for Model Code"
+    },
+    {
+      "rel": "item",
+      "href": "https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Aquatics/Daily_Chlorophyll_a/models/fTSLM_lag.json",
+      "type": "text/html",
+      "title": "Link for rendered STAC item"
+    },
+    {
+      "rel": "item",
+      "href": "https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Aquatics/Daily_Chlorophyll_a/models/fTSLM_lag.json",
+      "type": "text/html",
+      "title": "Link for raw JSON file"
     }
   ],
   "assets": {
@@ -196,15 +210,9 @@
     },
     "3": {
       "type": "application/x-parquet",
-      "title": "Database Access for NA",
-      "href": "s3://anonymous@bio230014-bucket01/challenges/scores/parquet/project_id=NA/duration=NA/variable=NA/model_id=fTSLM_lag?endpoint_override=sdsc.osn.xsede.org",
-      "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(\"s3://anonymous@bio230014-bucket01/challenges/scores/parquet/project_id=NA/duration=NA/variable=NA/model_id=fTSLM_lag?endpoint_override=sdsc.osn.xsede.org\")\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
-    },
-    "4": {
-      "type": "application/x-parquet",
-      "title": "Database Access for ",
-      "href": "s3://anonymous@bio230014-bucket01/challenges/scores/parquet/project_id=/duration=/variable=/model_id=fTSLM_lag?endpoint_override=sdsc.osn.xsede.org",
-      "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(\"s3://anonymous@bio230014-bucket01/challenges/scores/parquet/project_id=/duration=/variable=/model_id=fTSLM_lag?endpoint_override=sdsc.osn.xsede.org\")\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
+      "title": "Database Access for Daily Chlorophyll_a",
+      "href": "s3://anonymous@bio230014-bucket01/challenges/scores/parquet/project_id=neon4cast/duration=P1D/variable=chla/model_id=fTSLM_lag?endpoint_override=sdsc.osn.xsede.org",
+      "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(\"s3://anonymous@bio230014-bucket01/challenges/scores/parquet/project_id=neon4cast/duration=P1D/variable=chla/model_id=fTSLM_lag?endpoint_override=sdsc.osn.xsede.org\")\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
     }
   }
 }

@@ -5,16 +5,17 @@
   ],
   "type": "Feature",
   "id": "climatology_le_PT30M_summaries",
-  "bbox": [
-    [-156.6194, 17.9696, -66.8687, 71.2824]
-  ],
+  "bbox": [-156.6194, 17.9696, -66.8687, 71.2824],
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [
+      [-76.56, 38.8901],
       [-119.7323, 37.1088],
       [-119.2622, 37.0334],
       [-110.8355, 31.9107],
       [-89.5864, 45.5089],
+      [-103.0293, 40.4619],
+      [-87.3933, 32.9505],
       [-119.006, 37.0058],
       [-149.3705, 68.6611],
       [-89.5857, 45.4937],
@@ -26,8 +27,6 @@
       [-122.3303, 45.7624],
       [-156.6194, 71.2824],
       [-71.2874, 44.0639],
-      [-103.0293, 40.4619],
-      [-87.3933, 32.9505],
       [-78.0418, 39.0337],
       [-147.5026, 65.154],
       [-97.57, 33.4012],
@@ -45,6 +44,8 @@
       [-96.6129, 39.1104],
       [-96.5631, 39.1008],
       [-67.0769, 18.0213],
+      [-78.1395, 38.8929],
+      [-105.546, 40.2759],
       [-88.1612, 31.8539],
       [-80.5248, 37.3783],
       [-109.3883, 38.2483],
@@ -54,21 +55,19 @@
       [-112.4524, 40.1776],
       [-84.2826, 35.9641],
       [-81.9934, 29.6893],
-      [-155.3173, 19.5531],
-      [-105.546, 40.2759],
-      [-78.1395, 38.8929],
-      [-76.56, 38.8901]
+      [-155.3173, 19.5531]
     ]
   },
   "properties": {
     "title": "climatology",
-    "description": "All summaries for the 30min_latent_heat_flux variable for the climatology model. Information for the model is provided as follows: Historical DOY mean and sd.  Assumes normal distribution.\n                                    The model predicts this variable at the following sites: SJER, SOAP, SRER, STEI, TEAK, TOOL, TREE, UKFS, UNDE, WOOD, WREF, YELL, ABBY, BARR, BART, STER, TALL, BLAN, BONA, CLBJ, CPER, DCFS, DEJU, DELA, DSNY, GRSM, GUAN, HARV, HEAL, JERC, JORN, KONA, KONZ, LAJA, LENO, MLBS, MOAB, NIWO, NOGP, OAES, ONAQ, ORNL, OSBS, PUUM, RMNP, SCBI, SERC.\n                                    Summaries are the forecasts statistics of the raw forecasts (i.e., mean, median, confidence intervals)",
-    "start_datetime": "2023-11-14",
-    "end_datetime": "2024-01-09",
+    "description": "All summaries for the 30min_latent_heat_flux variable for the climatology model. Information for the model is provided as follows: Historical DOY mean and sd.  Assumes normal distribution.\n                                    The model predicts this variable at the following sites: SERC, SJER, SOAP, SRER, STEI, STER, TALL, TEAK, TOOL, TREE, UKFS, UNDE, WOOD, WREF, YELL, ABBY, BARR, BART, BLAN, BONA, CLBJ, CPER, DCFS, DEJU, DELA, DSNY, GRSM, GUAN, HARV, HEAL, JERC, JORN, KONA, KONZ, LAJA, SCBI, RMNP, LENO, MLBS, MOAB, NIWO, NOGP, OAES, ONAQ, ORNL, OSBS, PUUM.\n                                    Summaries are the forecasts statistics of the raw forecasts (i.e., mean, median, confidence intervals)",
+    "datetime": "2024-08-26T00:00:00Z",
+    "start_datetime": "2023-11-14T00:00:00Z",
+    "end_datetime": "2024-01-09T00:00:00Z",
     "providers": [
       {
-        "url": "rqthomas@vt.edu",
-        "name": "Quinn Thomas",
+        "url": "https://github.com/eco4cast/neon4cast-ci/blob/main/baseline_models/models/aquatics_persistenceRW.R",
+        "name": "Freya Olsson",
         "roles": [
           "producer",
           "processor",
@@ -93,10 +92,13 @@
       "le",
       "30min",
       "PT30M",
+      "SERC",
       "SJER",
       "SOAP",
       "SRER",
       "STEI",
+      "STER",
+      "TALL",
       "TEAK",
       "TOOL",
       "TREE",
@@ -108,8 +110,6 @@
       "ABBY",
       "BARR",
       "BART",
-      "STER",
-      "TALL",
       "BLAN",
       "BONA",
       "CLBJ",
@@ -127,6 +127,8 @@
       "KONA",
       "KONZ",
       "LAJA",
+      "SCBI",
+      "RMNP",
       "LENO",
       "MLBS",
       "MOAB",
@@ -136,10 +138,7 @@
       "ONAQ",
       "ORNL",
       "OSBS",
-      "PUUM",
-      "RMNP",
-      "SCBI",
-      "SERC"
+      "PUUM"
     ],
     "table:columns": [
       {
@@ -255,6 +254,18 @@
       "href": "https://github.com/eco4cast/neon4cast-ci/blob/main/baseline_models/models/aquatics_persistenceRW.R",
       "type": "text/html",
       "title": "Link for Model Code"
+    },
+    {
+      "rel": "item",
+      "href": "https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Terrestrial/30min_latent_heat_flux/models/climatology.json",
+      "type": "text/html",
+      "title": "Link for rendered STAC item"
+    },
+    {
+      "rel": "item",
+      "href": "https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Terrestrial/30min_latent_heat_flux/models/climatology.json",
+      "type": "text/html",
+      "title": "Link for raw JSON file"
     }
   ],
   "assets": {

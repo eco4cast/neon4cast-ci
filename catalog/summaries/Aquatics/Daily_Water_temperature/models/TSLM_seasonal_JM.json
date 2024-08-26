@@ -5,9 +5,7 @@
   ],
   "type": "Feature",
   "id": "TSLM_seasonal_JM_temperature_P1D_summaries",
-  "bbox": [
-    [-149.6106, 29.676, -82.0084, 68.6307]
-  ],
+  "bbox": [-149.6106, 29.676, -82.0084, 68.6307],
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [
@@ -23,12 +21,13 @@
   "properties": {
     "title": "TSLM_seasonal_JM",
     "description": "All summaries for the Daily_Water_temperature variable for the TSLM_seasonal_JM model. Information for the model is provided as follows: My model uses the fable package TSLM, and uses built in exogenous regressors to represent the trend and seasonality of the data as well as air temperature to predict water temperature..\n                                    The model predicts this variable at the following sites: BARC, CRAM, LIRO, PRLA, PRPO, SUGG, TOOK.\n                                    Summaries are the forecasts statistics of the raw forecasts (i.e., mean, median, confidence intervals)",
-    "start_datetime": "2024-02-29",
-    "end_datetime": "2024-06-02",
+    "datetime": "2024-08-26T00:00:00Z",
+    "start_datetime": "2024-02-29T00:00:00Z",
+    "end_datetime": "2024-06-02T00:00:00Z",
     "providers": [
       {
-        "url": "pending",
-        "name": "pending",
+        "url": "https://projects.ecoforecast.org/neon4cast-ci/",
+        "name": "NEON Ecological Forecasting Project",
         "roles": [
           "producer",
           "processor",
@@ -175,6 +174,18 @@
       "href": "https://github.com/jcmorgan7VT/NEON-forecast-challenge-workshop/blob/main/troubleshoot.Rmd",
       "type": "text/html",
       "title": "Link for Model Code"
+    },
+    {
+      "rel": "item",
+      "href": "https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Water_temperature/models/TSLM_seasonal_JM.json",
+      "type": "text/html",
+      "title": "Link for rendered STAC item"
+    },
+    {
+      "rel": "item",
+      "href": "https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Water_temperature/models/TSLM_seasonal_JM.json",
+      "type": "text/html",
+      "title": "Link for raw JSON file"
     }
   ],
   "assets": {

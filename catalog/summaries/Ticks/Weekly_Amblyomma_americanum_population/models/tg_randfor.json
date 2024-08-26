@@ -5,9 +5,7 @@
   ],
   "type": "Feature",
   "id": "tg_randfor_amblyomma_americanum_P1W_summaries",
-  "bbox": [
-    [-96.5631, 29.6893, -76.56, 39.1008]
-  ],
+  "bbox": [-96.5631, 29.6893, -76.56, 39.1008],
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [
@@ -24,12 +22,13 @@
   "properties": {
     "title": "tg_randfor",
     "description": "All summaries for the Weekly_Amblyomma_americanum_population variable for the tg_randfor model. Information for the model is provided as follows: Random Forest is a machine learning model that is fitted with the ranger() function in the ranger\nR package (Wright & Ziegler 2017) within the tidymodels framework (Kuhn & Wickham 2020). The\nmodel drivers are unlagged air temperature, air pressure, relative humidity, surface downwelling\nlongwave and shortwave radiation, precipitation, and northward and eastward wind.\n                                    The model predicts this variable at the following sites: BLAN, KONZ, ORNL, OSBS, SCBI, SERC, TALL, UKFS.\n                                    Summaries are the forecasts statistics of the raw forecasts (i.e., mean, median, confidence intervals)",
-    "start_datetime": "2023-11-19",
-    "end_datetime": "2024-02-09",
+    "datetime": "2024-08-26T00:00:00Z",
+    "start_datetime": "2023-11-19T00:00:00Z",
+    "end_datetime": "2024-03-01T00:00:00Z",
     "providers": [
       {
-        "url": "aslewis@vt.edu",
-        "name": "Abigail Lewis",
+        "url": "https://projects.ecoforecast.org/neon4cast-ci/",
+        "name": "NEON Ecological Forecasting Project",
         "roles": [
           "producer",
           "processor",
@@ -177,6 +176,18 @@
       "href": "https://github.com/eco4cast/Forecast_submissions/blob/main/Generate_forecasts/tg_randfor/train",
       "type": "text/html",
       "title": "Link for Model Code"
+    },
+    {
+      "rel": "item",
+      "href": "https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Ticks/Weekly_Amblyomma_americanum_population/models/tg_randfor.json",
+      "type": "text/html",
+      "title": "Link for rendered STAC item"
+    },
+    {
+      "rel": "item",
+      "href": "https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Ticks/Weekly_Amblyomma_americanum_population/models/tg_randfor.json",
+      "type": "text/html",
+      "title": "Link for raw JSON file"
     }
   ],
   "assets": {

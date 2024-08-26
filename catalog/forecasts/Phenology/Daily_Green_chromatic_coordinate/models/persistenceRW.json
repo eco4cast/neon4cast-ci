@@ -5,9 +5,7 @@
   ],
   "type": "Feature",
   "id": "persistenceRW_gcc_90_P1D_forecast",
-  "bbox": [
-    [-156.6194, 17.9696, -66.8687, 71.2824]
-  ],
+  "bbox": [-156.6194, 17.9696, -66.8687, 71.2824],
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [
@@ -63,12 +61,13 @@
   "properties": {
     "title": "persistenceRW",
     "description": "All forecasts for the Daily_Green_chromatic_coordinate variable for the persistenceRW model. Information for the model is provided as follows: Random walk from the fable package with ensembles used to represent uncertainty.\n                                    The model predicts this variable at the following sites: DELA, DSNY, GRSM, GUAN, HARV, HEAL, BONA, CLBJ, CPER, DCFS, DEJU, SJER, SOAP, SRER, STEI, STER, TALL, NOGP, OAES, ONAQ, ORNL, OSBS, TEAK, TOOL, TREE, UKFS, UNDE, LAJA, LENO, MLBS, MOAB, NIWO, PUUM, RMNP, SCBI, SERC, WOOD, WREF, YELL, ABBY, BARR, BART, BLAN, JERC, JORN, KONA, KONZ.\n                                    Forecasts are the raw forecasts that includes all ensemble members or distribution parameters. Due to the size of the raw forecasts, we recommend accessing the forecast summaries or scores to analyze forecasts (unless you need the individual ensemble members)",
-    "start_datetime": "2023-11-15",
-    "end_datetime": "2024-07-31",
+    "datetime": "2024-08-26T00:00:00Z",
+    "start_datetime": "2023-11-15T00:00:00Z",
+    "end_datetime": "2024-08-06T00:00:00Z",
     "providers": [
       {
-        "url": "rqthomas@vt.edu",
-        "name": "Quinn Thomas",
+        "url": "https://projects.ecoforecast.org/neon4cast-ci/",
+        "name": "NEON Ecological Forecasting Project",
         "roles": [
           "producer",
           "processor",
@@ -178,9 +177,14 @@
         "description": "datetime that forecast was submitted"
       },
       {
-        "name": "date",
-        "type": "date32[day]",
-        "description": {}
+        "name": "duration",
+        "type": "string",
+        "description": "temporal duration of forecast (hourly, daily, etc.); follows ISO 8601 duration convention"
+      },
+      {
+        "name": "model_id",
+        "type": "string",
+        "description": "unique model identifier"
       },
       {
         "name": "project_id",
@@ -188,19 +192,9 @@
         "description": "unique identifier for the forecast project"
       },
       {
-        "name": "duration",
-        "type": "string",
-        "description": "temporal duration of forecast (hourly, daily, etc.); follows ISO 8601 duration convention"
-      },
-      {
         "name": "variable",
         "type": "string",
         "description": "name of forecasted variable"
-      },
-      {
-        "name": "model_id",
-        "type": "string",
-        "description": "unique model identifier"
       }
     ]
   },
@@ -232,9 +226,21 @@
     },
     {
       "rel": "item",
-      "href": "https://github.com/eco4cast/neon4cast-ci/blob/main/baseline_models/models/aquatics_persistenceRW.R",
+      "href": "https://github.com/LTREB-reservoirs/vera4cast/blob/main/models/run_terrestrial_baselines.R",
       "type": "text/html",
       "title": "Link for Model Code"
+    },
+    {
+      "rel": "item",
+      "href": "https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/Phenology/Daily_Green_chromatic_coordinate/models/persistenceRW.json",
+      "type": "text/html",
+      "title": "Link for rendered STAC item"
+    },
+    {
+      "rel": "item",
+      "href": "https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/Phenology/Daily_Green_chromatic_coordinate/models/persistenceRW.json",
+      "type": "text/html",
+      "title": "Link for raw JSON file"
     }
   ],
   "assets": {
@@ -247,7 +253,7 @@
     "2": {
       "type": "text/html",
       "title": "Link for Model Code",
-      "href": "https://github.com/eco4cast/neon4cast-ci/blob/main/baseline_models/models/aquatics_persistenceRW.R",
+      "href": "https://github.com/LTREB-reservoirs/vera4cast/blob/main/models/run_terrestrial_baselines.R",
       "description": "The link to the model code provided by the model submission team"
     },
     "3": {

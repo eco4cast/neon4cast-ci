@@ -5,31 +5,30 @@
   ],
   "type": "Feature",
   "id": "tg_arima_amblyomma_americanum_P1W_forecast",
-  "bbox": [
-    [-96.5631, 29.6893, -76.56, 39.1008]
-  ],
+  "bbox": [-96.5631, 29.6893, -76.56, 39.1008],
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [
-      [-78.0418, 39.0337],
-      [-96.5631, 39.1008],
-      [-88.1612, 31.8539],
       [-84.2826, 35.9641],
       [-81.9934, 29.6893],
       [-78.1395, 38.8929],
       [-76.56, 38.8901],
       [-87.3933, 32.9505],
-      [-95.1921, 39.0404]
+      [-95.1921, 39.0404],
+      [-78.0418, 39.0337],
+      [-96.5631, 39.1008],
+      [-88.1612, 31.8539]
     ]
   },
   "properties": {
     "title": "tg_arima",
-    "description": "All forecasts for the Weekly_Amblyomma_americanum_population variable for the tg_arima model. Information for the model is provided as follows: The tg_arima model is an AutoRegressive Integrated Moving Average (ARIMA) model fit using\nthe function auto.arima() from the forecast package in R (Hyndman et al. 2023; Hyndman et al., 2008).\nThis is an empirical time series model with no covariates.\n                                    The model predicts this variable at the following sites: BLAN, KONZ, LENO, ORNL, OSBS, SCBI, SERC, TALL, UKFS.\n                                    Forecasts are the raw forecasts that includes all ensemble members or distribution parameters. Due to the size of the raw forecasts, we recommend accessing the forecast summaries or scores to analyze forecasts (unless you need the individual ensemble members)",
-    "start_datetime": "2023-02-13",
-    "end_datetime": "2024-12-30",
+    "description": "All forecasts for the Weekly_Amblyomma_americanum_population variable for the tg_arima model. Information for the model is provided as follows: The tg_arima model is an AutoRegressive Integrated Moving Average (ARIMA) model fit using\nthe function auto.arima() from the forecast package in R (Hyndman et al. 2023; Hyndman et al., 2008).\nThis is an empirical time series model with no covariates.\n                                    The model predicts this variable at the following sites: ORNL, OSBS, SCBI, SERC, TALL, UKFS, BLAN, KONZ, LENO.\n                                    Forecasts are the raw forecasts that includes all ensemble members or distribution parameters. Due to the size of the raw forecasts, we recommend accessing the forecast summaries or scores to analyze forecasts (unless you need the individual ensemble members)",
+    "datetime": "2024-08-26T00:00:00Z",
+    "start_datetime": "2023-02-13T00:00:00Z",
+    "end_datetime": "2025-06-23T00:00:00Z",
     "providers": [
       {
-        "url": "aslewis@vt.edu",
+        "url": "https://github.com/eco4cast/Forecast_submissions/blob/main/Generate_forecasts",
         "name": "Abigail Lewis",
         "roles": [
           "producer",
@@ -55,15 +54,15 @@
       "amblyomma_americanum",
       "Weekly",
       "P1W",
-      "BLAN",
-      "KONZ",
-      "LENO",
       "ORNL",
       "OSBS",
       "SCBI",
       "SERC",
       "TALL",
-      "UKFS"
+      "UKFS",
+      "BLAN",
+      "KONZ",
+      "LENO"
     ],
     "table:columns": [
       {
@@ -102,9 +101,14 @@
         "description": "datetime that forecast was submitted"
       },
       {
-        "name": "date",
-        "type": "date32[day]",
-        "description": {}
+        "name": "duration",
+        "type": "string",
+        "description": "temporal duration of forecast (hourly, daily, etc.); follows ISO 8601 duration convention"
+      },
+      {
+        "name": "model_id",
+        "type": "string",
+        "description": "unique model identifier"
       },
       {
         "name": "project_id",
@@ -112,19 +116,9 @@
         "description": "unique identifier for the forecast project"
       },
       {
-        "name": "duration",
-        "type": "string",
-        "description": "temporal duration of forecast (hourly, daily, etc.); follows ISO 8601 duration convention"
-      },
-      {
         "name": "variable",
         "type": "string",
         "description": "name of forecasted variable"
-      },
-      {
-        "name": "model_id",
-        "type": "string",
-        "description": "unique model identifier"
       }
     ]
   },
@@ -159,6 +153,18 @@
       "href": "https://github.com/eco4cast/Forecast_submissions/blob/main/Generate_forecasts",
       "type": "text/html",
       "title": "Link for Model Code"
+    },
+    {
+      "rel": "item",
+      "href": "https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/Ticks/Weekly_Amblyomma_americanum_population/models/tg_arima.json",
+      "type": "text/html",
+      "title": "Link for rendered STAC item"
+    },
+    {
+      "rel": "item",
+      "href": "https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/Ticks/Weekly_Amblyomma_americanum_population/models/tg_arima.json",
+      "type": "text/html",
+      "title": "Link for raw JSON file"
     }
   ],
   "assets": {

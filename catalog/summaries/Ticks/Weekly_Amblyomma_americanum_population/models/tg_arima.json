@@ -5,9 +5,7 @@
   ],
   "type": "Feature",
   "id": "tg_arima_amblyomma_americanum_P1W_summaries",
-  "bbox": [
-    [-96.5631, 29.6893, -76.56, 39.1008]
-  ],
+  "bbox": [-96.5631, 29.6893, -76.56, 39.1008],
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [
@@ -25,11 +23,12 @@
   "properties": {
     "title": "tg_arima",
     "description": "All summaries for the Weekly_Amblyomma_americanum_population variable for the tg_arima model. Information for the model is provided as follows: The tg_arima model is an AutoRegressive Integrated Moving Average (ARIMA) model fit using\nthe function auto.arima() from the forecast package in R (Hyndman et al. 2023; Hyndman et al., 2008).\nThis is an empirical time series model with no covariates.\n                                    The model predicts this variable at the following sites: BLAN, KONZ, LENO, ORNL, OSBS, SCBI, SERC, TALL, UKFS.\n                                    Summaries are the forecasts statistics of the raw forecasts (i.e., mean, median, confidence intervals)",
-    "start_datetime": "2023-02-13",
-    "end_datetime": "2024-12-30",
+    "datetime": "2024-08-26T00:00:00Z",
+    "start_datetime": "2023-02-13T00:00:00Z",
+    "end_datetime": "2025-06-23T00:00:00Z",
     "providers": [
       {
-        "url": "aslewis@vt.edu",
+        "url": "https://github.com/eco4cast/Forecast_submissions/blob/main/Generate_forecasts",
         "name": "Abigail Lewis",
         "roles": [
           "producer",
@@ -179,6 +178,18 @@
       "href": "https://github.com/eco4cast/Forecast_submissions/blob/main/Generate_forecasts",
       "type": "text/html",
       "title": "Link for Model Code"
+    },
+    {
+      "rel": "item",
+      "href": "https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Ticks/Weekly_Amblyomma_americanum_population/models/tg_arima.json",
+      "type": "text/html",
+      "title": "Link for rendered STAC item"
+    },
+    {
+      "rel": "item",
+      "href": "https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Ticks/Weekly_Amblyomma_americanum_population/models/tg_arima.json",
+      "type": "text/html",
+      "title": "Link for raw JSON file"
     }
   ],
   "assets": {

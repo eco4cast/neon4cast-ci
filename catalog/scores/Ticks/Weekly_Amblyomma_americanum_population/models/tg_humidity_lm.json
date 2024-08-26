@@ -5,22 +5,31 @@
   ],
   "type": "Feature",
   "id": "tg_humidity_lm_amblyomma_americanum_P1W_scores",
-  "bbox": [
-    ["Inf", "Inf", "-Inf", "-Inf"]
-  ],
+  "bbox": [-96.5631, 29.6893, -76.56, 39.1008],
   "geometry": {
     "type": "MultiPoint",
-    "coordinates": []
+    "coordinates": [
+      [-78.0418, 39.0337],
+      [-96.5631, 39.1008],
+      [-88.1612, 31.8539],
+      [-84.2826, 35.9641],
+      [-81.9934, 29.6893],
+      [-78.1395, 38.8929],
+      [-76.56, 38.8901],
+      [-87.3933, 32.9505],
+      [-95.1921, 39.0404]
+    ]
   },
   "properties": {
     "title": "tg_humidity_lm",
-    "description": "This page includes scores for the Weekly_Amblyomma_americanum_population variable for the tg_humidity_lm model. Information for the model is provided as follows: The tg_humidity_lm model is a linear model fit using the function lm() in R. This is a very simple\nmodel with only one covariate: relative humidity.\n                                    The model predicts this variable at the following sites: .\n                                    Scores are metrics that describe how well forecasts compare to observations. The scores catalog includes are summaries of the forecasts (i.e., mean, median, confidence intervals), matched observations (if available), and scores (metrics of how well the model distribution compares to observations). We provide the code to access the scores data as an asset",
-    "start_datetime": "Inf",
-    "end_datetime": "-Inf",
+    "description": "All scores for the Weekly_Amblyomma_americanum_population variable for the tg_humidity_lm model. Information for the model is provided as follows: The tg_humidity_lm model is a linear model fit using the function lm() in R. This is a very simple\nmodel with only one covariate: relative humidity.\n                                    The model predicts this variable at the following sites: BLAN, KONZ, LENO, ORNL, OSBS, SCBI, SERC, TALL, UKFS.\n                                    Scores are metrics that describe how well forecasts compare to observations. The scores catalog includes are summaries of the forecasts (i.e., mean, median, confidence intervals), matched observations (if available), and scores (metrics of how well the model distribution compares to observations)",
+    "datetime": "2024-08-26T00:00:00Z",
+    "start_datetime": "2023-01-02T00:00:00Z",
+    "end_datetime": "2023-12-25T00:00:00Z",
     "providers": [
       {
-        "url": "pending",
-        "name": "pending",
+        "url": "https://github.com/eco4cast/Forecast_submissions/blob/main/Generate_forecasts",
+        "name": "Abigail Lewis",
         "roles": [
           "producer",
           "processor",
@@ -43,14 +52,19 @@
       "tg_humidity_lm",
       "Amblyomma_americanum_population",
       "amblyomma_americanum",
-      "Weekly"
+      "Weekly",
+      "P1W",
+      "BLAN",
+      "KONZ",
+      "LENO",
+      "ORNL",
+      "OSBS",
+      "SCBI",
+      "SERC",
+      "TALL",
+      "UKFS"
     ],
     "table:columns": [
-      {
-        "name": "20 columns",
-        "type": null,
-        "description": {}
-      },
       {
         "name": "reference_datetime",
         "type": "timestamp[us, tz=UTC]",
@@ -127,14 +141,14 @@
         "description": "upper 10 percentile value of forecast"
       },
       {
-        "name": "project_id",
-        "type": "string",
-        "description": "unique project identifier"
-      },
-      {
         "name": "duration",
         "type": "string",
         "description": "temporal duration of forecast (hourly = PT1H, daily = P1D, etc.); follows ISO 8601 duration convention"
+      },
+      {
+        "name": "model_id",
+        "type": "string",
+        "description": "unique model identifier"
       },
       {
         "name": "variable",
@@ -142,9 +156,9 @@
         "description": "name of forecasted variable"
       },
       {
-        "name": "model_id",
+        "name": "project_id",
         "type": "string",
-        "description": "unique model identifier"
+        "description": "unique project identifier"
       }
     ]
   },
@@ -179,6 +193,18 @@
       "href": "https://github.com/eco4cast/Forecast_submissions/blob/main/Generate_forecasts",
       "type": "text/html",
       "title": "Link for Model Code"
+    },
+    {
+      "rel": "item",
+      "href": "https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Ticks/Weekly_Amblyomma_americanum_population/models/tg_humidity_lm.json",
+      "type": "text/html",
+      "title": "Link for rendered STAC item"
+    },
+    {
+      "rel": "item",
+      "href": "https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Ticks/Weekly_Amblyomma_americanum_population/models/tg_humidity_lm.json",
+      "type": "text/html",
+      "title": "Link for raw JSON file"
     }
   ],
   "assets": {
@@ -196,15 +222,9 @@
     },
     "3": {
       "type": "application/x-parquet",
-      "title": "Database Access for NA",
-      "href": "s3://anonymous@bio230014-bucket01/challenges/scores/parquet/project_id=NA/duration=NA/variable=NA/model_id=tg_humidity_lm?endpoint_override=sdsc.osn.xsede.org",
-      "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(\"s3://anonymous@bio230014-bucket01/challenges/scores/parquet/project_id=NA/duration=NA/variable=NA/model_id=tg_humidity_lm?endpoint_override=sdsc.osn.xsede.org\")\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
-    },
-    "4": {
-      "type": "application/x-parquet",
-      "title": "Database Access for ",
-      "href": "s3://anonymous@bio230014-bucket01/challenges/scores/parquet/project_id=/duration=/variable=/model_id=tg_humidity_lm?endpoint_override=sdsc.osn.xsede.org",
-      "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(\"s3://anonymous@bio230014-bucket01/challenges/scores/parquet/project_id=/duration=/variable=/model_id=tg_humidity_lm?endpoint_override=sdsc.osn.xsede.org\")\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
+      "title": "Database Access for Weekly Amblyomma_americanum_population",
+      "href": "s3://anonymous@bio230014-bucket01/challenges/scores/parquet/project_id=neon4cast/duration=P1W/variable=amblyomma_americanum/model_id=tg_humidity_lm?endpoint_override=sdsc.osn.xsede.org",
+      "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(\"s3://anonymous@bio230014-bucket01/challenges/scores/parquet/project_id=neon4cast/duration=P1W/variable=amblyomma_americanum/model_id=tg_humidity_lm?endpoint_override=sdsc.osn.xsede.org\")\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
     }
   }
 }

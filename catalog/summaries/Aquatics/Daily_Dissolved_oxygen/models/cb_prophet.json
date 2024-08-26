@@ -5,12 +5,14 @@
   ],
   "type": "Feature",
   "id": "cb_prophet_oxygen_P1D_summaries",
-  "bbox": [
-    [-147.504, 18.1135, -66.7987, 65.1532]
-  ],
+  "bbox": [-147.504, 18.1135, -66.7987, 65.1532],
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [
+      [-102.4471, 39.7582],
+      [-82.0084, 29.676],
+      [-119.2575, 37.0597],
+      [-110.5871, 44.9501],
       [-96.6242, 34.4442],
       [-87.7982, 32.5415],
       [-147.504, 65.1532],
@@ -30,8 +32,6 @@
       [-122.1655, 44.2596],
       [-78.1473, 38.8943],
       [-97.7823, 33.3785],
-      [-99.1139, 47.1591],
-      [-99.2531, 47.1298],
       [-111.7979, 40.7839],
       [-82.0177, 29.6878],
       [-111.5081, 33.751],
@@ -39,21 +39,20 @@
       [-88.1589, 31.8534],
       [-84.2793, 35.9574],
       [-105.9154, 39.8914],
-      [-102.4471, 39.7582],
-      [-82.0084, 29.676],
-      [-119.2575, 37.0597],
-      [-110.5871, 44.9501]
+      [-99.1139, 47.1591],
+      [-99.2531, 47.1298]
     ]
   },
   "properties": {
     "title": "cb_prophet",
-    "description": "All summaries for the Daily_Dissolved_oxygen variable for the cb_prophet model. Information for the model is provided as follows: The Prophet model is an empirical model, specifically a non-linear regression model that includes\nseasonality effects (Taylor & Letham, 2018). The model relies on Bayesian estimation with an additive\nwhite noise error term.\n                                    The model predicts this variable at the following sites: BLUE, BLWA, CARI, COMO, CRAM, CUPE, FLNT, GUIL, HOPB, KING, LECO, LEWI, LIRO, MART, MAYF, MCDI, MCRA, POSE, PRIN, PRLA, PRPO, REDB, SUGG, SYCA, TECR, TOMB, WALK, WLOU, ARIK, BARC, BIGC, BLDE.\n                                    Summaries are the forecasts statistics of the raw forecasts (i.e., mean, median, confidence intervals)",
-    "start_datetime": "2023-11-14",
-    "end_datetime": "2024-03-10",
+    "description": "All summaries for the Daily_Dissolved_oxygen variable for the cb_prophet model. Information for the model is provided as follows: The Prophet model is an empirical model, specifically a non-linear regression model that includes\nseasonality effects (Taylor & Letham, 2018). The model relies on Bayesian estimation with an additive\nwhite noise error term.\n                                    The model predicts this variable at the following sites: ARIK, BARC, BIGC, BLDE, BLUE, BLWA, CARI, COMO, CRAM, CUPE, FLNT, GUIL, HOPB, KING, LECO, LEWI, LIRO, MART, MAYF, MCDI, MCRA, POSE, PRIN, REDB, SUGG, SYCA, TECR, TOMB, WALK, WLOU, PRLA, PRPO.\n                                    Summaries are the forecasts statistics of the raw forecasts (i.e., mean, median, confidence intervals)",
+    "datetime": "2024-08-26T00:00:00Z",
+    "start_datetime": "2023-11-14T00:00:00Z",
+    "end_datetime": "2024-03-10T00:00:00Z",
     "providers": [
       {
-        "url": "cboettig@berkeley.edu",
-        "name": "Carl Boettiger",
+        "url": "https://github.com/cboettig/forecasts-darts-framework",
+        "name": "Quinn Thomas",
         "roles": [
           "producer",
           "processor",
@@ -78,6 +77,10 @@
       "oxygen",
       "Daily",
       "P1D",
+      "ARIK",
+      "BARC",
+      "BIGC",
+      "BLDE",
       "BLUE",
       "BLWA",
       "CARI",
@@ -97,8 +100,6 @@
       "MCRA",
       "POSE",
       "PRIN",
-      "PRLA",
-      "PRPO",
       "REDB",
       "SUGG",
       "SYCA",
@@ -106,10 +107,8 @@
       "TOMB",
       "WALK",
       "WLOU",
-      "ARIK",
-      "BARC",
-      "BIGC",
-      "BLDE"
+      "PRLA",
+      "PRPO"
     ],
     "table:columns": [
       {
@@ -225,6 +224,18 @@
       "href": "https://github.com/cboettig/forecasts-darts-framework",
       "type": "text/html",
       "title": "Link for Model Code"
+    },
+    {
+      "rel": "item",
+      "href": "https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Dissolved_oxygen/models/cb_prophet.json",
+      "type": "text/html",
+      "title": "Link for rendered STAC item"
+    },
+    {
+      "rel": "item",
+      "href": "https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Dissolved_oxygen/models/cb_prophet.json",
+      "type": "text/html",
+      "title": "Link for raw JSON file"
     }
   ],
   "assets": {

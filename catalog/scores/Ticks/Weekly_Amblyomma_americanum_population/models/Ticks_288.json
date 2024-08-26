@@ -1,0 +1,224 @@
+{
+  "stac_version": "1.0.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/table/v1.2.0/schema.json"
+  ],
+  "type": "Feature",
+  "id": "Ticks_288_amblyomma_americanum_P1W_scores",
+  "bbox": [-96.5631, 32.9505, -76.56, 39.1008],
+  "geometry": {
+    "type": "MultiPoint",
+    "coordinates": [
+      [-76.56, 38.8901],
+      [-96.5631, 39.1008],
+      [-95.1921, 39.0404],
+      [-84.2826, 35.9641],
+      [-78.1395, 38.8929],
+      [-87.3933, 32.9505]
+    ]
+  },
+  "properties": {
+    "title": "Ticks_288",
+    "description": "All scores for the Weekly_Amblyomma_americanum_population variable for the Ticks_288 model. Information for the model is provided as follows: NA.\n                                    The model predicts this variable at the following sites: SERC, KONZ, UKFS, ORNL, SCBI, TALL.\n                                    Scores are metrics that describe how well forecasts compare to observations. The scores catalog includes are summaries of the forecasts (i.e., mean, median, confidence intervals), matched observations (if available), and scores (metrics of how well the model distribution compares to observations)",
+    "datetime": "2024-08-26T00:00:00Z",
+    "start_datetime": "2018-09-03T00:00:00Z",
+    "end_datetime": "2020-02-03T00:00:00Z",
+    "providers": [
+      {
+        "url": "https://projects.ecoforecast.org/neon4cast-ci/",
+        "name": "NEON Ecological Forecasting Project",
+        "roles": [
+          "producer",
+          "processor",
+          "licensor"
+        ]
+      },
+      {
+        "url": "https://www.ecoforecastprojectvt.org",
+        "name": "Ecoforecast Challenge",
+        "roles": [
+          "host"
+        ]
+      }
+    ],
+    "license": "CC0-1.0",
+    "keywords": [
+      "Scores",
+      "neon4cast",
+      "Ticks",
+      "Ticks_288",
+      "Amblyomma_americanum_population",
+      "amblyomma_americanum",
+      "Weekly",
+      "P1W",
+      "SERC",
+      "KONZ",
+      "UKFS",
+      "ORNL",
+      "SCBI",
+      "TALL"
+    ],
+    "table:columns": [
+      {
+        "name": "reference_datetime",
+        "type": "timestamp[us, tz=UTC]",
+        "description": "datetime that the forecast was initiated (horizon = 0)"
+      },
+      {
+        "name": "site_id",
+        "type": "string",
+        "description": "For forecasts that are not on a spatial grid, use of a site dimension that maps to a more detailed geometry (points, polygons, etc.) is allowable. In general this would be documented in the external metadata (e.g., alook-up table that provides lon and lat); however in netCDF this could be handled by the CF Discrete Sampling Geometry data model."
+      },
+      {
+        "name": "datetime",
+        "type": "timestamp[us, tz=UTC]",
+        "description": "datetime of the forecasted value (ISO 8601)"
+      },
+      {
+        "name": "family",
+        "type": "string",
+        "description": "For ensembles: “ensemble.” Default value if unspecified For probability distributions: Name of the statistical distribution associated with the reported statistics. The “sample” distribution is synonymous with “ensemble.” For summary statistics: “summary.”If this dimension does not vary, it is permissible to specify family as a variable attribute if the file format being used supports this (e.g.,netCDF)."
+      },
+      {
+        "name": "pub_datetime",
+        "type": "timestamp[us, tz=UTC]",
+        "description": "datetime that forecast was submitted"
+      },
+      {
+        "name": "observation",
+        "type": "double",
+        "description": "observed value for variable"
+      },
+      {
+        "name": "crps",
+        "type": "double",
+        "description": "crps forecast score"
+      },
+      {
+        "name": "logs",
+        "type": "double",
+        "description": "logs forecast score"
+      },
+      {
+        "name": "mean",
+        "type": "double",
+        "description": "mean forecast prediction"
+      },
+      {
+        "name": "median",
+        "type": "double",
+        "description": "median forecast prediction"
+      },
+      {
+        "name": "sd",
+        "type": "double",
+        "description": "standard deviation forecasts"
+      },
+      {
+        "name": "quantile97.5",
+        "type": "double",
+        "description": "upper 97.5 percentile value of forecast"
+      },
+      {
+        "name": "quantile02.5",
+        "type": "double",
+        "description": "upper 2.5 percentile value of forecast"
+      },
+      {
+        "name": "quantile90",
+        "type": "double",
+        "description": "upper 90 percentile value of forecast"
+      },
+      {
+        "name": "quantile10",
+        "type": "double",
+        "description": "upper 10 percentile value of forecast"
+      },
+      {
+        "name": "duration",
+        "type": "string",
+        "description": "temporal duration of forecast (hourly = PT1H, daily = P1D, etc.); follows ISO 8601 duration convention"
+      },
+      {
+        "name": "model_id",
+        "type": "string",
+        "description": "unique model identifier"
+      },
+      {
+        "name": "variable",
+        "type": "string",
+        "description": "name of forecasted variable"
+      },
+      {
+        "name": "project_id",
+        "type": "string",
+        "description": "unique project identifier"
+      }
+    ]
+  },
+  "collection": "scores",
+  "links": [
+    {
+      "rel": "collection",
+      "href": "../collection.json",
+      "type": "application/json",
+      "title": "Ticks_288"
+    },
+    {
+      "rel": "root",
+      "href": "../../../catalog.json",
+      "type": "application/json",
+      "title": "Forecast Catalog"
+    },
+    {
+      "rel": "parent",
+      "href": "../collection.json",
+      "type": "application/json",
+      "title": "Ticks_288"
+    },
+    {
+      "rel": "self",
+      "href": "Ticks_288.json",
+      "type": "application/json",
+      "title": "Model Forecast"
+    },
+    {
+      "rel": "item",
+      "href": null,
+      "type": "text/html",
+      "title": "Link for Model Code"
+    },
+    {
+      "rel": "item",
+      "href": "https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Ticks/Weekly_Amblyomma_americanum_population/models/Ticks_288.json",
+      "type": "text/html",
+      "title": "Link for rendered STAC item"
+    },
+    {
+      "rel": "item",
+      "href": "https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Ticks/Weekly_Amblyomma_americanum_population/models/Ticks_288.json",
+      "type": "text/html",
+      "title": "Link for raw JSON file"
+    }
+  ],
+  "assets": {
+    "1": {
+      "type": "application/json",
+      "title": "Model Metadata",
+      "href": "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/metadata/model_id/Ticks_288.json",
+      "description": "Use `jsonlite::fromJSON()` to download the model metadata JSON file. This R code will return metadata provided during the model registration.\n      \n\n### R\n\n```{r}\n# Use code below\n\nmodel_metadata <- jsonlite::fromJSON(\"https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/metadata/model_id/Ticks_288.json\")\n\n"
+    },
+    "2": {
+      "type": "text/html",
+      "title": "Link for Model Code",
+      "href": null,
+      "description": "The link to the model code provided by the model submission team"
+    },
+    "3": {
+      "type": "application/x-parquet",
+      "title": "Database Access for Weekly Amblyomma_americanum_population",
+      "href": "s3://anonymous@bio230014-bucket01/challenges/scores/parquet/project_id=neon4cast/duration=P1W/variable=amblyomma_americanum/model_id=Ticks_288?endpoint_override=sdsc.osn.xsede.org",
+      "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(\"s3://anonymous@bio230014-bucket01/challenges/scores/parquet/project_id=neon4cast/duration=P1W/variable=amblyomma_americanum/model_id=Ticks_288?endpoint_override=sdsc.osn.xsede.org\")\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
+    }
+  }
+}

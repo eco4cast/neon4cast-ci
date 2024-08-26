@@ -5,27 +5,10 @@
   ],
   "type": "Feature",
   "id": "cb_prophet_gcc_90_P1D_summaries",
-  "bbox": [
-    [-156.6194, 17.9696, -66.8687, 71.2824]
-  ],
+  "bbox": [-156.6194, 17.9696, -66.8687, 71.2824],
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [
-      [-76.56, 38.8901],
-      [-119.7323, 37.1088],
-      [-119.2622, 37.0334],
-      [-110.8355, 31.9107],
-      [-89.5864, 45.5089],
-      [-103.0293, 40.4619],
-      [-87.3933, 32.9505],
-      [-119.006, 37.0058],
-      [-149.3705, 68.6611],
-      [-89.5857, 45.4937],
-      [-95.1921, 39.0404],
-      [-89.5373, 46.2339],
-      [-99.2413, 47.1282],
-      [-121.9519, 45.8205],
-      [-110.5391, 44.9535],
       [-122.3303, 45.7624],
       [-156.6194, 71.2824],
       [-71.2874, 44.0639],
@@ -57,18 +40,34 @@
       [-81.9934, 29.6893],
       [-155.3173, 19.5531],
       [-105.546, 40.2759],
-      [-78.1395, 38.8929]
+      [-78.1395, 38.8929],
+      [-76.56, 38.8901],
+      [-119.7323, 37.1088],
+      [-119.2622, 37.0334],
+      [-110.8355, 31.9107],
+      [-89.5864, 45.5089],
+      [-103.0293, 40.4619],
+      [-87.3933, 32.9505],
+      [-119.006, 37.0058],
+      [-149.3705, 68.6611],
+      [-89.5857, 45.4937],
+      [-95.1921, 39.0404],
+      [-89.5373, 46.2339],
+      [-99.2413, 47.1282],
+      [-121.9519, 45.8205],
+      [-110.5391, 44.9535]
     ]
   },
   "properties": {
     "title": "cb_prophet",
-    "description": "All summaries for the Daily_Green_chromatic_coordinate variable for the cb_prophet model. Information for the model is provided as follows: The Prophet model is an empirical model, specifically a non-linear regression model that includes\nseasonality effects (Taylor & Letham, 2018). The model relies on Bayesian estimation with an additive\nwhite noise error term.\n                                    The model predicts this variable at the following sites: SERC, SJER, SOAP, SRER, STEI, STER, TALL, TEAK, TOOL, TREE, UKFS, UNDE, WOOD, WREF, YELL, ABBY, BARR, BART, BLAN, BONA, CLBJ, CPER, DCFS, DEJU, DELA, DSNY, GRSM, GUAN, HARV, HEAL, JERC, JORN, KONA, KONZ, LAJA, LENO, MLBS, MOAB, NIWO, NOGP, OAES, ONAQ, ORNL, OSBS, PUUM, RMNP, SCBI.\n                                    Summaries are the forecasts statistics of the raw forecasts (i.e., mean, median, confidence intervals)",
-    "start_datetime": "2023-11-14",
-    "end_datetime": "2024-03-09",
+    "description": "All summaries for the Daily_Green_chromatic_coordinate variable for the cb_prophet model. Information for the model is provided as follows: The Prophet model is an empirical model, specifically a non-linear regression model that includes\nseasonality effects (Taylor & Letham, 2018). The model relies on Bayesian estimation with an additive\nwhite noise error term.\n                                    The model predicts this variable at the following sites: ABBY, BARR, BART, BLAN, BONA, CLBJ, CPER, DCFS, DEJU, DELA, DSNY, GRSM, GUAN, HARV, HEAL, JERC, JORN, KONA, KONZ, LAJA, LENO, MLBS, MOAB, NIWO, NOGP, OAES, ONAQ, ORNL, OSBS, PUUM, RMNP, SCBI, SERC, SJER, SOAP, SRER, STEI, STER, TALL, TEAK, TOOL, TREE, UKFS, UNDE, WOOD, WREF, YELL.\n                                    Summaries are the forecasts statistics of the raw forecasts (i.e., mean, median, confidence intervals)",
+    "datetime": "2024-08-26T00:00:00Z",
+    "start_datetime": "2023-11-14T00:00:00Z",
+    "end_datetime": "2024-03-09T00:00:00Z",
     "providers": [
       {
-        "url": "cboettig@berkeley.edu",
-        "name": "Carl Boettiger",
+        "url": "https://github.com/cboettig/forecasts-darts-framework",
+        "name": "Quinn Thomas",
         "roles": [
           "producer",
           "processor",
@@ -93,21 +92,6 @@
       "gcc_90",
       "Daily",
       "P1D",
-      "SERC",
-      "SJER",
-      "SOAP",
-      "SRER",
-      "STEI",
-      "STER",
-      "TALL",
-      "TEAK",
-      "TOOL",
-      "TREE",
-      "UKFS",
-      "UNDE",
-      "WOOD",
-      "WREF",
-      "YELL",
       "ABBY",
       "BARR",
       "BART",
@@ -139,7 +123,22 @@
       "OSBS",
       "PUUM",
       "RMNP",
-      "SCBI"
+      "SCBI",
+      "SERC",
+      "SJER",
+      "SOAP",
+      "SRER",
+      "STEI",
+      "STER",
+      "TALL",
+      "TEAK",
+      "TOOL",
+      "TREE",
+      "UKFS",
+      "UNDE",
+      "WOOD",
+      "WREF",
+      "YELL"
     ],
     "table:columns": [
       {
@@ -255,6 +254,18 @@
       "href": "https://github.com/cboettig/forecasts-darts-framework",
       "type": "text/html",
       "title": "Link for Model Code"
+    },
+    {
+      "rel": "item",
+      "href": "https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Phenology/Daily_Green_chromatic_coordinate/models/cb_prophet.json",
+      "type": "text/html",
+      "title": "Link for rendered STAC item"
+    },
+    {
+      "rel": "item",
+      "href": "https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Phenology/Daily_Green_chromatic_coordinate/models/cb_prophet.json",
+      "type": "text/html",
+      "title": "Link for raw JSON file"
     }
   ],
   "assets": {
