@@ -9,7 +9,7 @@ name: submissions-score-dashboard-catalog
 
 jobs:
   submissions:
-    runs-on: self-hosted #ubuntu-latest
+    runs-on: arc-runner-set
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       AWS_ACCESS_KEY_SUBMISSIONS: ${{ secrets.AWS_ACCESS_KEY_SUBMISSIONS }}

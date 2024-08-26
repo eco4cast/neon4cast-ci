@@ -10,7 +10,7 @@ name: gefs_osn
 
 jobs:
   docker:
-    runs-on: ubuntu-latest #[self-hosted]
+    runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       OSN_KEY: ${{ secrets.OSN_KEY }}

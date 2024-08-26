@@ -9,7 +9,7 @@ name: gefs_osn_stage3
 
 jobs:
   docker:
-    runs-on: self-hosted
+    runs-on: arc-runner-set
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       OSN_KEY: ${{ secrets.OSN_KEY }}
