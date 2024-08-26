@@ -28,8 +28,8 @@ jobs:
       - name: Generate scores
         shell: Rscript {0}
         run: |
-          source("scoring/scoring.R")
-          
+          source("scoring/new-scoring.R")
+
   inventory:
     needs: scores
     runs-on:  arc-runner-set
@@ -47,7 +47,7 @@ jobs:
         run: |
           print(options("repos"))
           remotes::install_deps(".", dep=TRUE)
-  
+
       - name: Update inventory
         shell: Rscript {0}
         run: |
