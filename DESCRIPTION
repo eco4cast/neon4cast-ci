@@ -26,7 +26,7 @@ Imports:
     jsonlite,
     stac4cast,
     reticulate, 
-    duckdbfs,
+    duckdbfs (>= 0.0.7),
     furrr,
     future,
     gsheet, 
