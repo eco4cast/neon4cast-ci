@@ -197,4 +197,4 @@ unlink("scores.parquet")
 unlink("targets.parquet")
 unlink("forecasts.parquet")
 unlink("score_me.parquet")
-
+fs::dir_delete("new_scores")
