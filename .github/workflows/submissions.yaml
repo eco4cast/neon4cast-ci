@@ -10,8 +10,8 @@ name: process-submissions
 
 jobs:
   submissions:
-    runs-on: self-hosted #ubuntu-latest
-    timeout-minutes: 14400
+    runs-on: arc-runner-set
+    timeout-minutes: 1440
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       AWS_ACCESS_KEY_SUBMISSIONS: ${{ secrets.AWS_ACCESS_KEY_SUBMISSIONS }}

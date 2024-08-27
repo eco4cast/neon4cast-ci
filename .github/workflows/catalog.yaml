@@ -7,7 +7,7 @@ name: catalog
 
 jobs:
   metadata_catalog:
-    runs-on: arc-runner-set
+    runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       OSN_KEY: ${{ secrets.OSN_KEY }}
@@ -46,7 +46,7 @@ jobs:
   forecasts:
     needs: metadata_catalog
     if: success() || failure()
-    runs-on: arc-runner-set
+    runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       OSN_KEY: ${{ secrets.OSN_KEY }}
@@ -81,7 +81,7 @@ jobs:
   scores:
     needs: forecasts
     if: success() || failure()
-    runs-on: arc-runner-set
+    runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       OSN_KEY: ${{ secrets.OSN_KEY }}
@@ -116,7 +116,7 @@ jobs:
   inventory:
     needs: scores
     if: success() || failure()
-    runs-on: arc-runner-set
+    runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       OSN_KEY: ${{ secrets.OSN_KEY }}
@@ -151,7 +151,7 @@ jobs:
   summaries:
     needs: inventory
     if: success() || failure()
-    runs-on: arc-runner-set
+    runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       OSN_KEY: ${{ secrets.OSN_KEY }}
@@ -186,7 +186,7 @@ jobs:
   noaa:
     needs: summaries
     if: success() || failure()
-    runs-on: arc-runner-set
+    runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       OSN_KEY: ${{ secrets.OSN_KEY }}
@@ -221,7 +221,7 @@ jobs:
   targets_sites:
     needs: noaa
     if: success() || failure()
-    runs-on: arc-runner-set
+    runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       OSN_KEY: ${{ secrets.OSN_KEY }}
