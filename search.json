@@ -11,7 +11,7 @@
     "href": "index.html#why-a-forecasting-challenge",
     "title": "Forecasting Challenge",
     "section": "Why a forecasting challenge?",
-    "text": "Why a forecasting challenge?\nOur vision is to use forecasts to advance theory and to support natural resource management. We can begin to realize this vision by creating and analyzing a catalog of forecasts from a range of ecological systems, spatiotemporal scales, and environmental gradients.\nOur forecasting challenge is platform for the ecological and data science communities to advance skills in forecasting ecological systems and for generating forecasts that contribute to a synthetic understanding of patterns of predictability in ecology. Rewards for contributing are skill advancement, joy, and potential involved in manuscripts. We do not currently crown winner nor offer financial awards.\nThe Challenge is an excellent focal project in university courses.\n \n\n\n\n\n\n\n\n\n\nTotal forecasts submitted to the NEON Challenge\n76040\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMost recent data for model training\n2024-08-30\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNumber of years of data for model training\n11.17\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNumber of variables being forecasted\n10"
+    "text": "Why a forecasting challenge?\nOur vision is to use forecasts to advance theory and to support natural resource management. We can begin to realize this vision by creating and analyzing a catalog of forecasts from a range of ecological systems, spatiotemporal scales, and environmental gradients.\nOur forecasting challenge is platform for the ecological and data science communities to advance skills in forecasting ecological systems and for generating forecasts that contribute to a synthetic understanding of patterns of predictability in ecology. Rewards for contributing are skill advancement, joy, and potential involved in manuscripts. We do not currently crown winner nor offer financial awards.\nThe Challenge is an excellent focal project in university courses.\n \n\n\n\n\n\n\n\n\n\nTotal forecasts submitted to the NEON Challenge\n76040\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMost recent data for model training\n2024-08-31\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNumber of years of data for model training\n11.18\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNumber of variables being forecasted\n10"
   },
   {
     "objectID": "index.html#the-challenge-is-a-platform",
@@ -32,7 +32,7 @@
     "href": "index.html#acknowledgements",
     "title": "Forecasting Challenge",
     "section": "Acknowledgements",
-    "text": "Acknowledgements\nThomas, R. Q., Boettiger, C., Carey, C. C., Dietze, M. C., Johnson, L. R., Kenney, M. A., et al. (2023). The NEON Ecological Forecasting Challenge. Frontiers in Ecology and the Environment, 21(3), 112–113. https://doi.org/10.1002/fee.2616   We thank NEON for providing the freely available data and the EFI community for feedback on the design of the Challenge. This material is based upon work supported by the National Science Foundation under Grant DEB-1926388.   Page last updated on 2024-09-01"
+    "text": "Acknowledgements\nThomas, R. Q., Boettiger, C., Carey, C. C., Dietze, M. C., Johnson, L. R., Kenney, M. A., et al. (2023). The NEON Ecological Forecasting Challenge. Frontiers in Ecology and the Environment, 21(3), 112–113. https://doi.org/10.1002/fee.2616   We thank NEON for providing the freely available data and the EFI community for feedback on the design of the Challenge. This material is based upon work supported by the National Science Foundation under Grant DEB-1926388.   Page last updated on 2024-09-02"
   },
   {
     "objectID": "catalog.html",
@@ -158,7 +158,7 @@
     "href": "performance.html#forecast-analysis",
     "title": "Forecast performance",
     "section": "Forecast analysis",
-    "text": "Forecast analysis\nBelow are forecasts submitted 30 days ago and include the observations used to evaluate them. Mouse over to see the team id, scroll to zoom. Only the top five performing models are shown. Information on how to access the scores can be found in our catalog\n\nTerrestrial: net ecosystem exchangeTerrestrial: latent heat fluxPhenology: greennessPhenology: rednessAquatics: water temperatureAquatics: dissolved oxygenAquatics: chlorophyll-aBeetle community richnessBeetle community abundanceTicks: Amblyomma americanum"
+    "text": "Forecast analysis\nBelow are forecasts submitted 30 days ago and include the observations used to evaluate them. Mouse over to see the team id, scroll to zoom. Only the top five performing models are shown. Information on how to access the scores can be found in our catalog\n\nTerrestrial: net ecosystem exchangeTerrestrial: latent heat fluxPhenology: greennessPhenology: rednessAquatics: water temperatureAquatics: dissolved oxygenAquatics: chlorophyll-aBeetle community richnessBeetle community abundanceTicks: Amblyomma americanum\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNULL\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNULL"
   },
   {
     "objectID": "performance.html#aggregated-scores",
