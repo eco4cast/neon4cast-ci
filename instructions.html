@@ -163,6 +163,11 @@ background-size: cover;
 </i> 
  <span class="menu-text">Learn more</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./use-in-course.html" rel="" target=""><i class="bi bi-people" role="img">
+</i> 
+ <span class="menu-text">Using the Challenge in Classes</span></a>
+  </li>  
 </ul>
           </div> <!-- /navcollapse -->
           <div class="quarto-navbar-tools">
@@ -202,11 +207,11 @@ background-size: cover;
   <li><a href="#must-include-uncertainty" id="toc-must-include-uncertainty" class="nav-link" data-scroll-target="#must-include-uncertainty"><span class="header-section-number">2.2</span> Must include uncertainty</a></li>
   <li><a href="#any-model-driverscovariatesfeatures-are-welcome" id="toc-any-model-driverscovariatesfeatures-are-welcome" class="nav-link" data-scroll-target="#any-model-driverscovariatesfeatures-are-welcome"><span class="header-section-number">2.3</span> Any model drivers/covariates/features are welcome</a></li>
   <li><a href="#forecasts-can-be-for-a-range-of-horizons" id="toc-forecasts-can-be-for-a-range-of-horizons" class="nav-link" data-scroll-target="#forecasts-can-be-for-a-range-of-horizons"><span class="header-section-number">2.4</span> Forecasts can be for a range of horizons</a></li>
-  <li><a href="#forecasts-can-be-submitted-everyday" id="toc-forecasts-can-be-submitted-everyday" class="nav-link" data-scroll-target="#forecasts-can-be-submitted-everyday"><span class="header-section-number">2.5</span> Forecasts can be submitted everyday</a></li>
+  <li><a href="#forecasts-can-be-submitted-every-day" id="toc-forecasts-can-be-submitted-every-day" class="nav-link" data-scroll-target="#forecasts-can-be-submitted-every-day"><span class="header-section-number">2.5</span> Forecasts can be submitted every day</a></li>
   </ul></li>
   <li><a href="#you-can-forecast-at-any-of-the-neon-sites" id="toc-you-can-forecast-at-any-of-the-neon-sites" class="nav-link" data-scroll-target="#you-can-forecast-at-any-of-the-neon-sites"><span class="header-section-number">3</span> You can forecast at any of the NEON sites</a></li>
   <li><a href="#forecast-file-format" id="toc-forecast-file-format" class="nav-link" data-scroll-target="#forecast-file-format"><span class="header-section-number">4</span> Forecast file format</a></li>
-  <li><a href="#representing-uncertainity" id="toc-representing-uncertainity" class="nav-link" data-scroll-target="#representing-uncertainity"><span class="header-section-number">5</span> Representing uncertainity</a>
+  <li><a href="#representing-uncertainty" id="toc-representing-uncertainty" class="nav-link" data-scroll-target="#representing-uncertainty"><span class="header-section-number">5</span> Representing uncertainty</a>
   <ul class="collapse">
   <li><a href="#example-forecasts" id="toc-example-forecasts" class="nav-link" data-scroll-target="#example-forecasts"><span class="header-section-number">5.1</span> Example forecasts</a></li>
   </ul></li>
@@ -237,7 +242,7 @@ background-size: cover;
 <p>We provide an overview of the steps for submitting with the details below:</p>
 <ol type="1">
 <li>Explore the <a href="./targets.html#sec-targets">data</a> (e.g., targets) and build your forecast model.</li>
-<li>Register and describe your model at <a href="https://forms.gle/kg2Vkpho9BoMXSy57" class="uri">https://forms.gle/kg2Vkpho9BoMXSy57</a>. You are not required to register if your forecast submission uses the word “example” in your model_id”. Any forecasts with “example” in the model_id will not be used in forecast evaluation analyses. Use neon4cast as the challenge you are registering for.</li>
+<li>Register and describe your model at <a href="https://forms.gle/kg2Vkpho9BoMXSy57" class="uri">https://forms.gle/kg2Vkpho9BoMXSy57</a>. You are not required to register if your forecast submission uses the word “example” in your model_id”. Any forecasts with “example” in the model_id will not be used in forecast evaluation analyses. You can use neon4cast as the challenge for which you are registering.</li>
 <li>Generate a forecast!</li>
 <li>Write the forecast output to a file that follows our standardized format (described below).</li>
 <li>Submit your forecast using an R function (provided below).</li>
@@ -248,53 +253,53 @@ background-size: cover;
 <h2 data-number="2" class="anchored" data-anchor-id="generating-a-forecast"><span class="header-section-number">2</span> Generating a forecast</h2>
 <section id="all-forecasting-approaches-are-welcome" class="level3" data-number="2.1">
 <h3 data-number="2.1" class="anchored" data-anchor-id="all-forecasting-approaches-are-welcome"><span class="header-section-number">2.1</span> All forecasting approaches are welcome</h3>
-<p>We encourage you to use any modeling approach to make a prediction about the future conditions at any of the NEON sites and variables.</p>
+<p>We encourage you to use any modeling approach to predict the future conditions at any of the NEON sites and variables.</p>
 </section>
 <section id="must-include-uncertainty" class="level3" data-number="2.2">
 <h3 data-number="2.2" class="anchored" data-anchor-id="must-include-uncertainty"><span class="header-section-number">2.2</span> Must include uncertainty</h3>
-<p>Forecasts require you to make an assessment of the confidence in your prediction of the future. You can represent your confidence (i.e., uncertainty in the forecast) using a distribution or numerically using an ensemble (or sample) of predictions.</p>
+<p>Forecasts require you to assess the confidence in your prediction of the future. You can represent your confidence (i.e., uncertainty in the forecast) using a distribution or numerically using an ensemble (or sample) of predictions.</p>
 </section>
 <section id="any-model-driverscovariatesfeatures-are-welcome" class="level3" data-number="2.3">
 <h3 data-number="2.3" class="anchored" data-anchor-id="any-model-driverscovariatesfeatures-are-welcome"><span class="header-section-number">2.3</span> Any model drivers/covariates/features are welcome</h3>
-<p>You can use any data as model inputs (including all of the forecast target data available to date). All sensor-based target data are available in with a 1 to 7 day delay (latency) from time of collection. You may want to use the updated target data to re-train a model or for use in data assimilation.</p>
-<p>As a genuine forecasting challenge, you will need forecasted drivers if your model uses drivers as inputs. If you are interested in using forecasted meteorology, we are downloading and processing NOAA Global Ensemble Forecasting System (GEFS) weather forecasts for each NEON site. The NOAA GEFS forecasts extend 35-days ahead. More information about accessing the weather forecasts can be found <a href="https://projects.ecoforecast.org/neon4cast-docs/Shared-Forecast-Drivers.html">here</a></p>
+<p>You can use any data as model inputs (including all target data available to date). All sensor-based target data are available with a 1 to 7-day delay (latency) from the time of collection. You may want to use the updated target data to re-train a model or for use in data assimilation.</p>
+<p>As a genuine forecasting challenge, you will need forecasted drivers if your model uses drivers as inputs. If you want to use forecasted meteorology, we download and process NOAA Global Ensemble Forecasting System (GEFS) weather forecasts for each NEON site. The NOAA GEFS forecasts extend 35-days ahead. More information about accessing the weather forecasts can be found <a href="https://projects.ecoforecast.org/neon4cast-docs/Shared-Forecast-Drivers.html">here</a></p>
 </section>
 <section id="forecasts-can-be-for-a-range-of-horizons" class="level3" data-number="2.4">
 <h3 data-number="2.4" class="anchored" data-anchor-id="forecasts-can-be-for-a-range-of-horizons"><span class="header-section-number">2.4</span> Forecasts can be for a range of horizons</h3>
-<p>Forecasts can be submitted for 1 day to 1 year-ahead, depending on the variable. See the <a href="./targets.html#sec-targets">variable tables</a> for the horizon that is associated with each variable.</p>
+<p>Forecasts can be submitted for 1 day to 1 year ahead, depending on the variable. See the <a href="./targets.html#sec-targets">variable tables</a> for the horizon associated with each variable.</p>
 </section>
-<section id="forecasts-can-be-submitted-everyday" class="level3" data-number="2.5">
-<h3 data-number="2.5" class="anchored" data-anchor-id="forecasts-can-be-submitted-everyday"><span class="header-section-number">2.5</span> Forecasts can be submitted everyday</h3>
-<p>Since forecasts can be submitted everyday, automation is important. We provide an <a href="https://github.com/eco4cast/neon4cast-example">example GitHub</a> repository that can be used to automate your forecast with GitHub Actions. It also includes the use of a custom Docker Container <a href="https://github.com/eco4cast/neon4cast-ci/blob/main/Dockerfile">eco4cast/rocker-neon4cast:latest</a> that has many of the packages and functions needed to generate and submit forecasts.</p>
-<p>We only evaluate forecasts for any weekly variables (e.g., beetles and ticks) that were submitted on the Sunday of each week. Therefore we recommend only submitting forecasts of the weekly variables on Sundays.</p>
+<section id="forecasts-can-be-submitted-every-day" class="level3" data-number="2.5">
+<h3 data-number="2.5" class="anchored" data-anchor-id="forecasts-can-be-submitted-every-day"><span class="header-section-number">2.5</span> Forecasts can be submitted every day</h3>
+<p>Since forecasts can be submitted every day, automation is essential. We provide an <a href="https://github.com/eco4cast/neon4cast-example">example GitHub</a> repository that can be used to automate your forecast with GitHub Actions. It also includes using a custom Docker Container <a href="https://github.com/eco4cast/neon4cast-ci/blob/main/Dockerfile">eco4cast/rocker-neon4cast:latest</a> that contains many of the packages and functions needed to generate and submit forecasts.</p>
+<p>We only evaluate forecasts for any weekly variables (e.g., beetles and ticks) that were submitted on the Sunday of each week. So, we recommend only submitting forecasts of the weekly variables on Sundays.</p>
 </section>
 </section>
 <section id="you-can-forecast-at-any-of-the-neon-sites" class="level2" data-number="3">
 <h2 data-number="3" class="anchored" data-anchor-id="you-can-forecast-at-any-of-the-neon-sites"><span class="header-section-number">3</span> You can forecast at any of the NEON sites</h2>
-<p>If are you are getting started, we recommend a set of <a href="./targets.html#sec-starting-sites">focal sites</a> for each of the five “themes”. You are also welcome to submit forecasts to all or a subset of NEON sites . More information about NEON sites can be found in the <a href="https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/sites/collection.json">site metadata</a> and on NEON’s <a href="https://www.neonscience.org/field-sites/explore-field-sites">website</a></p>
+<p>If you are just getting started, we recommend a set of <a href="./targets.html#sec-starting-sites">focal sites</a> for each of the five “themes.” You are also welcome to submit forecasts to all or a subset of NEON sites. More information about NEON sites can be found in the <a href="https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/sites/collection.json">site metadata</a> and on NEON’s <a href="https://www.neonscience.org/field-sites/explore-field-sites">website</a></p>
 </section>
 <section id="forecast-file-format" class="level2" data-number="4">
 <h2 data-number="4" class="anchored" data-anchor-id="forecast-file-format"><span class="header-section-number">4</span> Forecast file format</h2>
-<p>The file is a csv format with the following columns:</p>
+<p>The file is a CSV format with the following columns:</p>
 <ul>
 <li><p><code>project_id</code>: use <code>neon4cast</code></p></li>
 <li><p><code>model_id</code>: the short name of the model defined as the model_id in your registration. The model_id should have no spaces. <code>model_id</code> should reflect a method to forecast one or a set of target variables and must be unique to the neon4cast challenge.</p></li>
 <li><p><code>datetime</code>: forecast timestamp. Format <code>%Y-%m-%d %H:%M:%S</code> with UTC as the time zone. Forecasts submitted with a <code>%Y-%m-%d</code> format will be converted to a full datetime assuming UTC mid-night.</p></li>
 <li><p><code>reference_datetime</code>: The start of the forecast; this should be 0 times steps in the future. There should only be one value of <code>reference_datetime</code> in the file. Format is <code>%Y-%m-%d %H:%M:%S</code> with UTC as the time zone. Forecasts submitted with a <code>%Y-%m-%d</code> format will be converted to a full datetime assuming UTC mid-night.</p></li>
-<li><p><code>duration</code>: the time-step of the forecast. Use the value of <code>P1D</code> for a daily forecast, <code>P1W</code> for a weekly forecast, and <code>PT30M</code> for 30 minute forecast. This value should match the duration of the target variable that you are forecasting. Formatted as <a href="https://en.wikipedia.org/wiki/ISO_8601#Durations">ISO 8601 duration</a></p></li>
+<li><p><code>duration</code>: the time-step of the forecast. Use the value of <code>P1D</code> for a daily forecast, <code>P1W</code> for a weekly forecast, and <code>PT30M</code> for 30 minute forecast. This value should match the duration of the target variable you are forecasting. Formatted as <a href="https://en.wikipedia.org/wiki/ISO_8601#Durations">ISO 8601 duration</a></p></li>
 <li><p><code>site_id</code>: code for NEON site.</p></li>
-<li><p><code>family</code> name of the probability distribution that is described by the parameter values in the parameter column (see list below for accepted distribution). An ensemble forecast as a family of <code>ensemble</code>. See note below about family</p></li>
+<li><p><code>family</code> name of the probability distribution that is described by the parameter values in the parameter column (see list below for accepted distribution). An ensemble forecast as a family of <code>ensemble</code>. See note below about family.</p></li>
 <li><p><code>parameter</code> the parameters for the distribution (see note below about the parameter column) or the number of the ensemble members. For example, the parameters for a normal distribution are called <code>mu</code> and <code>sigma</code>.</p></li>
 <li><p><code>variable</code>: standardized variable name. It must match the variable name in the target file.</p></li>
 <li><p><code>prediction</code>: forecasted value for the parameter in the parameter column</p></li>
 </ul>
 </section>
-<section id="representing-uncertainity" class="level2" data-number="5">
-<h2 data-number="5" class="anchored" data-anchor-id="representing-uncertainity"><span class="header-section-number">5</span> Representing uncertainity</h2>
-<p>Uncertainty is represented through the family - parameter columns in the file that you submit.</p>
+<section id="representing-uncertainty" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="representing-uncertainty"><span class="header-section-number">5</span> Representing uncertainty</h2>
+<p>Uncertainty is represented through the family-parameter columns in the file that you submit.</p>
 <section id="parameteric-forecast" class="level4" data-number="5.0.1">
 <h4 data-number="5.0.1" class="anchored" data-anchor-id="parameteric-forecast"><span class="header-section-number">5.0.1</span> Parameteric forecast</h4>
-<p>For a parametric forecast with a normal distribution, the <code>family</code> column would have the word <code>normal</code> to designate a normal distribution and the parameter column must have values of <code>mu</code> and <code>sigma</code> for each forecasted variable, site_id, depth, and time combination.</p>
+<p>For a parametric forecast with a normal distribution, the <code>family</code> column would have the word <code>normal</code> to designate a normal distribution, and the parameter column must have values of <code>mu</code> and <code>sigma</code> for each forecasted variable, site_id, depth, and time combination.</p>
 <p>Parameteric forecasts for binary variables should use <code>bernoulli</code> as the family and <code>prob</code> as the parameter.</p>
 <p>The following names and parameterization of the distribution are currently supported (family: parameters):</p>
 <ul>
@@ -313,7 +318,7 @@ background-size: cover;
 <section id="ensemble-or-sample-forecast" class="level4" data-number="5.0.2">
 <h4 data-number="5.0.2" class="anchored" data-anchor-id="ensemble-or-sample-forecast"><span class="header-section-number">5.0.2</span> Ensemble (or sample) forecast</h4>
 <p>Ensemble (or sample) forecasts use the <code>family</code> value of <code>ensemble</code> and the <code>parameter</code> values are the ensemble index.</p>
-<p>When forecasts using the ensemble family are scored, we assume that the ensemble is a set of equally likely realizations that are sampled from a distribution that is comparable to that of the observations (i.e., no broad adjustments are required to make the ensemble more consistent with observations). This is referred to as a “perfect ensemble” by Bröcker and Smith (2007). Ensemble (or sample) forecasts are transformed to a probability distribution function (e.g., dressed) using the default methods in the <code>scoringRules</code> R package (empirical version of the quantile decomposition for the <code>crps</code>).</p>
+<p>When forecasts using the ensemble family are scored, we assume that the ensemble is a set of equally likely realizations sampled from a distribution comparable to that of the observations (i.e., no broad adjustments are required to make the ensemble more consistent with observations). This is referred to as a “perfect ensemble” by Bröcker and Smith (2007). Ensemble (or sample) forecasts are transformed to a probability distribution function (e.g., dressed) using the default methods in the <code>scoringRules</code> R package (empirical version of the quantile decomposition for the <code>crps</code>).</p>
 </section>
 <section id="example-forecasts" class="level3" data-number="5.1">
 <h3 data-number="5.1" class="anchored" data-anchor-id="example-forecasts"><span class="header-section-number">5.1</span> Example forecasts</h3>
@@ -414,7 +419,7 @@ background-size: cover;
 </table>
 </div>
 </div>
-<p>For an ensemble (or sample) forecast, the <code>family</code> column uses the word <code>ensemble</code> to designate that it is a ensemble forecast and the parameter column is the ensemble member number (<code>1</code>, <code>2</code>, <code>3</code> …)</p>
+<p>For an ensemble (or sample) forecast, the <code>family</code> column uses the word <code>ensemble</code> to designate that it is an ensemble forecast, and the parameter column is the ensemble member number (<code>1</code>, <code>2</code>, <code>3</code> …).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">"https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/forecasts/raw/T20231102190926_aquatics-2023-10-19-persistenceRW.csv.gz"</span>, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -518,14 +523,14 @@ background-size: cover;
 <h2 data-number="6" class="anchored" data-anchor-id="submission-process"><span class="header-section-number">6</span> Submission process</h2>
 <section id="file-name" class="level3" data-number="6.1">
 <h3 data-number="6.1" class="anchored" data-anchor-id="file-name"><span class="header-section-number">6.1</span> File name</h3>
-<p>Save your forecast as a csv file with the following naming convention:</p>
+<p>Save your forecast as a CSV file with the following naming convention:</p>
 <p><code>theme_name-year-month-day-model_id.csv</code>. Compressed csv files with the csv.gz extension are also accepted.</p>
 <p>The <code>theme_name</code> options are: terrestrial_daily, terrestrial_30min, aquatics, beetles, ticks, or phenology.</p>
-<p>The year, month, and day are the year, month, and day the reference_datetime (horizon = 0). For example, if a forecast starts today and tomorrow is the first forecasted day, horizon = 0 would be today, and used in the file name. <code>model_id</code> is the id for the model name that you specified in the model metadata Google Form (model_id has no spaces in it).</p>
+<p>The year, month, and day are the year, month, and day the reference_datetime (horizon = 0). For example, if a forecast starts today and tomorrow is the first forecasted day, horizon = 0 would be today and used in the file name. <code>model_id</code> is the id for the model name that you specified in the model metadata Google Form (model_id has no spaces in it).</p>
 </section>
 <section id="uploading-forecast" class="level3" data-number="6.2">
 <h3 data-number="6.2" class="anchored" data-anchor-id="uploading-forecast"><span class="header-section-number">6.2</span> Uploading forecast</h3>
-<p>Individual forecast files can be uploaded any time.</p>
+<p>Individual forecast files can be uploaded at any time.</p>
 <p>Teams will submit their forecast csv files through an R function. The csv file can only contain one unique <code>model_id</code> and one unique <code>project_id</code>.</p>
 <p>The function is available using the following code</p>
 <div class="cell">
@@ -553,14 +558,14 @@ background-size: cover;
 <p>Forecast performance can be compared to the performance of baseline models. We are automatically submitting the following baseline models:</p>
 <ul>
 <li><code>climatology</code>: the normal distribution (mean and standard deviation) of that day-of-year in the historical observations</li>
-<li><code>persistenceRW</code>: a random walk model that assumes no change in the mean behavior. The random walk is initialized using the most resent observation.</li>
-<li><code>mean</code>: the historical mean of the data is submitted for the beetles theme.</li>
+<li><code>persistenceRW</code>: a random walk model that assumes no change in the mean behavior. The random walk is initialized using the most recent observation.</li>
+<li><code>mean</code>: the historical mean of the data is submitted for the beetle theme.</li>
 </ul>
 <p>Our <a href="./performance.html#performance">forecast performance</a> page includes evaluations of all submitted models.</p>
 </section>
 <section id="catalog" class="level3" data-number="7.4">
 <h3 data-number="7.4" class="anchored" data-anchor-id="catalog"><span class="header-section-number">7.4</span> Catalog</h3>
-<p>Information and code for accessing the forecasts and scores can be found on our <a href="./catalog.html#sec-spatiotemporal-asset-catalog">forecast catalog</a> page.</p>
+<p>Our <a href="./catalog.html#sec-spatiotemporal-asset-catalog">forecast catalog</a> page provides information and code for accessing the forecasts and scores.</p>
 </section>
 </section>
 <section id="questions" class="level2" data-number="8">
