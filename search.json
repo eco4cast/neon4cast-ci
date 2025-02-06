@@ -53,7 +53,7 @@
     "href": "index.html#acknowledgements",
     "title": "Forecasting Challenge",
     "section": "Acknowledgements",
-    "text": "Acknowledgements\nThomas, R. Q., Boettiger, C., Carey, C. C., Dietze, M. C., Johnson, L. R., Kenney, M. A., et al. (2023). The NEON Ecological Forecasting Challenge. Frontiers in Ecology and the Environment, 21(3), 112–113. https://doi.org/10.1002/fee.2616   We thank NEON for providing the freely available data and the EFI community for feedback on the challenge’s design. This material is based upon work supported by the National Science Foundation under Grants DEB-1926388 and OAC-2209866.   Page last updated on 2025-02-05"
+    "text": "Acknowledgements\nThomas, R. Q., Boettiger, C., Carey, C. C., Dietze, M. C., Johnson, L. R., Kenney, M. A., et al. (2023). The NEON Ecological Forecasting Challenge. Frontiers in Ecology and the Environment, 21(3), 112–113. https://doi.org/10.1002/fee.2616   We thank NEON for providing the freely available data and the EFI community for feedback on the challenge’s design. This material is based upon work supported by the National Science Foundation under Grants DEB-1926388 and OAC-2209866.   Page last updated on 2025-02-06"
   },
   {
     "objectID": "learn-more.html",
@@ -186,14 +186,14 @@
     "href": "performance.html#sec-performance",
     "title": "Forecast performance",
     "section": "Most recent forecasts",
-    "text": "Most recent forecasts\nOnly the top-performing models from the last 30 days are shown.\nForecasts submitted on 2025-02-02\n\nTerrestrial: net ecosystem exchangeTerrestrial: latent heat fluxPhenology: greennessPhenology: rednessAquatics: water temperatureAquatics: dissolved oxygenAquatics: chlorophyll-aBeetle community richnessBeetle community abundanceTicks: Amblyomma americanum\n\n\nForecast summaries are available here\n\n\n\n\n\n\n\n\nForecast summaries are available here\n\n\n\n\n\n\n\n\nForecast summaries are available here\n\n\n\n\n\n\n\n\nForecast summaries are available here\n\n\n\n\n\n\n\n\nForecast summaries are available here\n\n\n\n\n\n\n\n\nForecast summaries are available here\n\n\n\n\n\n\n\n\nForecast summaries are available here\n\n\n\n\n\n\n\n\nForecast summaries are available here\n\n\n\n\n\n\n\n\nForecast summaries are available here\n\n\n\n\n\n\n\n\nForecast summaries are available here"
+    "text": "Most recent forecasts\nOnly the top-performing models from the last 30 days are shown.\nForecasts submitted on 2025-02-03\n\nTerrestrial: net ecosystem exchangeTerrestrial: latent heat fluxPhenology: greennessPhenology: rednessAquatics: water temperatureAquatics: dissolved oxygenAquatics: chlorophyll-aBeetle community richnessBeetle community abundanceTicks: Amblyomma americanum\n\n\nForecast summaries are available here\n\n\n\n\n\n\n\n\nForecast summaries are available here\n\n\n\n\n\n\n\n\nForecast summaries are available here\n\n\n\n\n\n\n\n\nForecast summaries are available here\n\n\n\n\n\n\n\n\nForecast summaries are available here\n\n\n\n\n\n\n\n\nForecast summaries are available here\n\n\n\n\n\n\n\n\nForecast summaries are available here\n\n\n\n\n\n\n\n\nForecast summaries are available here\n\n\n\n\n\n\n\n\nForecast summaries are available here\n\n\n\n\n\n\n\n\nForecast summaries are available here"
   },
   {
     "objectID": "performance.html#forecast-analysis",
     "href": "performance.html#forecast-analysis",
     "title": "Forecast performance",
     "section": "Forecast Analysis",
-    "text": "Forecast Analysis\nBelow are forecasts submitted 30 days ago and include the observations used to evaluate them. Mouse over to see the team id, and scroll to zoom. Only the top five performing models are shown. Information on how to access the scores can be found in our catalog\n\nTerrestrial: net ecosystem exchangeTerrestrial: latent heat fluxPhenology: greennessPhenology: rednessAquatics: water temperatureAquatics: dissolved oxygenAquatics: chlorophyll-aBeetle community richnessBeetle community abundanceTicks: Amblyomma americanum\n\n\n\n\nNULL\n\n\n\n\n\n\nNULL\n\n\n\n\n\n\nNULL\n\n\n\n\n\n\nNULL\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNULL\n\n\n\n\n\n\nNULL"
+    "text": "Forecast Analysis\nBelow are forecasts submitted 30 days ago and include the observations used to evaluate them. Mouse over to see the team id, and scroll to zoom. Only the top five performing models are shown. Information on how to access the scores can be found in our catalog\n\nTerrestrial: net ecosystem exchangeTerrestrial: latent heat fluxPhenology: greennessPhenology: rednessAquatics: water temperatureAquatics: dissolved oxygenAquatics: chlorophyll-aBeetle community richnessBeetle community abundanceTicks: Amblyomma americanum"
   },
   {
     "objectID": "performance.html#aggregated-scores",
