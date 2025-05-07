@@ -2,23 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
    <url>
       <loc>https://projects.ecoforecast.org/neon4cast-ci/catalog.html</loc>
-      <lastmod>2025-05-05</lastmod>
+      <lastmod>2025-05-06</lastmod>
    </url>
    <url>
       <loc>https://projects.ecoforecast.org/neon4cast-ci/targets.html</loc>
-      <lastmod>2025-05-05</lastmod>
+      <lastmod>2025-05-06</lastmod>
    </url>
    <url>
       <loc>https://projects.ecoforecast.org/neon4cast-ci/instructions.html</loc>
-      <lastmod>2025-05-05</lastmod>
+      <lastmod>2025-05-06</lastmod>
    </url>
    <url>
       <loc>https://projects.ecoforecast.org/neon4cast-ci/performance.html</loc>
-      <lastmod>2025-05-05</lastmod>
+      <lastmod>2025-05-06</lastmod>
    </url>
    <url>
       <loc>https://projects.ecoforecast.org/neon4cast-ci/index.html</loc>
-      <lastmod>2025-05-05</lastmod>
+      <lastmod>2025-05-06</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/catalog.json</loc>
@@ -1153,7 +1153,19 @@
       <lastmod>2025-04-03</lastmod>
    </url>
    <url>
+      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Aquatics/Daily_Dissolved_oxygen/models/tg_SVM.json</loc>
+      <lastmod>2025-04-03</lastmod>
+   </url>
+   <url>
+      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Aquatics/Daily_Dissolved_oxygen/models/tg_XGBoost.json</loc>
+      <lastmod>2025-04-03</lastmod>
+   </url>
+   <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Aquatics/Daily_Dissolved_oxygen/models/tg_arima.json</loc>
+      <lastmod>2025-04-03</lastmod>
+   </url>
+   <url>
+      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/Aquatics/Daily_Dissolved_oxygen/models/tg_elasticNet.json</loc>
       <lastmod>2025-04-03</lastmod>
    </url>
    <url>
