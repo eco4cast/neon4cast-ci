@@ -2,23 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
    <url>
       <loc>https://projects.ecoforecast.org/neon4cast-ci/catalog.html</loc>
-      <lastmod>2025-05-15</lastmod>
+      <lastmod>2025-05-16</lastmod>
    </url>
    <url>
       <loc>https://projects.ecoforecast.org/neon4cast-ci/targets.html</loc>
-      <lastmod>2025-05-15</lastmod>
+      <lastmod>2025-05-16</lastmod>
    </url>
    <url>
       <loc>https://projects.ecoforecast.org/neon4cast-ci/instructions.html</loc>
-      <lastmod>2025-05-15</lastmod>
+      <lastmod>2025-05-16</lastmod>
    </url>
    <url>
       <loc>https://projects.ecoforecast.org/neon4cast-ci/performance.html</loc>
-      <lastmod>2025-05-15</lastmod>
+      <lastmod>2025-05-16</lastmod>
    </url>
    <url>
       <loc>https://projects.ecoforecast.org/neon4cast-ci/index.html</loc>
-      <lastmod>2025-05-15</lastmod>
+      <lastmod>2025-05-16</lastmod>
    </url>
    <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/catalog.json</loc>
@@ -73,7 +73,23 @@
       <lastmod>2025-05-08</lastmod>
    </url>
    <url>
+      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/Aquatics/Daily_Chlorophyll_a/models/tg_SVM.json</loc>
+      <lastmod>2025-05-08</lastmod>
+   </url>
+   <url>
+      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/Aquatics/Daily_Chlorophyll_a/models/tg_XGBoost.json</loc>
+      <lastmod>2025-05-08</lastmod>
+   </url>
+   <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/Aquatics/Daily_Chlorophyll_a/models/tg_arima.json</loc>
+      <lastmod>2025-05-08</lastmod>
+   </url>
+   <url>
+      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/Aquatics/Daily_Chlorophyll_a/models/tg_brnn.json</loc>
+      <lastmod>2025-05-08</lastmod>
+   </url>
+   <url>
+      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/Aquatics/Daily_Chlorophyll_a/models/tg_elasticNet.json</loc>
       <lastmod>2025-05-08</lastmod>
    </url>
    <url>
@@ -173,7 +189,23 @@
       <lastmod>2025-05-08</lastmod>
    </url>
    <url>
+      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/Aquatics/Daily_Dissolved_oxygen/models/tg_SVM.json</loc>
+      <lastmod>2025-05-08</lastmod>
+   </url>
+   <url>
+      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/Aquatics/Daily_Dissolved_oxygen/models/tg_XGBoost.json</loc>
+      <lastmod>2025-05-08</lastmod>
+   </url>
+   <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/Aquatics/Daily_Dissolved_oxygen/models/tg_arima.json</loc>
+      <lastmod>2025-05-08</lastmod>
+   </url>
+   <url>
+      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/Aquatics/Daily_Dissolved_oxygen/models/tg_brnn.json</loc>
+      <lastmod>2025-05-08</lastmod>
+   </url>
+   <url>
+      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/Aquatics/Daily_Dissolved_oxygen/models/tg_elasticNet.json</loc>
       <lastmod>2025-05-08</lastmod>
    </url>
    <url>
@@ -349,7 +381,23 @@
       <lastmod>2025-05-08</lastmod>
    </url>
    <url>
+      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/Aquatics/Daily_Water_temperature/models/tg_SVM.json</loc>
+      <lastmod>2025-05-08</lastmod>
+   </url>
+   <url>
+      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/Aquatics/Daily_Water_temperature/models/tg_XGBoost.json</loc>
+      <lastmod>2025-05-08</lastmod>
+   </url>
+   <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/Aquatics/Daily_Water_temperature/models/tg_arima.json</loc>
+      <lastmod>2025-05-08</lastmod>
+   </url>
+   <url>
+      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/Aquatics/Daily_Water_temperature/models/tg_brnn.json</loc>
+      <lastmod>2025-05-08</lastmod>
+   </url>
+   <url>
+      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/Aquatics/Daily_Water_temperature/models/tg_elasticNet.json</loc>
       <lastmod>2025-05-08</lastmod>
    </url>
    <url>
@@ -1973,99 +2021,7 @@
       <lastmod>2025-05-08</lastmod>
    </url>
    <url>
-      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Chlorophyll_a/collection.json</loc>
-      <lastmod>2025-05-08</lastmod>
-   </url>
-   <url>
-      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Chlorophyll_a/models/USGSHABs1.json</loc>
-      <lastmod>2025-05-08</lastmod>
-   </url>
-   <url>
-      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Chlorophyll_a/models/cb_prophet.json</loc>
-      <lastmod>2025-05-08</lastmod>
-   </url>
-   <url>
-      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Chlorophyll_a/models/climatology.json</loc>
-      <lastmod>2025-05-08</lastmod>
-   </url>
-   <url>
-      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Chlorophyll_a/models/persistenceRW.json</loc>
-      <lastmod>2025-05-08</lastmod>
-   </url>
-   <url>
-      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Chlorophyll_a/models/procBlanchardMonod.json</loc>
-      <lastmod>2025-05-08</lastmod>
-   </url>
-   <url>
-      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Chlorophyll_a/models/procCTMIMonod.json</loc>
-      <lastmod>2025-05-08</lastmod>
-   </url>
-   <url>
-      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Chlorophyll_a/models/procEppleyNorbergMonod.json</loc>
-      <lastmod>2025-05-08</lastmod>
-   </url>
-   <url>
-      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Chlorophyll_a/models/procEppleyNorbergSteele.json</loc>
-      <lastmod>2025-05-08</lastmod>
-   </url>
-   <url>
-      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Chlorophyll_a/models/procHinshelwoodMonod.json</loc>
-      <lastmod>2025-05-08</lastmod>
-   </url>
-   <url>
-      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Chlorophyll_a/models/procHinshelwoodSteele.json</loc>
-      <lastmod>2025-05-08</lastmod>
-   </url>
-   <url>
-      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Chlorophyll_a/models/tg_arima.json</loc>
-      <lastmod>2025-05-08</lastmod>
-   </url>
-   <url>
-      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Chlorophyll_a/models/tg_ets.json</loc>
-      <lastmod>2025-05-08</lastmod>
-   </url>
-   <url>
-      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Chlorophyll_a/models/tg_humidity_lm.json</loc>
-      <lastmod>2025-05-08</lastmod>
-   </url>
-   <url>
-      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Chlorophyll_a/models/tg_humidity_lm_all_sites.json</loc>
-      <lastmod>2025-05-08</lastmod>
-   </url>
-   <url>
-      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Chlorophyll_a/models/tg_lasso.json</loc>
-      <lastmod>2025-05-08</lastmod>
-   </url>
-   <url>
-      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Chlorophyll_a/models/tg_precip_lm.json</loc>
-      <lastmod>2025-05-08</lastmod>
-   </url>
-   <url>
-      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Chlorophyll_a/models/tg_precip_lm_all_sites.json</loc>
-      <lastmod>2025-05-08</lastmod>
-   </url>
-   <url>
-      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Chlorophyll_a/models/tg_randfor.json</loc>
-      <lastmod>2025-05-08</lastmod>
-   </url>
-   <url>
-      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Chlorophyll_a/models/tg_tbats.json</loc>
-      <lastmod>2025-05-08</lastmod>
-   </url>
-   <url>
-      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Chlorophyll_a/models/tg_temp_lm.json</loc>
-      <lastmod>2025-05-08</lastmod>
-   </url>
-   <url>
-      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Chlorophyll_a/models/tg_temp_lm_all_sites.json</loc>
-      <lastmod>2025-05-08</lastmod>
-   </url>
-   <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Dissolved_oxygen/collection.json</loc>
-      <lastmod>2025-05-08</lastmod>
-   </url>
-   <url>
-      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Dissolved_oxygen/models/AquaticEcosystemsOxygen.json</loc>
       <lastmod>2025-05-08</lastmod>
    </url>
    <url>
@@ -2081,31 +2037,11 @@
       <lastmod>2025-05-08</lastmod>
    </url>
    <url>
-      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Dissolved_oxygen/models/climatology.json</loc>
-      <lastmod>2025-05-08</lastmod>
-   </url>
-   <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Dissolved_oxygen/models/hotdeck.json</loc>
       <lastmod>2025-05-08</lastmod>
    </url>
    <url>
-      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Dissolved_oxygen/models/persistenceRW.json</loc>
-      <lastmod>2025-05-08</lastmod>
-   </url>
-   <url>
-      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Dissolved_oxygen/models/tg_arima.json</loc>
-      <lastmod>2025-05-08</lastmod>
-   </url>
-   <url>
-      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Dissolved_oxygen/models/tg_ets.json</loc>
-      <lastmod>2025-05-08</lastmod>
-   </url>
-   <url>
-      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Dissolved_oxygen/models/tg_humidity_lm.json</loc>
-      <lastmod>2025-05-08</lastmod>
-   </url>
-   <url>
-      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Dissolved_oxygen/models/tg_humidity_lm_all_sites.json</loc>
+      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Dissolved_oxygen/models/tg_elasticNet.json</loc>
       <lastmod>2025-05-08</lastmod>
    </url>
    <url>
@@ -2113,179 +2049,11 @@
       <lastmod>2025-05-08</lastmod>
    </url>
    <url>
-      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Dissolved_oxygen/models/tg_precip_lm.json</loc>
-      <lastmod>2025-05-08</lastmod>
-   </url>
-   <url>
-      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Dissolved_oxygen/models/tg_precip_lm_all_sites.json</loc>
-      <lastmod>2025-05-08</lastmod>
-   </url>
-   <url>
-      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Dissolved_oxygen/models/tg_randfor.json</loc>
-      <lastmod>2025-05-08</lastmod>
-   </url>
-   <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Dissolved_oxygen/models/tg_tbats.json</loc>
       <lastmod>2025-05-08</lastmod>
    </url>
    <url>
-      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Dissolved_oxygen/models/tg_temp_lm.json</loc>
-      <lastmod>2025-05-08</lastmod>
-   </url>
-   <url>
       <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Dissolved_oxygen/models/tg_temp_lm_all_sites.json</loc>
-      <lastmod>2025-05-08</lastmod>
-   </url>
-   <url>
-      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Water_temperature/collection.json</loc>
-      <lastmod>2025-05-08</lastmod>
-   </url>
-   <url>
-      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Water_temperature/models/GAM_air_wind.json</loc>
-      <lastmod>2025-05-08</lastmod>
-   </url>
-   <url>
-      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Water_temperature/models/GLEON_JRabaey_temp_physics.json</loc>
-      <lastmod>2025-05-08</lastmod>
-   </url>
-   <url>
-      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Water_temperature/models/GLEON_lm_lag_1day.json</loc>
-      <lastmod>2025-05-08</lastmod>
-   </url>
-   <url>
-      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Water_temperature/models/GLEON_physics.json</loc>
-      <lastmod>2025-05-08</lastmod>
-   </url>
-   <url>
-      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Water_temperature/models/TSLM_seasonal_JM.json</loc>
-      <lastmod>2025-05-08</lastmod>
-   </url>
-   <url>
-      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Water_temperature/models/acp_fableLM.json</loc>
-      <lastmod>2025-05-08</lastmod>
-   </url>
-   <url>
-      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Water_temperature/models/air2waterSat_2.json</loc>
-      <lastmod>2025-05-08</lastmod>
-   </url>
-   <url>
-      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Water_temperature/models/baseline_ensemble.json</loc>
-      <lastmod>2025-05-08</lastmod>
-   </url>
-   <url>
-      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Water_temperature/models/bee_bake_RFModel_2024.json</loc>
-      <lastmod>2025-05-08</lastmod>
-   </url>
-   <url>
-      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Water_temperature/models/cb_prophet.json</loc>
-      <lastmod>2025-05-08</lastmod>
-   </url>
-   <url>
-      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Water_temperature/models/climatology.json</loc>
-      <lastmod>2025-05-08</lastmod>
-   </url>
-   <url>
-      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Water_temperature/models/fARIMA_clim_ensemble.json</loc>
-      <lastmod>2025-05-08</lastmod>
-   </url>
-   <url>
-      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Water_temperature/models/fTSLM_lag.json</loc>
-      <lastmod>2025-05-08</lastmod>
-   </url>
-   <url>
-      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Water_temperature/models/flareGLM.json</loc>
-      <lastmod>2025-05-08</lastmod>
-   </url>
-   <url>
-      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Water_temperature/models/flareGLM_noDA.json</loc>
-      <lastmod>2025-05-08</lastmod>
-   </url>
-   <url>
-      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Water_temperature/models/flareGOTM_noDA.json</loc>
-      <lastmod>2025-05-08</lastmod>
-   </url>
-   <url>
-      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Water_temperature/models/flareSimstrat_noDA.json</loc>
-      <lastmod>2025-05-08</lastmod>
-   </url>
-   <url>
-      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Water_temperature/models/flare_ler.json</loc>
-      <lastmod>2025-05-08</lastmod>
-   </url>
-   <url>
-      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Water_temperature/models/flare_ler_baselines.json</loc>
-      <lastmod>2025-05-08</lastmod>
-   </url>
-   <url>
-      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Water_temperature/models/hotdeck.json</loc>
-      <lastmod>2025-05-08</lastmod>
-   </url>
-   <url>
-      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Water_temperature/models/lm_AT_WTL_WS.json</loc>
-      <lastmod>2025-05-08</lastmod>
-   </url>
-   <url>
-      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Water_temperature/models/mkricheldorf_w_lag.json</loc>
-      <lastmod>2025-05-08</lastmod>
-   </url>
-   <url>
-      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Water_temperature/models/mlp1_wtempforecast_LF.json</loc>
-      <lastmod>2025-05-08</lastmod>
-   </url>
-   <url>
-      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Water_temperature/models/persistenceRW.json</loc>
-      <lastmod>2025-05-08</lastmod>
-   </url>
-   <url>
-      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Water_temperature/models/precip_mod.json</loc>
-      <lastmod>2025-05-08</lastmod>
-   </url>
-   <url>
-      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Water_temperature/models/tg_arima.json</loc>
-      <lastmod>2025-05-08</lastmod>
-   </url>
-   <url>
-      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Water_temperature/models/tg_ets.json</loc>
-      <lastmod>2025-05-08</lastmod>
-   </url>
-   <url>
-      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Water_temperature/models/tg_humidity_lm.json</loc>
-      <lastmod>2025-05-08</lastmod>
-   </url>
-   <url>
-      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Water_temperature/models/tg_humidity_lm_all_sites.json</loc>
-      <lastmod>2025-05-08</lastmod>
-   </url>
-   <url>
-      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Water_temperature/models/tg_lasso.json</loc>
-      <lastmod>2025-05-08</lastmod>
-   </url>
-   <url>
-      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Water_temperature/models/tg_precip_lm.json</loc>
-      <lastmod>2025-05-08</lastmod>
-   </url>
-   <url>
-      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Water_temperature/models/tg_precip_lm_all_sites.json</loc>
-      <lastmod>2025-05-08</lastmod>
-   </url>
-   <url>
-      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Water_temperature/models/tg_randfor.json</loc>
-      <lastmod>2025-05-08</lastmod>
-   </url>
-   <url>
-      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Water_temperature/models/tg_tbats.json</loc>
-      <lastmod>2025-05-08</lastmod>
-   </url>
-   <url>
-      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Water_temperature/models/tg_temp_lm.json</loc>
-      <lastmod>2025-05-08</lastmod>
-   </url>
-   <url>
-      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Water_temperature/models/tg_temp_lm_all_sites.json</loc>
-      <lastmod>2025-05-08</lastmod>
-   </url>
-   <url>
-      <loc>https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Water_temperature/models/zimmerman_proj1.json</loc>
       <lastmod>2025-05-08</lastmod>
    </url>
    <url>
