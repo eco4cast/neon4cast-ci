@@ -200,7 +200,7 @@ background-size: cover;
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#tldr-how-to-submit-a-forecast" id="toc-tldr-how-to-submit-a-forecast" class="nav-link active" data-scroll-target="#tldr-how-to-submit-a-forecast"><span class="header-section-number">1</span> tl;dr: How to submit a forecast</a></li>
+  <li><a href="#overview-how-to-submit-a-forecast" id="toc-overview-how-to-submit-a-forecast" class="nav-link active" data-scroll-target="#overview-how-to-submit-a-forecast"><span class="header-section-number">1</span> Overview: How to submit a forecast</a></li>
   <li><a href="#generating-a-forecast" id="toc-generating-a-forecast" class="nav-link" data-scroll-target="#generating-a-forecast"><span class="header-section-number">2</span> Generating a forecast</a>
   <ul class="collapse">
   <li><a href="#all-forecasting-approaches-are-welcome" id="toc-all-forecasting-approaches-are-welcome" class="nav-link" data-scroll-target="#all-forecasting-approaches-are-welcome"><span class="header-section-number">2.1</span> All forecasting approaches are welcome</a></li>
@@ -237,8 +237,8 @@ background-size: cover;
 
 
 
-<section id="tldr-how-to-submit-a-forecast" class="level2" data-number="1">
-<h2 data-number="1" class="anchored" data-anchor-id="tldr-how-to-submit-a-forecast"><span class="header-section-number">1</span> tl;dr: How to submit a forecast</h2>
+<section id="overview-how-to-submit-a-forecast" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="overview-how-to-submit-a-forecast"><span class="header-section-number">1</span> Overview: How to submit a forecast</h2>
 <p>We provide an overview of the steps for submitting with the details below:</p>
 <ol type="1">
 <li>Explore the <a href="./targets.html#sec-targets">data</a> (e.g., targets) and build your forecast model.</li>
@@ -271,7 +271,7 @@ background-size: cover;
 <section id="forecasts-can-be-submitted-every-day" class="level3" data-number="2.5">
 <h3 data-number="2.5" class="anchored" data-anchor-id="forecasts-can-be-submitted-every-day"><span class="header-section-number">2.5</span> Forecasts can be submitted every day</h3>
 <p>Since forecasts can be submitted every day, automation is essential. We provide an <a href="https://github.com/eco4cast/neon4cast-example">example GitHub</a> repository that can be used to automate your forecast with GitHub Actions. It also includes using a custom Docker Container <a href="https://github.com/eco4cast/neon4cast-ci/blob/main/Dockerfile">eco4cast/rocker-neon4cast:latest</a> that contains many of the packages and functions needed to generate and submit forecasts.</p>
-<p>We only evaluate forecasts for any weekly variables (e.g., beetles and ticks) that were submitted on the Sunday of each week. So, we recommend only submitting forecasts of the weekly variables on Sundays.</p>
+<p>We only evaluate forecasts for any weekly variables (e.g., beetles and ticks) that were submitted on the Sunday of each week. Therefore, we recommend only submitting forecasts of the weekly variables on Sundays.</p>
 </section>
 </section>
 <section id="you-can-forecast-at-any-of-the-neon-sites" class="level2" data-number="3">
@@ -286,7 +286,7 @@ background-size: cover;
 <li><p><code>model_id</code>: the short name of the model defined as the model_id in your registration. The model_id should have no spaces. <code>model_id</code> should reflect a method to forecast one or a set of target variables and must be unique to the neon4cast challenge.</p></li>
 <li><p><code>datetime</code>: forecast timestamp. Format <code>%Y-%m-%d %H:%M:%S</code> with UTC as the time zone. Forecasts submitted with a <code>%Y-%m-%d</code> format will be converted to a full datetime assuming UTC mid-night.</p></li>
 <li><p><code>reference_datetime</code>: The start of the forecast; this should be 0 times steps in the future. There should only be one value of <code>reference_datetime</code> in the file. Format is <code>%Y-%m-%d %H:%M:%S</code> with UTC as the time zone. Forecasts submitted with a <code>%Y-%m-%d</code> format will be converted to a full datetime assuming UTC mid-night.</p></li>
-<li><p><code>duration</code>: the time-step of the forecast. Use the value of <code>P1D</code> for a daily forecast, <code>P1W</code> for a weekly forecast, and <code>PT30M</code> for 30 minute forecast. This value should match the duration of the target variable you are forecasting. Formatted as <a href="https://en.wikipedia.org/wiki/ISO_8601#Durations">ISO 8601 duration</a></p></li>
+<li><p><code>duration</code>: the time-step of the forecast. Use the value of <code>P1D</code> for a daily forecast and <code>P1W</code> for a weekly forecast. This value should match the duration of the target variable you are forecasting. Formatted as <a href="https://en.wikipedia.org/wiki/ISO_8601#Durations">ISO 8601 duration</a></p></li>
 <li><p><code>site_id</code>: code for NEON site.</p></li>
 <li><p><code>family</code> name of the probability distribution that is described by the parameter values in the parameter column (see list below for accepted distribution). An ensemble forecast as a family of <code>ensemble</code>. See note below about family.</p></li>
 <li><p><code>parameter</code> the parameters for the distribution (see note below about the parameter column) or the number of the ensemble members. For example, the parameters for a normal distribution are called <code>mu</code> and <code>sigma</code>.</p></li>
@@ -547,7 +547,7 @@ background-size: cover;
 <h2 data-number="7" class="anchored" data-anchor-id="post-submission"><span class="header-section-number">7</span> Post-submission</h2>
 <section id="processing" class="level3" data-number="7.1">
 <h3 data-number="7.1" class="anchored" data-anchor-id="processing"><span class="header-section-number">7.1</span> Processing</h3>
-<p>After submission, our servers will process uploaded files by converting them to a <a href="https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/collection.json">parquet format</a> on our public s3 storage. A <code>pub_datetime</code> column will be added that denotes when a forecast was submitted. <a href="https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/collection.json">Summaries</a> are generated of the forecasts provide descriptive statistics of the forecast.</p>
+<p>After submission, our servers will process uploaded files by converting them to a <a href="https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-catalog/main/catalog/forecasts/collection.json">parquet format</a> on our public s3 storage. A <code>pub_datetime</code> column will be added that denotes when a forecast was submitted. <a href="https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-catalog/main/catalog/summaries/collection.json">Summaries</a> are generated of the forecasts provide descriptive statistics of the forecast.</p>
 </section>
 <section id="evaluation" class="level3" data-number="7.2">
 <h3 data-number="7.2" class="anchored" data-anchor-id="evaluation"><span class="header-section-number">7.2</span> Evaluation</h3>
