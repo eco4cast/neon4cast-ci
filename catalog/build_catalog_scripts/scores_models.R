@@ -281,7 +281,7 @@ for (i in 1:length(config$target_groups)){ # LOOP OVER VARIABLE GROUPS -- BUILD 
                                         thumbnail_title = "Thumbnail Image",
                                         group_var_vector = NULL,
                                         single_var_name = var_name,
-                                        group_duration_value = duration_value,
+                                        group_duration_value = duration_name,
                                         group_sites = find_var_sites,
                                         citation_values = var_citations,
                                         doi_values = doi_citations)
