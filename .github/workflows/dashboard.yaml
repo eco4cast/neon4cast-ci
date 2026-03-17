@@ -17,7 +17,7 @@ jobs:
     steps:
       - run: git config --system --add safe.directory '*'
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
            fetch-depth: 0
            set-safe-directory: '*'

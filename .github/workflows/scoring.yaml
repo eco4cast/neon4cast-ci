@@ -26,7 +26,7 @@ jobs:
           sudo rm -rf /usr/local/lib/android /usr/share/dotnet /opt/ghc
           df -h
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: install
         run: R -e "install.packages(c('bench', 'duckdbfs', 'minioclient', 'callr')); remotes::install_github('eco4cast/score4cast')"

@@ -16,7 +16,7 @@ jobs:
       image: eco4cast/rocker-neon4cast:latest
       options: --memory 45g
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Download Pseudo
         shell: Rscript {0}

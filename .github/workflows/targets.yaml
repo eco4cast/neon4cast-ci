@@ -18,7 +18,7 @@ jobs:
       OSN_SECRET: ${{ secrets.OSN_SECRET }}
     container: eco4cast/rocker-neon4cast:latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v6
 
       - name: Generate targets
         shell: Rscript {0}
@@ -38,7 +38,7 @@ jobs:
       image: eco4cast/rocker-neon4cast:latest
       options: --memory 45g
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v6
 
       - name: Generate targets
         shell: Rscript {0}
@@ -60,7 +60,7 @@ jobs:
       EFI_NRP_SECRET: ${{ secrets.EFI_NRP_SECRET }}
     container: eco4cast/rocker-neon4cast:latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v6
 
       - name: install dependencies
         run: |
@@ -82,7 +82,7 @@ jobs:
       NEON_TOKEN: ${{ secrets.NEON_TOKEN }}
     container: eco4cast/rocker-neon4cast:latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v6
       - name: Generate targets
         shell: Rscript {0}
         run: |
@@ -100,7 +100,7 @@ jobs:
       NEON_TOKEN: ${{ secrets.NEON_TOKEN }}
     container: eco4cast/rocker-neon4cast:latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Generate targets
         shell: Rscript {0}
