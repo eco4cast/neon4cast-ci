@@ -22,7 +22,7 @@ jobs:
       image: eco4cast/rocker-neon4cast:latest
       options: --memory 15120m
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Process submissions
         shell: Rscript {0}
