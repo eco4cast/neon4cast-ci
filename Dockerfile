@@ -1,7 +1,7 @@
 FROM rocker/geospatial:latest
 
 #USER root
-RUN apt-get update && apt-get -y install cron jags libgd-dev libnetcdf-dev default-jdk-headless
+RUN apt-get update && apt-get -y install cron jags libgd-dev libnetcdf-dev default-jdk-headless libuv1-dev
 
 RUN sudo update-ca-certificates
 
