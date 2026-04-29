@@ -19,6 +19,8 @@ RUN R -e "remotes::install_github('eco4cast/score4cast')"
 RUN sleep 180
 RUN R -e "remotes::install_github('eco4cast/neon4cast')"
 RUN sleep 180
+RUN R -e "remotes::install_github('eco4cast/EFIstandards')"
+RUN sleep 180
 RUN R -e "remotes::install_github('eco4cast/gefs4cast', upgrade = FALSE)"
 RUN sleep 180
 RUN R -e "remotes::install_github('mitchelloharawild/distributional', ref = 'bb0427e')"
