@@ -11,10 +11,6 @@ print(paste0("Running Creating Daily Terrestrial Forecasts at ", Sys.time()))
 #' EFIstandards is at remotes::install_github("eco4cast/EFIstandards")
 library(tidyverse)
 library(lubridate)
-library(aws.s3)
-library(EFIstandards)
-library(EML)
-library(jsonlite)
 library(imputeTS)
 
 
