@@ -9,7 +9,7 @@ name: scoring
 
 jobs:
   scoring:
-    runs-on: arc-runner-eco4cast
+    runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       OSN_KEY: ${{ secrets.OSN_KEY }}
