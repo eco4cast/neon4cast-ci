@@ -17,7 +17,7 @@ jobs:
       EFI_NRP_KEY: ${{ secrets.EFI_NRP_KEY }}
       EFI_NRP_SECRET: ${{ secrets.EFI_NRP_SECRET }}
     container:
-      image: ghcr.io/boettiger-lab/k8s@sha256:fd02edfb4318afe022f8a732a99d93df7127dadb2bb4e208e36a86f96c2f45c6
+      image: eco4cast/rocker-neon4cast:latest
       options: --user root
     steps:
 
@@ -27,9 +27,6 @@ jobs:
           df -h
 
       - uses: actions/checkout@v6
-
-      - name: install
-        run: R -e "install.packages(c('bench', 'duckdbfs', 'minioclient', 'callr')); remotes::install_github('eco4cast/score4cast')"
 
       - name: scoring-prep
         run: r scoring/prep-scoring.R
