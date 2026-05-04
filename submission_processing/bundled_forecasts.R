@@ -89,6 +89,8 @@ bundle_me <- function(path) {
     bundled_path <- mc_bundled_path |> str_replace(fixed("osn/"), fixed("s3://"))
 
     new <- union(old, new)
+  } else {
+    bundled_path <- paste0(bundled_path,'data_0.parquet') ## write explicit parquet for new submissions as well
   }
 
   ## once running consistently we can "append" with union_all instead of union
