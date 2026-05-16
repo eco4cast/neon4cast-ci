@@ -1,5 +1,8 @@
 FROM rocker/geospatial:latest
 
+ENV AWS_REQUEST_CHECKSUM_CALCULATION=when_required \
+    AWS_RESPONSE_CHECKSUM_VALIDATION=when_required
+
 #USER root
 RUN apt-get update && apt-get -y install cron jags libgd-dev libnetcdf-dev default-jdk-headless libuv1-dev
 
