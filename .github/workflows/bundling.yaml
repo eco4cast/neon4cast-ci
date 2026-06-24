@@ -14,21 +14,9 @@ jobs:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       OSN_KEY: ${{ secrets.OSN_KEY }}
       OSN_SECRET: ${{ secrets.OSN_SECRET }}
-    container:
-      image: ghcr.io/boettiger-lab/k8s@sha256:fd02edfb4318afe022f8a732a99d93df7127dadb2bb4e208e36a86f96c2f45c6
-      options: --user root
+    container: eco4cast/rocker-neon4cast:latest
     steps:
       - uses: actions/checkout@v6
-
-      - name: Install
-        shell: Rscript {0}
-        run: |
-          # Pin to a dated PPM snapshot so binary packages match the container's R ABI.
-          # `latest` began serving binaries built for a newer R on 2026-06-22, which
-          # pulled in an rlang built against that newer R (undefined symbol: SETLENGTH).
-          options(repos=list(CRAN="http://packagemanager.rstudio.com/all/__linux__/noble/2026-06-21"))
-          install.packages(c("future.apply", "progressr", "minioclient", "bench", "glue", "fs"))
-
 
       - name: Bundle forecasts
         run: r submission_processing/bundled_forecasts.R
