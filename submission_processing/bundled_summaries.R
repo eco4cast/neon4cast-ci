@@ -1,5 +1,3 @@
-remotes::install_github("cboettig/duckdbfs", upgrade=FALSE)
-
 library(tidyverse)
 library(duckdbfs)
 library(minioclient)

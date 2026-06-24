@@ -14,7 +14,7 @@ RUN install2.r devtools remotes reticulate neonstore RCurl neonUtilities content
 
 RUN install2.r renv rjags ISOweek RNetCDF fable fabletools forecast imputeTS duckdbfs gsheet patchwork pak ggiraph
 
-RUN install2.r ncdf4 scoringRules tidybayes tidync udunits2 bench yaml here feasts future furrr jsonlite bsicons bslib neonUtilities
+RUN install2.r ncdf4 scoringRules tidybayes tidync udunits2 bench yaml here feasts future furrr jsonlite bsicons bslib neonUtilities future.apply progressr
 
 RUN R -e "remotes::install_github('eco4cast/stac4cast')"
 RUN sleep 180
@@ -28,3 +28,5 @@ RUN R -e "remotes::install_github('eco4cast/gefs4cast', upgrade = FALSE)"
 RUN sleep 180
 RUN R -e "remotes::install_github('mitchelloharawild/distributional', ref = 'bb0427e')"
 RUN R -e "remotes::install_version('arrow', version = '20.0.0')"
+# dev duckdbfs (bundling scripts previously installed this live at runtime)
+RUN R -e "remotes::install_github('cboettig/duckdbfs', upgrade = FALSE)"
