@@ -2,6 +2,20 @@ library(dplyr)
 library(duckdbfs)
 library(lubridate)
 
+# OSN (sdsc.osn.xsede.org) intermittently times out / throttles on the large
+# bundled-parquet listings. Extend the httpfs timeout and add retries so a slow
+# response doesn't abort the whole render.
+local({
+  con <- duckdbfs::cached_connection()
+  try(DBI::dbExecute(con, "INSTALL httpfs; LOAD httpfs;"), silent = TRUE)
+  for (s in c("SET http_timeout=600000",     # 10 min (ms), default 30s
+              "SET http_retries=5",           # default 3
+              "SET http_retry_wait_ms=500",
+              "SET http_keep_alive=true")) {
+    try(DBI::dbExecute(con, s), silent = TRUE)
+  }
+})
+
 config <- yaml::read_yaml("challenge_configuration.yaml")
 sites <- open_dataset(config$catalog_config$site_metadata_url) |>
   rename(site_id = field_site_id)

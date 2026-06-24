@@ -122,7 +122,8 @@ tick_standard <- tick_long %>%
   filter(siteID %in% target_sites, # sites we want
          lifeStage == target_lifestage, # life stage we want
          scientificName %in% target_species,
-         grepl("Forest", nlcdClass)) %>%  # forest plots
+         grepl("Forest", nlcdClass), # forest plots
+         !is.na(collectDate)) %>%  # drop rows w/ unparseable dates (provisional data schema gaps)
   mutate(date = floor_date(collectDate, unit = "day"),
          date = ymd(date),
          year = year(date),
