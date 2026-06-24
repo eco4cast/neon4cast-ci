@@ -23,7 +23,10 @@ jobs:
       - name: Install
         shell: Rscript {0}
         run: |
-          options(repos=list(CRAN="http://packagemanager.rstudio.com/all/__linux__/noble/latest"))
+          # Pin to a dated PPM snapshot so binary packages match the container's R ABI.
+          # `latest` began serving binaries built for a newer R on 2026-06-22, which
+          # pulled in an rlang built against that newer R (undefined symbol: SETLENGTH).
+          options(repos=list(CRAN="http://packagemanager.rstudio.com/all/__linux__/noble/2026-06-21"))
           install.packages(c("future.apply", "progressr", "minioclient", "bench", "glue", "fs"))
 
 
