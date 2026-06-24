@@ -71,7 +71,8 @@ tick_taxon_raw <- datasetQuery(dpID="DP1.10093.001",
 # so, keep records when sampling occurred
 tick_field <- tick_field_raw %>%
   filter(totalSampledArea > 0) %>%
-  mutate(collectDate = lubridate::as_datetime(collectDate),
+  mutate(collectDate = lubridate::ymd_hms(as.character(collectDate),
+                                          truncated = 3, quiet = TRUE),
          time = floor_date(collectDate, unit = "day")) %>%
   unite(namedLocation, time, col = "occasionID", sep = "_")
 
