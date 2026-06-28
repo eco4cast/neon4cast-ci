@@ -25,9 +25,4 @@ jobs:
       - uses: actions/checkout@v6
 
       - name: Process submissions
-        shell: Rscript {0}
-        run: |
-          remotes::install_github("cboettig/duckdbfs", upgrade="never")
-          remotes::install_github("eco4cast/neon4cast")          
-          remotes::install_github("eco4cast/score4cast")
-          source("submission_processing/process_submissions.R")
+        run: r submission_processing/process_submissions.R
