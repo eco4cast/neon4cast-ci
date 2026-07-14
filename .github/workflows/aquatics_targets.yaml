@@ -27,6 +27,12 @@ jobs:
         run: |
           sudo apt-get -y install python3-venv python3-pip python3-dev
 
+      - name: Refresh CA certificates
+        run: |
+          apt-get update
+          apt-get install -y --no-install-recommends ca-certificates
+          update-ca-certificates
+
       - name: Generate targets
         shell: Rscript {0}
         run: |
