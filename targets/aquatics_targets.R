@@ -125,7 +125,7 @@ message("Downloading and processing data from NEON Portal")
 
 # Configure DuckDB to use the system CA certificate bundle so that HTTPS
 # connections to storage.googleapis.com succeed after update-ca-certificates.
-duckdb_con <- duckdbfs::duckdbfs_connection()
+duckdb_con <- duckdbfs::cached_connection()
 DBI::dbExecute(duckdb_con, "SET ca_cert_file='/etc/ssl/certs/ca-certificates.crt'")
 
 wq_portal <- duckdbfs::open_dataset(urls, format="csv", filename = TRUE) |>
