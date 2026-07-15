@@ -70,6 +70,7 @@ jobs:
       NEON_TOKEN: ${{ secrets.NEON_TOKEN }}
       EFI_NRP_KEY: ${{ secrets.EFI_NRP_KEY }}
       EFI_NRP_SECRET: ${{ secrets.EFI_NRP_SECRET }}
+      SSL_CERT_FILE: /etc/ssl/certs/ca-certificates.crt
     container: eco4cast/rocker-neon4cast:latest
     steps:
       - uses: actions/checkout@v6
