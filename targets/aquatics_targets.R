@@ -123,18 +123,7 @@ urls <- full_df |>
 
 message("Downloading and processing data from NEON Portal")
 
-# Configure SSL for DuckDB so it can verify certificates when accessing
-# HTTPS URLs (e.g. storage.googleapis.com).
-# 1. SSL_CERT_FILE is read by OpenSSL at connection time and provides the
-#    updated CA bundle written by the workflow's update-ca-certificates step.
-# 2. Explicitly LOAD httpfs before SET ca_cert_file so the extension is
-#    present when the setting is applied.
-Sys.setenv(SSL_CERT_FILE = "/etc/ssl/certs/ca-certificates.crt")
-duckdb_con <- duckdbfs::cached_connection()
-tryCatch(DBI::dbExecute(duckdb_con, "LOAD httpfs"), error = function(e) invisible(NULL))
-DBI::dbExecute(duckdb_con, "SET ca_cert_file='/etc/ssl/certs/ca-certificates.crt'")
-
-wq_portal <- duckdbfs::open_dataset(urls, format="csv", filename = TRUE) |>
+wq_portal <- vroom::vroom(urls, id = "filename", show_col_types = FALSE) |>
   dplyr::mutate(siteID = stringr::str_sub(filename, 77,80)) |>
   dplyr::select(siteID, startDateTime, sensorDepth,
                 dissolvedOxygen,dissolvedOxygenFinalQF,
@@ -162,8 +151,7 @@ wq_portal <- duckdbfs::open_dataset(urls, format="csv", filename = TRUE) |>
                 oxygen, chla, chla_RFU) %>%
   pivot_longer(cols = -c("time", "site_id"), names_to = "variable", values_to = "observation") %>%
   dplyr::filter(!((variable == "chla" & site_id %in% stream_sites) |
-                    (variable == "chla_RFU" & site_id %in% stream_sites))) |>
-  collect()
+                    (variable == "chla_RFU" & site_id %in% stream_sites)))
 
 #====================================================#
 ##### low latency WQ data =======
@@ -340,7 +328,7 @@ urls <- full_df |>
 
 
 hourly_temp_profile_portal <-
-  duckdbfs::open_dataset(urls, format="csv", filename = TRUE) |>
+  vroom::vroom(urls, id = "filename", show_col_types = FALSE) |>
   dplyr::mutate(site_id = stringr::str_sub(filename, 77,80),
                 verticalPosition = stringr::str_sub(filename, 153,155)) |>
   dplyr::select(startDateTime, site_id, tsdWaterTempMean, thermistorDepth,
@@ -361,7 +349,6 @@ hourly_temp_profile_portal <-
   mutate(variable = "temperature",
          time = as_datetime(paste0(date, " ",hour, ":00:00"))) |>
   select(-date, - hour) |>
-  collect() |>
   QC.temp(range = c(-5, 40), spike = 5, by.depth = T) %>%
   mutate(data_source = 'NEON_portal')
 
@@ -562,7 +549,7 @@ urls <- full_df |>
   dplyr::pull(url)
 
 temp_streams_portal <-
-  duckdbfs::open_dataset(urls, format="csv", filename = TRUE) |>
+  vroom::vroom(urls, id = "filename", show_col_types = FALSE) |>
   dplyr::mutate(site_id = stringr::str_sub(filename, 77,80),
                 verticalPosition = stringr::str_sub(filename, 153,155),
                 horizontalPosition = stringr::str_sub(filename, 149,151)) |>
@@ -577,8 +564,7 @@ temp_streams_portal <-
   dplyr::summarize(temperature = mean(surfWaterTempMean, na.rm = TRUE), .by = c('time', 'site_id')) %>%
   dplyr::select(time, site_id, temperature) %>%
   rename(observation = temperature) |>
-  mutate(variable = "temperature") |>
-  collect()
+  mutate(variable = "temperature")
 
 temp_streams_portal_QC <- temp_streams_portal %>%
   QC.temp(range = c(-5, 40), spike = 7, by.depth = F)
@@ -722,7 +708,7 @@ urls <- full_df |>
   dplyr::pull(url)
 
 
-temp_rivers_portal <- duckdbfs::open_dataset(urls, format="csv", filename = TRUE) |>
+temp_rivers_portal <- vroom::vroom(urls, id = "filename", show_col_types = FALSE) |>
   dplyr::mutate(site_id = stringr::str_sub(filename, 77,80)) |>
   dplyr::mutate(depth = as.numeric(thermistorDepth),
                 tsdWaterTempMean = as.numeric(tsdWaterTempMean),
@@ -733,8 +719,7 @@ temp_rivers_portal <- duckdbfs::open_dataset(urls, format="csv", filename = TRUE
   dplyr::summarize(temperature = mean(tsdWaterTempMean, na.rm = TRUE), .by = c("time", "site_id")) %>%
   dplyr::select(time, site_id, temperature) %>%
   rename(observation = temperature) |>
-  mutate(variable = "temperature") |>
-  collect() %>%
+  mutate(variable = "temperature") %>%
   dplyr::mutate(time = as_date(time))
 
 
