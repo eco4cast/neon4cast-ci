@@ -1,13 +1,11 @@
 library(arrow)
 
-source("https://raw.githubusercontent.com/eco4cast/neon4cast/main/R/to_hourly.R")
+source("drivers/site_list.R")
+source("drivers/to_hourly.R")
 
 print(sessioninfo::package_info())
 
-site_list <- readr::read_csv(paste0("https://github.com/eco4cast/",
-                                    "neon4cast-noaa-download/",
-                                    "raw/master/noaa_download_site_list.csv"),
-                             show_col_types = FALSE) |> dplyr::pull(site_id)
+site_list <- read_noaa_download_site_list() |> dplyr::pull(site_id)
 
 #future::plan("future::multisession", workers = 8)
 

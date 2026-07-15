@@ -3,6 +3,8 @@ library(gdalcubes)
 library(gefs4cast)
 library(arrow)
 
+source("drivers/site_list.R")
+
 print(sessioninfo::package_info())
 
 gdalcubes::gdalcubes_options(parallel=20)
@@ -10,10 +12,8 @@ gdalcubes::gdalcubes_options(parallel=20)
 
 sites <-
   dplyr::bind_rows(
-    readr::read_csv(paste0("https://github.com/eco4cast/",
-                           "neon4cast-noaa-download/",
-                           "raw/master/noaa_download_site_list.csv"),
-                    col_select = c("site_id", "latitude", "longitude"))#,
+    read_noaa_download_site_list() |>
+      dplyr::select(site_id, latitude, longitude)#,
     #readr::read_csv(paste0("https://github.com/eco4cast/neon4cast-targets/",
     #                       "raw/main/tern_field_site_metadata.csv"),
     #                col_select = c("site_id", "latitude", "longitude"))
