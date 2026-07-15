@@ -123,18 +123,7 @@ urls <- full_df |>
 
 message("Downloading and processing data from NEON Portal")
 
-# Configure SSL for DuckDB so it can verify certificates when accessing
-# HTTPS URLs (e.g. storage.googleapis.com).
-# 1. SSL_CERT_FILE is read by OpenSSL at connection time and provides the
-#    updated CA bundle written by the workflow's update-ca-certificates step.
-# 2. Explicitly LOAD httpfs before SET ca_cert_file so the extension is
-#    present when the setting is applied.
-Sys.setenv(SSL_CERT_FILE = "/etc/ssl/certs/ca-certificates.crt")
-duckdb_con <- duckdbfs::cached_connection()
-tryCatch(DBI::dbExecute(duckdb_con, "LOAD httpfs"), error = function(e) invisible(NULL))
-DBI::dbExecute(duckdb_con, "SET ca_cert_file='/etc/ssl/certs/ca-certificates.crt'")
-
-wq_portal <- duckdbfs::open_dataset(urls, format="csv", filename = TRUE) |>
+wq_portal <- vroom::vroom(urls, id = "filename") |>
   dplyr::mutate(siteID = stringr::str_sub(filename, 77,80)) |>
   dplyr::select(siteID, startDateTime, sensorDepth,
                 dissolvedOxygen,dissolvedOxygenFinalQF,
@@ -340,7 +329,7 @@ urls <- full_df |>
 
 
 hourly_temp_profile_portal <-
-  duckdbfs::open_dataset(urls, format="csv", filename = TRUE) |>
+  vroom::vroom(urls, id = "filename") |>
   dplyr::mutate(site_id = stringr::str_sub(filename, 77,80),
                 verticalPosition = stringr::str_sub(filename, 153,155)) |>
   dplyr::select(startDateTime, site_id, tsdWaterTempMean, thermistorDepth,
@@ -562,7 +551,7 @@ urls <- full_df |>
   dplyr::pull(url)
 
 temp_streams_portal <-
-  duckdbfs::open_dataset(urls, format="csv", filename = TRUE) |>
+  vroom::vroom(urls, id = "filename") |>
   dplyr::mutate(site_id = stringr::str_sub(filename, 77,80),
                 verticalPosition = stringr::str_sub(filename, 153,155),
                 horizontalPosition = stringr::str_sub(filename, 149,151)) |>
@@ -722,7 +711,7 @@ urls <- full_df |>
   dplyr::pull(url)
 
 
-temp_rivers_portal <- duckdbfs::open_dataset(urls, format="csv", filename = TRUE) |>
+temp_rivers_portal <- vroom::vroom(urls, id = "filename") |>
   dplyr::mutate(site_id = stringr::str_sub(filename, 77,80)) |>
   dplyr::mutate(depth = as.numeric(thermistorDepth),
                 tsdWaterTempMean = as.numeric(tsdWaterTempMean),
