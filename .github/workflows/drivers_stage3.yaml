@@ -20,6 +20,12 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
+      - name: Refresh CA certificates
+        run: |
+          apt-get update
+          apt-get install -y --no-install-recommends ca-certificates
+          update-ca-certificates
+
       - name: Download Pseudo
         shell: Rscript {0}
         run: |
