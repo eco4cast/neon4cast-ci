@@ -18,7 +18,6 @@ jobs:
       EFI_NRP_SECRET: ${{ secrets.EFI_NRP_SECRET }}
     container:
       image: eco4cast/rocker-neon4cast:latest
-      options: --user root
     steps:
 
       - name: cleanup disk space
