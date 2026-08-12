@@ -7,7 +7,7 @@ name: drivers-stage3
 
 jobs:
   docker:
-    runs-on: arc-runner-eco4cast
+    runs-on: efi-cirrus
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       OSN_KEY: ${{ secrets.OSN_KEY }}
