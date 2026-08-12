@@ -16,7 +16,6 @@ jobs:
       AWS_RESPONSE_CHECKSUM_VALIDATION: when_required
     container:
       image: eco4cast/rocker-neon4cast:latest
-      options: --memory 45g
     steps:
       - uses: actions/checkout@v6
 
