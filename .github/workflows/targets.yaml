@@ -33,7 +33,7 @@ jobs:
           source("targets/phenology_targets.R")
 
   terrestrial:
-    runs-on: arc-runner-eco4cast
+    runs-on: efi-cirrus
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_SUBMISSIONS }}
