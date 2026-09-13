@@ -1,0 +1,62 @@
+# TEMPORARY diagnostic - delete once the submissions auth question is settled.
+on:
+  workflow_dispatch:
+
+name: diagnose-auth
+
+jobs:
+  diag:
+    runs-on: ubuntu-latest
+    env:
+      AWS_ACCESS_KEY_SUBMISSIONS: ${{ secrets.AWS_ACCESS_KEY_SUBMISSIONS }}
+      AWS_SECRET_ACCESS_KEY_SUBMISSIONS: ${{ secrets.AWS_SECRET_ACCESS_KEY_SUBMISSIONS }}
+      EFI_NRP_KEY: ${{ secrets.EFI_NRP_KEY }}
+      EFI_NRP_SECRET: ${{ secrets.EFI_NRP_SECRET }}
+    container: eco4cast/rocker-neon4cast:latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: ./.github/actions/install-mc
+
+      - name: Probe submissions bucket auth
+        shell: bash
+        run: |
+          MC="$(Rscript --vanilla -e 'cat(getOption("minioclient.dir", tools::R_user_dir("minioclient", "data")))')/mc"
+          OBJ=aquatics-2026-09-08-bu4cast_coastal_enkf.csv.gz
+          EP=https://s3-west.nrp-nautilus.io
+
+          # Never print secret material: only length and a short digest, enough
+          # to tell "empty", "set", and "same/different key" apart.
+          fp() {
+            if [ -z "${1:-}" ]; then echo "EMPTY"
+            else echo "${#1} chars sha256:$(printf %s "$1" | sha256sum | cut -c1-8)"; fi
+          }
+
+          echo "== credential presence =="
+          echo "AWS_ACCESS_KEY_SUBMISSIONS     : $(fp "${AWS_ACCESS_KEY_SUBMISSIONS:-}")"
+          echo "AWS_SECRET_ACCESS_KEY_SUBMISSIONS: $(fp "${AWS_SECRET_ACCESS_KEY_SUBMISSIONS:-}")"
+          echo "EFI_NRP_KEY                    : $(fp "${EFI_NRP_KEY:-}")"
+          echo "EFI_NRP_SECRET                 : $(fp "${EFI_NRP_SECRET:-}")"
+
+          probe () {
+            name=$1; key=$2; sec=$3
+            echo
+            echo "== probing as: $name =="
+            cfg=$(mktemp -d)
+            if [ -z "$sec" ]; then
+              $MC --config-dir "$cfg" alias set t "$EP" 2>&1 | tail -1
+            else
+              $MC --config-dir "$cfg" alias set t "$EP" "$key" "$sec" 2>&1 | tail -1
+            fi
+            echo "  alias set rc=$?"
+            $MC --config-dir "$cfg" ls t/submissions >/dev/null 2>/tmp/ls.err
+            echo "  LIST  rc=$? $(head -1 /tmp/ls.err)"
+            $MC --config-dir "$cfg" cp "t/submissions/$OBJ" "$cfg/out.gz" >/dev/null 2>/tmp/cp.err
+            echo "  GET   rc=$? $(head -1 /tmp/cp.err)"
+          }
+
+          set +e
+          probe "AWS_*_SUBMISSIONS" "$AWS_ACCESS_KEY_SUBMISSIONS" "$AWS_SECRET_ACCESS_KEY_SUBMISSIONS"
+          probe "EFI_NRP_*"        "$EFI_NRP_KEY"                 "$EFI_NRP_SECRET"
+          probe "anonymous"        ""                             ""
+          exit 0
