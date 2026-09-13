@@ -20,37 +20,16 @@ jobs:
 
       - uses: ./.github/actions/install-mc
 
-      - name: Probe submissions bucket auth
-        shell: bash
+      - name: Inspect submissions bucket layout
+        shell: Rscript {0}
         run: |
-          MC="$(Rscript --vanilla -e 'cat(getOption("minioclient.dir", tools::R_user_dir("minioclient", "data")))')/mc"
-          EP=https://s3-west.nrp-nautilus.io
-          set +e
-
-          A=$(mktemp -d); N=$(mktemp -d)
-          $MC --config-dir "$A" alias set auth "$EP" "$EFI_NRP_KEY" "$EFI_NRP_SECRET" >/dev/null 2>&1
-          $MC --config-dir "$N" alias set anon "$EP" >/dev/null 2>&1
-
-          echo "== 1. LIST with authenticated key =="
-          $MC --config-dir "$A" ls auth/submissions --json 2>/tmp/e >/tmp/list.json
-          echo "  rc=$? $(head -1 /tmp/e)"
-          keys=$(sed -n 's/.*"key":"\([^"]*\)".*/\1/p' /tmp/list.json)
-          echo "  objects listed: $(printf '%s\n' "$keys" | grep -c . )"
-
-          echo
-          echo "== 2. anonymous GET across a sample =="
-          ok=0; bad=0
-          for k in $(printf '%s\n' "$keys" | head -12); do
-            $MC --config-dir "$N" cp "anon/submissions/$k" "$N/probe.bin" >/dev/null 2>/tmp/e
-            if [ $? -eq 0 ]; then ok=$((ok+1)); else bad=$((bad+1)); echo "  FAILED: $k -> $(head -1 /tmp/e)"; fi
-          done
-          echo "  anonymous GET succeeded on $ok object(s), failed on $bad"
-
-          echo
-          echo "== 3. DELETE permission (non-existent key: mutates nothing) =="
-          probe=".permcheck-does-not-exist-$RANDOM$RANDOM"
-          $MC --config-dir "$A" rm "auth/submissions/$probe" >/tmp/o 2>/tmp/e
-          echo "  authenticated rc=$? $(cat /tmp/o /tmp/e | head -1)"
-          $MC --config-dir "$N" rm "anon/submissions/$probe" >/tmp/o 2>/tmp/e
-          echo "  anonymous     rc=$? $(cat /tmp/o /tmp/e | head -1)"
-          exit 0
+          library(minioclient)
+          ep <- yaml::read_yaml("challenge_configuration.yaml")$submissions_endpoint
+          bkt <- yaml::read_yaml("challenge_configuration.yaml")$submissions_bucket
+          mc_alias_set("submit", ep, Sys.getenv("EFI_NRP_KEY"), Sys.getenv("EFI_NRP_SECRET"))
+          flat <- mc_ls(paste0("submit/", bkt))
+          rec  <- mc_ls(paste0("submit/", bkt), recursive = TRUE, details = TRUE)
+          cat("flat keys:", length(flat), " recursive rows:", nrow(rec), "\n")
+          cat("any folders:", any(rec$is_folder), "\n")
+          cat("any key containing '/':", any(grepl("/", rec$key)), "\n")
+          cat("sample keys:\n"); print(utils::head(rec$key, 8))
