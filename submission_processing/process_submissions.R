@@ -30,6 +30,14 @@ minioclient::mc_alias_set("submit",
                           Sys.getenv("AWS_ACCESS_KEY_SUBMISSIONS"),
                           Sys.getenv("AWS_SECRET_ACCESS_KEY_SUBMISSIONS"))
 
+# Since 2026-09-08 the NRP key has been unable to read this bucket: it still has
+# ListBucket and DeleteObject, but GetObject returns "Insufficient permissions".
+# Anonymous access is the exact inverse - it can GET but can neither list nor
+# delete. So enumerate and delete through the authenticated alias above, and
+# fetch object bodies through this anonymous one. Drop it once NRP restores
+# GetObject to the key.
+minioclient::mc_alias_set("submit_read", config$submissions_endpoint, "", "")
+
 message(paste0("Starting Processing Submissions ", Sys.time()))
 
 local_dir <- file.path(here::here(), "submissions")
@@ -38,7 +46,34 @@ fs::dir_create(local_dir)
 
 message("Downloading forecasts ...")
 
-minioclient::mc_mirror(from = paste0("submit/",config$submissions_bucket), to = local_dir)
+# Replaces mc_mirror(), which cannot work while list and read live with
+# different identities. Keys are listed recursively and copied one at a time,
+# preserving the bucket's nested layout for the dir_ls() walk below. A single
+# unreadable object is reported and skipped rather than aborting the batch.
+submission_keys <- minioclient::mc_ls(paste0("submit/", config$submissions_bucket),
+                                      recursive = TRUE,
+                                      details = TRUE)$key
+
+failed <- character(0)
+for (key in submission_keys) {
+  dest <- file.path(local_dir, key)
+  fs::dir_create(dirname(dest))
+  copied <- tryCatch({
+    minioclient::mc_cp(paste0("submit_read/", config$submissions_bucket, "/", key), dest)
+    TRUE
+  }, error = function(e) {
+    warning("could not download ", key, ": ", conditionMessage(e), call. = FALSE)
+    FALSE
+  })
+  if (!isTRUE(copied)) failed <- c(failed, key)
+}
+
+message(sprintf("Downloaded %d of %d submissions",
+                length(submission_keys) - length(failed),
+                length(submission_keys)))
+if (length(failed) > 0) {
+  message("Skipped unreadable submissions: ", paste(failed, collapse = ", "))
+}
 
 submissions <- fs::dir_ls(local_dir, recurse = TRUE, type = "file")
 submissions <- submissions[stringr::str_detect(submissions, "2023", negate = TRUE)]
