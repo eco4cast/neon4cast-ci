@@ -1,6 +1,8 @@
 # TEMPORARY diagnostic - delete once the submissions auth question is settled.
 on:
   workflow_dispatch:
+  push:
+    branches: [fix-mc-download]
 
 name: diagnose-auth
 
