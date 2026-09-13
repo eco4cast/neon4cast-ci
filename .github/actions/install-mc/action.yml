@@ -1,0 +1,65 @@
+name: Install mc client
+description: >
+  Pre-seed the MinIO client binary where minioclient::install_mc() looks for it.
+
+  minioclient::install_mc() downloads mc from https://dl.min.io/client/mc/release/,
+  which now returns HTTP 410 Gone: MinIO withdrew the community downloads and
+  archived the minio/mc repository. Every script calling install_mc() therefore
+  dies on startup. install_mc() returns early when the binary is already present,
+  so putting it in place here turns those calls into no-ops without touching the
+  R scripts. The last published release remains available as a GitHub release
+  asset; this is a stopgap until the scripts move to rcloner.
+
+inputs:
+  release:
+    description: mc release tag to install.
+    required: false
+    default: RELEASE.2025-08-13T08-35-41Z
+  sha256:
+    description: >
+      Expected SHA-256 of the linux-amd64 binary. Checked against the .sha256sum
+      asset published alongside the release, which is itself fetched and compared
+      so a swapped asset is caught.
+    required: false
+    default: 01f866e9c5f9b87c2b09116fa5d7c06695b106242d829a8bb32990c00312e891
+
+runs:
+  using: composite
+  steps:
+    - name: Install mc where minioclient expects it
+      shell: bash
+      env:
+        MC_RELEASE: ${{ inputs.release }}
+        MC_SHA256: ${{ inputs.sha256 }}
+      run: |
+        set -euo pipefail
+
+        case "$(uname -m)" in
+          x86_64)  arch=amd64 ;;
+          aarch64) arch=arm64 ;;
+          *) echo "::error::unsupported architecture $(uname -m)"; exit 1 ;;
+        esac
+
+        # Ask R itself where the binary belongs, rather than hardcoding a path:
+        # minio_path() is R_user_dir("minioclient", "data") unless the
+        # minioclient.dir option overrides it, and it depends on HOME, which
+        # differs between container and host runners.
+        dest=$(Rscript -e 'cat(getOption("minioclient.dir", tools::R_user_dir("minioclient", "data")))')
+        mkdir -p "$dest"
+
+        base="https://github.com/minio/mc/releases/download/${MC_RELEASE}"
+        asset="mc.linux-${arch}.${MC_RELEASE}"
+
+        curl -fsSL --retry 3 --retry-delay 5 -o "$dest/mc" "$base/${asset}"
+
+        # The published checksum covers the binary contents; its filename field
+        # refers to the generic "mc.RELEASE..." name, so compare hashes directly.
+        published=$(curl -fsSL --retry 3 --retry-delay 5 "$base/${asset}.sha256sum" | cut -d' ' -f1)
+        if [ "$arch" = "amd64" ] && [ "$published" != "$MC_SHA256" ]; then
+          echo "::error::mc checksum asset ($published) does not match the pinned sha256 ($MC_SHA256)"
+          exit 1
+        fi
+        echo "${published}  ${dest}/mc" | sha256sum -c -
+
+        chmod +x "$dest/mc"
+        "$dest/mc" --version

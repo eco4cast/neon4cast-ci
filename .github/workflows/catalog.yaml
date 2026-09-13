@@ -36,6 +36,8 @@ jobs:
           install.packages('gsheet')
           devtools::install_github('eco4cast/stac4cast')
 
+      - uses: ./.github/actions/install-mc
+
       - name: Render metadata
         shell: Rscript {0}
         run: source("catalog/model_metadata.R")

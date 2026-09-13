@@ -20,6 +20,8 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
+      - uses: ./.github/actions/install-mc
+
       - name: Refresh CA certificates
         run: |
           apt-get update
@@ -44,6 +46,8 @@ jobs:
       image: eco4cast/rocker-neon4cast:latest
     steps:
       - uses: actions/checkout@v6
+
+      - uses: ./.github/actions/install-mc
 
       - name: Refresh CA certificates
         run: |
@@ -74,6 +78,8 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
+      - uses: ./.github/actions/install-mc
+
       - name: install dependencies
         run: |
           sudo apt-get -y install python3-venv python3-pip python3-dev
@@ -101,6 +107,8 @@ jobs:
     container: eco4cast/rocker-neon4cast:latest
     steps:
       - uses: actions/checkout@v6
+
+      - uses: ./.github/actions/install-mc
       - name: Refresh CA certificates
         run: |
           apt-get update
@@ -124,6 +132,8 @@ jobs:
     container: eco4cast/rocker-neon4cast:latest
     steps:
       - uses: actions/checkout@v6
+
+      - uses: ./.github/actions/install-mc
 
       - name: Refresh CA certificates
         run: |
