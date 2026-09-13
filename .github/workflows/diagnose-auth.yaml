@@ -24,41 +24,33 @@ jobs:
         shell: bash
         run: |
           MC="$(Rscript --vanilla -e 'cat(getOption("minioclient.dir", tools::R_user_dir("minioclient", "data")))')/mc"
-          OBJ=aquatics-2026-09-08-bu4cast_coastal_enkf.csv.gz
           EP=https://s3-west.nrp-nautilus.io
-
-          # Never print secret material: only length and a short digest, enough
-          # to tell "empty", "set", and "same/different key" apart.
-          fp() {
-            if [ -z "${1:-}" ]; then echo "EMPTY"
-            else echo "${#1} chars sha256:$(printf %s "$1" | sha256sum | cut -c1-8)"; fi
-          }
-
-          echo "== credential presence =="
-          echo "AWS_ACCESS_KEY_SUBMISSIONS     : $(fp "${AWS_ACCESS_KEY_SUBMISSIONS:-}")"
-          echo "AWS_SECRET_ACCESS_KEY_SUBMISSIONS: $(fp "${AWS_SECRET_ACCESS_KEY_SUBMISSIONS:-}")"
-          echo "EFI_NRP_KEY                    : $(fp "${EFI_NRP_KEY:-}")"
-          echo "EFI_NRP_SECRET                 : $(fp "${EFI_NRP_SECRET:-}")"
-
-          probe () {
-            name=$1; key=$2; sec=$3
-            echo
-            echo "== probing as: $name =="
-            cfg=$(mktemp -d)
-            if [ -z "$sec" ]; then
-              $MC --config-dir "$cfg" alias set t "$EP" 2>&1 | tail -1
-            else
-              $MC --config-dir "$cfg" alias set t "$EP" "$key" "$sec" 2>&1 | tail -1
-            fi
-            echo "  alias set rc=$?"
-            $MC --config-dir "$cfg" ls t/submissions >/dev/null 2>/tmp/ls.err
-            echo "  LIST  rc=$? $(head -1 /tmp/ls.err)"
-            $MC --config-dir "$cfg" cp "t/submissions/$OBJ" "$cfg/out.gz" >/dev/null 2>/tmp/cp.err
-            echo "  GET   rc=$? $(head -1 /tmp/cp.err)"
-          }
-
           set +e
-          probe "AWS_*_SUBMISSIONS" "$AWS_ACCESS_KEY_SUBMISSIONS" "$AWS_SECRET_ACCESS_KEY_SUBMISSIONS"
-          probe "EFI_NRP_*"        "$EFI_NRP_KEY"                 "$EFI_NRP_SECRET"
-          probe "anonymous"        ""                             ""
+
+          A=$(mktemp -d); N=$(mktemp -d)
+          $MC --config-dir "$A" alias set auth "$EP" "$EFI_NRP_KEY" "$EFI_NRP_SECRET" >/dev/null 2>&1
+          $MC --config-dir "$N" alias set anon "$EP" >/dev/null 2>&1
+
+          echo "== 1. LIST with authenticated key =="
+          $MC --config-dir "$A" ls auth/submissions --json 2>/tmp/e >/tmp/list.json
+          echo "  rc=$? $(head -1 /tmp/e)"
+          keys=$(sed -n 's/.*"key":"\([^"]*\)".*/\1/p' /tmp/list.json)
+          echo "  objects listed: $(printf '%s\n' "$keys" | grep -c . )"
+
+          echo
+          echo "== 2. anonymous GET across a sample =="
+          ok=0; bad=0
+          for k in $(printf '%s\n' "$keys" | head -12); do
+            $MC --config-dir "$N" cp "anon/submissions/$k" "$N/probe.bin" >/dev/null 2>/tmp/e
+            if [ $? -eq 0 ]; then ok=$((ok+1)); else bad=$((bad+1)); echo "  FAILED: $k -> $(head -1 /tmp/e)"; fi
+          done
+          echo "  anonymous GET succeeded on $ok object(s), failed on $bad"
+
+          echo
+          echo "== 3. DELETE permission (non-existent key: mutates nothing) =="
+          probe=".permcheck-does-not-exist-$RANDOM$RANDOM"
+          $MC --config-dir "$A" rm "auth/submissions/$probe" >/tmp/o 2>/tmp/e
+          echo "  authenticated rc=$? $(cat /tmp/o /tmp/e | head -1)"
+          $MC --config-dir "$N" rm "anon/submissions/$probe" >/tmp/o 2>/tmp/e
+          echo "  anonymous     rc=$? $(cat /tmp/o /tmp/e | head -1)"
           exit 0
