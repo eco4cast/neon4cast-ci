@@ -40,21 +40,30 @@ runs:
           *) echo "::error::unsupported architecture $(uname -m)"; exit 1 ;;
         esac
 
+        # Downloads go through R rather than curl: curl is absent from some of
+        # the images these jobs run on, while R is by definition present.
+        fetch() {
+          Rscript --vanilla -e 'a <- commandArgs(TRUE); options(timeout = 600); utils::download.file(a[1], a[2], mode = "wb", quiet = TRUE)' "$1" "$2"
+        }
+
         # Ask R itself where the binary belongs, rather than hardcoding a path:
         # minio_path() is R_user_dir("minioclient", "data") unless the
         # minioclient.dir option overrides it, and it depends on HOME, which
         # differs between container and host runners.
-        dest=$(Rscript -e 'cat(getOption("minioclient.dir", tools::R_user_dir("minioclient", "data")))')
+        dest=$(Rscript --vanilla -e 'cat(getOption("minioclient.dir", tools::R_user_dir("minioclient", "data")))')
         mkdir -p "$dest"
 
         base="https://github.com/minio/mc/releases/download/${MC_RELEASE}"
         asset="mc.linux-${arch}.${MC_RELEASE}"
 
-        curl -fsSL --retry 3 --retry-delay 5 -o "$dest/mc" "$base/${asset}"
+        fetch "${base}/${asset}" "$dest/mc"
+
+        sumfile=$(mktemp)
+        fetch "${base}/${asset}.sha256sum" "$sumfile"
 
         # The published checksum covers the binary contents; its filename field
         # refers to the generic "mc.RELEASE..." name, so compare hashes directly.
-        published=$(curl -fsSL --retry 3 --retry-delay 5 "$base/${asset}.sha256sum" | cut -d' ' -f1)
+        published=$(cut -d' ' -f1 "$sumfile")
         if [ "$arch" = "amd64" ] && [ "$published" != "$MC_SHA256" ]; then
           echo "::error::mc checksum asset ($published) does not match the pinned sha256 ($MC_SHA256)"
           exit 1
