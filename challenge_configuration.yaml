@@ -13,6 +13,9 @@ noaa_forecast_bucket: bio230014-bucket01/neon4cast-drivers/noaa/gefs-v12
 targets_bucket: bio230014-bucket01/challenges/targets
 archive_bucket: bio230014-bucket01/challenges/archive
 model_metadata_bucket: bio230014-bucket01/challenges/metadata/model_id
+# Record of submissions already processed. Stands in for deleting them from the
+# submissions bucket, which the NRP key lost permission to do on 2026-09-08.
+processed_submissions: bio230014-bucket01/challenges/metadata/processed_submissions.csv
 model_metadata_gsheet: https://docs.google.com/spreadsheets/d/1f177dpaxLzc4UuQ4_SJV9JWIbQPlilVnEztyvZE6aSU/edit?usp=sharing
 example_model_id: example
 target_metadata_gsheet: https://docs.google.com/spreadsheets/d/10YTX9ae_C1rFdLgEDkUcCRCpUkVYv06leY01BtD1BgM/edit?usp=sharing

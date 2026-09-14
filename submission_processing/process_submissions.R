@@ -30,10 +30,9 @@ minioclient::mc_alias_set("submit",
                           Sys.getenv("AWS_ACCESS_KEY_SUBMISSIONS"),
                           Sys.getenv("AWS_SECRET_ACCESS_KEY_SUBMISSIONS"))
 
-# Since 2026-09-08 the NRP key has been unable to read this bucket: it still has
-# ListBucket and DeleteObject, but GetObject returns "Insufficient permissions".
-# Anonymous access is the exact inverse - it can GET but can neither list nor
-# delete. So enumerate and delete through the authenticated alias above, and
+# Since 2026-09-08 the NRP key has had ListBucket only: both GetObject and
+# DeleteObject return "Insufficient permissions". Anonymous access can GET but
+# cannot list or delete. So enumerate through the authenticated alias above and
 # fetch object bodies through this anonymous one. Drop it once NRP restores
 # GetObject to the key.
 minioclient::mc_alias_set("submit_read", config$submissions_endpoint, "", "")
@@ -44,15 +43,43 @@ local_dir <- file.path(here::here(), "submissions")
 unlink(local_dir, recursive = TRUE)
 fs::dir_create(local_dir)
 
+# The same NRP key also lost DeleteObject, so processed submissions can no
+# longer be removed from the bucket. Instead we keep our own record of what has
+# been handled, on OSN where we do have write access, and skip those. Restore
+# the mc_rm() calls below and drop this once DeleteObject comes back.
+manifest_object <- paste0("s3_store/", config$processed_submissions)
+manifest_local <- file.path(tempdir(), "processed_submissions.csv")
+
+processed <- tryCatch({
+  minioclient::mc_cp(manifest_object, manifest_local)
+  manifest <- readr::read_csv(manifest_local, show_col_types = FALSE)
+  if ("key" %in% names(manifest)) as.character(manifest$key) else character(0)
+}, error = function(e) {
+  message("No processed-submissions record found; starting a new one.")
+  character(0)
+})
+
+mark_processed <- function(key) {
+  processed <<- unique(c(processed, key))
+  readr::write_csv(data.frame(key = processed), manifest_local)
+  minioclient::mc_cp(manifest_local, manifest_object)
+}
+
 message("Downloading forecasts ...")
 
 # Replaces mc_mirror(), which cannot work while list and read live with
 # different identities. Keys are listed recursively and copied one at a time,
 # preserving the bucket's nested layout for the dir_ls() walk below. A single
 # unreadable object is reported and skipped rather than aborting the batch.
-submission_keys <- minioclient::mc_ls(paste0("submit/", config$submissions_bucket),
-                                      recursive = TRUE,
-                                      details = TRUE)$key
+all_keys <- minioclient::mc_ls(paste0("submit/", config$submissions_bucket),
+                               recursive = TRUE,
+                               details = TRUE)$key
+submission_keys <- setdiff(all_keys, processed)
+
+message(sprintf("%d objects in bucket, %d already processed, %d to download",
+                length(all_keys),
+                length(all_keys) - length(submission_keys),
+                length(submission_keys)))
 
 failed <- character(0)
 for (key in submission_keys) {
@@ -103,6 +130,9 @@ if(length(submissions) > 0){
   for(i in 1:length(submissions)){
 
     curr_submission <- basename(submissions[i])
+    # Bucket-relative path, not the basename: 33 of the keys sit under a prefix,
+    # and the manifest has to match what mc_ls() returns for them to be skipped.
+    curr_key <- as.character(fs::path_rel(submissions[i], local_dir))
     theme <-  stringr::str_split(curr_submission, "-")[[1]][1]
     file_name_model_id <-  stringr::str_split(tools::file_path_sans_ext(tools::file_path_sans_ext(curr_submission)), "-")[[1]][5]
     file_name_reference_datetime <- lubridate::as_datetime(paste0(stringr::str_split(curr_submission, "-")[[1]][2:4], collapse = "-"))
@@ -207,7 +237,7 @@ if(length(submissions) > 0){
         minioclient::mc_cp(submission_timestamp, paste0(dirname(raw_bucket_object),"/", basename(submission_timestamp)))
 
         if(length(minioclient::mc_ls(raw_bucket_object)) > 0){
-          minioclient::mc_rm(file.path("submit",config$submissions_bucket,curr_submission))
+          mark_processed(curr_key)
         }
 
         print("finishing submission processing")
@@ -224,7 +254,7 @@ if(length(submissions) > 0){
         minioclient::mc_cp(submission_timestamp, paste0(dirname(raw_bucket_object),"/", basename(submission_timestamp)))
 
         if(length(minioclient::mc_ls(raw_bucket_object)) > 0){
-          minioclient::mc_rm(file.path("submit",config$submissions_bucket,curr_submission))
+          mark_processed(curr_key)
         }
 
       }
