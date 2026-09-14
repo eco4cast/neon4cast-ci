@@ -1,0 +1,59 @@
+# TEMPORARY diagnostic - delete once the NRP permission question is settled.
+# Every probe here is read-only: nothing creates, modifies or removes anything.
+on:
+  workflow_dispatch:
+  push:
+    branches: [fix-mc-download]
+
+name: diagnose-auth
+
+jobs:
+  diag:
+    runs-on: ubuntu-latest
+    env:
+      EFI_NRP_KEY: ${{ secrets.EFI_NRP_KEY }}
+      EFI_NRP_SECRET: ${{ secrets.EFI_NRP_SECRET }}
+    container: eco4cast/rocker-neon4cast:latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: ./.github/actions/install-mc
+
+      - name: What can the NRP key still do?
+        shell: bash
+        run: |
+          MC="$(Rscript --vanilla -e 'cat(getOption("minioclient.dir", tools::R_user_dir("minioclient", "data")))')/mc"
+          C=$(mktemp -d)
+          set +e
+          $MC --config-dir "$C" alias set t https://s3-west.nrp-nautilus.io "$EFI_NRP_KEY" "$EFI_NRP_SECRET" >/dev/null 2>&1
+
+          try () {
+            desc=$1; shift
+            out=$($MC --config-dir "$C" "$@" 2>&1)
+            rc=$?
+            printf '%-34s rc=%s  %s\n' "$desc" "$rc" "$(printf '%s' "$out" | head -2 | tr '\n' ' ' | cut -c1-150)"
+          }
+
+          echo "===== bucket-level reads ====="
+          try "ls (all buckets visible)"   ls t
+          try "stat bucket"                stat t/submissions
+          try "anonymous policy (get)"     anonymous get t/submissions
+          try "anonymous policy (get-json)" anonymous get-json t/submissions
+          try "anonymous links"            anonymous list t/submissions
+          try "versioning info"            version info t/submissions
+          try "lifecycle rules"            ilm rule list t/submissions
+          try "bucket tags"                tag list t/submissions
+          try "replication"                replicate ls t/submissions
+          try "encryption"                 encrypt info t/submissions
+          try "quota"                      quota info t/submissions
+
+          echo
+          echo "===== admin surface ====="
+          try "admin info"                 admin info t
+          try "admin policy list"          admin policy list t
+          try "admin user list"            admin user list t
+          try "admin accesskey ls"         admin accesskey ls t
+
+          echo
+          echo "===== object-level, for reference ====="
+          try "ls objects"                 ls t/submissions
+          exit 0
