@@ -18,6 +18,8 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
+      - uses: ./.github/actions/install-mc
+
       - name: Bundle forecasts
         run: r submission_processing/bundled_forecasts.R
 

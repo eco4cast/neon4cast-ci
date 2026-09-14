@@ -27,6 +27,8 @@ jobs:
 
       - uses: actions/checkout@v6
 
+      - uses: ./.github/actions/install-mc
+
       - name: scoring-prep
         run: r scoring/prep-scoring.R
 
