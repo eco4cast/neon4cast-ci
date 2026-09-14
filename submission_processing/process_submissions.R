@@ -61,7 +61,7 @@ processed <- tryCatch({
 })
 
 marked <- 0L   # submissions handled in this run
-removed <- 0L  # of those, how many the bucket accepted a delete for
+removed <- 0L  # objects deleted from the bucket: newly handled plus backlog
 
 mark_processed <- function(key) {
   # Record first, remove second. If the removal succeeds but the record was
@@ -72,16 +72,22 @@ mark_processed <- function(key) {
   readr::write_csv(data.frame(key = processed), manifest_local)
   minioclient::mc_cp(manifest_local, manifest_object)
 
-  # The bucket policy grants DeleteObject to Principal:* , so the anonymous
-  # alias can still clear the bucket even though our key cannot. Best effort
-  # only: the record above already prevents reprocessing, so a failure here
-  # costs disk on the bucket, not correctness, and must not abort the run.
+  remove_from_bucket(key)
+}
+
+# The bucket policy grants DeleteObject to Principal:* , so the anonymous alias
+# can clear the bucket even though our key cannot. Best effort only: callers
+# have already recorded the submission, so a failure here costs space on the
+# bucket, not correctness, and must not abort the run.
+remove_from_bucket <- function(key) {
   tryCatch({
     minioclient::mc_rm(paste0("submit_read/", config$submissions_bucket, "/", key))
     removed <<- removed + 1L
+    TRUE
   }, error = function(e) {
     warning("could not remove ", key, " from the submissions bucket: ",
             conditionMessage(e), call. = FALSE)
+    FALSE
   })
 }
 
@@ -108,6 +114,17 @@ message(sprintf("%d objects in bucket, %d excluded, %d already processed, %d to 
                 length(all_keys) - length(wanted),
                 length(wanted) - length(submission_keys),
                 length(submission_keys)))
+
+# Submissions already recorded as handled but still sitting in the bucket,
+# because removal failed or was never attempted on an earlier run. Clearing them
+# here is what actually drains the backlog: they are filtered out of
+# submission_keys above, so they never reach mark_processed() again.
+stale <- intersect(all_keys, processed)
+if (length(stale) > 0) {
+  message(sprintf("Clearing %d already-processed submission(s) left in the bucket",
+                  length(stale)))
+  for (key in stale) remove_from_bucket(key)
+}
 
 failed <- character(0)
 for (key in submission_keys) {
@@ -293,7 +310,7 @@ if(length(submissions) > 0){
 
 unlink(local_dir, recursive = TRUE)
 
-message(sprintf("Processed %d submission(s) this run, removed %d from the bucket; %d recorded in total",
+message(sprintf("Processed %d submission(s) this run, removed %d object(s) from the bucket; %d recorded in total",
                 marked, removed, length(processed)))
 if (marked > 0L && removed == 0L) {
   message("Nothing could be removed: the bucket will keep growing until either ",
