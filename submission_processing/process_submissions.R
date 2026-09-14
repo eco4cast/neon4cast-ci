@@ -74,11 +74,19 @@ message("Downloading forecasts ...")
 all_keys <- minioclient::mc_ls(paste0("submit/", config$submissions_bucket),
                                recursive = TRUE,
                                details = TRUE)$key
-submission_keys <- setdiff(all_keys, processed)
 
-message(sprintf("%d objects in bucket, %d already processed, %d to download",
+# Same exclusions as the dir_ls() filters below, applied before downloading
+# rather than after. These submissions are never processed, so they never enter
+# the manifest, and fetching them every run means re-downloading the bulk of the
+# bucket every two hours for nothing.
+wanted <- all_keys[stringr::str_detect(all_keys, "2023", negate = TRUE) &
+                   stringr::str_detect(all_keys, "usgsrc4cast", negate = TRUE)]
+submission_keys <- setdiff(wanted, processed)
+
+message(sprintf("%d objects in bucket, %d excluded, %d already processed, %d to download",
                 length(all_keys),
-                length(all_keys) - length(submission_keys),
+                length(all_keys) - length(wanted),
+                length(wanted) - length(submission_keys),
                 length(submission_keys)))
 
 failed <- character(0)
