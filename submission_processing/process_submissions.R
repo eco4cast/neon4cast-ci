@@ -31,10 +31,11 @@ minioclient::mc_alias_set("submit",
                           Sys.getenv("AWS_SECRET_ACCESS_KEY_SUBMISSIONS"))
 
 # Since 2026-09-08 the NRP key has had ListBucket only: both GetObject and
-# DeleteObject return "Insufficient permissions". Anonymous access can GET but
-# cannot list or delete. So enumerate through the authenticated alias above and
-# fetch object bodies through this anonymous one. Drop it once NRP restores
-# GetObject to the key.
+# DeleteObject return "Insufficient permissions". The bucket's own policy,
+# however, grants GetObject-by-ACL and DeleteObject to Principal:* , so an
+# unauthenticated client can do both - it just cannot list. So we list with the
+# authenticated alias above and do the reads and deletes through this anonymous
+# one. Drop it once NRP restores the key's permissions.
 minioclient::mc_alias_set("submit_read", config$submissions_endpoint, "", "")
 
 message(paste0("Starting Processing Submissions ", Sys.time()))
@@ -43,10 +44,10 @@ local_dir <- file.path(here::here(), "submissions")
 unlink(local_dir, recursive = TRUE)
 fs::dir_create(local_dir)
 
-# The same NRP key also lost DeleteObject, so processed submissions can no
-# longer be removed from the bucket. Instead we keep our own record of what has
-# been handled, on OSN where we do have write access, and skip those. Restore
-# the mc_rm() calls below and drop this once DeleteObject comes back.
+# Removal is now best-effort (see mark_processed below), so we also keep our own
+# record of what has been handled, on OSN where we have write access, and filter
+# those out before downloading. That keeps the pipeline correct even if deleting
+# from the submissions bucket stops working again.
 manifest_object <- paste0("s3_store/", config$processed_submissions)
 manifest_local <- file.path(tempdir(), "processed_submissions.csv")
 
@@ -59,10 +60,29 @@ processed <- tryCatch({
   character(0)
 })
 
+marked <- 0L   # submissions handled in this run
+removed <- 0L  # of those, how many the bucket accepted a delete for
+
 mark_processed <- function(key) {
+  # Record first, remove second. If the removal succeeds but the record was
+  # never written we would reprocess a submission that no longer exists; this
+  # order fails safe in the other direction instead.
   processed <<- unique(c(processed, key))
+  marked <<- marked + 1L
   readr::write_csv(data.frame(key = processed), manifest_local)
   minioclient::mc_cp(manifest_local, manifest_object)
+
+  # The bucket policy grants DeleteObject to Principal:* , so the anonymous
+  # alias can still clear the bucket even though our key cannot. Best effort
+  # only: the record above already prevents reprocessing, so a failure here
+  # costs disk on the bucket, not correctness, and must not abort the run.
+  tryCatch({
+    minioclient::mc_rm(paste0("submit_read/", config$submissions_bucket, "/", key))
+    removed <<- removed + 1L
+  }, error = function(e) {
+    warning("could not remove ", key, " from the submissions bucket: ",
+            conditionMessage(e), call. = FALSE)
+  })
 }
 
 message("Downloading forecasts ...")
@@ -272,5 +292,12 @@ if(length(submissions) > 0){
 }
 
 unlink(local_dir, recursive = TRUE)
+
+message(sprintf("Processed %d submission(s) this run, removed %d from the bucket; %d recorded in total",
+                marked, removed, length(processed)))
+if (marked > 0L && removed == 0L) {
+  message("Nothing could be removed: the bucket will keep growing until either ",
+          "the anonymous delete or the NRP key's DeleteObject permission works.")
+}
 
 message(paste0("Completed Processing Submissions ", Sys.time()))
