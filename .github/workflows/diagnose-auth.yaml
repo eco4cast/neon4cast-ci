@@ -11,6 +11,8 @@ jobs:
   diag:
     runs-on: ubuntu-latest
     env:
+      OSN_KEY: ${{ secrets.OSN_KEY }}
+      OSN_SECRET: ${{ secrets.OSN_SECRET }}
       EFI_NRP_KEY: ${{ secrets.EFI_NRP_KEY }}
       EFI_NRP_SECRET: ${{ secrets.EFI_NRP_SECRET }}
     container: eco4cast/rocker-neon4cast:latest
@@ -18,16 +20,56 @@ jobs:
       - uses: actions/checkout@v6
       - uses: ./.github/actions/install-mc
 
-      - name: Dump the full bucket policy
-        shell: bash
+      - name: Manifest round-trip against a scratch object
+        shell: Rscript {0}
         run: |
-          MC="$(Rscript --vanilla -e 'cat(getOption("minioclient.dir", tools::R_user_dir("minioclient", "data")))')/mc"
-          C=$(mktemp -d)
-          set +e
-          $MC --config-dir "$C" alias set t https://s3-west.nrp-nautilus.io "$EFI_NRP_KEY" "$EFI_NRP_SECRET" >/dev/null 2>&1
-          echo "===== full anonymous policy on submissions ====="
-          $MC --config-dir "$C" anonymous get-json t/submissions | python3 -m json.tool
-          echo
-          echo "===== for contrast: a bucket we can read ====="
-          $MC --config-dir "$C" anonymous get-json t/aquatics-targets | python3 -m json.tool
-          exit 0
+          library(minioclient)
+          config <- yaml::read_yaml("challenge_configuration.yaml")
+          mc_alias_set("s3_store", config$endpoint,
+                       Sys.getenv("OSN_KEY"), Sys.getenv("OSN_SECRET"))
+
+          # Deliberately NOT config$processed_submissions: writing a bogus
+          # manifest to the real path would make live submissions be skipped.
+          scratch <- paste0(dirname(config$processed_submissions),
+                            "/.manifest-selftest-", Sys.getpid(), ".csv")
+          manifest_object <- paste0("s3_store/", scratch)
+          manifest_local  <- file.path(tempdir(), "processed_submissions.csv")
+          cat("scratch object:", scratch, "\n")
+
+          # 1. absent manifest must yield an empty vector, not an error
+          processed <- tryCatch({
+            mc_cp(manifest_object, manifest_local)
+            m <- readr::read_csv(manifest_local, show_col_types = FALSE)
+            if ("key" %in% names(m)) as.character(m$key) else character(0)
+          }, error = function(e) { message("no manifest yet (expected)"); character(0) })
+          stopifnot(length(processed) == 0)
+          cat("PASS: absent manifest -> empty\n")
+
+          mark_processed <- function(key) {
+            processed <<- unique(c(processed, key))
+            readr::write_csv(data.frame(key = processed), manifest_local)
+            mc_cp(manifest_local, manifest_object)
+          }
+
+          # 2. round-trip, including a nested key and a duplicate
+          mark_processed("aquatics-2026-09-08-foo.csv")
+          mark_processed("usgsrc4cast/usgsrc4cast-2026-09-08-bar.csv")
+          mark_processed("aquatics-2026-09-08-foo.csv")
+
+          unlink(manifest_local)
+          mc_cp(manifest_object, manifest_local)
+          back <- as.character(readr::read_csv(manifest_local, show_col_types = FALSE)$key)
+          cat("read back:", paste(back, collapse = ", "), "\n")
+          stopifnot(length(back) == 2)
+          stopifnot("usgsrc4cast/usgsrc4cast-2026-09-08-bar.csv" %in% back)
+          cat("PASS: round-trip preserves nested keys and de-duplicates\n")
+
+          # 3. the filter that decides what gets downloaded
+          all_keys <- c("aquatics-2026-09-08-foo.csv",
+                        "usgsrc4cast/usgsrc4cast-2026-09-08-bar.csv",
+                        "aquatics-2026-09-09-new.csv")
+          stopifnot(identical(setdiff(all_keys, back), "aquatics-2026-09-09-new.csv"))
+          cat("PASS: only unprocessed keys survive the filter\n")
+
+          mc_rm(manifest_object)
+          cat("scratch object removed\n")
