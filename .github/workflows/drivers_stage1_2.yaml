@@ -23,6 +23,7 @@ jobs:
         shell: Rscript {0}
         run: |
           remotes::install_version('arrow', version = '20.0.0')
+          remotes::install_github("appelmar/gdalcubes")
 
       - name: Update GEFS
         shell: Rscript {0}
