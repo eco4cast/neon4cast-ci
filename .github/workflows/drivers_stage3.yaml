@@ -19,6 +19,11 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
+      - name: Install
+        shell: Rscript {0}
+        run: |
+          remotes::install_github("appelmar/gdalcubes")
+
       - name: Download Pseudo
         shell: Rscript {0}
         run: |
