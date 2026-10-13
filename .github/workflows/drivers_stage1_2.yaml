@@ -24,6 +24,7 @@ jobs:
         run: |
           remotes::install_version('arrow', version = '20.0.0')
           remotes::install_github("appelmar/gdalcubes")
+          remotes::install_github("eco4cast/gefs4cast")
 
       - name: Update GEFS
         shell: Rscript {0}
