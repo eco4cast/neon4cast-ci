@@ -23,6 +23,7 @@ jobs:
         shell: Rscript {0}
         run: |
           remotes::install_github("appelmar/gdalcubes")
+          remotes::install_github("eco4cast/gefs4cast")
 
       - name: Download Pseudo
         shell: Rscript {0}
