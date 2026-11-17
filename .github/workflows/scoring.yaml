@@ -29,8 +29,5 @@ jobs:
 
       - uses: ./.github/actions/install-mc
 
-      - name: scoring-prep
-        run: r scoring/prep-scoring.R
-
-      - name: scoring
-        run: r scoring/scoring.R
+      - name: Score forecasts
+        run: Rscript inst/scripts/score.R

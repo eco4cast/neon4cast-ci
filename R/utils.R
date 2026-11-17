@@ -9,17 +9,21 @@
 #'   case.
 #' * `dry_run_dir()` is the local folder writes go to: `DRY_RUN_DIR` when set,
 #'   otherwise `dry-run` in the session's temporary directory.
+#' * `is_verbose()` is `TRUE` when `VERBOSE` is `true`, `1` or `yes`. Stages
+#'   use it to decide whether to run extra diagnostic scans (such as row counts
+#'   of whole buckets) that cost time but change nothing.
 #' * `output_uri()` returns a destination unchanged normally. In a dry run it
 #'   returns the matching path under `dry_run_dir()`, with any `s3://` scheme
-#'   removed and the rest of the path kept.
+#'   removed and the rest of the path kept. It creates the path's parent
+#'   folder, because duckdb cannot write into a folder whose parent is missing.
 #'
 #' @param uri Destination: an `s3://` URI or a minio client path
 #'   (`alias/bucket/...`).
-#' @return `is_dry_run()`: logical scalar. `dry_run_dir()`, `output_uri()`:
+#' @return `is_dry_run()`, `is_verbose()`: logical scalar. `dry_run_dir()`, `output_uri()`:
 #'   character scalar.
 #' @export
 #' @examples
-#' withr::with_envvar(c(DRY_RUN = "true", DRY_RUN_DIR = "out"),
+#' withr::with_envvar(c(DRY_RUN = "true", DRY_RUN_DIR = tempdir()),
 #'   output_uri("s3://bucket/forecasts/x.parquet")
 #' )
 is_dry_run <- function() {
@@ -34,33 +38,18 @@ dry_run_dir <- function() {
 
 #' @rdname is_dry_run
 #' @export
-output_uri <- function(uri) {
-  if (!is_dry_run()) return(uri)
-  file.path(dry_run_dir(), sub("^[a-z0-9]+://", "", uri))
+is_verbose <- function() {
+  tolower(Sys.getenv("VERBOSE")) %in% c("true", "1", "yes")
 }
 
-#' Upload a local file, or copy it locally in a dry run
-#'
-#' Uploads with the minio client. In a dry run (see [is_dry_run()]) the file is
-#' copied to [output_uri()] instead.
-#'
-#' @param from Local file.
-#' @param to Minio client destination (`alias/bucket/...`), e.g. from
-#'   [bucket_uri()] with `scheme = "mc"`.
-#' @return The destination actually written, invisibly.
+#' @rdname is_dry_run
 #' @export
-upload_file <- function(from, to) {
-  if (!file.exists(from)) cli::cli_abort("{.path {from}} does not exist.")
-  dest <- output_uri(to)
-  if (is_dry_run()) {
-    dir.create(dirname(dest), recursive = TRUE, showWarnings = FALSE)
-    file.copy(from, dest, overwrite = TRUE)
-    cli::cli_inform("DRY RUN: wrote {.path {dest}} instead of {.path {to}}.")
-  } else {
-    # minioclient splits its command on spaces, so quote the local path.
-    minioclient::mc_cp(shQuote(from), to)
-  }
-  invisible(dest)
+output_uri <- function(uri) {
+  if (!is_dry_run()) return(uri)
+  local <- file.path(dry_run_dir(), sub("^[a-z0-9]+://", "", uri))
+  # duckdb cannot write into a folder whose parent does not exist.
+  dir.create(dirname(local), recursive = TRUE, showWarnings = FALSE)
+  local
 }
 
 #' Log a step with a timestamp

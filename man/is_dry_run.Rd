@@ -3,12 +3,15 @@
 \name{is_dry_run}
 \alias{is_dry_run}
 \alias{dry_run_dir}
+\alias{is_verbose}
 \alias{output_uri}
 \title{Dry-run mode}
 \usage{
 is_dry_run()
 
 dry_run_dir()
+
+is_verbose()
 
 output_uri(uri)
 }
@@ -17,7 +20,7 @@ output_uri(uri)
 (\code{alias/bucket/...}).}
 }
 \value{
-\code{is_dry_run()}: logical scalar. \code{dry_run_dir()}, \code{output_uri()}:
+\code{is_dry_run()}, \code{is_verbose()}: logical scalar. \code{dry_run_dir()}, \code{output_uri()}:
 character scalar.
 }
 \description{
@@ -32,13 +35,17 @@ that cannot change stored data.
 case.
 \item \code{dry_run_dir()} is the local folder writes go to: \code{DRY_RUN_DIR} when set,
 otherwise \code{dry-run} in the session's temporary directory.
+\item \code{is_verbose()} is \code{TRUE} when \code{VERBOSE} is \code{true}, \code{1} or \code{yes}. Stages
+use it to decide whether to run extra diagnostic scans (such as row counts
+of whole buckets) that cost time but change nothing.
 \item \code{output_uri()} returns a destination unchanged normally. In a dry run it
 returns the matching path under \code{dry_run_dir()}, with any \verb{s3://} scheme
-removed and the rest of the path kept.
+removed and the rest of the path kept. It creates the path's parent
+folder, because duckdb cannot write into a folder whose parent is missing.
 }
 }
 \examples{
-withr::with_envvar(c(DRY_RUN = "true", DRY_RUN_DIR = "out"),
+withr::with_envvar(c(DRY_RUN = "true", DRY_RUN_DIR = tempdir()),
   output_uri("s3://bucket/forecasts/x.parquet")
 )
 }

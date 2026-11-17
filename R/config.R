@@ -41,6 +41,8 @@ read_config <- function(path = config_path(), validate = TRUE) {
     ))
   }
   cfg <- utils::modifyList(config_defaults(), yaml::read_yaml(path))
+  # Defaults that depend on other settings.
+  cfg$summaries_bucket <- cfg$summaries_bucket %||% cfg$forecasts_bucket
   if (validate) validate_config(cfg)
   cfg
 }

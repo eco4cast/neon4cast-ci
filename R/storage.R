@@ -16,7 +16,8 @@ store_names <- c("main", "submissions", "noaa", "scratch")
 #' @param store One of `"main"`, `"submissions"`, `"noaa"` or `"scratch"`.
 #' @param anonymous If `TRUE`, return empty credentials for public read-only
 #'   access instead of reading environment variables.
-#' @return A list with `endpoint`, `key` and `secret`.
+#' @return `store_credentials()`: a list with `endpoint`, `key` and `secret`.
+#'   `has_credentials()`: whether both environment variables are set.
 #' @export
 store_credentials <- function(cfg, store = "main", anonymous = FALSE) {
   store <- rlang::arg_match(store, store_names)
@@ -40,6 +41,14 @@ store_credentials <- function(cfg, store = "main", anonymous = FALSE) {
     ))
   }
   list(endpoint = endpoint, key = key, secret = secret)
+}
+
+#' @rdname store_credentials
+#' @export
+has_credentials <- function(cfg, store = "main") {
+  store <- rlang::arg_match(store, store_names)
+  env <- cfg$credentials[[store]] %||% cfg$credentials$main
+  nzchar(Sys.getenv(env$key_env)) && nzchar(Sys.getenv(env$secret_env))
 }
 
 #' Connect to a store
@@ -145,6 +154,7 @@ bucket_uri <- function(cfg, key, ..., scheme = c("s3", "mc", "https"),
 #' @return An arrow `SubTreeFileSystem`.
 #' @export
 arrow_bucket <- function(cfg, key, ..., anonymous = FALSE) {
+  rlang::check_installed("arrow")
   store <- bucket_key_store(key)
   creds <- store_credentials(cfg, store, anonymous = anonymous)
   path <- sub("^s3://", "", bucket_uri(cfg, key, ..., scheme = "s3"))
@@ -220,4 +230,25 @@ store_bucket <- function(cfg, store) {
   path <- tryCatch(bucket_path(cfg, key), error = function(e) NULL)
   if (is.null(path)) return(NULL)
   strsplit(path, "/", fixed = TRUE)[[1]][1]
+}
+
+#' A separate duckdb connection for one unit of work
+#'
+#' Opens a new disk-backed duckdb connection, which spills to disk instead of
+#' running out of memory. It is closed when the calling function exits.
+#' `duckdbfs::cached_connection(path)` cannot be used for this: it ignores
+#' `path` and returns the shared connection whenever one is open, and closing
+#' that would remove every secret registered on it.
+#'
+#' @param envir Frame whose exit closes the connection.
+#' @return A duckdb connection.
+#' @export
+local_duckdb <- function(envir = parent.frame()) {
+  conn <- DBI::dbConnect(duckdb::duckdb(), dbdir = tempfile(fileext = ".duckdb"),
+                         config = list(temp_directory = tempfile()))
+  DBI::dbExecute(conn, "SET autoinstall_known_extensions=1;")
+  DBI::dbExecute(conn, "SET autoload_known_extensions=1;")
+  do.call(on.exit, list(quote(DBI::dbDisconnect(conn, shutdown = TRUE)), add = TRUE),
+          envir = envir)
+  conn
 }

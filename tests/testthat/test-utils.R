@@ -13,19 +13,12 @@ test_that("output_uri() redirects writes only in a dry run", {
   withr::local_envvar(DRY_RUN = "false")
   expect_equal(output_uri("s3://bucket/a/b.parquet"), "s3://bucket/a/b.parquet")
 
-  withr::local_envvar(DRY_RUN = "true", DRY_RUN_DIR = "out")
-  expect_equal(output_uri("s3://bucket/a/b.parquet"), "out/bucket/a/b.parquet")
-  expect_equal(output_uri("main/bucket/a.csv"), "out/main/bucket/a.csv")
-})
-
-test_that("upload_file() copies locally in a dry run", {
   dir <- withr::local_tempdir()
   withr::local_envvar(DRY_RUN = "true", DRY_RUN_DIR = dir)
-  from <- withr::local_tempfile(lines = "x,y")
-  expect_message(dest <- upload_file(from, "main/bucket/targets/t.csv"), "DRY RUN")
-  expect_equal(dest, file.path(dir, "main/bucket/targets/t.csv"))
-  expect_equal(readLines(dest), "x,y")
-  expect_error(upload_file("missing.csv", "main/bucket/t.csv"), "does not exist")
+  expect_equal(output_uri("s3://bucket/a/b.parquet"), file.path(dir, "bucket/a/b.parquet"))
+  expect_equal(output_uri("main/bucket/a.csv"), file.path(dir, "main/bucket/a.csv"))
+  # The parent folder exists, ready for duckdb to write into.
+  expect_true(dir.exists(file.path(dir, "bucket/a")))
 })
 
 test_that("log_step() timestamps and interpolates", {

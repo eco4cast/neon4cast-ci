@@ -72,3 +72,17 @@ test_that("with_retry() retries, then re-raises the last error", {
     "Failed after 2 attempts"
   )
 })
+
+test_that("local_duckdb() is separate from, and leaves alone, the shared connection", {
+  shared <- duckdbfs::cached_connection()
+  inner <- NULL
+  f <- function() {
+    conn <- local_duckdb()
+    inner <<- conn
+    expect_false(identical(conn, shared))
+    DBI::dbGetQuery(conn, "SELECT 1 AS x")$x
+  }
+  expect_equal(f(), 1)
+  expect_false(DBI::dbIsValid(inner))
+  expect_true(DBI::dbIsValid(shared))
+})

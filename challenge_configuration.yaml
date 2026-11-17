@@ -33,6 +33,12 @@ credentials:
 sites:
   metadata_url: 'https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/neon4cast_field_site_metadata.csv'
   columns: {site_id: field_site_id, site_name: field_site_name, latitude: latitude, longitude: longitude}
+# Which files in the submissions bucket are processed. Keys matching any
+# exclude pattern (regular expressions) are never downloaded. Files whose name
+# dates them before min_reference_date are archived without being processed.
+submissions:
+  exclude_patterns: ['2023', 'usgsrc4cast']
+  min_reference_date: '2024-01-01'
 model_metadata_gsheet: https://docs.google.com/spreadsheets/d/1f177dpaxLzc4UuQ4_SJV9JWIbQPlilVnEztyvZE6aSU/edit?usp=sharing
 example_model_id: example
 target_metadata_gsheet: https://docs.google.com/spreadsheets/d/10YTX9ae_C1rFdLgEDkUcCRCpUkVYv06leY01BtD1BgM/edit?usp=sharing

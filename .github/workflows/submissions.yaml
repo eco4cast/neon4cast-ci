@@ -27,4 +27,4 @@ jobs:
       - uses: ./.github/actions/install-mc
 
       - name: Process submissions
-        run: r submission_processing/process_submissions.R
+        run: Rscript inst/scripts/process_submissions.R

@@ -18,17 +18,26 @@ RoxygenNote: 7.3.3
 Depends:
     R (>= 4.1.0)
 Imports:
-    arrow,
     cli,
+    DBI,
     dplyr,
+    duckdb,
     duckdbfs,
+    lubridate,
     minioclient,
     purrr,
     readr,
     rlang,
+    stats,
     tibble,
+    tools,
+    utils,
     yaml
 Suggests:
+    arrow,
+    score4cast,
+    scoringRules,
     testthat (>= 3.0.0),
+    tidyr,
     withr
 Config/testthat/edition: 3

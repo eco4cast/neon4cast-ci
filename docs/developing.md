@@ -7,12 +7,25 @@ DESCRIPTION, NAMESPACE   package metadata (NAMESPACE is generated, do not edit)
 R/                       package functions, documented with roxygen comments
 man/                     help pages (generated, do not edit)
 tests/testthat/          unit tests and small fixtures
+inst/scripts/            entry points the workflows run (below)
 challenge_configuration.yaml   every challenge-specific setting (docs/configuration.md)
 ```
 
-The stage folders (`submission_processing/`, `scoring/`, `catalog/`, ...) hold
-the scripts the workflows run. They are being moved onto the package one stage
-at a time. Challenge-specific data downloads (`targets/`) stay as plain scripts.
+Each workflow step runs a short entry script from the repository root. The
+script loads the package, reads the config and calls one `run_*()` function:
+
+| Script | Workflow | Function | Does |
+|---|---|---|---|
+| `inst/scripts/process_submissions.R` | submissions | `run_submissions()` | validate new submissions, write parquet + summaries |
+| `inst/scripts/bundle.R [forecasts\|summaries]` | bundling | `run_bundling()` | append new parquet to each model's bundle, archive it |
+| `inst/scripts/score.R` | scoring | `run_scoring()` | score forecasts that have new observations |
+
+Each one documents its environment variables in its header. All of them take
+`DRY_RUN=true` (see below).
+
+The other stage folders (`baseline_models/`, `catalog/`, `dashboard/`,
+`drivers/`) are moving onto the package one stage at a time. Challenge-specific
+data downloads (`targets/`) stay as plain scripts.
 
 ## Using the package from a script
 
@@ -62,16 +75,26 @@ that touches the package.
   When one item fails in a loop over many (submissions, groups, models),
   record the failure, carry on, and exit non-zero at the end.
 - **Do as much as possible in duckdb.** Filter and aggregate before `collect()`.
-- **Writes respect dry runs.** Send every write to S3 through `upload_file()`,
-  or through a path from `output_uri()`, so that `DRY_RUN=true` sends it to a
-  local folder.
+- **Writes respect dry runs.** Send every change to S3 through
+  `upload_file()`, `upload_dir()`, `move_remote()` or `remove_remote()`, or
+  write to a path from `output_uri()`. Then `DRY_RUN=true` sends it to a
+  local folder or only logs it.
+- **Upload with mc.** duckdb (>= 2.0) cannot finish multipart uploads to OSN,
+  and arrow's uploads fail there too. Write locally, then `upload_file()` or
+  `upload_dir()`.
+- **Pass `recursive = FALSE` when giving `duckdbfs::open_dataset()` a file.**
+  Given a single remote path, it otherwise treats it as a folder and adds
+  `/**`.
 - **Comments explain why.** Every exported function has roxygen docs with
   `@param` and `@return`.
 
 ## Testing without touching production
 
 - `DRY_RUN=true` sends all package writes to `DRY_RUN_DIR` (default: a
-  temporary folder). Reads still use the real buckets.
+  temporary folder) and only logs moves and deletes. Reads still use the real
+  buckets, anonymously if no credentials are set, so the bundling and scoring
+  stages can be dry-run with no secrets at all. Submissions need the
+  submissions key, because only it can list that bucket.
 - `CHALLENGE_CONFIG=path/to/test.yaml` points everything at a different
   config, for example one whose buckets are a scratch prefix.
 - Public buckets can be read without credentials:

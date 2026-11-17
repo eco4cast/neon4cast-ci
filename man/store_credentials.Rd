@@ -2,9 +2,12 @@
 % Please edit documentation in R/storage.R
 \name{store_credentials}
 \alias{store_credentials}
+\alias{has_credentials}
 \title{Endpoint and credentials for a store}
 \usage{
 store_credentials(cfg, store = "main", anonymous = FALSE)
+
+has_credentials(cfg, store = "main")
 }
 \arguments{
 \item{cfg}{Configuration from \code{\link[=read_config]{read_config()}}.}
@@ -15,7 +18,8 @@ store_credentials(cfg, store = "main", anonymous = FALSE)
 access instead of reading environment variables.}
 }
 \value{
-A list with \code{endpoint}, \code{key} and \code{secret}.
+\code{store_credentials()}: a list with \code{endpoint}, \code{key} and \code{secret}.
+\code{has_credentials()}: whether both environment variables are set.
 }
 \description{
 Endpoint and credentials for a store

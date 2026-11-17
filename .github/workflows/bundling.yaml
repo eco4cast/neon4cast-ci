@@ -28,9 +28,11 @@ jobs:
       - uses: ./.github/actions/install-mc
 
       - name: Bundle forecasts
-        run: r submission_processing/bundled_forecasts.R
+        run: Rscript inst/scripts/bundle.R forecasts
 
+      # Summaries are bundled even if forecasts failed: they are independent.
       - name: Bundle summaries
-        run: r submission_processing/bundled_summaries.R
+        if: ${{ !cancelled() }}
+        run: Rscript inst/scripts/bundle.R summaries
 
 

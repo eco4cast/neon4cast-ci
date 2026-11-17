@@ -23,14 +23,15 @@ list every problem at once.
 > change the meaning of existing ones without checking those tools first.
 
 Column key: **Req.** means `validate_config()` requires the key. **Used by** names
-the stages that read it today. A stage is a folder in this repository, or `pkg`
-for the `challengeci` package.
+the stages that read it today. A stage is one of the workflows (`submissions`,
+`bundling`, `scoring`, `targets`, `baselines`, `catalog`, `dashboard`, `drivers`),
+or `pkg` for the `challengeci` package in general.
 
 ## Identity
 
 | Key | Req. | Description | Used by |
 |---|---|---|---|
-| `project_id` | yes | Short challenge id, e.g. `neon4cast`. Forms the `project_id=` partition in buckets and appears in every forecast and score row. | submission_processing, scoring, catalog, dashboard |
+| `project_id` | yes | Short challenge id, e.g. `neon4cast`. Forms the `project_id=` partition in buckets and appears in every forecast and score row. | submissions, scoring, catalog, dashboard |
 | `challenge_long_name` | | Full name shown in the catalog. | catalog |
 | `github_repo` | | `owner/repo` of this repository; used to build links to files. | catalog, dashboard |
 | `challenge_url` | | Public dashboard URL. | catalog, dashboard |
@@ -54,24 +55,35 @@ There are four stores. A store is an S3 endpoint plus its credentials:
 | Key | Req. | Description | Used by |
 |---|---|---|---|
 | `endpoint` | yes | Host of the `main` store, without `https://`. | all |
-| `submissions_endpoint` | | Host of the `submissions` store. | submission_processing |
+| `submissions_endpoint` | | Host of the `submissions` store. | submissions |
 | `noaa_endpoint` | | Host of the `noaa` store. Defaults to `endpoint`. | catalog, drivers |
-| `forecasts_bucket` | yes | Forecasts: `parquet/` (new), `bundled-parquet/`, `bundled-summaries/`. | submission_processing, scoring, catalog, dashboard |
-| `summaries_bucket` | | Forecast summaries. Currently the same bucket as `forecasts_bucket`. | catalog, dashboard |
+| `forecasts_bucket` | yes | Forecasts: `parquet/` (new), `bundled-parquet/`, `archive-parquet/` (bundled), `raw/` (every submitted file). | submissions, bundling, scoring, catalog, dashboard |
+| `summaries_bucket` | | Forecast summaries: `summaries/` (new) and `bundled-summaries/`. Defaults to `forecasts_bucket`. | submissions, bundling, catalog, dashboard |
 | `scores_bucket` | yes | Scores: `parquet/` and `bundled-parquet/`. | scoring, catalog, dashboard |
 | `targets_bucket` | yes | Target (observation) files. | targets, scoring, dashboard |
-| `submissions_bucket` | | Bucket participants upload to. | submission_processing |
-| `archive_bucket` | | Raw copies of every processed submission. | submission_processing |
+| `submissions_bucket` | | Bucket participants upload to. | submissions |
+| `archive_bucket` | | Raw copies of every processed submission. | submissions |
 | `noaa_forecast_bucket` | | NOAA GEFS driver forecasts, one folder per stage. | drivers, catalog |
 | `model_metadata_bucket` | | One JSON file per registered model. | catalog |
-| `processed_submissions` | | CSV recording which submissions have been processed. It stands in for deleting them; see the comment in the config file. | submission_processing |
+| `processed_submissions` | | CSV recording which submissions have been processed. It stands in for deleting them; see the comment in the config file. | submissions |
 | `scratch$endpoint` | | Host of the `scratch` store. | scoring |
-| `scratch$bucket` | | Scratch bucket and prefix. Everything under it is deleted on each scoring run. | scoring |
+| `scratch$bucket` | | Scratch bucket and prefix. The `score_me`, `forecasts`, `scores` and `targets` folders under it are deleted at the start of each scoring run. | scoring |
 | `credentials$<store>$key_env` | | **Name** of the environment variable holding the store's access key. Defaults: `OSN_KEY`, `AWS_ACCESS_KEY_SUBMISSIONS`, `EFI_NRP_KEY`. | pkg |
 | `credentials$<store>$secret_env` | | **Name** of the environment variable holding the store's secret key. Defaults: `OSN_SECRET`, `AWS_SECRET_ACCESS_KEY_SUBMISSIONS`, `EFI_NRP_SECRET`. | pkg |
 
 Never put the keys themselves in the config. They come from GitHub repository
 secrets, which the workflows expose as the environment variables named above.
+
+## Submissions
+
+| Key | Req. | Description | Used by |
+|---|---|---|---|
+| `submissions$exclude_patterns` | | Regular expressions. Keys in the submissions bucket that match any of them are never downloaded or recorded. NEON uses `2023` and `usgsrc4cast`. | submissions |
+| `submissions$min_reference_date` | | Files whose name dates them before this (`YYYY-MM-DD`) are archived without being processed. | submissions |
+
+A submission file must be named `<theme>-<YYYY-MM-DD>-<model_id>.csv` or `.csv.gz`.
+Files that are not are archived to `raw/` and recorded without being processed.
+`?challengeci::validate_forecast` lists the format rules.
 
 ## Sites
 
@@ -95,7 +107,7 @@ reading the parallel arrays directly.
 |---|---|---|---|
 | `variable` | yes | Variables forecast in this group. | all |
 | `duration` | yes | ISO 8601 time step for each variable, parallel to `variable`: `P1D`, `P1W`, `PT30M`, ... | all |
-| `max_horizon` | yes | Longest accepted horizon for each variable, **in days**, parallel to `variable`. Submitted rows further ahead are dropped. | submission_processing |
+| `max_horizon` | yes | Longest accepted horizon for each variable, **in days**, parallel to `variable`. Submitted rows further ahead are dropped. | submissions |
 | `targets_file` | | Public URL of the group's targets CSV. | targets, scoring, catalog |
 | `thumbnail_link` | | Image for the group's catalog page. | catalog |
 | `thumbnail_title` | | Alt text for `thumbnail_link`. | catalog |
