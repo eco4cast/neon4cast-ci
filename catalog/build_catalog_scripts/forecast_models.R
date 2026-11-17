@@ -458,7 +458,8 @@ for (i in 1:length(config$target_groups)){ ## organize variable groups
                                code_web_link = model_code_link,
                                model_keywords = model_keywords,
                                stac_web_link = stac_link,
-                               raw_json_link = json_link)
+                               raw_json_link = json_link,
+                               var_formal_name = var_formal_name)
 
       } ## end model loop
     } ## end duration loop
