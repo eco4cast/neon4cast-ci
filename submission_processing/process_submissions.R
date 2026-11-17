@@ -252,7 +252,11 @@ if(length(submissions) > 0){
         s3$CreateDir(paste0("parquet/"))
 
         ## arrow write has gone nuts... let's update
-        fc |> duckdbfs::write_dataset(paste0("s3://", config$forecasts_bucket, "/parquet"),
+        # duckdb >= 2.0 can't complete S3 multipart uploads to OSN, so write locally and upload with mc.
+        local_parquet <- file.path(tempdir(), "submission-parquet")
+        local_summaries <- file.path(tempdir(), "submission-summaries")
+        unlink(c(local_parquet, local_summaries), recursive = TRUE)
+        fc |> duckdbfs::write_dataset(local_parquet,
                                       format = 'parquet',
                                       partitioning = c("project_id",
                                                     "duration",
@@ -260,6 +264,9 @@ if(length(submissions) > 0){
                                                     "model_id",
                                                     "reference_date"),
                                       options = list("PER_THREAD_OUTPUT false"))
+        minioclient::mc_mirror(local_parquet,
+                               paste0("s3_store/", config$forecasts_bucket, "/parquet"),
+                               overwrite = TRUE)
         print("creating summaries")
 
         s3$CreateDir(paste0("summaries"))
@@ -268,13 +275,17 @@ if(length(submissions) > 0){
                                                                                 "parameter", "pub_datetime", "reference_date", "variable", "project_id"))) |>
           score4cast::summarize_forecast(extra_groups = c("duration", "project_id")) |>
           dplyr::mutate(reference_date = lubridate::as_date(reference_datetime)) |>
-          duckdbfs::write_dataset(paste0("s3://", config$forecasts_bucket, "/summaries"), format = 'parquet',
+          duckdbfs::write_dataset(local_summaries, format = 'parquet',
                                partitioning = c("project_id",
                                                 "duration",
                                                 "variable",
                                                 "model_id",
                                                 "reference_date"),
                                  options = list("PER_THREAD_OUTPUT false"))
+        minioclient::mc_mirror(local_summaries,
+                               paste0("s3_store/", config$forecasts_bucket, "/summaries"),
+                               overwrite = TRUE)
+        unlink(c(local_parquet, local_summaries), recursive = TRUE)
 
         submission_timestamp <- paste0(submission_dir,"/T", time_stamp, "_", basename(submissions[i]))
         fs::file_copy(submissions[i], submission_timestamp)

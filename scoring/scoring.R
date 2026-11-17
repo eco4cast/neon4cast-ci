@@ -107,11 +107,19 @@ score_group <- function(i, groups, project = "neon4cast") {
   new_scores <- dplyr::union_all(bundled_scores, new_scores)
   }
 
+  # duckdb >= 2.0 can't complete S3 multipart uploads to OSN ("returned an
+  # unrecognized response"), so write locally and upload with mc instead.
+  local_out <- file.path(tempdir(), "bundled-scores")
+  unlink(local_out, recursive = TRUE)
+
   new_scores |>
     dplyr::distinct() |>
     dplyr::group_by(project_id, duration, variable, model_id) |>
-    # duckdbfs::write_dataset("s3://efi-scores/tmp/bundled-parquet/")
-    duckdbfs::write_dataset(paste0("s3://", scores_bundled_parquet_bucket))
+    duckdbfs::write_dataset(local_out)
+
+  minioclient::mc_mirror(local_out, paste0("osn/", scores_bundled_parquet_bucket),
+                         overwrite = TRUE)
+  unlink(local_out, recursive = TRUE)
 
 
   duckdbfs::close_connection(con)

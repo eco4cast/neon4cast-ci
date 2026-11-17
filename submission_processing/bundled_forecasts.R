@@ -93,9 +93,13 @@ bundle_me <- function(path) {
 
   ## once running consistently we can "append" with union_all instead of union
   # uses less RAM. since mc_rm / mc_mv removes anything we have already read
+  # duckdb >= 2.0 can't complete S3 multipart uploads to OSN, so write locally and upload with mc.
+  local_bundle <- tempfile(fileext = ".parquet")
   new |>
-    write_dataset(bundled_path,
+    write_dataset(local_bundle,
                   options = list("PER_THREAD_OUTPUT false"))
+  mc_cp(local_bundle, str_replace(bundled_path, fixed("s3://"), "osn/"))
+  unlink(local_bundle)
 
   #We should now archive anything we have bundled:
   mc_path <- path |> str_replace(fixed("s3://"), "osn/")

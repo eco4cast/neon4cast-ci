@@ -84,9 +84,14 @@ bundle_me <- function(path) {
     new <- union_all(old,new)
   }
 
+  # duckdb >= 2.0 can't complete S3 multipart uploads to OSN, so write locally and upload with mc.
+  local_bundle <- tempfile(fileext = ".parquet")
   new |>
-    write_dataset(paste0(bundled_path,"data_0.parquet"),
+    write_dataset(local_bundle,
                   options = list("PER_THREAD_OUTPUT false"))
+  mc_cp(local_bundle,
+        paste0(str_replace(bundled_path, fixed("s3://"), "osn/"), "data_0.parquet"))
+  unlink(local_bundle)
 
   #We should now archive anything we have bundled:
 
