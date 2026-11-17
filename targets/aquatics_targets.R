@@ -1,3 +1,4 @@
+if (file.exists(".Renviron")) readRenviron(".Renviron")
 install.packages("remotes")
 remotes::install_github("rstudio/reticulate")
 
@@ -50,6 +51,7 @@ Sys.setenv(TZ = 'UTC')
 
 source('targets/R/avro_functions.R')
 source('targets/R/data_processing.R')
+source('targets/R/neon_file_list.R')
 
 `%!in%` <- Negate(`%in%`) # not in function
 
@@ -87,35 +89,9 @@ profiling_sites <- c('CRAM', 'LIRO', 'BARC', 'TOOK')
 message("Getting list of data from NEON Portal")
 
 
-# for(y in 2016:year(Sys.Date())){
-#   print(y)
-pass <- TRUE
-iter <- 0
-while(pass & iter < 4){
-  iter <- iter + 1
-
-  df <-  neonstore:::neon_data(product = "DP1.20288.001",
-                               #start_date = paste0(y, "-01-01"),
-                               #end_date = paste0(y, "-12-31"),
-                               type="basic")
-
-  if(file.exists(path.expand("~/data/aquatics_urls/DP1.20288.001.csv"))){
-    full_df_old <- read_csv(path.expand("~/data/aquatics_urls/DP1.20288.001.csv"), show_col_types = FALSE)
-  }else{
-    full_df_old <- NULL
-  }
-
-  full_df <- bind_rows(full_df_old, df) %>%
-    distinct()
-
-  print(nrow(full_df))
-  print(nrow(full_df_old))
-  pass <- nrow(full_df) != nrow(full_df_old)
-
-  write_csv(full_df, path.expand("~/data/aquatics_urls/DP1.20288.001.csv"))
-}
-
-#full_df <- read_csv(path.expand("~/data/aquatics_urls/DP1.20288.001.csv"), show_col_types = FALSE)
+full_df <- neon_file_list(product = "DP1.20288.001",
+                          cache_file = path.expand("~/data/aquatics_urls/DP1.20288.001.csv"),
+                          max_iter = 4)
 
 urls <- full_df |>
   dplyr::filter(grepl("waq_instantaneous", name)) |>
@@ -289,37 +265,10 @@ wq_cleaned <- wq_full  |>
 message("#### Generate hourly temperature profiles for lake #############")
 message("##### NEON portal data #####")
 
-# for(y in 2017:year(Sys.Date())){
-#   print(y)
-pass <- TRUE
-iter <- 0
-while(pass & iter < 10){
-  iter <- iter + 1
-
-  df <-  neonstore:::neon_data(product = "DP1.20264.001",
-                               #start_date = paste0(y, "-01-01"),
-                               #end_date = paste0(y, "-12-31"),
-                               type="basic",
-                               site = lake_sites)
-
-  if(file.exists(path.expand("~/data/aquatics_urls/DP1.20264.001_lake_sites.csv"))){
-    full_df_old <- read_csv(path.expand("~/data/aquatics_urls/DP1.20264.001_lake_sites.csv"), show_col_types = FALSE)
-  }else{
-    full_df_old <- NULL
-  }
-
-  full_df <- bind_rows(full_df_old, df) %>%
-    distinct()
-
-  print(nrow(full_df))
-  print(nrow(full_df_old))
-  pass <- nrow(full_df) != nrow(full_df_old)
-
-  write_csv(full_df, path.expand("~/data/aquatics_urls/DP1.20264.001_lake_sites.csv"))
-}
-# }
-
-#full_df <- read_csv(path.expand("~/data/aquatics_urls/DP1.20264.001_lake_sites.csv"), show_col_types = FALSE)
+full_df <- neon_file_list(product = "DP1.20264.001",
+                          cache_file = path.expand("~/data/aquatics_urls/DP1.20264.001_lake_sites.csv"),
+                          site = lake_sites,
+                          max_iter = 10)
 
 
 
@@ -513,37 +462,10 @@ daily_temp_surface_lakes <- hourly_temp_profile_lakes %>%
 
 message("##### Stream temperatures #####")
 
-# for(y in 2016:year(Sys.Date())){
-#   print(y)
-pass <- TRUE
-iter <- 0
-while(pass & iter < 10){
-  iter <- iter + 1
-
-  df <-  neonstore:::neon_data(product = "DP1.20053.001",
-                               #start_date = paste0(y, "-01-01"),
-                               #end_date = paste0(y, "-12-31"),
-                               type="basic",
-                               site = stream_sites)
-
-  if(file.exists(path.expand("~/data/aquatics_urls/DP1.20053.001.csv"))){
-    full_df_old <- read_csv(path.expand("~/data/aquatics_urls/DP1.20053.001.csv"), show_col_types = FALSE)
-  }else{
-    full_df_old <- NULL
-  }
-
-  full_df <- bind_rows(full_df_old, df) %>%
-    distinct()
-
-  print(nrow(full_df))
-  print(nrow(full_df_old))
-  pass <- nrow(full_df) != nrow(full_df_old)
-
-  write_csv(full_df, path.expand("~/data/aquatics_urls/DP1.20053.001.csv"))
-}
-# }
-
-#full_df <- read_csv(path.expand("~/data/aquatics_urls/DP1.20053.001.csv"), show_col_types = FALSE)
+full_df <- neon_file_list(product = "DP1.20053.001",
+                          cache_file = path.expand("~/data/aquatics_urls/DP1.20053.001.csv"),
+                          site = stream_sites,
+                          max_iter = 10)
 
 
 urls <- full_df |>
@@ -672,37 +594,10 @@ temp_streams_prerelease <- arrow::open_dataset(file.path(parquet_file_directory,
 message("##### River temperature ######")
 # For non-wadeable rivers need portal, EDI and avro data
 
-# for(y in 2016:year(Sys.Date())){
-#   print(y)
-pass <- TRUE
-iter <- 0
-while(pass & iter < 10){
-  iter <- iter + 1
-
-  df <-  neonstore:::neon_data(product = "DP1.20264.001",
-                               #start_date = paste0(y, "-01-01"),
-                               #end_date = paste0(y, "-12-31"),
-                               type="basic",
-                               site = nonwadable_rivers)
-
-  if(file.exists(path.expand("~/data/aquatics_urls/DP1.20264.001_nonwadable_rivers.csv"))){
-    full_df_old <- read_csv(path.expand("~/data/aquatics_urls/DP1.20264.001_nonwadable_rivers.csv"), show_col_types = FALSE)
-  }else{
-    full_df_old <- NULL
-  }
-
-  full_df <- bind_rows(full_df_old, df) %>%
-    distinct()
-
-  print(nrow(full_df))
-  print(nrow(full_df_old))
-  pass <- nrow(full_df) != nrow(full_df_old)
-
-  write_csv(full_df, path.expand("~/data/aquatics_urls/DP1.20264.001_nonwadable_rivers.csv"))
-}
-# }
-
-#full_df <- read_csv(path.expand("~/data/aquatics_urls/DP1.20264.001_nonwadable_rivers.csv"), show_col_types = FALSE)
+full_df <- neon_file_list(product = "DP1.20264.001",
+                          cache_file = path.expand("~/data/aquatics_urls/DP1.20264.001_nonwadable_rivers.csv"),
+                          site = nonwadable_rivers,
+                          max_iter = 10)
 
 
 
