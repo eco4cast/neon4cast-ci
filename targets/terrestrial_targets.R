@@ -1,175 +1,262 @@
-#renv::restore()
+# Terrestrial (NEE, LE) daily targets for the NEON Ecological Forecasting Challenge.
+#
+# Data flow
+#   1. NEON portal data (monthly releases) are downloaded with neonstore and
+#      written to an archive on OSN (flux_staging/neon_portal), one parquet file
+#      per site/year/month. Each run re-pulls the last few months so revised
+#      provisional data replace what is in the archive.
+#   2. NEON unpublished data (daily files, ~5-day latency) are kept in
+#      flux_staging/current_month, only for days after each site's last portal day.
+#   3. Targets are rebuilt from the archive + unpublished data, merged per site
+#      with the existing targets file so no data are dropped, checked, and uploaded.
+#
+# Environment variables
+#   NEONSTORE_HOME  neonstore directory (default /home/rstudio/data/neonstore_temp)
+#   DRY_RUN=true    run everything but do not write to or delete from OSN
+
+if (file.exists(".Renviron")) readRenviron(".Renviron")
+
 print(paste0("Running Creating Terrestrial Targets at ", Sys.time()))
-
-
 print(sessionInfo())
 
-#install.versions(c('arrow'), c('20.0.0'))
-#install.packages("arrow", version='20.0.0')
-#remotes::install_version('arrow', version = '20.0.0')
+Sys.setenv(NEONSTORE_HOME = Sys.getenv("NEONSTORE_HOME", "/home/rstudio/data/neonstore_temp"))
+Sys.setenv(AWS_EC2_METADATA_DISABLED = "TRUE")
 
-#Sys.setenv("NEONSTORE_HOME" = "/home/rstudio/data/neonstore")
-
-Sys.setenv("NEONSTORE_HOME" = "/home/rstudio/data/neonstore_temp")
-
-non_store_dir <- "/home/rstudio/data/neon_flux_data"
+dry_run <- tolower(Sys.getenv("DRY_RUN")) == "true"
 use_5day_data <- TRUE
+months_to_refresh <- 5
 
-library(neonUtilities)
 library(neonstore)
 library(tidyverse)
 library(lubridate)
-library(contentid)
-library(ncdf4)
 library(arrow)
-
 library(minioclient)
 
 print(sessioninfo::package_info())
+if (dry_run) message("DRY RUN: nothing will be written to or deleted from OSN")
+
+options(timeout = max(300, getOption("timeout")))
 
 install_mc()
 mc_alias_set("osn", "sdsc.osn.xsede.org", Sys.getenv("OSN_KEY"), Sys.getenv("OSN_SECRET"))
 
-mc_mirror("osn/bio230014-bucket01/neonstore/db", neonstore::neon_db_dir())
-mc_mirror("osn/bio230014-bucket01/flux_staging/neonstore_temp", neonstore::neon_dir())
+osn_root <- "osn/bio230014-bucket01"
 
+# minioclient splits commands on spaces, so quote local paths (macOS puts the
+# neonstore db under "Application Support")
+mc_mirror(file.path(osn_root, "neonstore/db"), shQuote(neonstore::neon_db_dir()))
+mc_mirror(file.path(osn_root, "flux_staging/neonstore_temp"), shQuote(neonstore::neon_dir()))
 
 sites <- read_csv("https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/neon4cast_field_site_metadata.csv", show_col_types = FALSE) |>
   dplyr::filter(terrestrial == 1)
 
 site_names <- sites$field_site_id
 
-s3 <- arrow::s3_bucket("bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1D",
-                       endpoint_override = "sdsc.osn.xsede.org",
-                       access_key = Sys.getenv("OSN_KEY"),
-                       secret_key = Sys.getenv("OSN_SECRET"))
+# arrow is used to read and delete on OSN. All uploads go through mc, because
+# arrow's S3 uploads fail on OSN with XAmzContentSHA256Mismatch.
+osn_bucket <- function(path) {
+  arrow::s3_bucket(file.path("bio230014-bucket01", path),
+                   endpoint_override = "sdsc.osn.xsede.org",
+                   access_key = Sys.getenv("OSN_KEY"),
+                   secret_key = Sys.getenv("OSN_SECRET"))
+}
 
+s3 <- osn_bucket("challenges/targets/project_id=neon4cast/duration=P1D")
+s3_neon_portal <- osn_bucket("flux_staging/neon_portal")
+s3_current_month <- osn_bucket("flux_staging/current_month")
 
-s3_neon_portal <- arrow::s3_bucket("bio230014-bucket01/flux_staging/neon_portal",
-                                   endpoint_override = "sdsc.osn.xsede.org",
-                                   access_key = Sys.getenv("OSN_KEY"),
-                                   secret_key = Sys.getenv("OSN_SECRET"))
-
-s3_current_month <- arrow::s3_bucket("bio230014-bucket01/flux_staging/current_month",
-                                     endpoint_override = "sdsc.osn.xsede.org",
-                                     access_key = Sys.getenv("OSN_KEY"),
-                                     secret_key = Sys.getenv("OSN_SECRET"))
-
+flux_cols <- c("timeBgn", "timeEnd", "data.fluxCo2.turb.flux", "siteID",
+               "data.fluxH2o.turb.flux", "qfqm.fluxCo2.turb.qfFinl")
 
 existing_targets_daily <- arrow::read_csv_arrow(s3$path("terrestrial_daily-targets.csv.gz"))
 
-start_date <- as_date(max(existing_targets_daily$datetime)) - dmonths(3)
+# Whole months only: archive partitions are replaced wholesale, so a partial
+# month here would drop data from the archive.
+start_month <- floor_date(as_date(max(existing_targets_daily$datetime)) %m-% months(months_to_refresh), "month")
+message("Refreshing NEON portal data from ", start_month)
 
-# Terrestrial
+# ---------------------------------------------------------------------------
+# 1. NEON portal data -> archive
+# ---------------------------------------------------------------------------
 
-neonstore::neon_download(product = "DP4.00200.001", type = "basic", start_date = start_date)
+neonstore::neon_download(product = "DP4.00200.001", type = "basic", start_date = start_month)
 neonstore::neon_store(product = "DP4.00200.001")
-#neon_disconnect()
 
-#DP4.00200.001 & DP1.00094.001
-#neon_store(product = "DP4.00200.001")
-flux_data <- neon_table(table = "nsae-basic", site = site_names, lazy = TRUE) %>%
+# When NEON reprocesses a month, neonstore keeps both versions of the file. File
+# names differ only by the processing timestamp, so the last file sorts newest.
+portal_new <- neon_table(table = "nsae-basic", site = site_names, lazy = TRUE) |>
   mutate(timeBgn = as_datetime(timeBgn),
          timeEnd = as_datetime(timeEnd)) |>
-  select(timeBgn, timeEnd, data.fluxCo2.turb.flux, siteID, data.fluxH2o.turb.flux, qfqm.fluxCo2.turb.qfFinl) |>
-  collect()
-
-flux_data |>
+  filter(timeBgn >= !!as_datetime(start_month)) |>
+  select(all_of(flux_cols), file) |>
+  collect() |>
+  arrange(siteID, timeBgn, desc(file)) |>
+  distinct(siteID, timeBgn, .keep_all = TRUE) |>
+  select(-file) |>
   mutate(year = year(timeBgn),
          month = month(timeBgn)) |>
-  arrow::write_dataset(s3_neon_portal, partitioning = c("siteID", "year", "month"))
+  arrange(siteID, year, month, timeBgn)  # sorted input gives one file per partition
 
-#Get the current unpublished flux data (5-day latency)
+message(nrow(portal_new), " portal rows since ", start_month, " for ",
+        n_distinct(portal_new$siteID), " sites")
 
-if(use_5day_data){
-  #files <- readr::read_csv("https://storage.googleapis.com/neon-sae-files/ods/dataproducts/sae_file_url_unpublished.csv", show_col_types = FALSE)
-  files <- readr::read_csv("https://storage.googleapis.com/neon-sae-files/ods/sae_files_unpublished/sae_file_url_unpublished.csv", show_col_types = FALSE)
-  #Convert old S3 links to GCS
-  files$url <- base::gsub("https://s3.data.neonscience.org", "https://storage.googleapis.com", files$url)
-  files <- files %>%
-    filter(site %in% site_names) %>%
-    mutate(file_name = basename(url)) |>
-    filter(date > max(lubridate::as_date(flux_data$timeBgn)))
+touched <- distinct(portal_new, siteID, year, month)
 
-  fs::dir_create(file.path(non_store_dir,"current_month"), recurse = TRUE)
-  fs::dir_create(file.path(non_store_dir,"current_month_parquet"), recurse = TRUE)
+if (nrow(portal_new) > 0) {
+  archive_local <- file.path(tempdir(), "neon_portal")
+  unlink(archive_local, recursive = TRUE)
+  arrow::write_dataset(portal_new, archive_local, partitioning = c("siteID", "year", "month"))
 
-  fn_parquet_s3 <- s3_current_month$ls()
+  new_files <- list.files(archive_local, recursive = TRUE)
+  stopifnot("expected one parquet file per partition" = !anyDuplicated(dirname(new_files)))
 
-  if(nrow(files) > 0){
-    for(i in 1:nrow(files)){
-      destfile <- file.path(non_store_dir,"current_month",files$file_name[i])
-      if(!paste0(files$file_name[i],".parquet") %in% fn_parquet_s3){
-        download.file(files$url[i], destfile = destfile)
-      }
-    }
+  # Files in the partitions being replaced that this run did not write
+  remote_files <- s3_neon_portal$ls(recursive = TRUE)
+  remote_files <- remote_files[grepl("\\.parquet$", remote_files)]
+  stale <- remote_files[dirname(remote_files) %in% dirname(new_files) & !remote_files %in% new_files]
+
+  if (!dry_run) {
+    mc_mirror(shQuote(archive_local), file.path(osn_root, "flux_staging/neon_portal"), overwrite = TRUE)
+    for (f in stale) s3_neon_portal$DeleteFile(f)
   }
-
-
-  fn_parquet_s3 <- s3_current_month$ls()
-
-  #Checking for files that have been updated
-  if(length(fn_parquet_s3) > 0){
-    d <- tibble(file_full = fn_parquet_s3,
-                file = tools::file_path_sans_ext(tools::file_path_sans_ext(fn_parquet_s3)),
-                date = lubridate::as_datetime(stringr::str_split(fn_parquet_s3, "\\.", 12, simplify = TRUE)[, 10])) |>
-      arrange(file, date) |>
-      group_by(file) |>
-      mutate(max_date = max(date),
-             delete = ifelse(date != max(date), 1, 0)) |>
-      ungroup()
-
-    for(i in 1:nrow(d)){
-      if(d$delete[i] == 1){
-        s3_current_month$DeleteFile(d$file[i])
-      }
-    }
-    #remove files that are no longer in the unpublished s3 bucket because they are now in NEON portal
-
-    for(i in 1:length(fn_parquet_s3)){
-      if(!tools::file_path_sans_ext(basename(fn_parquet_s3[i])) %in% files$file_name){
-        message(paste0("removing: ", basename(fn_parquet_s3[i])))
-        s3_current_month$DeleteFile(fn_parquet_s3[i])
-      }
-    }
-  }
-
-  fn_parquet_s3 <- s3_current_month$ls()
-  fn <- list.files(file.path(non_store_dir,"current_month"), full.names = TRUE)
-
-  if(length(fn) > 0){
-    message(paste0("reading in ", length(fn), " non-NEON portal files"))
-    purrr::walk(1:length(fn), function(i, fn){
-      message(paste0(i, " of ", length(fn), " reading file ",fn[i]))
-      df <- neonstore::neon_read(files = fn[i]) |>
-        select(timeBgn, timeEnd, data.fluxCo2.turb.flux, siteID, data.fluxH2o.turb.flux, qfqm.fluxCo2.turb.qfFinl)
-      arrow::write_parquet(x = df, s3_current_month$path(paste0(basename(fn[i]),".parquet")))
-      unlink(fn[i])
-    },
-    fn = fn)
-  }
-
-  fn_parquet_s3 <- s3_current_month$ls()
-
-  if(length(fn_parquet_s3) > 0){
-    flux_data_curr <- arrow::open_dataset(s3_current_month) |>
-      select(timeBgn, timeEnd, data.fluxCo2.turb.flux, siteID, data.fluxH2o.turb.flux, qfqm.fluxCo2.turb.qfFinl) |>
-      collect()
-  }else{
-    flux_data_curr <- NULL
-  }
-
-  #Combined published and unpublished
-
-  flux_data <- bind_rows(flux_data, flux_data_curr)
+  message("Archive: wrote ", length(new_files), " partitions, removed ", length(stale), " stale files",
+          if (dry_run) " (dry run: skipped)")
 }
 
-#flux_data |>
-#  group_by(siteID) |>
-#  summarize(min = min(timeBgn),
-#            max = max(timeBgn), .groups = "drop") |>
-#  arrange(min) |>
-#  print(n = 50)
+# The archive is the source of truth for portal data. Partitions refreshed this
+# run come from portal_new, so the result is the same with or without DRY_RUN.
+portal_data <- arrow::open_dataset(s3_neon_portal) |>
+  filter(siteID %in% site_names) |>
+  select(all_of(flux_cols), year, month) |>
+  collect() |>
+  anti_join(touched, by = c("siteID", "year", "month")) |>
+  bind_rows(portal_new) |>
+  select(all_of(flux_cols))
+
+n_dup <- sum(duplicated(portal_data[c("siteID", "timeBgn")]))
+if (n_dup > 0) {
+  warning(n_dup, " duplicated half-hours in the neon_portal archive; keeping one of each. ",
+          "Run targets/cleanup_neon_portal_archive.R to fix the archive.")
+  portal_data <- distinct(portal_data, siteID, timeBgn, .keep_all = TRUE)
+}
+
+portal_end <- portal_data |>
+  group_by(siteID) |>
+  summarise(portal_end = as_date(max(timeBgn)), .groups = "drop")
+
+# ---------------------------------------------------------------------------
+# 2. NEON unpublished data (5-day latency) -> current_month
+# ---------------------------------------------------------------------------
+
+# File names look like NEON.D16.ABBY.DP4.00200.001.nsae.2026-10-01.expanded.20261009T040053Z.h5[.parquet]
+nsae_site <- function(f) stringr::str_split_fixed(basename(f), "\\.", 12)[, 3]
+nsae_date <- function(f) as_date(stringr::str_split_fixed(basename(f), "\\.", 12)[, 8])
+
+current_data <- NULL
+
+if (use_5day_data) {
+  cm_prefix <- file.path(osn_root, "flux_staging/current_month")
+
+  have <- s3_current_month$ls()
+  have <- have[grepl("\\.parquet$", have)]
+
+  files <- tryCatch(
+    readr::read_csv("https://storage.googleapis.com/neon-sae-files/ods/sae_files_unpublished/sae_file_url_unpublished.csv",
+                    show_col_types = FALSE),
+    error = function(e) {
+      warning("Could not read NEON's unpublished file list; using existing current_month files only: ",
+              conditionMessage(e))
+      NULL
+    })
+
+  if (is.null(files)) {
+    # Without the list we can't tell what is stale: use what we have, delete nothing
+    keep <- have
+    to_get <- tibble(url = character(), file_name = character(), parquet = character())
+    stale <- character()
+  } else {
+    # Convert old S3 links to GCS
+    files$url <- base::gsub("https://s3.data.neonscience.org", "https://storage.googleapis.com", files$url)
+    files <- files |>
+      filter(site %in% site_names) |>
+      mutate(file_name = basename(url),
+             parquet = paste0(file_name, ".parquet")) |>
+      left_join(portal_end, by = c("site" = "siteID")) |>
+      filter(is.na(portal_end) | date > portal_end)   # per site, only days the portal doesn't have
+
+    keep <- files$parquet
+    to_get <- filter(files, !parquet %in% have)
+  }
+
+  message(length(intersect(have, keep)), " unpublished files already converted, ",
+          nrow(to_get), " to download")
+
+  tmp_dir <- file.path(tempdir(), "current_month")
+  dir.create(tmp_dir, recursive = TRUE, showWarnings = FALSE)
+  new_dfs <- list()
+  failed <- character()
+
+  for (i in seq_len(nrow(to_get))) {
+    h5 <- file.path(tmp_dir, to_get$file_name[i])
+    pq <- file.path(tmp_dir, to_get$parquet[i])
+    ok <- tryCatch({
+      download.file(to_get$url[i], destfile = h5, mode = "wb", quiet = TRUE)
+      df <- neonstore::neon_read(files = h5) |>
+        select(all_of(flux_cols))
+      arrow::write_parquet(df, pq)
+      if (!dry_run) mc_cp(shQuote(pq), file.path(cm_prefix, to_get$parquet[i]))
+      new_dfs[[to_get$parquet[i]]] <- df
+      TRUE
+    }, error = function(e) {
+      warning("Skipping ", to_get$file_name[i], " (will retry next run): ", conditionMessage(e))
+      FALSE
+    })
+    unlink(c(h5, pq))
+    if (!ok) failed <- c(failed, to_get$parquet[i])
+  }
+
+  if (!is.null(files)) {
+    # Files no longer wanted: now covered by the portal, or replaced by a newer
+    # version. Keep an old version if its replacement failed to download.
+    failed_keys <- tibble(site = nsae_site(failed), date = nsae_date(failed))
+    not_wanted <- tibble(parquet = setdiff(have, keep)) |>
+      mutate(site = nsae_site(parquet), date = nsae_date(parquet))
+    retained <- semi_join(not_wanted, failed_keys, by = c("site", "date"))$parquet
+    stale <- setdiff(not_wanted$parquet, retained)
+    keep <- c(keep, retained)
+  }
+
+  read_from_osn <- intersect(have, keep)
+  remote_df <- NULL
+  if (length(read_from_osn) > 0) {
+    remote_df <- arrow::open_dataset(s3_current_month) |>
+      mutate(file = add_filename()) |>
+      collect() |>
+      filter(basename(file) %in% read_from_osn) |>
+      select(all_of(flux_cols))
+  }
+
+  current_data <- bind_rows(remote_df, bind_rows(new_dfs))
+
+  if (!dry_run) for (f in stale) s3_current_month$DeleteFile(f)
+  message("current_month: ", length(new_dfs), " added, ", length(failed), " failed, ",
+          length(stale), " removed", if (dry_run) " (dry run: OSN not changed)")
+}
+
+# Combine published and unpublished; portal rows come first so they win any overlap
+flux_data <- bind_rows(portal_data, current_data) |>
+  distinct(siteID, timeBgn, .keep_all = TRUE)
+
+flux_data |>
+  group_by(siteID) |>
+  summarize(min = min(timeBgn),
+            max = max(timeBgn), .groups = "drop") |>
+  arrange(max) |>
+  print(n = 60)
+
+# ---------------------------------------------------------------------------
+# 3. Daily targets
+# ---------------------------------------------------------------------------
 
 #2025-07-15: Per Dave Durden - there was overflagging of QC on SRER in the latest relesae.
 #He recommend using the Ameriflux release because it has the correct QC flags.
@@ -198,7 +285,7 @@ co2_data <- flux_data %>%
          le = ifelse(site_id == "BARR" & year(time) < 2019, NA, le)) |>
   pivot_longer(-c("time","site_id"), names_to = "variable", values_to = "observation")
 
-flux_target_30m <- co2_data #left_join(full_time, co2_data, by = c("time", "site_id", "variable"))
+flux_target_30m <- co2_data
 
 valid_dates <- flux_target_30m %>%
   mutate(date = as_date(time)) %>%
@@ -217,8 +304,6 @@ flux_target_daily <- flux_target_30m %>%
   select(-count) |>
   mutate(observation = ifelse(variable == "nee", (observation * 12 / 1000000) * (60 * 60 * 24), observation))
 
-#Write daily data
-
 flux_target_daily <- flux_target_daily |>
   select(time, site_id, variable, observation) |>
   rename(datetime = time) |>
@@ -229,26 +314,51 @@ flux_target_daily <- flux_target_daily |>
   arrange(variable, datetime) |>
   na.omit()
 
-
-min_year <- year(min(as_date(flux_target_daily$datetime)))
-min_month <- month(min(as_date(flux_target_daily$datetime)))
+# Replace existing targets only within each site's recomputed date range. Sites
+# with no data this run, and days outside the range, keep their existing values.
+recomputed <- flux_data |>
+  group_by(site_id = siteID) |>
+  summarise(start = as_date(min(timeBgn)),
+            end = as_date(max(timeBgn)), .groups = "drop")
 
 old_fluxes <- existing_targets_daily |>
-  filter(datetime < min(as_date(flux_target_daily$datetime)))
+  mutate(date = as_date(datetime)) |>
+  left_join(recomputed, by = "site_id") |>
+  filter(is.na(start) | date < start | date > end) |>
+  select(-date, -start, -end)
 
 combined_daily <- bind_rows(flux_target_daily, old_fluxes) |>
   arrange(project_id, site_id, datetime, duration, variable) |>
   distinct()
 
-write_csv(combined_daily, "terrestrial_daily-targets.csv.gz")
+# ---------------------------------------------------------------------------
+# 4. Check and upload
+# ---------------------------------------------------------------------------
 
-mc_cp("terrestrial_daily-targets.csv.gz", "osn/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1D/")
+n_old <- nrow(existing_targets_daily)
+n_new <- nrow(combined_daily)
+missing_sites <- setdiff(unique(existing_targets_daily$site_id), unique(combined_daily$site_id))
+n_dup_keys <- sum(duplicated(combined_daily[c("site_id", "datetime", "variable")]))
 
-if(fs::dir_exists(fs::path(neon_dir(), "DP4.00200.001"))){
-  fs::dir_delete(fs::path(neon_dir(), "DP4.00200.001"))
+message("Targets: ", n_old, " rows before, ", n_new, " rows now (",
+        sprintf("%+.1f%%", 100 * (n_new - n_old) / n_old), "), latest ", max(combined_daily$datetime))
+
+if (n_new < 0.95 * n_old) stop("New targets have ", n_new, " rows vs ", n_old, " before; not uploading")
+if (length(missing_sites) > 0) stop("Sites missing from new targets: ", paste(missing_sites, collapse = ", "))
+if (n_dup_keys > 0) stop(n_dup_keys, " duplicated site/datetime/variable rows in new targets")
+
+targets_file <- if (dry_run) file.path(tempdir(), "terrestrial_daily-targets.csv.gz") else "terrestrial_daily-targets.csv.gz"
+write_csv(combined_daily, targets_file)
+message("Wrote ", targets_file)
+
+if (!dry_run) {
+  mc_cp(shQuote(targets_file), "osn/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1D/")
+
+  if (fs::dir_exists(fs::path(neon_dir(), "DP4.00200.001"))) {
+    fs::dir_delete(fs::path(neon_dir(), "DP4.00200.001"))
+  }
+  mc_mirror(shQuote(neonstore::neon_db_dir()), file.path(osn_root, "neonstore/db"), overwrite = TRUE, remove = TRUE)
+  mc_mirror(shQuote(neonstore::neon_dir()), file.path(osn_root, "flux_staging/neonstore_temp"), overwrite = TRUE, remove = TRUE)
 }
-mc_mirror(neonstore::neon_db_dir(), "osn/bio230014-bucket01/neonstore/db", overwrite = TRUE, remove = TRUE)
-mc_mirror(neonstore::neon_dir(), "osn/bio230014-bucket01/flux_staging/neonstore_temp", overwrite = TRUE, remove = TRUE)
-
 
 message(paste0("Completed Terrestrial Target at ", Sys.time()))
