@@ -10,7 +10,6 @@
 #' Folder names used by each kind of bundle
 #'
 #' @param kind `"forecasts"` or `"summaries"`.
-#' @inheritParams config_get
 #' @return A list with `bucket` (config key), `new`, `bundled` and `archive`
 #'   (folder names within the bucket).
 #' @export

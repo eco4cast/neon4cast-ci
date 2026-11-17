@@ -112,6 +112,8 @@ reading the parallel arrays directly.
 | `thumbnail_link` | | Image for the group's catalog page. | catalog |
 | `thumbnail_title` | | Alt text for `thumbnail_link`. | catalog |
 | `sites_column` | | Site metadata column marking this group's sites. Defaults to the lower-case group name. | pkg |
+| `theme` | | Prefix of the group's submission file names, e.g. `terrestrial_daily`. Defaults to the lower-case group name. | baselines |
+| `baselines` | | The group's baseline models, a list. See [Baselines](#baselines). | baselines |
 | `group_vars` | | Per-variable catalog details, keyed by variable name. | catalog |
 | `group_vars$<variable>$duration` | | Must agree with the group's `duration` entry for the variable. | catalog |
 | `group_vars$<variable>$max_horizon` | | Must agree with the group's `max_horizon` entry for the variable. | catalog |
@@ -120,6 +122,29 @@ reading the parallel arrays directly.
 
 Each variable and duration pair must appear only once across all groups.
 Otherwise the horizon for that pair would be ambiguous.
+
+## Baselines
+
+Each target group lists the baseline (null) models run for it. Each entry has
+these fields:
+
+| Field | Description |
+|---|---|
+| `model_id` | Model id the forecasts are submitted under. |
+| `method` | `climatology` (day-of-year mean and sd, normal), `weekly_climatology` (ISO-week mean and sd, log-normal ensemble), `persistence_rw` (random walk, bootstrapped ensemble) or `mean` (historical mean of log(x + 1), bootstrapped ensemble). |
+| `schedule` | Which workflow runs it: `daily` (baselines-daily) or `weekly` (baselines-weekly). |
+| `args` | Optional. `variables` (default: all of the group's), `horizon` in days (default: their `max_horizon`), and any argument of the method's function, e.g. `transform: {chla: log}` for `persistence_rw` or `exclude_current_year: true` for `climatology`. See `?challengeci::baseline_climatology` and the related help pages. |
+
+Daily baselines are issued for today. Weekly baselines are issued for the Monday
+that starts the current ISO week. Forecasts are uploaded to the submissions
+bucket and processed like any participant's.
+
+```yaml
+Aquatics:
+  baselines:
+    - {model_id: climatology, method: climatology, schedule: daily}
+    - {model_id: persistenceRW, method: persistence_rw, schedule: daily, args: {transform: {chla: log}}}
+```
 
 ## NOAA forecasts
 

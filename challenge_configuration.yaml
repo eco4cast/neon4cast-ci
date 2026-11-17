@@ -44,6 +44,12 @@ example_model_id: example
 target_metadata_gsheet: https://docs.google.com/spreadsheets/d/10YTX9ae_C1rFdLgEDkUcCRCpUkVYv06leY01BtD1BgM/edit?usp=sharing
 challenge_url: https://projects.ecoforecast.org/neon4cast-ci
 #TARGET CONFIGURATIONS
+# Each group's `theme` prefixes its submission file names. `baselines` lists the
+# null models run for it (see ?challengeci::run_baselines): `method` is one of
+# climatology, weekly_climatology, persistence_rw or mean; `schedule` says which
+# baselines workflow runs it; `args` go to the method (`variables` and
+# `horizon` in days default to all of the group's variables and their
+# max_horizon).
 target_groups:
   Aquatics:
     targets_file: "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1D/aquatics-targets.csv.gz"
@@ -52,6 +58,10 @@ target_groups:
     duration: ['P1D','P1D','P1D']
     thumbnail_link: 'https://www.neonscience.org/sites/default/files/styles/_edit_list_additional_actions_max_width_300/public/image-content-images/06092015-BarcoBuoy-400.jpg?itok=t1xTVkX3'
     thumbnail_title: 'NEON Aquatics Buoy'
+    theme: aquatics
+    baselines:
+      - {model_id: climatology, method: climatology, schedule: daily, args: {exclude_current_year: true}}
+      - {model_id: persistenceRW, method: persistence_rw, schedule: daily, args: {transform: {chla: log, oxygen: log}}}
     group_vars:
       oxygen:
         duration: "P1D"
@@ -75,6 +85,10 @@ target_groups:
     max_horizon: [35, 35]
     thumbnail_link: 'https://www.neonscience.org/sites/default/files/styles/640x384/public/2020-10/48540914326_749b0c2627_o.jpg'
     thumbnail_title: 'NEON Field Tower'
+    theme: terrestrial_daily
+    baselines:
+      - {model_id: climatology, method: climatology, schedule: daily}
+      - {model_id: persistenceRW, method: persistence_rw, schedule: daily, args: {variables: [nee]}}
     group_vars:
       nee:
         duration: ["P1D"]
@@ -93,6 +107,10 @@ target_groups:
     max_horizon: [35, 35]
     thumbnail_link: 'https://www.neonscience.org/sites/default/files/styles/max_1300x1300/public/image-content-images/_BFP8455.jpg'
     thumbnail_title: 'Phenology Image'
+    theme: phenology
+    baselines:
+      - {model_id: climatology, method: climatology, schedule: daily}
+      - {model_id: persistenceRW, method: persistence_rw, schedule: daily}
     group_vars:
       gcc_90:
         duration: "P1D"
@@ -115,6 +133,9 @@ target_groups:
     max_horizon: [730, 730]
     thumbnail_link: 'https://www.neonscience.org/sites/default/files/styles/max_width_1170px/public/image-content-images/Beetles_pinned.jpg'
     thumbnail_title: 'Beetle Image'
+    theme: beetles
+    baselines:
+      - {model_id: mean, method: mean, schedule: weekly, args: {horizon: 365}}
     group_vars:
       abundance:
         duration: "P1W"
@@ -133,6 +154,10 @@ target_groups:
     max_horizon: [730]
     thumbnail_link: 'https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/thumbnail_plots/tick_drag.jpg'
     thumbnail_title: 'NEON Ticks'
+    theme: ticks
+    baselines:
+      - {model_id: EFI_avg_null, method: weekly_climatology, schedule: weekly, args: {horizon: 365}}
+      - {model_id: mean, method: mean, schedule: weekly, args: {horizon: 365}}
     group_vars:
       amblyomma_americanum:
         duration: "P1W"

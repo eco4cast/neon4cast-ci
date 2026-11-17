@@ -18,6 +18,10 @@ target_groups:
     variable: [temperature, oxygen]
     duration: [P1D, P1D]
     max_horizon: [35, 35]
+    theme: lakes
+    baselines:
+      - {model_id: climatology, method: climatology, schedule: daily}
+      - {model_id: persistenceRW, method: persistence_rw, schedule: daily, args: {variables: [oxygen], transform: {oxygen: log}, n_members: 5}}
     group_vars:
       temperature: {duration: P1D, max_horizon: 35, var_doi: "10.1/x", var_citation: "Cite me"}
       oxygen: {duration: P1D, max_horizon: 35}

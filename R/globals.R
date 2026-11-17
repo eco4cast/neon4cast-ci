@@ -2,4 +2,6 @@
 # dbplyr passes through, and the columns are referenced inside it. Declaring
 # them here keeps R CMD check quiet without hiding real undefined names
 # elsewhere.
-utils::globalVariables(c("date_diff", "datetime", "reference_datetime"))
+# `observation` appears inside fable model formulas, which fable evaluates
+# against the data.
+utils::globalVariables(c("date_diff", "datetime", "reference_datetime", "observation"))

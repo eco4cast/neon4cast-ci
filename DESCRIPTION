@@ -35,9 +35,12 @@ Imports:
     yaml
 Suggests:
     arrow,
+    fable,
+    fabletools,
     score4cast,
     scoringRules,
     testthat (>= 3.0.0),
     tidyr,
+    tsibble,
     withr
 Config/testthat/edition: 3

@@ -19,12 +19,12 @@ script loads the package, reads the config and calls one `run_*()` function:
 | `inst/scripts/process_submissions.R` | submissions | `run_submissions()` | validate new submissions, write parquet + summaries |
 | `inst/scripts/bundle.R [forecasts\|summaries]` | bundling | `run_bundling()` | append new parquet to each model's bundle, archive it |
 | `inst/scripts/score.R` | scoring | `run_scoring()` | score forecasts that have new observations |
+| `inst/scripts/baselines.R <schedule> [group]` | baselines-daily, baselines-weekly | `run_baselines()` | run each group's baseline models and submit them |
 
 Each one documents its environment variables in its header. All of them take
 `DRY_RUN=true` (see below).
 
-The other stage folders (`baseline_models/`, `catalog/`, `dashboard/`,
-`drivers/`) are moving onto the package one stage at a time. Challenge-specific
+The other stage folders (`catalog/`, `dashboard/`, `drivers/`) are moving onto the package one stage at a time. Challenge-specific
 data downloads (`targets/`) stay as plain scripts.
 
 ## Using the package from a script

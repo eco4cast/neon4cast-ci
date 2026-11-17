@@ -14,45 +14,51 @@ jobs:
     container: eco4cast/rocker-neon4cast:latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      # The key that has always uploaded baseline forecasts, under the names the
+      # config's `credentials$submissions` expects.
+      AWS_ACCESS_KEY_SUBMISSIONS: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY_SUBMISSIONS: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
     steps:
       - uses: actions/checkout@v6
 
+      - uses: ./.github/actions/install-mc
+
       - name: Generate forecasts
-        shell: Rscript {0}
-        run: |
-          source("baseline_models/run_terrestrial_baselines.R")
+        run: Rscript inst/scripts/baselines.R daily Terrestrial
 
   aquatics:
     runs-on: ubuntu-latest
     container: eco4cast/rocker-neon4cast:latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      # The key that has always uploaded baseline forecasts, under the names the
+      # config's `credentials$submissions` expects.
+      AWS_ACCESS_KEY_SUBMISSIONS: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY_SUBMISSIONS: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
     steps:
       - uses: actions/checkout@v6
 
+      - uses: ./.github/actions/install-mc
+
       - name: Generate forecasts
-        shell: Rscript {0}
-        run: |
-          source("baseline_models/run_aquatics_baselines.R")
+        run: Rscript inst/scripts/baselines.R daily Aquatics
 
   phenology:
     runs-on: ubuntu-latest
     container: eco4cast/rocker-neon4cast:latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      # The key that has always uploaded baseline forecasts, under the names the
+      # config's `credentials$submissions` expects.
+      AWS_ACCESS_KEY_SUBMISSIONS: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY_SUBMISSIONS: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
     steps:
       - uses: actions/checkout@v6
 
+      - uses: ./.github/actions/install-mc
+
       - name: Generate forecasts
-        shell: Rscript {0}
-        run: |
-          source("baseline_models/run_phenology_baselines.R")
+        run: Rscript inst/scripts/baselines.R daily Phenology
 
       - name: Healthcheck
         run: |
