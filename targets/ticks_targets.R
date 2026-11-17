@@ -18,6 +18,7 @@ target_sites <- sites_df %>% pull(field_site_id)
 
 
 source("targets/R/resolve_taxonomy.R")
+source("targets/R/neon_os_table.R")
 
 # pass <- TRUE
 # iter <- 0
@@ -47,24 +48,15 @@ source("targets/R/resolve_taxonomy.R")
 # }
 
 
-tick_field_raw <- datasetQuery(dpID="DP1.10093.001",
-                        package="expanded",
-                        tabl="tck_fielddata",
-                        release="current",
-                        include.provisional = TRUE,
-                        token=Sys.getenv("NEON_TOKEN")) |>
-  select(totalSampledArea, collectDate, namedLocation, nlcdClass, siteID) |>
-  collect()
+# Read with neon_os_table() rather than neonUtilities::datasetQuery(): in the CI
+# container datasetQuery()'s DuckDB/httpfs reader fails on NEON's HTTPS URLs and
+# returns NULL. See targets/R/neon_os_table.R.
+tick_field_raw <- neon_os_table("DP1.10093.001", "tck_fielddata", package = "expanded") |>
+  select(totalSampledArea, collectDate, namedLocation, nlcdClass, siteID)
 
-tick_taxon_raw <- datasetQuery(dpID="DP1.10093.001",
-                               package="expanded",
-                               tabl="tck_taxonomyProcessed",
-                               release="current",
-                               include.provisional = TRUE,
-                               token=Sys.getenv("NEON_TOKEN")) |>
+tick_taxon_raw <- neon_os_table("DP1.10093.001", "tck_taxonomyProcessed", package = "expanded") |>
   select(sampleCondition, sexOrAge, collectDate, namedLocation,
-         acceptedTaxonID, individualCount, scientificName, taxonRank) |>
-  collect()
+         acceptedTaxonID, individualCount, scientificName, taxonRank)
 
 
 # there are lots of reasons why sampling didn't occur (logistics, too wet, too cold, etc.)

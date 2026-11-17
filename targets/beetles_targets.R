@@ -1,50 +1,32 @@
+if (file.exists(".Renviron")) readRenviron(".Renviron")
+
 library(neonstore)
 library(tidyverse)
 library(ISOweek)
 library(minioclient)
 library(neonUtilities)
 source("targets/R/resolve_taxonomy.R")
+source("targets/R/neon_os_table.R")
 
 install_mc()
 mc_alias_set("osn", "sdsc.osn.xsede.org", Sys.getenv("OSN_KEY"), Sys.getenv("OSN_SECRET"))
 
-sorting <- datasetQuery(dpID="DP1.10022.001",
-                        package="basic",
-                        tabl="bet_sorting",
-                        release="current",
-                        include.provisional = TRUE,
-                        token=Sys.getenv("NEON_TOKEN")) |>
+# Read with neon_os_table() rather than neonUtilities::datasetQuery(): in the CI
+# container datasetQuery()'s DuckDB/httpfs reader fails on NEON's HTTPS URLs and
+# returns NULL. See targets/R/neon_os_table.R.
+sorting <- neon_os_table("DP1.10022.001", "bet_sorting") |>
   select(collectDate, siteID, taxonID, individualCount, subsampleID,
          scientificName, morphospeciesID, taxonRank, sampleType,
-         nativeStatusCode, sampleCondition) |>
-  collect()
+         nativeStatusCode, sampleCondition)
 
-para <- datasetQuery(dpID="DP1.10022.001",
-                     package="basic",
-                     tabl="bet_parataxonomistID",
-                     release="current",
-                     include.provisional = TRUE,
-                     token=Sys.getenv("NEON_TOKEN")) |>
-  select(subsampleID, individualID, scientificName, taxonRank, taxonID, morphospeciesID) |>
-  collect()
+para <- neon_os_table("DP1.10022.001", "bet_parataxonomistID") |>
+  select(subsampleID, individualID, scientificName, taxonRank, taxonID, morphospeciesID)
 
-expert <- datasetQuery(dpID="DP1.10022.001",
-                       package="basic",
-                       tabl="bet_expertTaxonomistIDProcessed",
-                       release="current",
-                       include.provisional = TRUE,
-                       token=Sys.getenv("NEON_TOKEN")) |>
-  select(-uid, -namedLocation, -domainID, -siteID, -collectDate, -plotID, -setDate, -collectDate) |>
-  collect()
+expert <- neon_os_table("DP1.10022.001", "bet_expertTaxonomistIDProcessed") |>
+  select(-uid, -namedLocation, -domainID, -siteID, -collectDate, -plotID, -setDate)
 
-field <- datasetQuery(dpID="DP1.10022.001",
-                      package="basic",
-                      tabl="bet_fielddata",
-                      release="current",
-                      include.provisional = TRUE,
-                      token=Sys.getenv("NEON_TOKEN")) |>
-  select(collectDate, siteID, setDate) |>
-  collect()
+field <- neon_os_table("DP1.10022.001", "bet_fielddata") |>
+  select(collectDate, siteID, setDate)
 
 #### Generate derived richness table  ####################
 
