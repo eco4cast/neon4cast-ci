@@ -136,7 +136,7 @@ portal_data <- arrow::open_dataset(s3_neon_portal) |>
 n_dup <- sum(duplicated(portal_data[c("siteID", "timeBgn")]))
 if (n_dup > 0) {
   warning(n_dup, " duplicated half-hours in the neon_portal archive; keeping one of each. ",
-          "Run targets/cleanup_neon_portal_archive.R to fix the archive.")
+          "Run targets/R/terrestrial_cleanup_neon_portal_archive.R to fix the archive.")
   portal_data <- distinct(portal_data, siteID, timeBgn, .keep_all = TRUE)
 }
 
