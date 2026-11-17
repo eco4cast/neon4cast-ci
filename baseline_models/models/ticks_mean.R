@@ -48,12 +48,16 @@ team_name <- "mean"
 forecast <- targets  %>%
   model(null = MEAN(log(observation + 1))) %>%
   generate(times = 500, h = "1 year", bootstrap = TRUE) |>
-  dplyr::rename(ensemble = .rep,
+  # Standard EFI columns: the ensemble member goes in `parameter` with
+  # family "ensemble". Without family and parameter the forecast fails
+  # validation, so none of this model's forecasts reached the bundle.
+  dplyr::rename(parameter = .rep,
                 prediction = .sim) |>
-  mutate(variable = "amblyomma_americanum") |>
+  mutate(variable = "amblyomma_americanum",
+         family = "ensemble") |>
   mutate(reference_datetime = lubridate::as_date(min(datetime)) - lubridate::weeks(1),
          model_id = team_name) |>
-  select(model_id, datetime, reference_datetime, site_id, ensemble, variable, prediction) |>
+  select(model_id, datetime, reference_datetime, site_id, family, parameter, variable, prediction) |>
   as_tibble() |>
   mutate(datetime = as_datetime(datetime),
          reference_datetime = as_datetime(reference_datetime),
@@ -72,5 +76,7 @@ readr::write_csv(forecast, filename)
 
 neon4cast::submit(forecast_file = filename,
                   ask = FALSE)
+
+unlink(c(filename, "ticks-targets.csv.gz"))
 
 

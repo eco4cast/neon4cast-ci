@@ -43,7 +43,7 @@ gc()
 
 #fs::dir_delete("new_scores/")
 
-score_group <- function(i, groups, project = "neon4cast") {
+score_group <- function(i, groups, project = config$project_id) {
 
 
   # if we want to clear connection manually we need to re-open fc.  Maybe not necessary
@@ -96,13 +96,17 @@ score_group <- function(i, groups, project = "neon4cast") {
   if(file_exist > 0){
 
   new_scores <- duckdbfs::as_dataset(new_scores, conn = con)
+  # Replace, don't append: drop every existing score for a forecast row that
+  # was just (re)scored. Match on the columns that identify the forecast row
+  # only. Matching on the score values (crps, logs, quantiles, observation)
+  # meant a row rescored against a revised observation, or one with an NA
+  # score, never matched, so the old and new scores were both kept.
   bundled_scores <- duckdbfs::open_dataset(path, conn = con) |>
     dplyr::anti_join(new_scores,
               by = dplyr::join_by(reference_datetime, site_id, datetime,
-                                  family, pub_datetime, observation,
-                                  crps, logs, mean, median, sd,
-                                  quantile97.5, quantile02.5, quantile90, quantile10,
-                                  duration, model_id, project_id, variable)) |>
+                                  family, pub_datetime,
+                                  duration, model_id, project_id, variable),
+              na_matches = "na") |>
     dplyr::compute()
   new_scores <- dplyr::union_all(bundled_scores, new_scores)
   }

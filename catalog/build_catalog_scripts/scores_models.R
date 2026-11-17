@@ -3,6 +3,7 @@ library(dplyr)
 library(gsheet)
 library(readr)
 
+source('catalog/R/catalog_helpers.R')
 config <- yaml::read_yaml('challenge_configuration.yaml')
 catalog_config <- config$catalog_config
 
@@ -146,13 +147,7 @@ for (i in 1:length(config$target_groups)){ # LOOP OVER VARIABLE GROUPS -- BUILD 
     dir.create(file.path(paste0("../",catalog_config$scores_path),names(config$target_groups[i])))
   }
 
-  # match variable with full name in gsheet
-  var_gsheet_arrange <- variable_gsheet |>
-    arrange(duration)
-
   var_values <- names(config$target_groups[[i]]$group_vars)
-
-  var_name_full <- var_gsheet_arrange[which(var_gsheet_arrange$`"official" targets name` %in% var_values),1][[1]]
 
   ## CREATE VARIABLE GROUP JSONS
   group_description <- paste0('All variables for the ',names(config$target_groups[i]),' group.')
@@ -195,7 +190,8 @@ for (i in 1:length(config$target_groups)){ # LOOP OVER VARIABLE GROUPS -- BUILD 
         duration_value[which(duration_value == 'PT30M')] <- '30min'
         duration_value[which(duration_value == 'P1W')] <- 'Weekly'
 
-        var_formal_name <- paste0(duration_value,'_',var_name_full[j])
+        var_name_full <- lookup_var_name_full(variable_gsheet, var_name, duration_name)
+        var_formal_name <- paste0(duration_value,'_',var_name_full)
 
         # check data and skip if no data found
         var_data_check <- scores_model_var_max_date_df |>
@@ -236,7 +232,7 @@ for (i in 1:length(config$target_groups)){ # LOOP OVER VARIABLE GROUPS -- BUILD 
 
         find_var_sites <- scores_sites |>
           filter(variable == var_name,
-                 duration == duration) |>
+                 duration == duration_name) |>
           distinct(site_id) |>
           pull(site_id)
 
@@ -312,7 +308,7 @@ for (i in 1:length(config$target_groups)){ # LOOP OVER VARIABLE GROUPS -- BUILD 
             filter(model_id == m,
                    variable == var_name,
                    duration == duration_name) |>
-            summarize(date = max(date)) |>
+            summarize(date = min(date)) |>
             pull(date)
 
           model_reference_date <- scores_model_var_max_date_df |>
@@ -399,7 +395,7 @@ for (i in 1:length(config$target_groups)){ # LOOP OVER VARIABLE GROUPS -- BUILD 
                                     '.
                                     Scores are metrics that describe how well forecasts compare to observations. The scores catalog includes are summaries of the forecasts (i.e., mean, median, confidence intervals), matched observations (if available), and scores (metrics of how well the model distribution compares to observations)')
 
-          model_keywords <- c(list('Scores',config$project_id, names(config$target_groups)[i], m, var_name_full[j], var_name, duration_value, duration_name),
+          model_keywords <- c(list('Scores',config$project_id, names(config$target_groups)[i], m, var_name_full, var_name, duration_value, duration_name),
                               as.list(model_sites))
 
           ## build radiantearth stac and raw json link

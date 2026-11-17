@@ -46,7 +46,10 @@ targets_abundance <- targets |>
 fc_richness <- targets_richness  %>%
   model(null = MEAN(log(richness + 1))) %>%
   generate(times = 500, h = "1 year", bootstrap = TRUE) |>
-  dplyr::rename(ensemble = .rep,
+  # The ensemble member goes in `parameter` (as for abundance below); naming
+  # it `ensemble` left parameter NA after the select() further down, and the
+  # bundler drops rows with an NA parameter, so no richness forecast survived.
+  dplyr::rename(parameter = .rep,
                 prediction = .sim) |>
   mutate(variable = "richness",
          family = "ensemble")
@@ -61,7 +64,7 @@ fc_abundance <- targets_abundance  %>%
 
 fc_richness |>
   filter(site_id %in% site_list[1:10], variable == "richness") |>
-  ggplot(aes(x = datetime, y = prediction, group = ensemble)) +
+  ggplot(aes(x = datetime, y = prediction, group = parameter)) +
   geom_line() +
   facet_wrap(~site_id)
 
@@ -95,6 +98,6 @@ readr::write_csv(forecast, filename)
 neon4cast::submit(forecast_file = filename,
                   ask = FALSE)
 
-unlink(filename)
+unlink(c(filename, "beetles-targets.csv.gz"))
 
 

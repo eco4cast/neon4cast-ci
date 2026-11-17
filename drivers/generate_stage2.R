@@ -1,4 +1,7 @@
-source("https://raw.githubusercontent.com/eco4cast/neon4cast/ci_upgrade/R/to_hourly.R")
+# Use this repo's copy so stage 2 and stage 3 share one to_hourly(). This
+# script used to source it from the neon4cast package's ci_upgrade branch,
+# which could change or vanish independently of this repo.
+source("drivers/to_hourly.R")
 library(arrow)
 print(sessioninfo::package_info())
 

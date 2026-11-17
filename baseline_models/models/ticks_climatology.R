@@ -35,9 +35,12 @@ hist_means <- function(df, target.weeks){
               sd = sd(observation))
 
 
-  # need to fill in NAs and need to do on all data before sub-setting to target weeks
-  filler.tb <- tibble(site_id = rep(sites, length(1:44)),
-                      iso_week = rep(1:44, each = length(sites)))
+  # need to fill in NAs and need to do on all data before sub-setting to target weeks.
+  # Cover every ISO week (1-53): the forecast spans a full year, and stopping
+  # at week 44 silently dropped weeks 45-53 from every forecast.
+  all_iso_weeks <- 1:53
+  filler.tb <- tibble(site_id = rep(sites, length(all_iso_weeks)),
+                      iso_week = rep(all_iso_weeks, each = length(sites)))
 
   all.weeks <- left_join(filler.tb, weekly.means, by = c("site_id", "iso_week")) %>%
     arrange(site_id, iso_week)
@@ -90,8 +93,10 @@ create_ensembles <- function(df, nmc = 500, forecast.year = 2021) {
 # get the forecasts we want
 forecast <- hist_means(data, fx.datetime)
 
-# generate ensembles for uncertainty and scoring
-ensembles <- create_ensembles(forecast, curr_iso_week, curr_year)
+# generate ensembles for uncertainty and scoring. Use the default 500 members:
+# passing curr_iso_week positionally set nmc, so the ensemble size was the
+# current week number (1-53).
+ensembles <- create_ensembles(forecast)
 
 team_name <- "EFI_avg_null"
 
