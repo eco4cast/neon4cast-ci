@@ -15,6 +15,8 @@ The following elements of a forecasting challenge workflow are included in this 
 7)  Download of weather drivers for forecasts
 8)  Creation of Docker containers with supporting software
 
+Every challenge-specific setting (buckets, endpoints, variables, horizons, sites, catalog text) lives in [`challenge_configuration.yaml`](challenge_configuration.yaml); see [docs/configuration.md](docs/configuration.md) for each key. Code shared between the workflows is a small R package, `challengeci`, in [`R/`](R/); see [docs/developing.md](docs/developing.md) for how to use and change it.
+
 See <[https://doi.org/10.1002/fee.2616](http://doi.org/10.22541/essoar.175917344.44115142/v1)> for more information on the structure of a forecasting challenge.
 
 Supported by the U.S. National Science Foundation grants (DEB-1926388, OAC-2209866, DEB-2327030, and OAC-2311124)

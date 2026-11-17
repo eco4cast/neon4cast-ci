@@ -16,6 +16,23 @@ model_metadata_bucket: bio230014-bucket01/challenges/metadata/model_id
 # Record of submissions already processed. Stands in for deleting them from the
 # submissions bucket, which the NRP key lost permission to do on 2026-09-08.
 processed_submissions: bio230014-bucket01/challenges/metadata/processed_submissions.csv
+# Scratch space used while scoring; files under it are deleted every run.
+scratch:
+  endpoint: s3-west.nrp-nautilus.io
+  bucket: efi-scores/tmp
+# For each S3 store, the NAMES of the environment variables (set from GitHub
+# secrets) holding its access key and secret. Never put the secrets here.
+# The noaa store (noaa_endpoint) uses the main credentials.
+credentials:
+  main: {key_env: OSN_KEY, secret_env: OSN_SECRET}
+  submissions: {key_env: AWS_ACCESS_KEY_SUBMISSIONS, secret_env: AWS_SECRET_ACCESS_KEY_SUBMISSIONS}
+  scratch: {key_env: EFI_NRP_KEY, secret_env: EFI_NRP_SECRET}
+# Site metadata. `columns` maps standard names (left) to the file's columns
+# (right). Each target group's sites are marked by a column of 1s named after
+# the group in lower case (override with the group's `sites_column`).
+sites:
+  metadata_url: 'https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/neon4cast_field_site_metadata.csv'
+  columns: {site_id: field_site_id, site_name: field_site_name, latitude: latitude, longitude: longitude}
 model_metadata_gsheet: https://docs.google.com/spreadsheets/d/1f177dpaxLzc4UuQ4_SJV9JWIbQPlilVnEztyvZE6aSU/edit?usp=sharing
 example_model_id: example
 target_metadata_gsheet: https://docs.google.com/spreadsheets/d/10YTX9ae_C1rFdLgEDkUcCRCpUkVYv06leY01BtD1BgM/edit?usp=sharing
@@ -82,6 +99,7 @@ target_groups:
         Agricultural and Forest Meteorology, Volume 345, 2024'
       rcc_90:
         duration: 'P1D'
+        max_horizon: 35
         var_doi: "None"
         var_citation: "None"
   Beetles:

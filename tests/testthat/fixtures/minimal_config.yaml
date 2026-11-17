@@ -1,0 +1,30 @@
+# Smallest config that passes validate_config(); used by the tests.
+project_id: testcast
+endpoint: s3.example.org
+submissions_endpoint: submit.example.org
+forecasts_bucket: test-bucket/challenges/forecasts
+scores_bucket: test-bucket/challenges/scores
+targets_bucket: test-bucket/challenges/targets
+submissions_bucket: submissions
+scratch:
+  endpoint: scratch.example.org
+  bucket: scratch-bucket/tmp
+sites:
+  metadata_url: sites.csv
+  columns: {site_id: field_site_id, site_name: field_site_name, latitude: latitude, longitude: longitude}
+target_groups:
+  Lakes:
+    targets_file: https://s3.example.org/test-bucket/lakes-targets.csv.gz
+    variable: [temperature, oxygen]
+    duration: [P1D, P1D]
+    max_horizon: [35, 35]
+    group_vars:
+      temperature: {duration: P1D, max_horizon: 35, var_doi: "10.1/x", var_citation: "Cite me"}
+      oxygen: {duration: P1D, max_horizon: 35}
+  Birds:
+    variable: [richness]
+    duration: [P1W]
+    max_horizon: [730]
+    sites_column: has_birds
+    group_vars:
+      richness: {duration: P1W, max_horizon: 730}

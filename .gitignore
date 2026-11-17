@@ -43,8 +43,6 @@ vignettes/*.pdf
 # R Environment Variables
 .Renviron
 
-# pkgdown site
-docs/
 
 # translation temp files
 po/*~
@@ -66,6 +64,7 @@ archive/
 .DS_Store
 *.gz
 *.csv
+!tests/testthat/fixtures/*.csv
 *.parquet
 *.log
 

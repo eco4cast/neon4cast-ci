@@ -1,0 +1,34 @@
+Package: challengeci
+Title: Shared Plumbing for Ecological Forecasting Challenge CI
+Version: 0.0.0.9000
+Authors@R:
+    person("Quinn", "Thomas", , "rqthomas@vt.edu", role = c("aut", "cre"))
+Description: Functions used by the GitHub Actions workflows that run an
+    Ecological Forecasting Initiative forecasting challenge: reading and
+    validating the challenge configuration, connecting to S3 stores, reading
+    site metadata, and (in later versions) processing submissions, bundling,
+    scoring, baselines and the STAC catalog. Every challenge-specific setting
+    comes from 'challenge_configuration.yaml'. The package lives inside the
+    challenge repository and is loaded with pkgload::load_all() so the code a
+    workflow runs always matches the commit it checked out.
+License: file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.3
+Depends:
+    R (>= 4.1.0)
+Imports:
+    arrow,
+    cli,
+    dplyr,
+    duckdbfs,
+    minioclient,
+    purrr,
+    readr,
+    rlang,
+    tibble,
+    yaml
+Suggests:
+    testthat (>= 3.0.0),
+    withr
+Config/testthat/edition: 3

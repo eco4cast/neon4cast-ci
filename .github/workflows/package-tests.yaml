@@ -1,0 +1,47 @@
+# Unit tests and R CMD check for the challengeci package (DESCRIPTION, R/,
+# tests/). Uses no secrets and touches no buckets. The tests also check
+# challenge_configuration.yaml, so they run when the config changes too.
+name: package-tests
+
+on:
+  pull_request:
+    paths:
+      - 'DESCRIPTION'
+      - 'R/**'
+      - 'tests/**'
+      - 'challenge_configuration.yaml'
+      - 'docs/configuration.md'
+      - '.github/workflows/package-tests.yaml'
+  push:
+    branches: [main]
+    paths:
+      - 'DESCRIPTION'
+      - 'R/**'
+      - 'tests/**'
+      - 'challenge_configuration.yaml'
+      - 'docs/configuration.md'
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    container:
+      image: eco4cast/rocker-neon4cast:latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Unit tests
+        run: Rscript -e 'devtools::test(stop_on_failure = TRUE)'
+
+      - name: Docs are up to date
+        run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          Rscript -e 'devtools::document()'
+          git diff --exit-code -- NAMESPACE man/ || {
+            echo "::error::Run devtools::document() and commit NAMESPACE and man/."
+            exit 1
+          }
+
+      - name: R CMD check
+        run: Rscript -e 'devtools::check(args = "--no-manual", error_on = "warning")'
