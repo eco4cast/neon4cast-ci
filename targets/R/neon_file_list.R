@@ -26,6 +26,52 @@ latest_per_key <- function(df) {
     dplyr::distinct(key, .keep_all = TRUE)
 }
 
+# Read NEON portal CSVs in site-month batches and apply `process` to each batch.
+#
+# Reading every URL in one vroom::vroom() call loads all files (and all ~100
+# columns) into memory at once, which kills the GitHub runner (exit code 137)
+# for the 1-minute water quality product. Every aggregation in
+# aquatics_targets.R groups within a site and within a day/hour, so processing
+# one site-month at a time gives identical results with bounded memory.
+#
+# Columns are read as character (startDateTime as datetime) so a column that
+# happens to be empty at the start of a file is never guessed as logical and
+# silently set to NA. Columns missing from a file are added as NA.
+read_neon_csv_batches <- function(urls, cols, process, retries = 3) {
+  fname <- basename(sub("\\?.*$", "", urls))
+  batch <- paste(neon_file_site(fname),
+                 regmatches(fname, regexpr("[0-9]{4}-[0-9]{2}", fname)))
+  stopifnot(length(batch) == length(urls))
+  groups <- split(urls, batch)
+  col_types <- vroom::cols(.default = vroom::col_character(),
+                           startDateTime = vroom::col_datetime())
+
+  read_batch <- function(u) {
+    for (attempt in seq_len(retries)) {
+      out <- tryCatch(
+        vroom::vroom(u, id = "filename", delim = ",",
+                     col_select = tidyselect::any_of(c("filename", cols)),
+                     col_types = col_types, progress = FALSE,
+                     show_col_types = FALSE),
+        error = function(e) e)
+      if (!inherits(out, "error")) break
+      message("  read failed (attempt ", attempt, "): ", conditionMessage(out))
+      if (attempt == retries) stop(out)
+      Sys.sleep(10 * attempt)
+    }
+    for (m in setdiff(cols, names(out))) out[[m]] <- NA_character_
+    out
+  }
+
+  message("Reading ", length(urls), " files in ", length(groups), " site-month batches")
+  res <- vector("list", length(groups))
+  for (i in seq_along(groups)) {
+    if (i %% 100 == 0) message("  batch ", i, " / ", length(groups))
+    res[[i]] <- process(read_batch(groups[[i]]))
+  }
+  dplyr::bind_rows(res)
+}
+
 neon_file_list <- function(product, cache_file, site = NA, max_iter = 4) {
 
   fresh <- neonstore:::neon_data(product = product, site = site, type = "basic") |>

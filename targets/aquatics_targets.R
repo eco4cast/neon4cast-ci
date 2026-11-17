@@ -99,7 +99,11 @@ urls <- full_df |>
 
 message("Downloading and processing data from NEON Portal")
 
-wq_portal <- vroom::vroom(urls, id = "filename") |>
+wq_portal <- read_neon_csv_batches(
+  urls,
+  cols = c("startDateTime", "sensorDepth", "dissolvedOxygen", "dissolvedOxygenFinalQF",
+           "chlorophyll", "chlorophyllFinalQF", "chlaRelativeFluorescence", "chlaRelFluoroFinalQF"),
+  process = function(d) d |>
   dplyr::mutate(siteID = stringr::str_sub(filename, 77,80)) |>
   dplyr::select(siteID, startDateTime, sensorDepth,
                 dissolvedOxygen,dissolvedOxygenFinalQF,
@@ -128,7 +132,7 @@ wq_portal <- vroom::vroom(urls, id = "filename") |>
   pivot_longer(cols = -c("time", "site_id"), names_to = "variable", values_to = "observation") %>%
   dplyr::filter(!((variable == "chla" & site_id %in% stream_sites) |
                     (variable == "chla_RFU" & site_id %in% stream_sites))) |>
-  collect()
+  collect())
 
 #====================================================#
 ##### low latency WQ data =======
@@ -278,7 +282,10 @@ urls <- full_df |>
 
 
 hourly_temp_profile_portal <-
-  vroom::vroom(urls, id = "filename") |>
+  read_neon_csv_batches(
+  urls,
+  cols = c("startDateTime", "tsdWaterTempMean", "thermistorDepth", "tsdWaterTempFinalQF"),
+  process = function(d) d |>
   dplyr::mutate(site_id = stringr::str_sub(filename, 77,80),
                 verticalPosition = stringr::str_sub(filename, 153,155)) |>
   dplyr::select(startDateTime, site_id, tsdWaterTempMean, thermistorDepth,
@@ -299,7 +306,7 @@ hourly_temp_profile_portal <-
   mutate(variable = "temperature",
          time = as_datetime(paste0(date, " ",hour, ":00:00"))) |>
   select(-date, - hour) |>
-  collect() |>
+  collect()) |>
   QC.temp(range = c(-5, 40), spike = 5, by.depth = T) %>%
   mutate(data_source = 'NEON_portal')
 
@@ -473,7 +480,10 @@ urls <- full_df |>
   dplyr::pull(url)
 
 temp_streams_portal <-
-  vroom::vroom(urls, id = "filename") |>
+  read_neon_csv_batches(
+  urls,
+  cols = c("startDateTime", "surfWaterTempMean", "finalQF"),
+  process = function(d) d |>
   dplyr::mutate(site_id = stringr::str_sub(filename, 77,80),
                 verticalPosition = stringr::str_sub(filename, 153,155),
                 horizontalPosition = stringr::str_sub(filename, 149,151)) |>
@@ -489,7 +499,7 @@ temp_streams_portal <-
   dplyr::select(time, site_id, temperature) %>%
   rename(observation = temperature) |>
   mutate(variable = "temperature") |>
-  collect()
+  collect())
 
 temp_streams_portal_QC <- temp_streams_portal %>%
   QC.temp(range = c(-5, 40), spike = 7, by.depth = F)
@@ -606,7 +616,10 @@ urls <- full_df |>
   dplyr::pull(url)
 
 
-temp_rivers_portal <- vroom::vroom(urls, id = "filename") |>
+temp_rivers_portal <- read_neon_csv_batches(
+  urls,
+  cols = c("startDateTime", "tsdWaterTempMean", "thermistorDepth", "tsdWaterTempFinalQF"),
+  process = function(d) d |>
   dplyr::mutate(site_id = stringr::str_sub(filename, 77,80)) |>
   dplyr::mutate(depth = as.numeric(thermistorDepth),
                 tsdWaterTempMean = as.numeric(tsdWaterTempMean),
@@ -618,7 +631,7 @@ temp_rivers_portal <- vroom::vroom(urls, id = "filename") |>
   dplyr::select(time, site_id, temperature) %>%
   rename(observation = temperature) |>
   mutate(variable = "temperature") |>
-  collect() %>%
+  collect()) %>%
   dplyr::mutate(time = as_date(time))
 
 
