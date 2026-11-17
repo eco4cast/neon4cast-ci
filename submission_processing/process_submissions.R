@@ -16,6 +16,18 @@ install_mc()
 
 config <- yaml::read_yaml("challenge_configuration.yaml")
 
+# Maximum forecast horizon (in days) for each variable, from the parallel
+# `variable` and `max_horizon` lists of each target group in the config.
+# Variables that are not in the config keep the previous default of 35 days.
+max_horizons <- config$target_groups |>
+  lapply(function(group) {
+    stopifnot(length(group$variable) == length(group$max_horizon))
+    dplyr::tibble(variable = unlist(group$variable),
+                  max_horizon = as.numeric(unlist(group$max_horizon)))
+  }) |>
+  dplyr::bind_rows()
+default_max_horizon <- 35
+
 sites <- readr::read_csv(config$catalog_config$site_metadata_url, show_col_types = FALSE) |>
   select(field_site_id, latitude, longitude) |>
   rename(site_id = field_site_id)
@@ -51,14 +63,25 @@ fs::dir_create(local_dir)
 manifest_object <- paste0("s3_store/", config$processed_submissions)
 manifest_local <- file.path(tempdir(), "processed_submissions.csv")
 
-processed <- tryCatch({
+# Only a record that does not exist may start a new, empty one. mc_ls() returns
+# an empty listing for a missing object and errors on access or network
+# failures; those errors must stop the run. Treating them as "no record" would
+# make the first mark_processed() overwrite the full record on OSN with a
+# near-empty one, and every submission would then be processed again.
+read_processed_record <- function() {
+  if (length(minioclient::mc_ls(manifest_object)) == 0) {
+    message("No processed-submissions record found; starting a new one.")
+    return(character(0))
+  }
   minioclient::mc_cp(manifest_object, manifest_local)
   manifest <- readr::read_csv(manifest_local, show_col_types = FALSE)
-  if ("key" %in% names(manifest)) as.character(manifest$key) else character(0)
-}, error = function(e) {
-  message("No processed-submissions record found; starting a new one.")
-  character(0)
-})
+  if (!"key" %in% names(manifest)) {
+    stop("Processed-submissions record ", manifest_object, " has no 'key' column")
+  }
+  as.character(manifest$key)
+}
+
+processed <- read_processed_record()
 
 marked <- 0L   # submissions handled in this run
 removed <- 0L  # objects deleted from the bucket: newly handled plus backlog
@@ -152,6 +175,7 @@ submissions <- submissions[stringr::str_detect(submissions, "2023", negate = TRU
 submissions <- submissions[stringr::str_detect(submissions, "usgsrc4cast", negate = TRUE)]
 
 submissions_filenames <- basename(submissions)
+failed_processing <- character(0)
 
 if(length(submissions) > 0){
 
@@ -173,7 +197,9 @@ if(length(submissions) > 0){
 
   time_stamp <- format(Sys.time(), format = "%Y%m%d%H%M%S")
 
-  for(i in 1:length(submissions)){
+  # Processes submissions[i] end to end. Errors propagate to the loop below,
+  # which records the failure and moves on to the next submission.
+  process_submission <- function(i) {
 
     curr_submission <- basename(submissions[i])
     # Bucket-relative path, not the basename: 33 of the keys sit under a prefix,
@@ -191,7 +217,9 @@ if(length(submissions) > 0){
 
     if((tools::file_ext(curr_submission) %in% c("gz", "csv", "nc")) & not_tg & recent_date & !is.na(file_name_reference_datetime)){
 
-      valid <- forecast_output_validator(file.path(local_dir, curr_submission))
+      # The full local path: keys under a prefix are downloaded into
+      # subdirectories, so local_dir/<basename> does not exist for them.
+      valid <- forecast_output_validator(submissions[i])
 
       if(valid){
 
@@ -218,20 +246,12 @@ if(length(submissions) > 0){
         fc <- fc |>
           mutate(duration = ifelse(duration == "PT30", "PT30M", duration))
 
-        # FILTER HORIZONS LONGER THAN ALLOWED
-
-        fc <- fc |>
-          mutate(horizon = as.integer(as.POSIXct(datetime) - as.POSIXct(reference_datetime))/ (60*60*24),
-                 max_horizon = ifelse(variable %in% c("amblyomma_americanum", "richness", "abundance"), 720, 35)) |>
-          filter(horizon <= max_horizon) |>
-          select(-horizon, -max_horizon)
-
         fc <- fc |>
           mutate(family = ifelse(family == "ensemble", "sample", family))
 
         if(!("model_id" %in% colnames(fc))){
           fc <- fc |> mutate(model_id = file_name_model_id)
-        }else if(fc$model_id[1] == "null"){
+        }else if(isTRUE(fc$model_id[1] == "null")){
           fc <- fc |> mutate(model_id = file_name_model_id)
         }
 
@@ -245,8 +265,20 @@ if(length(submissions) > 0){
                         reference_datetime = lubridate::as_datetime(reference_datetime),
                         reference_date = lubridate::as_date(reference_datetime),
                         parameter = as.character(parameter),
-                        project_id = "neon4cast") |>
+                        project_id = config$project_id) |>
           dplyr::filter(datetime >= reference_datetime)
+
+        # Drop rows beyond the variable's maximum horizon. difftime() needs
+        # explicit units: subtracting two datetimes lets R pick the unit from
+        # the smallest gap, so a forecast starting a day after its reference
+        # time came out in days, and dividing by 86400 let every row through.
+        fc <- fc |>
+          dplyr::left_join(max_horizons, by = "variable") |>
+          dplyr::mutate(max_horizon = dplyr::coalesce(max_horizon, default_max_horizon),
+                        horizon = as.numeric(difftime(datetime, reference_datetime,
+                                                      units = "days"))) |>
+          dplyr::filter(horizon <= max_horizon) |>
+          dplyr::select(-horizon, -max_horizon)
 
         print(head(fc))
         s3$CreateDir(paste0("parquet/"))
@@ -318,6 +350,16 @@ if(length(submissions) > 0){
     }
   }
 
+  # One failing submission must not stop the others. A failed submission is
+  # not marked processed, so it is retried on the next run.
+  for (i in seq_along(submissions)) {
+    tryCatch(process_submission(i), error = function(e) {
+      key <- as.character(fs::path_rel(submissions[i], local_dir))
+      message("FAILED to process ", key, ": ", conditionMessage(e))
+      failed_processing <<- c(failed_processing, key)
+    })
+  }
+
 }
 
 unlink(local_dir, recursive = TRUE)
@@ -330,3 +372,9 @@ if (marked > 0L && removed == 0L) {
 }
 
 message(paste0("Completed Processing Submissions ", Sys.time()))
+
+# Fail the job so the problem is visible; the other submissions are done.
+if (length(failed_processing) > 0) {
+  stop(length(failed_processing), " submission(s) failed to process:\n",
+       paste(failed_processing, collapse = "\n"))
+}

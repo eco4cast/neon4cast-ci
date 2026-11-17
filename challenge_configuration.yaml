@@ -134,6 +134,7 @@ catalog_config:
   summaries_thumbnail_title: "NEON Image"
   targets_path: 'neon4cast-catalog/targets/'
   targets_thumbnail: 'https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/thumbnail_plots/neon_stream.jpg'
+  targets_thumbnail_title: "NEON Stream Image"
   noaa_path: 'neon4cast-catalog/noaa_forecasts/'
   noaa_thumbnail: 'https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/thumbnail_plots/neon_wetland.jpg'
   noaa_thumbnail_title: "NEON Image"

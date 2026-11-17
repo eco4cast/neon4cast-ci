@@ -1,5 +1,6 @@
 library(minioclient)
-source("https://raw.githubusercontent.com/eco4cast/neon4cast/main/R/to_hourly.R")
+# This repo's copy, shared with generate_stage2.R and update_stage3.R.
+source("drivers/to_hourly.R")
 
 #install_mc()
 mc_alias_set("osn", "sdsc.osn.xsede.org", "", "")
