@@ -46,9 +46,25 @@ count <- open_dataset(paste0("s3://", forecast_bundled_parquet_bucket),
 print(count)
 
 
+# mc path of a model's existing bundle file, or character(0) if it has none yet.
+# mc_ls returns an empty listing for a missing prefix and errors on access or
+# network failures. Those errors must propagate: reading them as "no bundle
+# yet" would overwrite the bundle with only the new data and wipe its history.
+existing_bundle <- function(bundled_path) {
+  listing <- bundled_path |> str_replace(fixed("s3://"), "osn/") |> mc_ls(details = TRUE)
+  if (nrow(listing) == 0) return(character(0))
+  files <- listing |> filter(!is_folder) |> pull(path)
+  if (length(files) > 1) {
+    stop("Expected one bundle file, found ", length(files), ": ", toString(files))
+  }
+  files
+}
+
 bundle_me <- function(path) {
 
   print(path)
+  local_bundle <- tempfile(fileext = ".parquet")
+  on.exit(unlink(c(local_bundle, "tmp_new.parquet")), add = TRUE)
   con = duckdbfs::cached_connection(tempfile())
   duckdb_secrets(endpoint = config$endpoint, key = Sys.getenv("OSN_KEY"), secret = Sys.getenv("OSN_SECRET"), bucket = forecasts_bucket_base, url_compatibility_mode = FALSE)
   bundled_path <- path |> str_replace(fixed("forecasts/parquet"), "forecasts/bundled-parquet")
@@ -58,48 +74,39 @@ bundle_me <- function(path) {
             !is.na(parameter),
             !is.na(prediction)) |>
     write_dataset("tmp_new.parquet")
+  new <- open_dataset("tmp_new.parquet", conn = con)
 
-  # special filters should not be needed on bundled copy
   # Only if model has bundled entries!
-  old <- tryCatch({
-  open_dataset(bundled_path, conn = con) |>
-     write_dataset("tmp_old.parquet")
-  old <- open_dataset("tmp_old.parquet")
-  },
-  # no new data
-  error = function(e) NULL
-  )
-
-  # these are both local, so we can stream back.
-  new <- open_dataset("tmp_new.parquet")
-
-## We can just "append", we no longer face duplicates:
-# by <- join_by(datetime, site_id, prediction, parameter, family, reference_datetime, pub_datetime, duration, model_id, project_id, variable)
-#  filtered_n <- old |> anti_join(new, by = by) |> count() |> pull(n) # is this the bottleneck?
-#  previous_n <- open_dataset("tmp_old.parquet") |> count() |> pull(n)
-#  stopifnot(previous_n - filtered_n == 0)
+  mc_bundled_path <- existing_bundle(bundled_path)
 
   ## no partition levels left so we must write to an explicit .parquet
-  if(!is.null(old)) {
-    bundled_dir <- bundled_path |> str_replace(fixed("s3://"), "osn/") |> mc_ls(details = TRUE)
-    mc_bundled_path <- bundled_dir |> filter(!is_folder) |> pull(path)
-    stopifnot(length(mc_bundled_path) == 1)
-    bundled_path <- mc_bundled_path |> str_replace(fixed("osn/"), fixed("s3://"))
+  if(length(mc_bundled_path) > 0) {
+    # Stream the existing bundle straight from S3: we write locally and upload
+    # afterwards, so there is no need for a local copy of it.
+    # special filters should not be needed on bundled copy
+    old <- open_dataset(bundled_path, conn = con)
 
-    new <- union(old, new)
+    # Append with union_all. union() ran SELECT DISTINCT over every row, which
+    # on large bundles (e.g. gcc_90/persistenceRW, ~264M rows) exhausted the
+    # runner's disk/RAM. Instead, only skip submissions already in the bundle
+    # (e.g. a previous run uploaded but failed before archiving the raw files).
+    already_bundled <- old |> distinct(reference_datetime, pub_datetime)
+    new <- new |>
+      anti_join(already_bundled, by = c("reference_datetime", "pub_datetime"),
+                na_matches = "na")
+    new <- union_all(old, new)
+
+    bundled_path <- mc_bundled_path |> str_replace(fixed("osn/"), fixed("s3://"))
   } else {
     bundled_path <- paste0(bundled_path,'data_0.parquet') ## write explicit parquet for new submissions as well
   }
 
-  ## once running consistently we can "append" with union_all instead of union
-  # uses less RAM. since mc_rm / mc_mv removes anything we have already read
   # duckdb >= 2.0 can't complete S3 multipart uploads to OSN, so write locally and upload with mc.
-  local_bundle <- tempfile(fileext = ".parquet")
   new |>
     write_dataset(local_bundle,
                   options = list("PER_THREAD_OUTPUT false"))
   mc_cp(local_bundle, str_replace(bundled_path, fixed("s3://"), "osn/"))
-  unlink(local_bundle)
+  unlink(c(local_bundle, "tmp_new.parquet"))
 
   #We should now archive anything we have bundled:
   mc_path <- path |> str_replace(fixed("s3://"), "osn/")
@@ -122,10 +129,16 @@ bundle_me <- function(path) {
 # We are not actually running on multi-core, which would be RAM-inefficient
 future::plan(future::sequential)
 
+# A failure is fatal for that model only: its raw files stay in place (they are
+# archived only after a successful upload) and are retried next run. The job
+# still fails at the end so the problem is visible.
 safe_bundles <- function(xs) {
   p <- progressor(along = xs)
   future_lapply(xs, function(x, ...) {
-    out <- bundle_me(x)
+    out <- tryCatch(bundle_me(x), error = function(e) {
+      message("FAILED to bundle ", x, ": ", conditionMessage(e))
+      e
+    })
     p(sprintf("x=%s", x))
     out
   },  future.seed = TRUE)
@@ -135,6 +148,8 @@ safe_bundles <- function(xs) {
 bench::bench_time({
   out <- safe_bundles(model_paths)
 })
+
+failed <- model_paths[vapply(out, inherits, logical(1), "error")]
 # print(out)
 
 
@@ -156,6 +171,9 @@ most_recent <- open_dataset(paste0("s3://", forecast_bundled_parquet_bucket),
   arrange(desc(most_recent))
 print(most_recent)
 
+if (length(failed) > 0) {
+  stop(length(failed), " model(s) failed to bundle:\n", paste(failed, collapse = "\n"))
+}
 
 
 # should we slice_max(pub_time) to ensure only most recent pub_time if duplicates submitted?

@@ -49,9 +49,25 @@ model_paths <-
   unique()
 
 
+# mc path of a model's existing bundle file, or character(0) if it has none yet.
+# mc_ls returns an empty listing for a missing prefix and errors on access or
+# network failures. Those errors must propagate: reading them as "no bundle
+# yet" would overwrite the bundle with only the new data and wipe its history.
+existing_bundle <- function(bundled_path) {
+  listing <- bundled_path |> str_replace(fixed("s3://"), "osn/") |> mc_ls(details = TRUE)
+  if (nrow(listing) == 0) return(character(0))
+  files <- listing |> filter(!is_folder) |> pull(path)
+  if (length(files) > 1) {
+    stop("Expected one bundle file, found ", length(files), ": ", toString(files))
+  }
+  files
+}
+
 bundle_me <- function(path) {
 
   print(path)
+  local_bundle <- tempfile(fileext = ".parquet")
+  on.exit(unlink(c(local_bundle, "tmp_new.parquet")), add = TRUE)
   con = duckdbfs::cached_connection(tempfile())
   duckdb_secrets(endpoint = config$endpoint,
                  key = Sys.getenv("OSN_KEY"),
@@ -65,33 +81,31 @@ bundle_me <- function(path) {
                 "forecasts/bundled-summaries")
 
   open_dataset(path, conn = con) |> write_dataset("tmp_new.parquet")
+  new <- open_dataset("tmp_new.parquet", conn = con)
 
+  # Only if model has bundled entries!
+  if (length(existing_bundle(bundled_path)) > 0) {
+    # Stream the existing bundle straight from S3: we write locally and upload
+    # afterwards, so there is no need for a local copy of it.
+    old <- open_dataset(bundled_path, conn = con)
 
- # Only if model has bundled entries!
-  old <- tryCatch({
-  open_dataset(bundled_path, conn = con) |>
-     write_dataset("tmp_old.parquet")
-  old <- open_dataset("tmp_old.parquet")
-  },
-  # no new data
-  error = function(e) NULL
-  )
-
-  # these are both local, so we can stream back.
-  new <- open_dataset("tmp_new.parquet")
-
-  if(!is.null(old)) {
-    new <- union_all(old,new)
+    # Skip submissions already in the bundle, so a rerun (e.g. a previous run
+    # uploaded but failed before archiving the raw files, or two bundlers
+    # overlapping) doesn't append them twice.
+    already_bundled <- old |> distinct(reference_datetime, pub_datetime)
+    new <- new |>
+      anti_join(already_bundled, by = c("reference_datetime", "pub_datetime"),
+                na_matches = "na")
+    new <- union_all(old, new)
   }
 
   # duckdb >= 2.0 can't complete S3 multipart uploads to OSN, so write locally and upload with mc.
-  local_bundle <- tempfile(fileext = ".parquet")
   new |>
     write_dataset(local_bundle,
                   options = list("PER_THREAD_OUTPUT false"))
   mc_cp(local_bundle,
         paste0(str_replace(bundled_path, fixed("s3://"), "osn/"), "data_0.parquet"))
-  unlink(local_bundle)
+  unlink(c(local_bundle, "tmp_new.parquet"))
 
   #We should now archive anything we have bundled:
 
@@ -112,18 +126,27 @@ bundle_me <- function(path) {
 # We are not actually running on multi-core, which would be RAM-inefficient
 future::plan(future::sequential)
 
+# A failure is fatal for that model only: its raw files stay in place (they are
+# archived only after a successful upload) and are retried next run. The job
+# still fails at the end so the problem is visible.
 safe_bundles <- function(xs) {
   p <- progressor(along = xs)
   future_lapply(xs, function(x, ...) {
-    bundle_me(x)
+    out <- tryCatch(bundle_me(x), error = function(e) {
+      message("FAILED to bundle ", x, ": ", conditionMessage(e))
+      e
+    })
     p(sprintf("x=%s", x))
+    out
   },  future.seed = TRUE)
 }
 
 
 bench::bench_time({
-  safe_bundles(model_paths)
+  out <- safe_bundles(model_paths)
 })
+
+failed <- model_paths[vapply(out, inherits, logical(1), "error")]
 
 
 
@@ -135,3 +158,7 @@ count <- open_dataset(paste0("s3://", summaries_bundled_parquet_bucket),
   count()
 
 print(count)
+
+if (length(failed) > 0) {
+  stop(length(failed), " model(s) failed to bundle:\n", paste(failed, collapse = "\n"))
+}

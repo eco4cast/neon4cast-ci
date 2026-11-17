@@ -7,6 +7,13 @@ on:
 
 name: bundling
 
+# Never run two bundlers at once: both would read the same bundle and raw files,
+# and one would overwrite the other's upload. Queue instead of cancelling, so a
+# long backlog run is never killed midway.
+concurrency:
+  group: bundling
+  cancel-in-progress: false
+
 jobs:
   forecasts:
     runs-on: ubuntu-latest #efi-cirrus
