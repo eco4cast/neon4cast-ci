@@ -75,7 +75,8 @@ score_key_cols <- c(obs_key_cols, "model_id", "family", "reference_datetime")
 duckdbfs::duckdb_secrets(endpoint = config$endpoint,
                          key = "",
                          secret = "",
-                         bucket = scores_bucket_base)
+                         bucket = scores_bucket_base,
+                         url_compatibility_mode = FALSE)
 
 
 # Create vector of targets files
@@ -164,7 +165,8 @@ print("Caching forecasts, scores, targets...")
 duckdbfs::duckdb_secrets(endpoint = "s3-west.nrp-nautilus.io",
                          key = Sys.getenv("EFI_NRP_KEY"),
                          secret = Sys.getenv("EFI_NRP_SECRET"),
-                         bucket = "efi-scores")
+                         bucket = "efi-scores",
+                         url_compatibility_mode = FALSE)
 
 
 ## INSTEAD, we pull our subset to local disk first.

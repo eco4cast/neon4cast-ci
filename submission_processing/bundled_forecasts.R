@@ -21,7 +21,7 @@ install_mc()
 mc_alias_set("osn", config$endpoint, Sys.getenv("OSN_KEY"), Sys.getenv("OSN_SECRET"))
 # mc_alias_set("nrp", "s3-west.nrp-nautilus.io", Sys.getenv("EFI_NRP_KEY"), Sys.getenv("EFI_NRP_SECRET"))
 
-duckdb_secrets(endpoint = config$endpoint , key = Sys.getenv("OSN_KEY"), secret = Sys.getenv("OSN_SECRET"), bucket = forecasts_bucket_base)
+duckdb_secrets(endpoint = config$endpoint , key = Sys.getenv("OSN_KEY"), secret = Sys.getenv("OSN_SECRET"), bucket = forecasts_bucket_base, url_compatibility_mode = FALSE)
 
 
 
@@ -50,7 +50,7 @@ bundle_me <- function(path) {
 
   print(path)
   con = duckdbfs::cached_connection(tempfile())
-  duckdb_secrets(endpoint = config$endpoint, key = Sys.getenv("OSN_KEY"), secret = Sys.getenv("OSN_SECRET"), bucket = forecasts_bucket_base)
+  duckdb_secrets(endpoint = config$endpoint, key = Sys.getenv("OSN_KEY"), secret = Sys.getenv("OSN_SECRET"), bucket = forecasts_bucket_base, url_compatibility_mode = FALSE)
   bundled_path <- path |> str_replace(fixed("forecasts/parquet"), "forecasts/bundled-parquet")
 
   open_dataset(path, conn = con) |>

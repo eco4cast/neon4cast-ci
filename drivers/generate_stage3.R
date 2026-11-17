@@ -8,7 +8,8 @@ mc_mirror("osn/bio230014-bucket01/neon4cast-drivers/noaa/gefs-v12/pseudo", "pseu
 duckdbfs::duckdb_secrets(
   endpoint = 'sdsc.osn.xsede.org',
   key = Sys.getenv("OSN_KEY"),
-  secret = Sys.getenv("OSN_SECRET"))
+  secret = Sys.getenv("OSN_SECRET"),
+  url_compatibility_mode = FALSE)
 
 df <- arrow::open_dataset("pseudo") |>
   dplyr::filter(variable %in% c("PRES","TMP","RH","UGRD","VGRD","APCP","DSWRF","DLWRF"))

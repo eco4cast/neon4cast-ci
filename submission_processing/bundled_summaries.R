@@ -33,7 +33,8 @@ mc_alias_set("osn", config$endpoint, Sys.getenv("OSN_KEY"), Sys.getenv("OSN_SECR
 duckdb_secrets(endpoint = config$endpoint,
                key = Sys.getenv("OSN_KEY"),
                secret = Sys.getenv("OSN_SECRET"),
-               bucket = forecasts_bucket_base)
+               bucket = forecasts_bucket_base,
+               url_compatibility_mode = FALSE)
 
 
 remote_path <- paste0("osn/", summaries_bundled_bucket)
@@ -55,7 +56,8 @@ bundle_me <- function(path) {
   duckdb_secrets(endpoint = config$endpoint,
                  key = Sys.getenv("OSN_KEY"),
                  secret = Sys.getenv("OSN_SECRET"),
-                 bucket = forecasts_bucket_base)
+                 bucket = forecasts_bucket_base,
+                 url_compatibility_mode = FALSE)
 
 
   bundled_path <- path |>

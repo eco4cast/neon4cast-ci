@@ -29,7 +29,8 @@ con <- duckdbfs::cached_connection(tempfile())
 duckdbfs::duckdb_secrets(endpoint = "s3-west.nrp-nautilus.io",
                          key = Sys.getenv("EFI_NRP_KEY"),
                          secret = Sys.getenv("EFI_NRP_SECRET"),
-                         bucket = "efi-scores")
+                         bucket = "efi-scores",
+                         url_compatibility_mode = FALSE)
 
 #
 fc <- open_dataset("s3://efi-scores/tmp/score_me", conn=con) |>
@@ -51,7 +52,8 @@ score_group <- function(i, groups, project = "neon4cast") {
   duckdbfs::duckdb_secrets(endpoint = "s3-west.nrp-nautilus.io",
                            key = Sys.getenv("EFI_NRP_KEY"),
                            secret = Sys.getenv("EFI_NRP_SECRET"),
-                           bucket = "efi-scores")
+                           bucket = "efi-scores",
+                           url_compatibility_mode = FALSE)
   fc <- duckdbfs::open_dataset("s3://efi-scores/tmp/score_me/**",
                      conn=con) |>
     dplyr::filter(!is.na(model_id))
@@ -88,7 +90,8 @@ score_group <- function(i, groups, project = "neon4cast") {
   duckdbfs::duckdb_secrets(endpoint = "sdsc.osn.xsede.org",
                            key = Sys.getenv("OSN_KEY"),
                            secret = Sys.getenv("OSN_SECRET"),
-                           bucket = scores_bundled_parquet_bucket)
+                           bucket = scores_bundled_parquet_bucket,
+                           url_compatibility_mode = FALSE)
 
   if(file_exist > 0){
 
@@ -139,7 +142,8 @@ checks <- function() {
   duckdbfs::duckdb_secrets(endpoint = "s3-west.nrp-nautilus.io",
                            key = Sys.getenv("EFI_NRP_KEY"),
                            secret = Sys.getenv("EFI_NRP_SECRET"),
-                           bucket = "efi-scores")
+                           bucket = "efi-scores",
+                           url_compatibility_mode = FALSE)
   open_dataset("s3://efi-scores/tmp/bundled-parquet/") |> count()
   open_dataset("s3://efi-scores/tmp/bundled-parquet/") |>
     distinct(duration, variable, model_id) |> collect()
