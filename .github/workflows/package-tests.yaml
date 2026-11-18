@@ -12,6 +12,7 @@ on:
       - 'challenge_configuration.yaml'
       - 'docs/configuration.md'
       - '.github/workflows/package-tests.yaml'
+      - 'inst/**'
   push:
     branches: [main]
     paths:
@@ -23,11 +24,15 @@ on:
   workflow_dispatch:
 
 jobs:
+  config:
+    uses: ./.github/workflows/_config.yaml
+
   test:
+    needs: config
     runs-on: ubuntu-latest
     timeout-minutes: 20
     container:
-      image: eco4cast/rocker-neon4cast:latest
+      image: ${{ needs.config.outputs.image }}
     steps:
       - uses: actions/checkout@v6
 

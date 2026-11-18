@@ -2,7 +2,12 @@
 title: "Forecast catalog"
 ---
 
-The catalog of submitted forecasts, evaluations of the forecasts ("scores"), and summarized forecasts are available through the SpatioTemporal Asset Catalogs browser (below). The catalog also contains information and access to the metadata for the forecast sites, the NOAA weather forecasts at the forecast sites, and the targets (observational data) collected at the forecast sites. The full-page version can be found [here](https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-catalog/main/catalog.json)
+```{r setup}
+#| include: false
+source("R/setup.R")
+```
+
+The catalog of submitted forecasts, evaluations of the forecasts ("scores"), and summarized forecasts are available through the SpatioTemporal Asset Catalogs browser (below). The catalog also contains information and access to the metadata for the forecast sites, the NOAA weather forecasts at the forecast sites, and the targets (observational data) collected at the forecast sites. The full-page version can be found [here](%60r%20stac_browser_url(cfg)%60)
 
 <br /> <br />
 
@@ -10,33 +15,26 @@ The catalog of submitted forecasts, evaluations of the forecasts ("scores"), and
 
 *Note: This figure will become more complete as more models register and provide model descriptions*
 
-```{r echo = FALSE}
-s3 <- arrow::s3_bucket(bucket = "bio230014-bucket01/challenges/metadata/model_id/",
-                       endpoint_override = "sdsc.osn.xsede.org", anonymous = TRUE)
-
-d1 <- arrow::open_dataset(s3, format = "json") |> dplyr::collect()
-
-model_type <- tidyr::unnest(d1[[3]], cols = names(d1[[3]]))$type
-
-model_type[which(stringr::str_detect(model_type, "mpirical"))] <- "Empirical"
-
-tibble::tibble(model_type = model_type) |> 
-ggplot2::ggplot(ggplot2::aes(x = model_type)) +
-  ggplot2::geom_bar() +
-  ggplot2::labs(x = "Model Type", y = "Number submitting forecasts") +
-  ggplot2::theme_bw()
+```{r}
+readr::read_csv(data_file("model_types.csv"), show_col_types = FALSE) |>
+  dplyr::filter(model_type != "Not described") |>
+  ggplot(aes(x = model_type, y = n_models)) +
+  geom_col() +
+  labs(x = "Model type", y = "Number of registered models") +
+  theme_bw()
 ```
 
 ## Catalog of forecast submissions and evaluations {#sec-spatiotemporal-asset-catalog}
 
-The catalogs of submitted forecasts and forecast evaluations against observations ("scores") are available through the SpatioTemporal Asset Catalogs browser (below).\ 
+The catalogs of submitted forecasts and forecast evaluations against observations ("scores") are available through the SpatioTemporal Asset Catalogs browser (below). 
 
-The catalog provides the code that you can use to access forecasts and scores.\ 
+The catalog provides the code that you can use to access forecasts and scores. 
 
-A full-page version can be found [here](https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-catalog/main/catalog.json)\
+A full-page version can be found [here](%60r%20stac_browser_url(cfg)%60)\
 
 <br /> <br />
 
-```{=html}
-<iframe width="910" height="1000" src="https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-catalog/main/catalog.json" title="Webpage example"></iframe>
+```{r}
+htmltools::tags$iframe(width = "910", height = "1000", src = stac_browser_url(cfg),
+                       title = "Catalog browser")
 ```

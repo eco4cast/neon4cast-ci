@@ -25,3 +25,18 @@ test_that("log_step() timestamps and interpolates", {
   n <- 3
   expect_message(log_step("Scoring {n} groups"), "\\] Scoring 3 groups")
 })
+
+test_that("ping_healthcheck() skips jobs without a URL and dry runs", {
+  cfg <- list(ci = list(healthchecks = list(job = "https://example.invalid/ping")))
+  expect_false(ping_healthcheck(cfg, "other-job"))
+  withr::local_envvar(DRY_RUN = "true")
+  expect_false(ping_healthcheck(cfg, "job"))
+})
+
+test_that("an unreachable healthcheck warns instead of failing the job", {
+  path <- withr::local_tempfile()
+  cfg <- list(ci = list(healthchecks = list(job = file.path(path, "missing"))))
+  local_mocked_bindings(with_retry = function(expr, ...) expr)
+  expect_warning(sent <- ping_healthcheck(cfg, "job"), "could not be reached")
+  expect_false(sent)
+})

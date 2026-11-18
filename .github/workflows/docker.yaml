@@ -1,3 +1,6 @@
+# Build the challenge image (ci$docker_image in the config) and push it to
+# Docker Hub and GHCR as `latest` and as a dated tag (e.g. 2026-11-18) that is
+# never overwritten, so a run can be pinned to, or rolled back to, a known image.
 name: docker container
 
 on:
@@ -9,39 +12,68 @@ on:
       - 'main'
     paths:
       - 'Dockerfile'
+
+concurrency:
+  group: docker
+  cancel-in-progress: false
+
 jobs:
   docker:
     runs-on: ubuntu-latest
+    timeout-minutes: 90
     permissions:
       contents: read
       packages: write
     steps:
+      - uses: actions/checkout@v6
+
+      # yq is preinstalled on GitHub's Ubuntu runners.
+      - name: Image names
+        id: names
+        run: |
+          image=$(yq '.ci.docker_image // "eco4cast/rocker-neon4cast:latest"' challenge_configuration.yaml)
+          repo=${image%:*}
+          today=$(date -u +%Y-%m-%d)
+          {
+            echo "tags<<EOF"
+            echo "${repo}:latest"
+            echo "${repo}:${today}"
+            echo "ghcr.io/${repo}:latest"
+            echo "ghcr.io/${repo}:${today}"
+            echo "EOF"
+            echo "healthcheck=$(yq '.ci.healthchecks.docker // ""' challenge_configuration.yaml)"
+          } >> "$GITHUB_OUTPUT"
+
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@v2
+        uses: docker/setup-qemu-action@v3
+
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
+        uses: docker/setup-buildx-action@v3
+
       - name: Login to DockerHub
-        uses: docker/login-action@v2
+        uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+
       - name: Login to GHCR
-        uses: docker/login-action@v2
+        uses: docker/login-action@v3
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Build and push
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v6
         with:
+          context: .
           push: true
-          tags: |
-            eco4cast/rocker-neon4cast:latest
-            ghcr.io/eco4cast/rocker-neon4cast:latest
+          tags: ${{ steps.names.outputs.tags }}
           # Mounted only while the GitHub installs run (see Dockerfile); not
           # stored in the image.
           secrets: |
             github_pat=${{ secrets.PAT }}
+
       - name: Healthcheck
-        run: |
-          curl -m 10 --retry 5 https://hc-ping.com/069f9542-6476-4a07-a6c4-00a55e3b6157
+        if: steps.names.outputs.healthcheck != ''
+        run: curl -m 10 --retry 5 "${{ steps.names.outputs.healthcheck }}"

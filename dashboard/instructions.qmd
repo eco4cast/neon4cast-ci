@@ -6,12 +6,20 @@ editor:
     wrap: sentence
 ---
 
+```{r setup}
+#| include: false
+source("R/setup.R")
+# This page shows its code.
+knitr::opts_chunk$set(echo = TRUE)
+themes <- unique(unlist(purrr::map(cfg$target_groups, "theme")))
+```
+
 ## Overview: How to submit a forecast
 
 We provide an overview of the steps for submitting with the details below:
 
 1)  Explore the [data](targets.qmd#sec-targets) (e.g., targets) and build your forecast model.
-2)  Register and describe your model at <https://forms.gle/kg2Vkpho9BoMXSy57>. You are not required to register if your forecast submission uses the word "example" in your model_id". Any forecasts with "example" in the model_id will not be used in forecast evaluation analyses. You can use neon4cast as the challenge for which you are registering. 
+2)  Register and describe your model at \<`r settings$registration_form_url`\>. You are not required to register if your forecast submission uses the word "example" in your model_id". Any forecasts with "example" in the model_id will not be used in forecast evaluation analyses. Use `` `r cfg$project_id` `` as the challenge for which you are registering.
 3)  Generate a forecast!
 4)  Write the forecast output to a file that follows our standardized format (described below).
 5)  Submit your forecast using an R function (provided below).
@@ -25,14 +33,19 @@ We encourage you to use any modeling approach to predict the future conditions a
 
 ### Must include uncertainty
 
-Forecasts require you to assess the confidence in your prediction of the future. You can represent your confidence (i.e., uncertainty in the forecast) using a distribution or numerically using an ensemble (or sample) of predictions.
+Forecasts require you to assess the confidence in your prediction of the future.
+You can represent your confidence (i.e., uncertainty in the forecast) using a distribution or numerically using an ensemble (or sample) of predictions.
 
 ### Any model drivers/covariates/features are welcome
 
-You can use any data as model inputs (including all target data available to date). All sensor-based target data are available with a 1 to 7-day delay (latency) from the time of collection. You may want to use the updated target data to re-train a model or for use in data assimilation.
+You can use any data as model inputs (including all target data available to date).
+All sensor-based target data are available with a 1 to 7-day delay (latency) from the time of collection.
+You may want to use the updated target data to re-train a model or for use in data assimilation.
 
 As a genuine forecasting challenge, you will need forecasted drivers if your model uses drivers as inputs.
-If you want to use forecasted meteorology, we download and process NOAA Global Ensemble Forecasting System (GEFS) weather forecasts for each NEON site. The NOAA GEFS forecasts extend 35-days ahead. More information about accessing the weather forecasts can be found [here]( https://projects.ecoforecast.org/neon4cast-docs/Shared-Forecast-Drivers.html)
+If you want to use forecasted meteorology, we download and process NOAA Global Ensemble Forecasting System (GEFS) weather forecasts for each NEON site.
+The NOAA GEFS forecasts extend 35-days ahead.
+More information about accessing the weather forecasts can be found [here](https://projects.ecoforecast.org/neon4cast-docs/Shared-Forecast-Drivers.html)
 
 ### Forecasts can be for a range of horizons
 
@@ -45,21 +58,23 @@ Since forecasts can be submitted every day, automation is essential.
 We provide an [example GitHub](https://github.com/eco4cast/neon4cast-example) repository that can be used to automate your forecast with GitHub Actions.
 It also includes using a custom Docker Container [eco4cast/rocker-neon4cast:latest](https://github.com/eco4cast/neon4cast-ci/blob/main/Dockerfile) that contains many of the packages and functions needed to generate and submit forecasts.
 
-We only evaluate forecasts for any weekly variables (e.g., beetles and ticks) that were submitted on the Sunday of each week. Therefore, we recommend only submitting forecasts of the weekly variables on Sundays.
+We only evaluate forecasts for any weekly variables (e.g., beetles and ticks) that were submitted on the Sunday of each week.
+Therefore, we recommend only submitting forecasts of the weekly variables on Sundays.
 
 ## You can forecast at any of the NEON sites
 
-If you are just getting started, we recommend a set of [focal sites](targets.qmd#sec-starting-sites) for each of the five "themes."
-You are also welcome to submit forecasts to all  or a subset of NEON sites. More information about NEON sites can be found in the [site metadata](https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-catalog/main/sites/collection.json) and on NEON's [website](https://www.neonscience.org/field-sites/explore-field-sites)
+If you are just getting started, we recommend a set of [focal sites](targets.qmd#sec-starting-sites) for each of the five "themes." You are also welcome to submit forecasts to all or a subset of NEON sites.
+More information about NEON sites can be found in the [site metadata](%60r%20stac_browser_url(cfg,%20%22sites/collection.json%22)%60) and on NEON's [website](https://www.neonscience.org/field-sites/explore-field-sites)
 
 ## Forecast file format
 
 The file is a CSV format with the following columns:
 
--   `project_id`: use `neon4cast`
+-   `project_id`: use `` `r cfg$project_id` ``
 
--   `model_id`: the short name of the model defined as the model_id in your registration. The model_id should have no spaces.
-    `model_id` should reflect a method to forecast one or a set of target variables and must be unique to the neon4cast challenge.
+-   `model_id`: the short name of the model defined as the model_id in your registration.
+    The model_id should have no spaces.
+    `model_id` should reflect a method to forecast one or a set of target variables and must be unique to the `` `r cfg$project_id` `` challenge.
 
 -   `datetime`: forecast timestamp.
     Format `%Y-%m-%d %H:%M:%S` with UTC as the time zone.
@@ -128,6 +143,7 @@ Here is an example of a forecast that uses a normal distribution:
 ```{r}
 df <- readr::read_csv("https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/forecasts/raw/T20231102190926_aquatics-2023-10-19-climatology.csv.gz", show_col_types = FALSE)
 ```
+
 ```{r}
 df |> 
   head() |> 
@@ -139,13 +155,13 @@ For an ensemble (or sample) forecast, the `family` column uses the word `ensembl
 ```{r}
 df <- readr::read_csv("https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/forecasts/raw/T20231102190926_aquatics-2023-10-19-persistenceRW.csv.gz", show_col_types = FALSE)
 ```
+
 ```{r}
 df |> 
   dplyr::arrange(variable, site_id, datetime, parameter) |> 
   head() |> 
   knitr::kable()
 ```
-
 
 ## Submission process
 
@@ -156,7 +172,7 @@ Save your forecast as a CSV file with the following naming convention:
 `theme_name-year-month-day-model_id.csv`.
 Compressed csv files with the csv.gz extension are also accepted.
 
-The `theme_name` options are: terrestrial_daily, terrestrial_30min, aquatics, beetles, ticks, or phenology.
+The `theme_name` options are: `r toString(themes)`.
 
 The year, month, and day are the year, month, and day the reference_datetime (horizon = 0).
 For example, if a forecast starts today and tomorrow is the first forecasted day, horizon = 0 would be today and used in the file name.
@@ -186,24 +202,40 @@ neon4cast::submit(forecast_file = "theme_name-year-month-day-model_id.csv")
 
 ### Processing
 
-After submission, our servers will process uploaded files by converting them to a [parquet format](https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-catalog/main/forecasts/collection.json) on our public s3 storage.
-A `pub_datetime` column will be added that denotes when a forecast was submitted.  [Summaries](https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-catalog/main/summaries/collection.json) are generated of the forecasts provide descriptive statistics of the forecast.  
+After submission, our servers will process uploaded files by converting them to a [parquet format](%60r%20stac_browser_url(cfg,%20%22forecasts/collection.json%22)%60) on our public s3 storage.
+A `pub_datetime` column will be added that denotes when a forecast was submitted.
+[Summaries](%60r%20stac_browser_url(cfg,%20%22summaries/collection.json%22)%60) are generated of the forecasts provide descriptive statistics of the forecast.
 
 ### Evaluation
 
 All forecasts are scored daily using new data until the full horizon of the forecast has been scored.
-Forecasts are scored using the `crps` function in the [`scoringRules`](https://cran.r-project.org/web/packages/scoringRules/index.html) R package.  More information about the scoring metric can be found at [here](https://projects.ecoforecast.org/neon4cast-docs/Evaluation.html)
+Forecasts are scored using the `crps` function in the [`scoringRules`](https://cran.r-project.org/web/packages/scoringRules/index.html) R package.
+More information about the scoring metric can be found at [here](https://projects.ecoforecast.org/neon4cast-docs/Evaluation.html)
 
 ### Comparison
 
 Forecast performance can be compared to the performance of baseline models.
 We are automatically submitting the following baseline models:
 
--   `climatology`: the normal distribution (mean and standard deviation) of that day-of-year in the historical observations
--   `persistenceRW`: a random walk model that assumes no change in the mean behavior. The random walk is initialized using the most recent observation.
--   `mean`: the historical mean of the data is submitted for the beetle theme.
+```{r baselines, echo = FALSE, results = "asis"}
+# From the `baselines` entries in the challenge configuration.
+method_text <- c(
+  climatology = "the normal distribution (mean and standard deviation) of that day-of-year in the historical observations",
+  weekly_climatology = "the mean and standard deviation of that ISO week in the historical observations",
+  persistence_rw = "a random walk model that assumes no change in the mean behavior, initialized using the most recent observation",
+  mean = "the historical mean of the data"
+)
+baselines <- purrr::imap(cfg$target_groups, function(g, group) {
+  purrr::map(g$baselines, function(b) tibble::tibble(model_id = b$model_id, method = b$method, group = group))
+}) |>
+  purrr::flatten() |>
+  purrr::list_rbind() |>
+  dplyr::summarise(groups = toString(unique(group)), .by = c(model_id, method))
+cat(paste0("-   `", baselines$model_id, "`: ", method_text[baselines$method],
+           " (", baselines$groups, ")"), sep = "\n")
+```
 
-Our [forecast performance](performance.qmd#performance) page includes evaluations of all submitted models.
+Our [forecast performance](performance.qmd#sec-performance) page includes evaluations of all submitted models.
 
 ### Catalog
 
@@ -213,4 +245,4 @@ Our [forecast catalog](catalog.qmd#sec-spatiotemporal-asset-catalog) page provid
 
 Thanks for reading this document!\
 
-If you still have questions about how to submit your forecast to the NEON Ecological Forecasting Challenge, we encourage you to email Dr. Quinn Thomas (rqthomas{at}vt.edu).
+If you still have questions about how to submit your forecast to the `r cfg$challenge_long_name`, we encourage you to email `r settings$contact_email`.

@@ -1,5 +1,6 @@
-# Workflow derived from https://github.com/r-lib/actions/tree/v2/examples
-# Need help debugging build failures? Start at https://github.com/r-lib/actions#where-to-find-help
+# Download and clean each target group's observations and publish its targets
+# file. One job per target group with a `targets_script` in the config; a group
+# with `targets_large_runner: true` runs on ci$large_runner.
 on:
   schedule:
     - cron: '0 7 * * *'
@@ -8,157 +9,56 @@ on:
 name: target-generation
 
 jobs:
-  phenology:
-    runs-on: ubuntu-latest
-    env:
-      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_SUBMISSIONS }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_SUBMISSIONS }}
-      OSN_KEY: ${{ secrets.OSN_KEY }}
-      OSN_SECRET: ${{ secrets.OSN_SECRET }}
-    container: eco4cast/rocker-neon4cast:latest
-    steps:
-      - uses: actions/checkout@v6
+  config:
+    uses: ./.github/workflows/_config.yaml
 
-      - uses: ./.github/actions/install-mc
-
-      - name: Refresh CA certificates
-        run: |
-          apt-get update
-          apt-get install -y --no-install-recommends ca-certificates
-          update-ca-certificates
-
-      - name: Generate targets
-        shell: Rscript {0}
-        run: |
-          install.packages("RCurl")
-          source("targets/phenology_targets.R")
-
-  terrestrial:
-    runs-on: efi-cirrus
-    # Runs share the neonstore db and flux archive on OSN; never run two at once
+  targets:
+    needs: config
+    name: ${{ matrix.group }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include: ${{ fromJSON(needs.config.outputs.targets) }}
+    runs-on: ${{ matrix.large && needs.config.outputs.large_runner || 'ubuntu-latest' }}
+    timeout-minutes: ${{ matrix.large && 720 || 360 }}
+    # A group's runs share its caches (e.g. the terrestrial neonstore db and
+    # flux archive on OSN); never run two at once.
     concurrency:
-      group: terrestrial-targets
+      group: targets-${{ matrix.group }}
       cancel-in-progress: false
-    env:
-      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_SUBMISSIONS }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_SUBMISSIONS }}
-      OSN_KEY: ${{ secrets.OSN_KEY }}
-      OSN_SECRET: ${{ secrets.OSN_SECRET }}
     container:
-      image: eco4cast/rocker-neon4cast:latest
-    steps:
-      - uses: actions/checkout@v6
-
-      - uses: ./.github/actions/install-mc
-
-      - name: Refresh CA certificates
-        run: |
-          apt-get update
-          apt-get install -y --no-install-recommends ca-certificates
-          update-ca-certificates
-
-      - name: Generate targets
-        shell: Rscript {0}
-        run: |
-          print(sessionInfo())
-          #remotes::install_version("arrow", version = "20.0.0")
-          source("targets/terrestrial_targets.R")
-
-  aquatics:
-    runs-on: ubuntu-latest
+      image: ${{ needs.config.outputs.image }}
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_SUBMISSIONS }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_SUBMISSIONS }}
       OSN_KEY: ${{ secrets.OSN_KEY }}
       OSN_SECRET: ${{ secrets.OSN_SECRET }}
       NEON_TOKEN: ${{ secrets.NEON_TOKEN }}
       EFI_NRP_KEY: ${{ secrets.EFI_NRP_KEY }}
       EFI_NRP_SECRET: ${{ secrets.EFI_NRP_SECRET }}
       SSL_CERT_FILE: /etc/ssl/certs/ca-certificates.crt
-    container: eco4cast/rocker-neon4cast:latest
     steps:
       - uses: actions/checkout@v6
 
-      - uses: ./.github/actions/install-mc
-
-      - name: install dependencies
-        run: |
-          sudo apt-get -y install python3-venv python3-pip python3-dev
-
-      - name: Refresh CA certificates
-        run: |
-          apt-get update
-          apt-get install -y --no-install-recommends ca-certificates
-          update-ca-certificates
+      - uses: ./.github/actions/setup-challenge
+        with:
+          refresh-ca: 'true'
 
       - name: Generate targets
-        shell: Rscript {0}
-        run: |
-          source("targets/aquatics_targets.R")
+        run: Rscript ${{ matrix.script }}
 
-  beetles:
+      - uses: ./.github/actions/healthcheck
+        with:
+          name: targets-${{ matrix.group }}
+
+  # Pings only when every group succeeded.
+  healthcheck:
+    needs: [config, targets]
     runs-on: ubuntu-latest
-    env:
-      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_SUBMISSIONS }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_SUBMISSIONS }}
-      OSN_KEY: ${{ secrets.OSN_KEY }}
-      OSN_SECRET: ${{ secrets.OSN_SECRET }}
-      NEON_TOKEN: ${{ secrets.NEON_TOKEN }}
-    container: eco4cast/rocker-neon4cast:latest
+    timeout-minutes: 10
+    container:
+      image: ${{ needs.config.outputs.image }}
     steps:
       - uses: actions/checkout@v6
-
-      - uses: ./.github/actions/install-mc
-      - name: Refresh CA certificates
-        run: |
-          apt-get update
-          apt-get install -y --no-install-recommends ca-certificates
-          update-ca-certificates
-      - name: Generate targets
-        shell: Rscript {0}
-        run: |
-          install.packages(c("neonstore","RCurl","duckdbfs","ISOweek", "minioclient"))
-          source("targets/beetles_targets.R")
-
-  ticks:
-    runs-on: ubuntu-latest
-    env:
-      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_SUBMISSIONS }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_SUBMISSIONS }}
-      OSN_KEY: ${{ secrets.OSN_KEY }}
-      OSN_SECRET: ${{ secrets.OSN_SECRET }}
-      NEON_TOKEN: ${{ secrets.NEON_TOKEN }}
-    container: eco4cast/rocker-neon4cast:latest
-    steps:
-      - uses: actions/checkout@v6
-
-      - uses: ./.github/actions/install-mc
-
-      - name: Refresh CA certificates
-        run: |
-          apt-get update
-          apt-get install -y --no-install-recommends ca-certificates
-          update-ca-certificates
-
-      - name: Generate targets
-        shell: Rscript {0}
-        run: |
-          install.packages(c("neonstore","RCurl","duckdbfs","ISOweek", "minioclient"))
-          source("targets/ticks_targets.R")
-
-  Healthcheck:
-    needs: [phenology, beetles, ticks, terrestrial, aquatics]
-    runs-on: ubuntu-latest
-    env:
-      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-    container: eco4cast/rocker-neon4cast:latest
-    steps:
-      - name: Call Healthcheck
-        run: |
-          sudo apt-get install -y curl
-          curl -m 10 --retry 5 https://hc-ping.com/95d7869d-538f-4145-9d1e-e6655320066d
+      - uses: ./.github/actions/healthcheck
+        with:
+          name: targets

@@ -6,84 +6,56 @@ on:
 name: catalog
 
 jobs:
+  config:
+    uses: ./.github/workflows/_config.yaml
+
   build_catalog:
+    needs: config
     runs-on: ubuntu-latest
+    timeout-minutes: 60
+    # Two runs would push competing commits to the catalog repository.
+    concurrency:
+      group: catalog
+      cancel-in-progress: false
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       EXTERNAL_GH_PAT: ${{ secrets.CATALOG_TOKEN }}
       OSN_KEY: ${{ secrets.OSN_KEY }}
       OSN_SECRET: ${{ secrets.OSN_SECRET }}
     container:
-      #image: eco4cast/rocker-neon4cast:latest
-      image: rocker/ml-verse
+      image: ${{ needs.config.outputs.image }}
       options: --memory 15120m
     steps:
       - run: git config --system --add safe.directory '*'
 
       - name: checkout source repository
         uses: actions/checkout@v6
-        with:
-           fetch-depth: 0
-           set-safe-directory: '*'
 
+      - uses: ./.github/actions/setup-challenge
+
+      # The catalog is written to ../<catalog_config$catalog_path>, a clone of
+      # catalog_config$catalog_repo.
       - name: clone catalog destination repository
         run: |
-          git clone --depth 1 https://github.com/eco4cast/neon4cast-catalog.git ../neon4cast-catalog
+          repo=$(Rscript -e 'cat(yaml::read_yaml("challenge_configuration.yaml")$catalog_config$catalog_repo)')
+          dir=$(Rscript -e 'cat(yaml::read_yaml("challenge_configuration.yaml")$catalog_config$catalog_path)')
+          git clone --depth 1 "https://github.com/${repo}.git" "../${dir}"
+          echo "CATALOG_REPO=${repo}" >> "$GITHUB_ENV"
+          echo "CATALOG_DIR=../${dir}" >> "$GITHUB_ENV"
 
-      - name: Install
-        shell: Rscript {0}
-        run: |
-          install.packages('gsheet')
-          devtools::install_github('eco4cast/stac4cast')
-
-      - uses: ./.github/actions/install-mc
-
-      - name: Render metadata
-        shell: Rscript {0}
-        run: source("catalog/model_metadata.R")
-
-      - name: Render catalog page
-        shell: Rscript {0}
-        run: source("catalog/build_catalog_scripts/catalog.R")
-
-      - name: Render forecasts
-        shell: Rscript {0}
-        run: source("catalog/build_catalog_scripts/forecast_models.R")
-
-      - name: Render summaries
-        shell: Rscript {0}
-        run: source("catalog/build_catalog_scripts/summaries_models.R")
-
-      - name: Render scores
-        shell: Rscript {0}
-        run: source("catalog/build_catalog_scripts/scores_models.R")
-
-      - name: Render noaa
-        shell: Rscript {0}
-        run: source("catalog/build_catalog_scripts/noaa_forecasts.R")
-
-      - name: Render sites
-        shell: Rscript {0}
-        run: source("catalog/build_catalog_scripts/build_sites_page.R")
-
-      - name: Render targets
-        shell: Rscript {0}
-        run: source("catalog/build_catalog_scripts/create_targets_page.R")
-
+      - name: Build catalog and model metadata
+        run: Rscript inst/scripts/catalog.R
 
       - name: Commit and Push
         run: |
-          cd ../neon4cast-catalog
+          cd "$CATALOG_DIR"
           git config user.name github-actions
           git config user.email github-actions@github.com
+          git add -A .
+          git commit -m "update catalog" || echo "nothing to commit"
+          git pull --rebase
+          git push "https://${EXTERNAL_GH_PAT}:${EXTERNAL_GH_PAT}@github.com/${CATALOG_REPO}"
 
-          git pull
-          git add * .
-          git commit -a -m "update catalog" || echo "nothing to commit"
-          git push https://${EXTERNAL_GH_PAT}:${EXTERNAL_GH_PAT}@github.com/eco4cast/neon4cast-catalog
-
-      - name: Call Healthcheck
-        run: |
-          curl -m 10 --retry 5 https://hc-ping.com/22fcd257-7930-455c-948d-0f913743b0c3
-
-
+      - uses: ./.github/actions/healthcheck
+        with:
+          name: catalog

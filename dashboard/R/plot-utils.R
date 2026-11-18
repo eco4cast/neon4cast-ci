@@ -1,227 +1,87 @@
-library(ggiraph)
-library(patchwork)
-library(tidyverse)
-library(score4cast)
-library(glue)
+# Interactive plots for the dashboard, and a helper that renders one tab per
+# variable. Sourced by R/setup.R.
 
-forecast_ggobj <- function(df, ncol = NULL, show.legend = TRUE) {
+girafe_options <- list(
+  ggiraph::opts_hover_inv(css = "opacity:0.20;"),
+  ggiraph::opts_hover(css = "stroke-width:2;"),
+  ggiraph::opts_zoom(max = 4)
+)
 
-    df |> collect() |>
-    ggplot() +
-    geom_point(aes(datetime, observation)) +
-    geom_ribbon_interactive(aes(x = datetime, ymin = quantile02.5, ymax = quantile97.5,
-                                fill = model_id, data_id = model_id, tooltip = model_id),
-                            alpha = 0.2, show.legend=FALSE) +
-    geom_line_interactive(aes(datetime, mean, col = model_id,
-                              tooltip = model_id, data_id = model_id), show.legend=show.legend) +
-    labs(x = 'datetime', y = 'predicted') +
-    facet_wrap(~site_id, scales = "free", ncol=ncol) +
-    guides(x =  guide_axis(angle = 45)) +
+# Forecast mean and 95% interval per model, faceted by site, with
+# observations as points when there are any. NULL if there is nothing to plot.
+forecast_plots <- function(df, ncol = NULL) {
+  if (nrow(df) == 0) return(NULL)
+  p <- ggplot(df) +
+    ggiraph::geom_ribbon_interactive(
+      aes(x = datetime, ymin = quantile02.5, ymax = quantile97.5, fill = model_id,
+          data_id = model_id, tooltip = model_id),
+      alpha = 0.2, show.legend = FALSE
+    ) +
+    ggiraph::geom_line_interactive(
+      aes(datetime, mean, col = model_id, tooltip = model_id, data_id = model_id),
+      show.legend = FALSE
+    ) +
+    labs(x = "datetime", y = "predicted") +
+    facet_wrap(~site_id, scales = "free", ncol = ncol) +
+    guides(x = guide_axis(angle = 45)) +
     theme_bw()
-}
-
-
-forecast_plots <- function(df, ncol = NULL, show.legend = FALSE) {
-
-  if(nrow(df)==0) return(NULL)
-
-  ggobj <- forecast_ggobj(df, ncol, show.legend)
-  girafe(ggobj = ggobj,
-         width_svg = 8, height_svg = 4,
-         options = list(
-           opts_hover_inv(css = "opacity:0.20;"),
-           opts_hover(css = "stroke-width:2;"),
-           opts_zoom(max = 4)
-         ))
-
-}
-
-by_model_id <- function(df, show.legend = FALSE) {
-  leaderboard <-
-    df |>
-    group_by(model_id) |>
-    summarise(crps = mean(crps, na.rm=TRUE),
-              #logs = mean(logs, na.rm=TRUE),
-              .groups = "drop") |>
-    collect()
-
-  if (TRUE %in% is.nan(leaderboard$crps)){
-    missing_model <- leaderboard[which(is.nan(leaderboard$crps)), 1][[1]]
-    stop(paste0('Missing CRPS score for model: "',missing_model, '"'))
+  if ("observation" %in% names(df) && any(!is.na(df$observation))) {
+    p <- p + geom_point(aes(datetime, observation), data = dplyr::filter(df, !is.na(observation)))
   }
+  ggiraph::girafe(ggobj = p, width_svg = 8, height_svg = 4, options = girafe_options)
+}
 
-  leaderboard <- leaderboard |>
-    filter(!is.nan(crps)) |>
-    mutate(model_id = fct_rev(fct_reorder(model_id, crps)))
-
-  leaderboard |>
-    pivot_longer(cols = c(crps), names_to="metric", values_to="score") |>
-
-    ggplot(aes(x = model_id, y= score,  fill=model_id)) +
-    geom_col_interactive(aes(tooltip = model_id, data_id = model_id),
-                           show.legend = FALSE) +
-   # scale_y_log10() +
-    coord_flip() +
-    facet_wrap(~metric, scales='free') +
-    theme_bw() +
-   theme(axis.text.y = element_blank()) # don't show model_id twice
-
+# Mean CRPS by model, by reference date and by horizon, stacked. `scores`
+# holds mean CRPS and row counts (n) per model, reference date and horizon;
+# the means are re-averaged weighted by n. NULL if there is nothing to plot.
+leaderboard_plots <- function(scores) {
+  scores <- dplyr::filter(scores, is.finite(crps))
+  if (nrow(scores) == 0) return(NULL)
+  average <- function(by) {
+    dplyr::summarise(scores, crps = stats::weighted.mean(crps, n), .by = dplyr::all_of(by))
   }
+  by_model <- average("model_id") |>
+    dplyr::mutate(model_id = forcats::fct_reorder(model_id, crps, .desc = TRUE))
+  model_order <- levels(by_model$model_id)
+  ordered <- function(df) dplyr::mutate(df, model_id = factor(model_id, model_order))
 
-
-
-
-by_reference_datetime <- function(df, show.legend = FALSE) {
-  leaderboard <-
-    df |>
-    group_by(model_id, reference_datetime) |>
-    summarise(crps = mean(crps, na.rm=TRUE),
-              #logs = mean(logs, na.rm=TRUE),
-              .groups = "drop") |>
-    mutate(reference_datetime = lubridate::as_datetime(reference_datetime)) |>
-    collect() |>
-    filter(!is.nan(crps)) |>
-    mutate(model_id = fct_rev(fct_reorder(model_id, crps)))
-
-  leaderboard |>
-    pivot_longer(cols = c(crps), names_to="metric", values_to="score") |>
-
-    ggplot(aes(x = reference_datetime, y= score,  col=model_id)) +
-    geom_line_interactive(aes(tooltip = model_id, data_id = model_id),
-                           show.legend = FALSE) +
-    scale_y_log10() +
-    facet_wrap(~metric, scales='free') +
-    guides(x =  guide_axis(angle = 45)) +
-    theme_bw()
-}
-
-
-
-by_horizon <- function(df, show.legend=FALSE) {
-
-  leaderboard2 <- df |>
-  group_by(model_id, horizon) |>
-  summarise(crps = mean(crps, na.rm=TRUE),
-            #logs = mean(logs, na.rm=TRUE),
-            .groups = "drop") |>
-  collect() |>
-  filter(!is.nan(crps)) |>
-  mutate(model_id = fct_rev(fct_reorder(model_id, crps)))  # sort by score
-
-  leaderboard2 |>
-    pivot_longer(cols = c(crps), names_to="metric", values_to="score") |>
-    ggplot(aes(x = horizon, y= score,  col=model_id)) +
-    geom_line_interactive(aes(tooltip = model_id, data_id = model_id),
-                           show.legend = show.legend) +
-    facet_wrap(~metric, scales='free') +
-    scale_y_log10() +
-    theme_bw()
-}
-
-
-horizon_filter <- function(df, horizon_cutoff=35, horizon_units="days") {
-  df |>
-    mutate(horizon =
-             difftime(
-               lubridate::as_datetime(datetime),
-               lubridate::as_datetime(reference_datetime),
-               units = horizon_units)
-    ) |>
-    filter(horizon <= horizon_cutoff, horizon > 0)
-}
-
-leaderboard_plots <- function(df,
-                              var,
-                              horizon_cutoff = 35,
-                              horizon_units = "days",
-                              show.legend=TRUE) {
-
-  df <- df
-  df <- horizon_filter(df, horizon_cutoff, horizon_units)
-  if(nrow(df)==0) return(NULL)
-
-  board1 <- by_model_id(df, show.legend = FALSE)
-  board2 <- by_reference_datetime(df, show.legend = FALSE) + theme_bw()
-  board3 <- by_horizon(df, show.legend = FALSE) + theme_bw()
-
-  ggob <- board1 / board2 / board3 # patchwork stack
-
-  girafe(
-    ggobj = ggob,
-    width_svg = 8,
-    height_svg = 6,
-    options = list(
-      opts_hover_inv(css = "opacity:0.20;"),
-      opts_hover(css = "stroke-width:2;"),
-      opts_zoom(max = 4)
-    )
-  )
-
-}
-
-leaderboard_plot2 <- function(df_model_id,
-                              df_ref,
-                              df_horizon,
-                              var,
-                              show.legend=TRUE) {
-
-
-
-  board1 <- df_model_id |>
-    filter(variable == var) |>
-    filter(!is.nan(crps)) |>
-    mutate(model_id = factor(model_id)) |>
-    mutate(model_id = fct_rev(fct_reorder(model_id, crps))) |>
-    pivot_longer(cols = c(crps), names_to="metric", values_to="score") |>
-    ggplot(aes(x = model_id, y= score,  fill=model_id)) +
-    geom_col_interactive(aes(tooltip = model_id, data_id = model_id),
-                         show.legend = FALSE) +
+  board1 <- ggplot(by_model, aes(model_id, crps, fill = model_id)) +
+    ggiraph::geom_col_interactive(aes(tooltip = model_id, data_id = model_id),
+                                  show.legend = FALSE) +
     coord_flip() +
-    facet_wrap(~metric, scales='free') +
+    labs(x = NULL, y = "crps") +
     theme_bw() +
-    theme(axis.text.y = element_blank()) # don't show model_id twice
-
-  board2 <- df_ref |>
-    filter(variable == var) |>
-    collect() |>
-    filter(!is.nan(crps)) |>
-    mutate(model_id = factor(model_id)) |>
-    mutate(model_id = fct_rev(fct_reorder(model_id, crps))) |>
-    pivot_longer(cols = c(crps), names_to="metric", values_to="score") |>
-    ggplot(aes(x = reference_datetime, y= score,  col=model_id)) +
-    geom_line_interactive(aes(tooltip = model_id, data_id = model_id),
-                          show.legend = FALSE) +
+    theme(axis.text.y = element_blank())
+  board2 <- ggplot(ordered(average(c("model_id", "reference_datetime"))),
+                   aes(reference_datetime, crps, col = model_id)) +
+    ggiraph::geom_line_interactive(aes(tooltip = model_id, data_id = model_id),
+                                   show.legend = FALSE) +
     scale_y_log10() +
-    facet_wrap(~metric, scales='free') +
-    guides(x =  guide_axis(angle = 45)) +
+    labs(x = "reference datetime") +
+    guides(x = guide_axis(angle = 45)) +
     theme_bw()
+  board3 <- ggplot(ordered(average(c("model_id", "horizon"))),
+                   aes(horizon, crps, col = model_id)) +
+    ggiraph::geom_line_interactive(aes(tooltip = model_id, data_id = model_id),
+                                   show.legend = FALSE) +
+    labs(x = "horizon (days)") +
+    theme_bw()
+  ggiraph::girafe(ggobj = patchwork::wrap_plots(board1, board2, board3, ncol = 1),
+                  width_svg = 8, height_svg = 6, options = girafe_options)
+}
 
-
-  board3 <- df_horizon |>
-      filter(variable == var) |>
-      collect() |>
-      filter(!is.nan(crps)) |>
-      mutate(model_id = factor(model_id)) |>
-      mutate(model_id = fct_rev(fct_reorder(model_id, crps))) |>  # sort by score
-      pivot_longer(cols = c(crps), names_to="metric", values_to="score") |>
-      ggplot(aes(x = horizon, y= score,  col=model_id)) +
-      geom_line_interactive(aes(tooltip = model_id, data_id = model_id),
-                            show.legend = FALSE) +
-      facet_wrap(~metric, scales='free') +
-      #scale_y_log10() +
-      theme_bw()
-
-  ggob <- board1 / board2 / board3 # patchwork stack
-
-  girafe(
-    ggobj = ggob,
-    width_svg = 8,
-    height_svg = 6,
-    options = list(
-      opts_hover_inv(css = "opacity:0.20;"),
-      opts_hover(css = "stroke-width:2;"),
-      opts_zoom(max = 4)
-    )
-  )
-
+# Render a panel-tabset with one tab per element of `tabs`. Each tab is a
+# list with `title`, optional markdown `text`, and `widget` (a plot, a table,
+# or NULL for "no data"). Call from a chunk with `results = "asis"`.
+render_tabs <- function(tabs, empty = "No data are available yet.") {
+  child <- c("```{r}", "if (is.null(widget)) cat(empty) else widget", "```")
+  body <- purrr::map_chr(tabs, function(tab) {
+    env <- new.env(parent = globalenv())
+    env$widget <- tab$widget
+    env$empty <- empty
+    paste(c(paste("###", tab$title), "", tab$text, "",
+            knitr::knit_child(text = child, envir = env, quiet = TRUE)),
+          collapse = "\n")
+  })
+  cat("::: panel-tabset\n\n", paste(body, collapse = "\n\n"), "\n\n:::\n", sep = "")
 }

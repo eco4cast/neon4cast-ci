@@ -12,14 +12,9 @@
 ^challenge_configuration\.yaml$
 ^neon4cast_field_site_metadata\.csv$
 ^.*\.csv\.gz$
-^baseline_models$
 ^catalog$
 ^dashboard$
 ^docs$
-^drivers$
 ^kubernetes$
 ^manuscript$
-^scoring$
-^submission_processing$
-^submissions$
 ^targets$

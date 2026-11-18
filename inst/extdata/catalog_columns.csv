@@ -1,0 +1,77 @@
+kind,column,description
+forecasts,datetime,datetime of the forecasted value (ISO 8601)
+forecasts,reference_datetime,datetime that the forecast was initiated (horizon = 0)
+forecasts,site_id,"For forecasts that are not on a spatial grid, use of a site dimension that maps to a more detailed geometry (points, polygons, etc.) is allowable. In general this would be documented in the external metadata (e.g., a look-up table that provides lon and lat)"
+forecasts,family,For ensembles: “ensemble.” Default value if unspecified for probability distributions: Name of the statistical distribution associated with the reported statistics. The “sample” distribution is synonymous with “ensemble.” For summary statistics: “summary.”
+forecasts,pub_datetime,datetime that forecast was submitted
+forecasts,date,date of the forecasted value (ISO 8601)
+forecasts,reference_date,date that the forecast was initiated
+forecasts,model_id,unique model identifier
+forecasts,project_id,unique identifier for the forecast project
+forecasts,depth_m,depth (meters) in water column of prediction
+forecasts,duration,"temporal duration of forecast (hourly = PT1H, daily = P1D, etc.); follows ISO 8601 duration convention"
+forecasts,variable,name of forecasted variable
+forecasts,parameter,ensemble member or distribution parameter
+forecasts,prediction,predicted value for variable
+summaries,datetime,datetime of the forecasted value (ISO 8601)
+summaries,reference_datetime,datetime that the forecast was initiated (horizon = 0)
+summaries,site_id,"For forecasts that are not on a spatial grid, use of a site dimension that maps to a more detailed geometry (points, polygons, etc.) is allowable. In general this would be documented in the external metadata (e.g., a look-up table that provides lon and lat)"
+summaries,family,For ensembles: “ensemble.” Default value if unspecified for probability distributions: Name of the statistical distribution associated with the reported statistics. The “sample” distribution is synonymous with “ensemble.” For summary statistics: “summary.”
+summaries,pub_datetime,datetime that forecast was submitted
+summaries,date,date of the forecasted value (ISO 8601)
+summaries,reference_date,date that the forecast was initiated
+summaries,model_id,unique model identifier
+summaries,project_id,unique identifier for the forecast project
+summaries,depth_m,depth (meters) in water column of prediction
+summaries,duration,"temporal duration of forecast (hourly = PT1H, daily = P1D, etc.); follows ISO 8601 duration convention"
+summaries,variable,name of forecasted variable
+summaries,mean,mean forecast prediction
+summaries,median,median forecast prediction
+summaries,sd,standard deviation of the forecast
+summaries,quantile97.5,upper 97.5 percentile value of forecast
+summaries,quantile02.5,lower 2.5 percentile value of forecast
+summaries,quantile90,upper 90 percentile value of forecast
+summaries,quantile10,lower 10 percentile value of forecast
+scores,datetime,datetime of the forecasted value (ISO 8601)
+scores,reference_datetime,datetime that the forecast was initiated (horizon = 0)
+scores,site_id,"For forecasts that are not on a spatial grid, use of a site dimension that maps to a more detailed geometry (points, polygons, etc.) is allowable. In general this would be documented in the external metadata (e.g., a look-up table that provides lon and lat)"
+scores,family,For ensembles: “ensemble.” Default value if unspecified for probability distributions: Name of the statistical distribution associated with the reported statistics. The “sample” distribution is synonymous with “ensemble.” For summary statistics: “summary.”
+scores,pub_datetime,datetime that forecast was submitted
+scores,date,date of the forecasted value (ISO 8601)
+scores,reference_date,date that the forecast was initiated
+scores,model_id,unique model identifier
+scores,project_id,unique identifier for the forecast project
+scores,depth_m,depth (meters) in water column of prediction
+scores,duration,"temporal duration of forecast (hourly = PT1H, daily = P1D, etc.); follows ISO 8601 duration convention"
+scores,variable,name of forecasted variable
+scores,mean,mean forecast prediction
+scores,median,median forecast prediction
+scores,sd,standard deviation of the forecast
+scores,quantile97.5,upper 97.5 percentile value of forecast
+scores,quantile02.5,lower 2.5 percentile value of forecast
+scores,quantile90,upper 90 percentile value of forecast
+scores,quantile10,lower 10 percentile value of forecast
+scores,observation,observed value for variable
+scores,crps,crps forecast score
+scores,logs,logs forecast score
+noaa,site_id,"For forecasts that are not on a spatial grid, use of a site dimension that maps to a more detailed geometry (points, polygons, etc.) is allowable. In general this would be documented in the external metadata (e.g., a look-up table that provides lon and lat)"
+noaa,prediction,predicted value for variable
+noaa,variable,name of forecasted variable
+noaa,height,variable height
+noaa,horizon,forecast horizon (time since the forecast was initiated)
+noaa,parameter,ensemble member or distribution parameter
+noaa,family,For ensembles: “ensemble.” Default value if unspecified for probability distributions: Name of the statistical distribution associated with the reported statistics. The “sample” distribution is synonymous with “ensemble.” For summary statistics: “summary.”
+noaa,reference_datetime,datetime that the forecast was initiated (horizon = 0)
+noaa,forecast_valid,date when forecast is valid
+noaa,datetime,datetime of the forecasted value (ISO 8601)
+noaa,longitude,forecast site longitude
+noaa,latitude,forecast site latitude
+targets,project_id,unique project identifier
+targets,site_id,unique site identifier
+targets,datetime,datetime of the observed value (ISO 8601)
+targets,duration,"temporal duration of target (hourly = PT1H, daily = P1D, etc.); follows ISO 8601 duration convention"
+targets,depth_m,depth (meters) in water column of observation
+targets,variable,observation variable
+targets,observation,observed value for variable
+noaa,ensemble,ensemble member
+noaa,cycle,hour of the day (UTC) when the forecast was initiated

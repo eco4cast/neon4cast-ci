@@ -12,6 +12,8 @@ submissions_bucket: submissions
 noaa_forecast_bucket: bio230014-bucket01/neon4cast-drivers/noaa/gefs-v12
 targets_bucket: bio230014-bucket01/challenges/targets
 archive_bucket: bio230014-bucket01/challenges/archive
+# Extra observation files that are not targets (e.g. hourly lake temperature profiles).
+supporting_data_bucket: bio230014-bucket01/challenges/supporting_data
 model_metadata_bucket: bio230014-bucket01/challenges/metadata/model_id
 # Record of submissions already processed. Stands in for deleting them from the
 # submissions bucket, which the NRP key lost permission to do on 2026-09-08.
@@ -52,6 +54,10 @@ challenge_url: https://projects.ecoforecast.org/neon4cast-ci
 # max_horizon).
 target_groups:
   Aquatics:
+    # Run by the target-generation workflow.
+    targets_script: targets/aquatics_targets.R
+    # Suggested starting sites; the dashboard plots the first n_plot_sites.
+    focal_sites: [BARC, CRAM]
     targets_file: "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1D/aquatics-targets.csv.gz"
     variable: ['oxygen','temperature','chla']
     max_horizon: [35, 35, 35]
@@ -79,6 +85,12 @@ target_groups:
         var_doi: "10.1002/eap.70004"
         var_citation: "Olsson, F., C.C. Carey, C. Boettiger, G. Harrison, R. Ladwig, M.F. Lapeyrolerie, A.S.L. Lewis, M.E. Lofton, F. Motealegre-Mora, J.S. Rebaey, C.J. Robbins. X. Yang, and R.Q. Thomas. 2025. What can we learn from 100,000 freshwater forecasts? A synthesis from the NEON Ecological Forecasting Challenge. Ecological Applications 35:e70004 https://doi.org/10.1002/eap.70004"
   Terrestrial:
+    # Run by the target-generation workflow.
+    targets_script: targets/terrestrial_targets.R
+    # Needs the large self-hosted runner (ci$large_runner).
+    targets_large_runner: true
+    # Suggested starting sites; the dashboard plots the first n_plot_sites.
+    focal_sites: [BART, OSBS, KONZ, SRER]
     targets_file: "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1D/terrestrial_daily-targets.csv.gz"
     variable: ['nee','le']
     duration: ['P1D','P1D']
@@ -101,6 +113,10 @@ target_groups:
         var_doi: "None"
         var_citation: "None"
   Phenology:
+    # Run by the target-generation workflow.
+    targets_script: targets/phenology_targets.R
+    # Suggested starting sites; the dashboard plots the first n_plot_sites.
+    focal_sites: [HARV, BART, STEI, UKFS, GRSM, DELA, CLBJ]
     targets_file: "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1D/phenology-targets.csv.gz"
     variable: ['gcc_90','rcc_90']
     duration: ['P1D','P1D']
@@ -127,6 +143,10 @@ target_groups:
         var_doi: "None"
         var_citation: "None"
   Beetles:
+    # Run by the target-generation workflow.
+    targets_script: targets/beetles_targets.R
+    # Suggested starting sites; the dashboard plots the first n_plot_sites.
+    focal_sites: [BLAN, OSBS]
     targets_file: "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1W/beetles-targets.csv.gz"
     variable: ['abundance', 'richness']
     duration: ['P1W','P1W']
@@ -148,6 +168,10 @@ target_groups:
         var_doi: "None"
         var_citation: "None"
   Ticks:
+    # Run by the target-generation workflow.
+    targets_script: targets/ticks_targets.R
+    # Suggested starting sites; the dashboard plots the first n_plot_sites.
+    focal_sites: [BLAN, TALL]
     targets_file: "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1W/ticks-targets.csv.gz"
     variable: ['amblyomma_americanum']
     duration: ['P1W']
@@ -167,6 +191,46 @@ target_groups:
 noaa_forecasts:
   noaa_forecast_groups: ['Pseudo','Stage1-stats','Stage1','Stage2','Stage3']
   noaa_forecast_group_paths: ['pseudo','stage1-stats','stage1','stage2','stage3']
+  gefs_version: v12
+  # First reference date downloaded.
+  start_date: '2020-09-24'
+  # Sites for the stage 1 GEFS download. Their coordinates differ from the site
+  # metadata by up to 0.03 degrees, enough to move one site to another GEFS
+  # grid cell, so stage 1 keeps this list to stay consistent with stored data.
+  stage1_site_list_url: 'https://github.com/eco4cast/neon4cast-noaa-download/raw/master/noaa_download_site_list.csv'
+# GITHUB ACTIONS. Workflows read these with yq (see .github/workflows/_config.yaml).
+ci:
+  # Container every job runs in. docker.yaml builds and pushes it.
+  docker_image: eco4cast/rocker-neon4cast:latest
+  # Self-hosted runner for jobs that need more memory or time than GitHub's.
+  large_runner: efi-cirrus
+  # healthchecks.io ping URLs, by job. A job without an entry is not monitored.
+  healthchecks:
+    targets: https://hc-ping.com/95d7869d-538f-4145-9d1e-e6655320066d
+    targets-Phenology: https://hc-ping.com/f5d48d96-bb41-4c21-b028-930fa2b01c5a
+    targets-Beetles: https://hc-ping.com/ed35da4e-01d3-4750-ae5a-ad2f5dfa6e99
+    targets-Ticks: https://hc-ping.com/09c7ab10-eb4e-40ef-a029-7a4addc3295b
+    baselines-daily: https://hc-ping.com/5e8257df-e494-4946-8aee-1f78eba0d5b7
+    baselines-weekly: https://hc-ping.com/ca50fa9e-8970-4280-9be8-dfc0869147fe
+    drivers-stage1-2: https://hc-ping.com/fc148462-2f07-4cd3-a11d-823982db0270
+    drivers-stage3: https://hc-ping.com/cfa6fee0-6608-46f4-9cca-4e83445788fe
+    catalog: https://hc-ping.com/22fcd257-7930-455c-948d-0f913743b0c3
+    docker: https://hc-ping.com/069f9542-6476-4a07-a6c4-00a55e3b6157
+# DASHBOARD (dashboard/, rendered by the dashboard workflow)
+dashboard:
+  title: 'NEON Ecological Forecast Challenge'
+  contact_email: 'eco4cast.initiative@gmail.com'
+  registration_form_url: 'https://forms.gle/kg2Vkpho9BoMXSy57'
+  # Sites per target group shown in forecast plots.
+  n_plot_sites: 2
+  # Models left out of the plots: per variable, or `all`.
+  excluded_models:
+    temperature: [MAL_model_unc, neon4cast_example]
+    oxygen: [BTW]
+    chla: [air2waterSat, tg_arima, procHinshelwoodSteele, procEppleyNorbergMonod, procHinshelwoodMonod, procEppleyNorbergSteele, persistenceRW]
+    richness: [tg_arima, tg_tbats, tg_ets]
+    abundance: [tg_arima, tg_tbats, tg_ets]
+    amblyomma_americanum: [tg_arima, tg_ets, tg_tbats, tg_auto_adam]
 #CATALOG CONFIGURATIONS
 catalog_config:
   catalog_path: 'neon4cast-catalog'
@@ -204,3 +268,9 @@ catalog_config:
   documentation_url: "https://projects.ecoforecast.org/neon4cast-docs/"
   catalog_title: "NEON Ecological Forecasting Challenge"
   site_metadata_url: 'https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/neon4cast_field_site_metadata.csv'
+  # Repository the catalog is committed to; links to raw JSON point here.
+  catalog_repo: eco4cast/neon4cast-catalog
+  # Catalog that lists this one as a child.
+  parent_catalog_url: 'https://raw.githubusercontent.com/eco4cast/challenge-catalogs/main/catalog.json'
+  # Descriptions of the site metadata columns, shown in the sites collection.
+  site_columns_file: catalog/site_columns.csv

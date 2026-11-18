@@ -1,44 +1,39 @@
-# Workflow derived from https://github.com/r-lib/actions/tree/v2/examples
-# Need help debugging build failures? Start at https://github.com/r-lib/actions#where-to-find-help
+# Download today's GEFS forecasts (stage 1) and interpolate them to hourly
+# (stage 2).
 on:
   schedule:
     - cron: '0 5 * * *'
   workflow_dispatch:
 
-
 name: drivers-stage1-2
 
+concurrency:
+  group: drivers-stage1-2
+  cancel-in-progress: false
+
 jobs:
-  docker:
-    runs-on: ubuntu-latest #[self-hosted]
+  config:
+    uses: ./.github/workflows/_config.yaml
+
+  drivers:
+    needs: config
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    container:
+      image: ${{ needs.config.outputs.image }}
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       OSN_KEY: ${{ secrets.OSN_KEY }}
       OSN_SECRET: ${{ secrets.OSN_SECRET }}
-    container: eco4cast/rocker-neon4cast:latest
     steps:
       - uses: actions/checkout@v6
 
-      - name: Install
-        shell: Rscript {0}
-        run: |
-          remotes::install_version('arrow', version = '20.0.0')
-          remotes::install_github("appelmar/gdalcubes")
-          remotes::install_github("eco4cast/gefs4cast")
+      - uses: ./.github/actions/setup-challenge
 
-      - name: Update GEFS
-        shell: Rscript {0}
-        run: |
-          source("drivers/download_stage1.R")
+      # arrow 20.0.0, gdalcubes and gefs4cast are installed in the image.
+      - name: Download GEFS and generate stage 2
+        run: Rscript inst/scripts/drivers_stage1_2.R
 
-      - name: Generate stage 2
-        shell: Rscript {0}
-        run: |
-          source("drivers/generate_stage2.R")
-
-      - name: Healthcheck
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y curl
-          curl -m 10 --retry 5 https://hc-ping.com/fc148462-2f07-4cd3-a11d-823982db0270
-
+      - uses: ./.github/actions/healthcheck
+        with:
+          name: drivers-stage1-2

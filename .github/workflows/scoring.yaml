@@ -1,33 +1,47 @@
-# Workflow derived from https://github.com/r-lib/actions/tree/v2/examples
-# Need help debugging build failures? Start at https://github.com/r-lib/actions#where-to-find-help
+# Score forecasts that have new observations.
 on:
   schedule:
     - cron: '0 10 * * *'
   workflow_dispatch:
+    inputs:
+      since:
+        description: Score forecasts after this date (YYYY-MM-DD); empty for six months ago
+        type: string
+        default: ''
 
 name: scoring
 
+# Runs share the scratch folder and rewrite the bundled scores; never overlap.
+concurrency:
+  group: scoring
+  cancel-in-progress: false
+
 jobs:
+  config:
+    uses: ./.github/workflows/_config.yaml
+
   scoring:
-    runs-on: efi-cirrus
+    needs: config
+    runs-on: ${{ needs.config.outputs.large_runner }}
+    timeout-minutes: 180
+    container:
+      image: ${{ needs.config.outputs.image }}
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       OSN_KEY: ${{ secrets.OSN_KEY }}
       OSN_SECRET: ${{ secrets.OSN_SECRET }}
       EFI_NRP_KEY: ${{ secrets.EFI_NRP_KEY }}
       EFI_NRP_SECRET: ${{ secrets.EFI_NRP_SECRET }}
-    container:
-      image: eco4cast/rocker-neon4cast:latest
     steps:
-
-      - name: cleanup disk space
-        run: |
-          sudo rm -rf /usr/local/lib/android /usr/share/dotnet /opt/ghc
-          df -h
-
       - uses: actions/checkout@v6
 
-      - uses: ./.github/actions/install-mc
+      - uses: ./.github/actions/setup-challenge
 
       - name: Score forecasts
-        run: Rscript inst/scripts/score.R
+        env:
+          SINCE: ${{ inputs.since }}
+        run: Rscript inst/scripts/score.R $SINCE
+
+      - uses: ./.github/actions/healthcheck
+        with:
+          name: scoring

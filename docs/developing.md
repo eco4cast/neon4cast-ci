@@ -8,24 +8,54 @@ R/                       package functions, documented with roxygen comments
 man/                     help pages (generated, do not edit)
 tests/testthat/          unit tests and small fixtures
 inst/scripts/            entry points the workflows run (below)
+inst/extdata/            data shipped with the package (catalog column descriptions)
 challenge_configuration.yaml   every challenge-specific setting (docs/configuration.md)
+targets/                 challenge-specific targets scripts and their helpers (targets/R/)
+dashboard/               the Quarto dashboard; data staged by inst/scripts/dashboard.R
+catalog/                 challenge-specific catalog files (site column descriptions, images)
+.github/                 workflows and the composite actions they share (docs/operations.md)
+docs/                    configuration, development, operations and launch guides
 ```
 
 Each workflow step runs a short entry script from the repository root. The
-script loads the package, reads the config and calls one `run_*()` function:
+script loads the package, reads the config and calls the package functions
+that do the work:
 
 | Script | Workflow | Function | Does |
 |---|---|---|---|
 | `inst/scripts/process_submissions.R` | submissions | `run_submissions()` | validate new submissions, write parquet + summaries |
 | `inst/scripts/bundle.R [forecasts\|summaries]` | bundling | `run_bundling()` | append new parquet to each model's bundle, archive it |
-| `inst/scripts/score.R` | scoring | `run_scoring()` | score forecasts that have new observations |
-| `inst/scripts/baselines.R <schedule> [group]` | baselines-daily, baselines-weekly | `run_baselines()` | run each group's baseline models and submit them |
+| `inst/scripts/score.R [since]` | scoring | `run_scoring()` | score forecasts that have new observations |
+| `inst/scripts/baselines.R <schedule> [group]` | baseline-forecasts | `run_baselines()` | run each group's baseline models and submit them |
+| `inst/scripts/drivers_stage1_2.R` | drivers-stage1-2 | `download_gefs()`, `update_stage2()` | download GEFS stage 1, build hourly stage 2 |
+| `inst/scripts/drivers_stage3.R [rebuild]` | drivers-stage3 | `download_gefs()`, `update_stage3()` | download GEFS pseudo, extend hourly stage 3 |
+| `inst/scripts/catalog.R [part ...]` | catalog | `run_catalog()` | build the STAC catalog JSON and upload model metadata |
+| `inst/scripts/dashboard.R` | dashboard | `stage_dashboard_data()` | stage the data the dashboard plots; then `quarto render dashboard` |
+| `targets/<group>_targets.R` | target-generation | `format_targets()`, `check_targets()`, `write_targets()` | download and clean one group's observations (challenge-specific) |
 
-Each one documents its environment variables in its header. All of them take
-`DRY_RUN=true` (see below).
+Each one documents its arguments and environment variables in its header.
+All that write to S3 take `DRY_RUN=true` (see below).
 
-The other stage folders (`catalog/`, `dashboard/`, `drivers/`) are moving onto the package one stage at a time. Challenge-specific
-data downloads (`targets/`) stay as plain scripts.
+The targets scripts stay plain scripts because downloading and cleaning
+observations is specific to each challenge's data source. Their helpers
+(NEON file lists, avro readers, taxonomy) are in `targets/R/`. A new challenge
+writes its own `targets/<group>_targets.R` that ends with
+`format_targets() |> check_targets() |> write_targets()`, so its targets are
+checked and uploaded the same way.
+
+The dashboard pages (`dashboard/*.qmd`) only read the small files
+`stage_dashboard_data()` writes to `dashboard/data/`, so every S3 query is in
+the package and tested. Pages start with `source("R/setup.R")`, which loads
+the package and config; plots and the one-tab-per-variable helper are in
+`dashboard/R/plot-utils.R`. To preview locally:
+`Rscript inst/scripts/dashboard.R && quarto preview dashboard`.
+
+The catalog is plain STAC JSON written by `R/catalog.R` and `R/stac.R`.
+Generic column descriptions are in `inst/extdata/catalog_columns.csv`; the
+challenge's site column descriptions are in the file named by
+`catalog_config$site_columns_file`. A dry run
+(`DRY_RUN=true Rscript inst/scripts/catalog.R`) writes the catalog under
+`DRY_RUN_DIR/catalog`, so it can be diffed against the catalog repository.
 
 ## Using the package from a script
 

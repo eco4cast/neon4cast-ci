@@ -1,0 +1,66 @@
+# Run each target group's baseline models and submit their forecasts. The
+# daily cron runs the baselines with `schedule: daily` in the config, the
+# weekly cron those with `schedule: weekly`.
+on:
+  schedule:
+    - cron: '0 20 * * *'
+    - cron: '0 1 * * SUN'
+  workflow_dispatch:
+    inputs:
+      schedule:
+        description: Which baselines to run
+        type: choice
+        options: [daily, weekly]
+        default: daily
+
+name: baseline-forecasts
+
+jobs:
+  config:
+    uses: ./.github/workflows/_config.yaml
+
+  baselines:
+    needs: config
+    name: ${{ matrix.group }}
+    strategy:
+      fail-fast: false
+      matrix:
+        # The env context is not available here, so the schedule test is
+        # repeated from SCHEDULE below.
+        group: ${{ fromJSON((github.event.schedule == '0 1 * * SUN' || inputs.schedule == 'weekly') && needs.config.outputs.baselines_weekly || needs.config.outputs.baselines_daily) }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    concurrency:
+      group: baselines-${{ matrix.group }}
+      cancel-in-progress: false
+    container:
+      image: ${{ needs.config.outputs.image }}
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      # The key that has always uploaded baseline forecasts, under the names
+      # the config's `credentials$submissions` expects.
+      AWS_ACCESS_KEY_SUBMISSIONS: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY_SUBMISSIONS: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: ./.github/actions/setup-challenge
+
+      - name: Generate and submit forecasts
+        run: Rscript inst/scripts/baselines.R "$SCHEDULE" "${{ matrix.group }}"
+
+  healthcheck:
+    needs: [config, baselines]
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    container:
+      image: ${{ needs.config.outputs.image }}
+    steps:
+      - uses: actions/checkout@v6
+      - uses: ./.github/actions/healthcheck
+        with:
+          name: baselines-${{ env.SCHEDULE }}
+
+env:
+  # The weekly cron, or a manual run that asked for weekly; otherwise daily.
+  SCHEDULE: ${{ (github.event.schedule == '0 1 * * SUN' || inputs.schedule == 'weekly') && 'weekly' || 'daily' }}

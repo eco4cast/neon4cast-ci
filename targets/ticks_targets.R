@@ -1,52 +1,26 @@
-library(tidyverse) # for data wrangling and piping (dplyr probably ok)
-library(lubridate) # for finding year from dates
-library(neonstore)
-library(minioclient)
-library(neonUtilities)
+# Tick (Amblyomma americanum nymph) density targets (weekly) from NEON's tick
+# drag product, DP1.10093.001.
+#
+# Run from the repository root:  Rscript targets/ticks_targets.R
+#
+# Environment variables
+#   NEON_TOKEN           NEON API token (optional; raises rate limits)
+#   OSN_KEY, OSN_SECRET  main store, for the upload
+#   DRY_RUN=true         write the targets to a local folder instead
 
-install_mc()
-mc_alias_set("osn", "sdsc.osn.xsede.org", Sys.getenv("OSN_KEY"), Sys.getenv("OSN_SECRET"))
-#mc_mirror("osn/bio230014-bucket01/ticks-data/",  path.expand("~/ticks-data/"))
+pkgload::load_all(quiet = TRUE)
+library(tidyverse)
+source("targets/R/resolve_taxonomy.R")
+source("targets/R/neon_os_table.R")
+
+cfg <- read_config()
+minioclient::install_mc()
 
 # select target species and life stage
 target_species <- c("Amblyomma americanum") # NEON species name
 target_lifestage <- "Nymph"
 
-sites_df <- read_csv("https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/neon4cast_field_site_metadata.csv", show_col_types = FALSE) |>
-  dplyr::filter(ticks == 1)
-target_sites <- sites_df %>% pull(field_site_id)
-
-
-source("targets/R/resolve_taxonomy.R")
-source("targets/R/neon_os_table.R")
-
-# pass <- TRUE
-# iter <- 0
-# while(pass & iter < 10){
-#   iter <- iter + 1
-#
-#   df <-  neonstore:::neon_data(product = "DP1.10093.001",
-#                                #start_date = paste0(curr_year, "-01-01"),
-#                                #end_date = paste0(curr_year, "-12-31"),
-#                                site = target_sites,
-#                                type="expanded")
-#
-#   if(file.exists(path.expand("~/ticks-data/DP1.10093.001.csv"))){
-#     full_df_old <- read_csv(path.expand("~/ticks-data/DP1.10093.001.csv"), show_col_types = FALSE)
-#   }else{
-#     full_df_old <- NULL
-#   }
-#
-#   full_df <- bind_rows(full_df_old, df) %>%
-#     distinct()
-#
-#   print(nrow(full_df))
-#   print(nrow(full_df_old))
-#   pass <- nrow(full_df) != nrow(full_df_old)
-#
-#   write_csv(full_df, path.expand("~/ticks-data/DP1.10093.001.csv"))
-# }
-
+target_sites <- read_sites(cfg, "Ticks")$site_id
 
 # Read with neon_os_table() rather than neonUtilities::datasetQuery(): in the CI
 # container datasetQuery()'s DuckDB/httpfs reader fails on NEON's HTTPS URLs and
@@ -140,25 +114,8 @@ tick_targets <- tick_standard %>%
 
 
 
-tick_targets <- tick_targets |>
-  rename(datetime = time)
-
-tick_targets2 <- tick_targets |>
-  mutate(datetime = lubridate::as_datetime(datetime),
-         duration = "P1W",
-         project_id = "neon4cast") |>
-  select(project_id, site_id, datetime, duration, variable, observation)
-
-
-ggplot(tick_targets2, aes(x = datetime, y = observation, color = variable)) +
-  geom_point() +
-  facet_wrap(~site_id, scale = "free")
-
-write_csv(tick_targets2, "ticks-targets.csv.gz")
-message("Writing targets to S3")
-mc_cp("ticks-targets.csv.gz", "osn/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1W/")
-#message("Writing data catalog to S3")
-#mc_mirror(path.expand("~/ticks-data"), "osn/bio230014-bucket01/ticks-data/", overwrite = TRUE, remove = TRUE)
-
-RCurl::getURL("https://hc-ping.com/09c7ab10-eb4e-40ef-a029-7a4addc3295b")
-
+tick_targets |>
+  rename(datetime = time) |>
+  format_targets(cfg, duration = "P1W") |>
+  check_targets(cfg, "Ticks") |>
+  write_targets(cfg, "Ticks")

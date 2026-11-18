@@ -8,9 +8,6 @@ download.neon.avro <- function(months, data_product, path) {
 
     message(paste0('downloading ',months$site_id[i],": ", i, '/', length(months$site_id)))
 
-    # month_use <- format(seq.Date(months$new_date[i], floor_date(Sys.Date() - days(2), 'month'), by = 'month'),
-    #                     "%Y-%m")
-    #
     month_use <- format(seq.Date(sort(c(months$new_date[i], floor_date(Sys.Date() - days(2), 'month')))[1],
                                  sort(c(months$new_date[i], floor_date(Sys.Date() - days(2), 'month')))[2],
                                  by = 'month'),
@@ -83,7 +80,7 @@ delete.neon.avro <- function(months, path, data_product) {
 
 
 # requires wq_vars - specify
-read.avro.wq <- function(sc, name = 'name', path, columns_keep, dir ) {
+read.avro.wq <- function(path, columns_keep, dir ) {
   message(paste0('reading file ', path))
   profiling_sites <- c('CRAM', 'LIRO', 'BARC', 'TOOK')
 
@@ -91,10 +88,6 @@ read.avro.wq <- function(sc, name = 'name', path, columns_keep, dir ) {
 
   if (nrow(wq_avro) >= 1) {
     wq_tibble <- wq_avro |>
-      #wq_avro <- sparkavro::spark_read_avro(sc,
-      #                                    name = "name",
-      #                                    path = path,
-      #                                    memory = FALSE) |>
       dplyr::filter(termName %in% wq_vars) %>%
       dplyr::filter(horizontalIndex %in% c('101', '111', '103'))
 
@@ -122,13 +115,10 @@ read.avro.wq <- function(sc, name = 'name', path, columns_keep, dir ) {
 
   if (nrow(wq_tibble) >=1 ) {
     wq_tibble_wider <- wq_tibble %>%
-      # arrange(startDate, termName) %>%
-      # pivot_wider(names_from = termName, values_from = Value)  %>%
       dplyr::mutate(sensorDepth = ifelse(siteName %in% profiling_sites,
                                          sensorDepth,
                                          0.5)) |>
-      dplyr::filter(sensorDepth > 0 & sensorDepth < 1)# |>
-    # filter_at(vars(ends_with('QF')), any_vars(. != 1)) # checks to see if any of the QF cols have a 1
+      dplyr::filter(sensorDepth > 0 & sensorDepth < 1)
 
     # if the filtering has left rows then find the mean
     if (nrow(wq_tibble_wider) >= 1) {
@@ -181,14 +171,10 @@ read.avro.wq <- function(sc, name = 'name', path, columns_keep, dir ) {
   }
 }
 
-read.avro.tsd <- function(sc, name = 'name', path, thermistor_depths, dir, delete_files) {
+read.avro.tsd <- function(path, thermistor_depths, dir, delete_files) {
   message(paste0('reading file ', path))
 
   tsd_avro <- py_to_r(read_avro_file(path)) |>
-    #tsd_avro <- sparkavro::spark_read_avro(sc,
-    #                                       name = "name",
-    #                                       path = path,
-    #                                       memory = FALSE) |>
     dplyr::filter(termName %in% tsd_vars) %>%
     # for streams want to omit the downstream measurement (102) and retain upstream (101)
     # rivers and lakes horizontal index is 103
@@ -265,14 +251,10 @@ read.avro.tsd <- function(sc, name = 'name', path, thermistor_depths, dir, delet
 }
 
 
-read.avro.tsd.profile <- function(sc, name = 'name', path, thermistor_depths, columns_keep, dir, delete_files) {
+read.avro.tsd.profile <- function(path, thermistor_depths, columns_keep, dir, delete_files) {
   message(paste0('reading file ', path))
 
   tsd_avro <- py_to_r(read_avro_file(path)) |>
-    #tsd_avro <- sparkavro::spark_read_avro(sc,
-    #                                       name = "name",
-    #                                       path = path,
-    #                                       memory = FALSE) %>%
     dplyr::filter(termName %in% tsd_vars) %>%
     # for streams want to omit the downstream measurement (102) and retain upstream (101)
     # rivers and lakes horizontal index is 103
@@ -349,7 +331,7 @@ read.avro.tsd.profile <- function(sc, name = 'name', path, thermistor_depths, co
 }
 
 
-read.avro.prt <- function(sc, name = 'name', path, columns_keep, dir) {
+read.avro.prt <- function(path, columns_keep, dir) {
   message(paste0('reading file ', path))
 
   df <- py_to_r(read_avro_file(path))
@@ -357,8 +339,6 @@ read.avro.prt <- function(sc, name = 'name', path, columns_keep, dir) {
   if(nrow(df) > 0){
 
   prt_avro <- df |>
-    #prt_avro <- sparkavro::spark_read_avro(sc, name = 'name',
-    #                                       path = path) |>
     dplyr::filter(termName %in% prt_vars) %>%
     # for streams want to omit the downstream measurement (102) and retain upstream (101)
     # rivers and lakes horizontal index is 103
@@ -429,34 +409,4 @@ read.avro.prt <- function(sc, name = 'name', path, columns_keep, dir) {
       #fs::file_delete(path)
     }
   }
-}
-
-
-# wrapper function for a generic read avro function that selects the right
-# read_avro_... depending on the data product
-read.neon.avro <- function(path, sc, data_product, columns_keep, ...) {
-  # the function is only available for 3 data products (wq, tsd, and prt)
-  if (data_product != '20288' |
-      data_product != '20264' |
-      data_product != '20053') {
-    stop('No read avro function for this data product')
-  }
-
-  #does the data product match the file path specified
-  if (str_detect(path, data_product) == FALSE) {
-    stop('Data product does not match path')
-  }
-
-  # use the right function based on the data product specified
-  if (data_product == '20288') {
-    message('running read.avro for water quality')
-    df <- read.avro.wq(path = path, sc = sc, columns_keep = columns_keep)
-  } else if (data_product == '20264') {
-    message('running read.avro for temperature at specific depth')
-    df <- read.avro.tsd(path = path, sc = sc, thermistor_depths = thermistor_depths, columns_keep = columns_keep)
-  } else if (data_product == '20053') {
-    message('running read.avro for surface temperature')
-    df <- read.avro.prt(path = path, sc = sc, columns_keep = columns_keep)
-  }
-  return(df)
 }

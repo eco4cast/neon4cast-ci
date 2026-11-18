@@ -2,10 +2,13 @@ project:
   type: website
   output-dir: docs
 
+# The site title, URL, repository and footer come from the challenge config:
+# `Rscript inst/scripts/dashboard.R stage` writes them to _challenge.yml.
+metadata-files:
+  - _challenge.yml
+
 website:
-  title: "NEON Ecological Forecast Challenge"
   page-navigation: true
-  repo-url: https://github.com/eco4cast/neon4cast-ci
   repo-actions: [source, issue]
 
   navbar:
@@ -24,15 +27,10 @@ website:
         icon: check2-circle
       - href: use-in-course.qmd
         icon: people
-  page-footer:
-    left: "CC-BY"
-    right:
-      - icon: github
-        href: https://github.com/eco4cast/neon4cast-ci
 
 format:
   html:
-    theme: [sandstone, custom.scss]
+    theme: sandstone
     css: styles.css
     title-block-style: default
     title-block-banner: "img/banner.jpg"

@@ -1,0 +1,20 @@
+name: Ping healthcheck
+description: >
+  Pings the healthchecks.io URL the config gives for this job
+  (ci$healthchecks$<name>). Does nothing if there is none. Use it as the last
+  step of a job, so it only runs when everything before it succeeded.
+
+inputs:
+  name:
+    description: Healthcheck name in ci$healthchecks.
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Ping healthcheck
+      shell: bash
+      env:
+        HEALTHCHECK: ${{ inputs.name }}
+      run: |
+        Rscript -e 'pkgload::load_all(quiet = TRUE); ping_healthcheck(read_config(), Sys.getenv("HEALTHCHECK"))'

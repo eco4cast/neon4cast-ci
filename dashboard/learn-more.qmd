@@ -2,23 +2,23 @@
 
 ## Tutorials
 
-An introductory tutorial for submitting to Challenge focused on aquatics theme: [https://github.com/eco4cast/NEON-forecast-challenge-workshop](https://github.com/eco4cast/NEON-forecast-challenge-workshop). [A webinar version of tutorial](https://www.youtube.com/watch?v=-5iPNr19g-4)
+An introductory tutorial for submitting to Challenge focused on aquatics theme: <https://github.com/eco4cast/NEON-forecast-challenge-workshop>. [A webinar version of tutorial](https://www.youtube.com/watch?v=-5iPNr19g-4)
 
-An introduction to forecast evaluation: [https://github.com/OlssonF/Forecast-evaluation-EFI25](https://github.com/OlssonF/Forecast-evaluation-EFI25)
+An introduction to forecast evaluation: <https://github.com/OlssonF/Forecast-evaluation-EFI25>
 
 More advanced tutorial for submitting to Challenge focused on the terrestrial theme: [https://github.com/rqthomas/FluxCourseForecast](https://github.com/mdietze/FluxCourseForecast)
 
 Other tutorial materials about [ecological forecasting](https://ecoforecast.org/resources/educational-resources/)
 
-## Research from the Ecological Forecasting Initiative Research Coordination Network.  
+## Research from the Ecological Forecasting Initiative Research Coordination Network.
 
-### Ecological Forecasting 
+### Ecological Forecasting
 
 Dietze, M., E.P. White, A. Abeyta, C. Boettiger, N. Bueno Watts, C.C. Carey, R. Chaplin-Kramer, R.E. Emanuel, S.K. Morgan Ernest, R. Figueiredo, M.D, Gerst, L.R. Johnson, M.A. Kenney, J.S. McLachlan, I.C. Paschalidis, J.A. Peters, C.R. Rollinson, J. Simonis, K. Sullivan-Way, R. Q. Thomas, G.M. Wardle, A. Willson, J. Zwart. 2024. Near-term Ecological Forecasting for Climate Change Action. *Nature Climate Change:* 14: 1236–1244 <https://doi.org/10.1038/s41558-024-02182-0>
 
-Lewis, A., W. Woelmer, H. Wander, D. Howard, J. Smith, R. McClure, M. Lofton, N. Hammond, R. Corrigan, R.Q. Thomas, C.C. Carey. 2022. Increased adoption of best practices in ecological forecasting enables comparisons of forecastability across systems. Ecological Applications 32: e02500 [https://doi.org/10.1002/eap.2500](https://doi.org/10.1002/eap.2500)
+Lewis, A., W. Woelmer, H. Wander, D. Howard, J. Smith, R. McClure, M. Lofton, N. Hammond, R. Corrigan, R.Q. Thomas, C.C. Carey. 2022. Increased adoption of best practices in ecological forecasting enables comparisons of forecastability across systems. Ecological Applications 32: e02500 <https://doi.org/10.1002/eap.2500>
 
-Lewis, A. S. L., Rollinson, C. R., Allyn, A. J., Ashander, J., Brodie, S., Brookson, C. B., et al. (2023). The power of forecasts to advance ecological theory. Methods in Ecology and Evolution, 14(3), 746–756. [https://doi.org/10.1111/2041-210X.13955](https://doi.org/10.1111/2041-210X.13955)
+Lewis, A. S. L., Rollinson, C. R., Allyn, A. J., Ashander, J., Brodie, S., Brookson, C. B., et al. (2023). The power of forecasts to advance ecological theory. Methods in Ecology and Evolution, 14(3), 746–756. <https://doi.org/10.1111/2041-210X.13955>
 
 Malmborg, C. A., Willson, A. M., Bradley, L. M., Beatty, M. A., Klinges, D. H., Koren, G., Lewis, A. S. L., Oshinubi, K., & Woelmer, W. M. 2024. Defining model complexity: An ecological perspective. Meteorological Applications, 31(3), e2202. <https://doi.org/10.1002/met.2202>
 
@@ -26,15 +26,15 @@ Malmborg, C. A., Willson, A. M., Bradley, L. M., Beatty, M. A., Klinges, D. H., 
 
 Olsson, F., C.C. Carey, C. Boettiger, G. Harrison, R. Ladwig, M.F. Lapeyrolerie, A.S.L. Lewis, M.E. Lofton, F. Motealegre-Mora, J.S. Rebaey, C.J. Robbins. X. Yang, and R.Q. Thomas. 2025. What can we learn from 100,000 freshwater forecasts? A synthesis from the NEON Ecological Forecasting Challenge. Ecological Applications 35:e70004 <https://doi.org/10.1002/eap.70004>
 
-Thomas, R. Q., Boettiger, C., Carey, C. C., Dietze, M. C., Johnson, L. R., Kenney, M. A., et al. (2023). The NEON Ecological Forecasting Challenge. Frontiers in Ecology and the Environment, 21(3), 112–113. [https://doi.org/10.1002/fee.2616](https://doi.org/10.1002/fee.2616)
+Thomas, R. Q., Boettiger, C., Carey, C. C., Dietze, M. C., Johnson, L. R., Kenney, M. A., et al. (2023). The NEON Ecological Forecasting Challenge. Frontiers in Ecology and the Environment, 21(3), 112–113. <https://doi.org/10.1002/fee.2616>
 
-Thomas, R.Q, R.P. McClure, T.N. Moore, W.M. Woelmer, C. Boettiger, R.J. Figueiredo, R.T. Hensley, C.C. Carey. Near-term forecasts of NEON lakes reveal gradients of environmental predictability across the U.S. Frontiers in Ecology and Environment 21: 220–226. [https://doi.org/10.1002/fee.2623](https://doi.org/10.1002/fee.2623)
+Thomas, R.Q, R.P. McClure, T.N. Moore, W.M. Woelmer, C. Boettiger, R.J. Figueiredo, R.T. Hensley, C.C. Carey. Near-term forecasts of NEON lakes reveal gradients of environmental predictability across the U.S. Frontiers in Ecology and Environment 21: 220–226. <https://doi.org/10.1002/fee.2623>
 
-Wheeler, K., M. Dietze, D. LeBauer, J. Peters, A.D. Richardson, R.Q. Thomas, K. Zhu, U. Bhat, S. Munch, R.F Buzbee, M. Chen, B. Goldstein, J.S. Guo, D. Hao, C. Jones, M. Kelly-Fair, H. Liu, C. Malmborg, N. Neupane. D. Pal, A. Ross, V. Shirey, Y. Song, M. Steen, E.A. Vance, W.M. Woelmer, J. Wynne and L. Zachmann. 2024. Predicting Spring Phenology in Deciduous Broadleaf Forests: An Open Community Forecast Challenge. *Agricultural and Forest Meteorology* 345: 09810 [https://doi.org/10.1016/j.agrformet.2023.109810](https://doi.org/10.1016/j.agrformet.2023.109810)
+Wheeler, K., M. Dietze, D. LeBauer, J. Peters, A.D. Richardson, R.Q. Thomas, K. Zhu, U. Bhat, S. Munch, R.F Buzbee, M. Chen, B. Goldstein, J.S. Guo, D. Hao, C. Jones, M. Kelly-Fair, H. Liu, C. Malmborg, N. Neupane. D. Pal, A. Ross, V. Shirey, Y. Song, M. Steen, E.A. Vance, W.M. Woelmer, J. Wynne and L. Zachmann. 2024. Predicting Spring Phenology in Deciduous Broadleaf Forests: An Open Community Forecast Challenge. *Agricultural and Forest Meteorology* 345: 09810 <https://doi.org/10.1016/j.agrformet.2023.109810>
 
 ### Details about the data standards used in the challenge
 
-Dietze, M., R.Q. Thomas, J. Peters, C. Boettiger, A. Shiklomanov, and J. Ashander. 2023. A community convention for ecological forecasting: output files and metadata v1.0. Ecosphere 14: e4686 [https://doi.org/10.1002/ecs2.4686](https://doi.org/10.1002/ecs2.4686)
+Dietze, M., R.Q. Thomas, J. Peters, C. Boettiger, A. Shiklomanov, and J. Ashander. 2023. A community convention for ecological forecasting: output files and metadata v1.0. Ecosphere 14: e4686 <https://doi.org/10.1002/ecs2.4686>
 
 ### Educational manuscripts
 
@@ -42,23 +42,18 @@ Lewis, A.S.L., D.W. Howard, G. Koren, C. Kowalski, J. McLachlan, J.A. Peters, G.
 
 Lofton, M.E., T.N. Moore, W.M. Woelmer, R.Q. Thomas, and C.C. Carey. 2025. A modular curriculum to teach undergraduates ecological forecasting improves student and instructor confidence in their data science skills. Bioscience 75: 127-138 <https://doi.org/10.1093/biosci/biae089>
 
-Moore, T.N., R.Q. Thomas, W.M. Woelmer, C.C Carey. 2022. Integrating ecological forecasting into undergraduate ecology curricula with an R Shiny application-based teaching module. Forecasting 4:604-633. [https://doi.org/10.3390/forecast4030033](https://doi.org/10.3390/forecast4030033)
+Moore, T.N., R.Q. Thomas, W.M. Woelmer, C.C Carey. 2022. Integrating ecological forecasting into undergraduate ecology curricula with an R Shiny application-based teaching module. Forecasting 4:604-633. <https://doi.org/10.3390/forecast4030033>
 
-Olsson F, C. Boettiger, C.C. Carey, M. Lofton and R.Q. Thomas. 2024. Can you predict the future? A tutorial for the National Ecological Observatory Network Ecological Forecasting Challenge. *Journal of Open Source Education* 7: 259. <https://doi.org/10.21105/jose.00259> 
+Olsson F, C. Boettiger, C.C. Carey, M. Lofton and R.Q. Thomas. 2024. Can you predict the future? A tutorial for the National Ecological Observatory Network Ecological Forecasting Challenge. *Journal of Open Source Education* 7: 259. <https://doi.org/10.21105/jose.00259>
 
-Peters, J. and R.Q. Thomas. 2021. Going Virtual: What We Learned from the Ecological Forecasting Initiative Research Coordination Network Virtual Workshop. Bulletin of the Ecological Society of America 102: e01828 [https://doi.org/10.1002/bes2.1828](https://doi.org/10.1002/bes2.1828)
+Peters, J. and R.Q. Thomas. 2021. Going Virtual: What We Learned from the Ecological Forecasting Initiative Research Coordination Network Virtual Workshop. Bulletin of the Ecological Society of America 102: e01828 <https://doi.org/10.1002/bes2.1828>
 
-Willson, A.M., H. Gallo, J.A. Peters, A. Abeyta, N. Bueno Watts, C.C. Carey, T.N. Moore, G. Smies, R.Q. Thomas, W.M. Woelmer, and J.S. McLachlan. 2023. Assessing opportunities and inequities in undergraduate ecological forecasting education. Ecology and Evolution 13: e10001. [https://doi.org/10.1002/ece3.10001](https://doi.org/10.1002/ece3.10001)
+Willson, A.M., H. Gallo, J.A. Peters, A. Abeyta, N. Bueno Watts, C.C. Carey, T.N. Moore, G. Smies, R.Q. Thomas, W.M. Woelmer, and J.S. McLachlan. 2023. Assessing opportunities and inequities in undergraduate ecological forecasting education. Ecology and Evolution 13: e10001. <https://doi.org/10.1002/ece3.10001>
 
-Woelmer, W. M., Bradley, L. M., Haber, L. T., Klinges, D. H., Lewis, A. S. L., Mohr, E. J., et al. (2021). Ten simple rules for training yourself in an emerging field. PLOS Computational Biology, 17(10), e1009440. [https://doi.org/10.1371/journal.pcbi.1009440](https://doi.org/10.1371/journal.pcbi.1009440)
+Woelmer, W. M., Bradley, L. M., Haber, L. T., Klinges, D. H., Lewis, A. S. L., Mohr, E. J., et al. (2021). Ten simple rules for training yourself in an emerging field. PLOS Computational Biology, 17(10), e1009440. <https://doi.org/10.1371/journal.pcbi.1009440>
 
-Woelmer, W.M., T.N. Moore, M.E. Lofton, R.Q. Thomas, and C.C. Carey. 2023. Embedding communication concepts in forecasting training increases students’ understanding of ecological uncertainty Ecosphere 14: e4628 [https://doi.org/10.1002/ecs2.4628](https://doi.org/10.1002/ecs2.4628)
+Woelmer, W.M., T.N. Moore, M.E. Lofton, R.Q. Thomas, and C.C. Carey. 2023. Embedding communication concepts in forecasting training increases students’ understanding of ecological uncertainty Ecosphere 14: e4628 <https://doi.org/10.1002/ecs2.4628>
 
 ## Videos
 
 {{< video https://www.youtube.com/watch?v=r3oHH1AuItI >}}
-
-
-
-
-

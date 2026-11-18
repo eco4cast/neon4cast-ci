@@ -69,3 +69,28 @@ log_step <- function(..., .envir = parent.frame()) {
   )
   invisible(NULL)
 }
+
+#' Tell a healthcheck that a job succeeded
+#'
+#' Looks up `name` in the config's `ci$healthchecks` and requests that URL.
+#' Does nothing in a dry run or when the config has no URL for `name`, so a
+#' challenge without monitoring needs no healthchecks at all. A failed ping is
+#' a warning, not an error: monitoring must never fail the job it monitors.
+#'
+#' @inheritParams config_get
+#' @param name Healthcheck name, e.g. `"targets-Phenology"`.
+#' @return `TRUE` if a ping was sent, invisibly.
+#' @export
+ping_healthcheck <- function(cfg, name) {
+  url <- cfg$ci$healthchecks[[name]]
+  if (is.null(url) || is_dry_run()) return(invisible(FALSE))
+  sent <- tryCatch({
+    with_retry(suppressWarnings(readLines(url, warn = FALSE)), times = 5, wait = 2)
+    TRUE
+  }, error = function(e) {
+    cli::cli_warn("Healthcheck {.val {name}} could not be reached: {conditionMessage(e)}")
+    FALSE
+  })
+  if (sent) log_step("Healthcheck {.val {name}} pinged")
+  invisible(sent)
+}

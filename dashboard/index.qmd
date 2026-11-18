@@ -7,116 +7,99 @@ editor:
 
 We invite you to submit forecasts!
 
-The NEON Ecological Forecasting Challenge is an open platform for the ecological and data science communities to forecast data from [the National Ecological Observatory Network](https://www.neonscience.org) before they are collected.
+The NEON Ecological Forecasting Challenge is an open platform for the
+ecological and data science communities to forecast data from [the
+National Ecological Observatory Network](https://www.neonscience.org)
+before it is collected.
 
-The Challenge is hosted by the [Ecological Forecasting Initiative Research Coordination Network](https://ecoforecast.org) and sponsored by the U.S. National Science Foundation. 
+The Challenge is hosted by the [Ecological Forecasting Initiative
+Research Coordination Network](https://ecoforecast.org) and sponsored by
+the U.S. National Science Foundation.
 
 ## Why a forecasting challenge?
 
-Our vision is to use forecasts to advance theory and to support natural resource management. We can realize this vision by creating and analyzing a catalog of forecasts from many ecological systems, spatiotemporal scales, and environmental gradients. 
+Our vision is to use forecasts to advance theory and to support natural
+resource management. We can realize this vision by creating and
+analyzing a catalog of forecasts from many ecological systems,
+spatiotemporal scales, and environmental gradients.
 
-Our forecasting challenge is a platform for the ecological and data science communities to advance skills in forecasting ecological systems and generate forecasts that contribute to a synthetic understanding of patterns of predictability in ecology. Rewards for contributing are skill advancement, joy, and potential involved in manuscripts. We do not currently crown winners nor offer financial awards.
+Our forecasting challenge is a platform for the ecological and data
+science communities to advance skills in forecasting ecological systems
+and generate forecasts that contribute to a synthetic understanding of
+patterns of predictability in ecology. Rewards include skill
+advancement, joy, and potential involvement in manuscripts. We do not
+currently crown winners nor offer financial awards.
 
-The Challenge is [an excellent focal project in university courses](use-in-class.qmd#sec-in-class).
+The Challenge is [an excellent focal project in university
+courses](use-in-course.qmd#sec-in-class).
 
 <br /> <br />
 
-```{r setup, include=FALSE, echo=FALSE, message=FALSE, warning=FALSE}
-knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE)
-install.packages("remotes")
-remotes::install_github('cboettig/duckdbfs', upgrade = 'never')
-library(dplyr)
-library(arrow)
+```{r setup}
+#| include: false
+source("R/setup.R")
 library(bslib)
 library(bsicons)
-library(leaflet)
-library(tidyverse)
-config <- yaml::read_yaml("../challenge_configuration.yaml")
-sites <- suppressMessages(sf::st_read("sites.json"))
-
-forecasts <- arrow::open_dataset("../stats_all.parquet") |> collect()
-n_forecasts <- forecasts |> nrow()
-n_models <- forecasts |> distinct(model_id) |> nrow()
-
-s3_targets <- arrow::s3_bucket(config$targets_bucket, endpoint_override = config$endpoint, anonymous = TRUE)
-
-most_recent_targets <- arrow::open_csv_dataset(s3_targets,
-                                    schema = arrow::schema(
-                                      project_id = arrow::string(),
-                                      site_id = arrow::string(),
-                                      datetime = arrow::timestamp(unit = "ns", timezone = "UTC"),
-                                      duration = arrow::string(),
-                                      #depth_m = arrow::float(),
-                                      variable = arrow::string(),
-                                      observation = arrow::float()),
-                                    skip = 1) |>
-  filter(project_id == config$project_id) |> 
-    summarize(max = max(datetime),
-              min = min(datetime),
-              n = n_distinct(variable)) |> 
-    mutate(max = lubridate::as_date(max),
-           min = lubridate::as_date(min)) |> 
-    dplyr::collect()
-
-#unique_forecasted_targets <- arrow::open_dataset("../cache/duration=P1D") |> 
-#  dplyr::distinct(variable) |> count() |> 
-#    dplyr::collect() |> 
-#    pull(n)
-
-last_updated <- Sys.Date()
+stats <- jsonlite::read_json(data_file("stats.json"))
+years <- as.numeric(as.Date(stats$targets_end) - as.Date(stats$targets_start)) / 365
 ```
 
 ```{r}
-
 layout_column_wrap(
   width = "250px",
   value_box(
-    title = "Total forecasts submitted to the NEON Challenge", 
-    value = n_forecasts,
+    title = paste("Total forecasts submitted to the", cfg$project_id, "Challenge"),
+    value = format(stats$n_forecasts, big.mark = ","),
     showcase = bs_icon("graph-up"),
-    theme_color = "success" 
+    theme = "success"
   ),
   value_box(
-    title = "Most recent data for model training", 
-    value = most_recent_targets$max,
+    title = "Most recent data for model training",
+    value = stats$targets_end,
     showcase = bs_icon("bullseye"),
-    theme_color = "info" 
+    theme = "info"
   ),
-    value_box(
-    title = "Number of years of data for model training", 
-    value = round(as.numeric(most_recent_targets$max - most_recent_targets$min) /365, 2),
+  value_box(
+    title = "Number of years of data for model training",
+    value = round(years, 2),
     showcase = bs_icon("bullseye"),
-    theme_color = "info" 
+    theme = "info"
   ),
-    value_box(
-    title = "Number of variables being forecasted", 
-    value = most_recent_targets$n,
+  value_box(
+    title = "Number of variables being forecasted",
+    value = stats$n_variables,
     showcase = bs_icon("clipboard-data"),
-    theme_color = "success" 
+    theme = "success"
   )
 )
-
 ```
 
 <br /> <br />
 
 ## The Challenge is a platform
 
-Our platform is designed to empower you to contribute by providing target data, numerical weather forecasts, and tutorials.  We automatically score your forecasts using the latest NEON data.  All forecasts and scores are publicly available through cloud storage and discoverable through our catalog.
+Our platform empowers you to contribute by providing target data,
+numerical weather forecasts, and tutorials. We automatically score your
+forecasts using the latest NEON data. All forecasts and scores are
+publicly available through cloud storage and discoverable through our
+catalog.
 
-![The NEON Ecological Forecasting Challenge platform from Thomas et al. 2023](img/workflow.png){fig-align="center"}
-<br /> <br />
+![The NEON Ecological Forecasting Challenge platform from Thomas et al.
+2023](img/workflow.png){fig-align="center"} <br /> <br />
 
 Figure from [Thomas et al. 2023](https://doi.org/10.1002/fee.2616)
 
 ## Contact
 
-eco4cast.initiative@gmail.com
+`r settings$contact_email`
 
 ## Acknowledgements
 
-Thomas, R. Q., Boettiger, C., Carey, C. C., Dietze, M. C., Johnson, L. R., Kenney, M. A., et al. (2023). The NEON Ecological Forecasting Challenge. Frontiers in Ecology and the Environment, 21(3), 112–113. [https://doi.org/10.1002/fee.2616](https://doi.org/10.1002/fee.2616)
-<br /> <br /> 
-We thank NEON for providing the freely available data and the EFI community for feedback on the challenge's design. This material is based upon work supported by the National Science Foundation under Grants DEB-1926388 and OAC-2209866.
-<br /> <br /> 
-Page last updated on `r Sys.Date()`
+Thomas, R. Q., Boettiger, C., Carey, C. C., Dietze, M. C., Johnson, L.
+R., Kenney, M. A., et al. (2023). The NEON Ecological Forecasting
+Challenge. Frontiers in Ecology and the Environment, 21(3), 112–113.
+<https://doi.org/10.1002/fee.2616> <br /> <br /> We thank NEON for
+providing the freely available data and the EFI community for feedback
+on the challenge's design. This material is based upon work supported by
+the National Science Foundation under Grants DEB-1926388 and
+OAC-2209866. <br /> <br /> Page last updated on `r stats$updated`

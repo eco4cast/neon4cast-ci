@@ -1,15 +1,22 @@
+# Beetle abundance and richness targets (weekly) from NEON's ground beetle
+# product, DP1.10022.001.
+#
+# Run from the repository root:  Rscript targets/beetles_targets.R
+#
+# Environment variables
+#   NEON_TOKEN           NEON API token (optional; raises rate limits)
+#   OSN_KEY, OSN_SECRET  main store, for the upload
+#   DRY_RUN=true         write the targets to a local folder instead
+
 if (file.exists(".Renviron")) readRenviron(".Renviron")
 
-library(neonstore)
+pkgload::load_all(quiet = TRUE)
 library(tidyverse)
-library(ISOweek)
-library(minioclient)
-library(neonUtilities)
 source("targets/R/resolve_taxonomy.R")
 source("targets/R/neon_os_table.R")
 
-install_mc()
-mc_alias_set("osn", "sdsc.osn.xsede.org", Sys.getenv("OSN_KEY"), Sys.getenv("OSN_SECRET"))
+cfg <- read_config()
+minioclient::install_mc()
 
 # Read with neon_os_table() rather than neonUtilities::datasetQuery(): in the CI
 # container datasetQuery()'s DuckDB/httpfs reader fails on NEON's HTTPS URLs and
@@ -88,22 +95,7 @@ targets <- effort %>%
 targets <- targets |>
   rename(datetime = time)
 
-targets2 <- targets |>
-  mutate(datetime = lubridate::as_datetime(datetime),
-         duration = "P1W",
-         project_id = "neon4cast") |>
-  select(project_id, site_id, datetime, duration, variable, observation)
-
-write_csv(targets2, "beetles-targets.csv.gz")
-
-mc_cp("beetles-targets.csv.gz", "osn/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1W/beetles-targets.csv.gz")
-
-#mc_mirror(path.expand("~/beetles-data"), "osn/bio230014-bucket01/beetles-data/", overwrite = TRUE, remove = TRUE)
-
-RCurl::getURL("https://hc-ping.com/ed35da4e-01d3-4750-ae5a-ad2f5dfa6e99")
-
-targets2 |>
-  filter(site_id == "OSBS") |>
-  ggplot(aes(x = datetime, y = observation)) +
-  geom_point() +
-  facet_wrap(~variable)
+targets |>
+  format_targets(cfg, duration = "P1W") |>
+  check_targets(cfg, "Beetles") |>
+  write_targets(cfg, "Beetles")

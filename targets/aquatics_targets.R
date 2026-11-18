@@ -1,6 +1,24 @@
+# Aquatics targets (daily oxygen, chla and surface temperature) from NEON's
+# water quality (DP1.20288.001), temperature at specific depth (DP1.20264.001)
+# and surface water temperature (DP1.20053.001) products: published portal data,
+# plus provisional files from NEON's Google Cloud bucket (avro) and sonde data
+# on EDI for the period before the portal.
+#
+# Raw downloads are cached between runs in the NRP bucket efi/aquatics-targets.
+# Also writes hourly lake temperature profiles to the supporting data bucket.
+#
+# Run from the repository root:  Rscript targets/aquatics_targets.R
+#
+# Environment variables
+#   OSN_KEY, OSN_SECRET            main store, for the upload
+#   EFI_NRP_KEY, EFI_NRP_SECRET    NRP store holding the raw-data cache and the
+#                                  Google Cloud credentials
+#   NEON_TOKEN                     NEON API token (optional)
+#   DRY_RUN=true                   write targets locally; leave the cache alone
+
 if (file.exists(".Renviron")) readRenviron(".Renviron")
-install.packages("remotes")
-remotes::install_github("rstudio/reticulate")
+pkgload::load_all(quiet = TRUE)
+cfg <- read_config()
 
 library(neonstore)
 library(tidyverse)
@@ -17,7 +35,6 @@ py_require(c("pandas"))
 source_python("targets/R/read_avro.py")
 
 install_mc()
-mc_alias_set("osn", "sdsc.osn.xsede.org", Sys.getenv("OSN_KEY"), Sys.getenv("OSN_SECRET"))
 
 message(paste0("Running Creating Aquatics Targets at ", Sys.time()))
 
@@ -28,9 +45,9 @@ if(!dir.exists(path.expand("~/google-cloud-sdk"))) {
   untar(path.expand("~/google-cloud-cli-linux-x86_64.tar.gz"), exdir = path.expand("~"))
   system2(path.expand("~/google-cloud-sdk/install.sh"))
 }
-mc_alias_set("efi", "s3-west.nrp-nautilus.io",
-             access_key = Sys.getenv("EFI_NRP_KEY"),
-             secret_key = Sys.getenv("EFI_NRP_SECRET"))
+# The raw-data cache and Google Cloud credentials are on the NRP store that
+# scoring uses as scratch, with the same credentials.
+mc_connect(cfg, "scratch", alias = "efi")
 mc_mirror("efi/gcs-creds", path.expand("~/.config"))
 creds <- path.expand("~/.config/phonic-formula-364513-f209e55945f2.json")
 gcloud <- path.expand("~/google-cloud-sdk/bin/gcloud")
@@ -71,19 +88,21 @@ dir.create(file.path(parquet_file_directory, "tsd"), showWarnings = FALSE, recur
 dir.create(file.path(parquet_file_directory, "prt"), showWarnings = FALSE, recursive = TRUE)
 dir.create(file.path(parquet_file_directory, "river_tsd"), showWarnings = FALSE, recursive = TRUE)
 
-#readRenviron("~/.Renviron") # compatible with littler
 Sys.setenv("NEONSTORE_HOME" = "~/data/neonstore")
 Sys.getenv("NEONSTORE_DB")
 
-#temporary aquatic repo during test of new workflow
-site_data <- readr::read_csv("https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/neon4cast_field_site_metadata.csv", show_col_types = FALSE)
-sites <- site_data |> dplyr::filter(aquatics == 1)
+sites <- read_sites(cfg, "Aquatics")
 
 message(paste0("Running Creating Aquatics Targets at ", Sys.time()))
 
-nonwadable_rivers <- sites$field_site_id[(which(sites$field_site_subtype == "Non-wadeable River"))]
-lake_sites <- sites$field_site_id[(which(sites$field_site_subtype == "Lake"))]
-stream_sites <- sites$field_site_id[(which(sites$field_site_subtype == "Wadeable Stream"))]
+nonwadable_rivers <- sites$site_id[sites$field_site_subtype == "Non-wadeable River"]
+lake_sites <- sites$site_id[sites$field_site_subtype == "Lake"]
+stream_sites <- sites$site_id[sites$field_site_subtype == "Wadeable Stream"]
+
+# Files whose names mention any of `site_ids`.
+files_for_sites <- function(files, site_ids) {
+  files[grepl(paste(site_ids, collapse = "|"), files)]
+}
 profiling_sites <- c('CRAM', 'LIRO', 'BARC', 'TOOK')
 
 message("Getting list of data from NEON Portal")
@@ -104,7 +123,7 @@ wq_portal <- read_neon_csv_batches(
   cols = c("startDateTime", "sensorDepth", "dissolvedOxygen", "dissolvedOxygenFinalQF",
            "chlorophyll", "chlorophyllFinalQF", "chlaRelativeFluorescence", "chlaRelFluoroFinalQF"),
   process = function(d) d |>
-  dplyr::mutate(siteID = stringr::str_sub(filename, 77,80)) |>
+  dplyr::mutate(siteID = neon_file_site(filename)) |>
   dplyr::select(siteID, startDateTime, sensorDepth,
                 dissolvedOxygen,dissolvedOxygenFinalQF,
                 chlorophyll,chlorophyllFinalQF,
@@ -199,14 +218,10 @@ new_files <- map_lgl(wq_avro_files, function(x){
 wq_avro_files <- wq_avro_files[which(new_files)]
 
 if(length(wq_avro_files) > 0){
-  #sc <- sparklyr::spark_connect(master = "local")
   # Read in each of the files and then bind by rows
-  sc <- NULL
-  purrr::walk(.x = wq_avro_files, ~ read.avro.wq(sc= sc,
-                                                 path = .x,
+  purrr::walk(.x = wq_avro_files, ~ read.avro.wq(path = .x,
                                                  columns_keep = columns_keep,
                                                  dir = file.path(parquet_file_directory, "wq")))
-  #spark_disconnect(sc)
 }
 
 
@@ -286,8 +301,8 @@ hourly_temp_profile_portal <-
   urls,
   cols = c("startDateTime", "tsdWaterTempMean", "thermistorDepth", "tsdWaterTempFinalQF"),
   process = function(d) d |>
-  dplyr::mutate(site_id = stringr::str_sub(filename, 77,80),
-                verticalPosition = stringr::str_sub(filename, 153,155)) |>
+  dplyr::mutate(site_id = neon_file_site(filename),
+                verticalPosition = neon_file_vertical(filename)) |>
   dplyr::select(startDateTime, site_id, tsdWaterTempMean, thermistorDepth,
                 tsdWaterTempFinalQF, verticalPosition) |>
   dplyr::mutate(tsdWaterTempMean = as.numeric(tsdWaterTempMean),
@@ -343,12 +358,7 @@ for(i in 1:length(edi_url_lake)){
 # List all the files in the EDI directory
 edi_data <- list.files(file.path(EDI_file_directory), full.names = T)
 # Get the lake sites subset
-edi_lake_files <- c(edi_data[grepl(x = edi_data, pattern= lake_sites[1])],
-                    edi_data[grepl(x = edi_data, pattern= lake_sites[2])],
-                    edi_data[grepl(x = edi_data, pattern= lake_sites[3])],
-                    edi_data[grepl(x = edi_data, pattern= lake_sites[4])],
-                    edi_data[grepl(x = edi_data, pattern= lake_sites[5])],
-                    edi_data[grepl(x = edi_data, pattern= lake_sites[6])])
+edi_lake_files <- files_for_sites(edi_data, lake_sites)
 
 # Calculate the hourly average profile
 hourly_temp_profile_EDI <- purrr::map_dfr(.x = edi_lake_files, ~ read.csv(file = .x)) %>%
@@ -409,13 +419,7 @@ tsd_avro_files <- list.files(path = avro_file_directory,
                                     recursive = T,
                                     full.names = T)
 
-lake_avro_files <- c(tsd_avro_files[grepl(x = tsd_avro_files, pattern= lake_sites[1])],
-                     tsd_avro_files[grepl(x = tsd_avro_files, pattern= lake_sites[2])],
-                     tsd_avro_files[grepl(x = tsd_avro_files, pattern= lake_sites[3])],
-                     tsd_avro_files[grepl(x = tsd_avro_files, pattern= lake_sites[4])],
-                     tsd_avro_files[grepl(x = tsd_avro_files, pattern= lake_sites[5])],
-                     tsd_avro_files[grepl(x = tsd_avro_files, pattern= lake_sites[6])],
-                     tsd_avro_files[grepl(x = tsd_avro_files, pattern= lake_sites[7])])
+lake_avro_files <- files_for_sites(tsd_avro_files, lake_sites)
 
 tsd_parquet_files <- list.files(path = file.path(parquet_file_directory, "tsd"))
 
@@ -430,17 +434,13 @@ new_files <- map_lgl(lake_avro_files, function(x){
 lake_avro_files <- lake_avro_files[which(new_files)]
 
 if(length(lake_avro_files) > 0){
-  #sc <- sparklyr::spark_connect(master = "local")
   message("# Read in each of the files and then bind by rows")
-  sc <- NULL
   hourly_temp_profile_avro <- purrr::walk(.x = lake_avro_files,
-                                          ~ read.avro.tsd.profile(sc= sc,
-                                                                  path = .x,
+                                          ~ read.avro.tsd.profile(path = .x,
                                                                   thermistor_depths = thermistor_depths,
                                                                   columns_keep = columns_keep,
                                                                   dir = file.path(parquet_file_directory, "tsd"),
                                                                   delete_files = FALSE))
-  #spark_disconnect(sc)
 }
 
 # Read in the pre-release
@@ -484,9 +484,9 @@ temp_streams_portal <-
   urls,
   cols = c("startDateTime", "surfWaterTempMean", "finalQF"),
   process = function(d) d |>
-  dplyr::mutate(site_id = stringr::str_sub(filename, 77,80),
-                verticalPosition = stringr::str_sub(filename, 153,155),
-                horizontalPosition = stringr::str_sub(filename, 149,151)) |>
+  dplyr::mutate(site_id = neon_file_site(filename),
+                verticalPosition = neon_file_vertical(filename),
+                horizontalPosition = neon_file_horizontal(filename)) |>
   dplyr::filter(horizontalPosition == "101" |
                   horizontalPosition == "111" | # take upstream to match WQ data
                   (horizontalPosition == "112" & site_id == "BLUE"), # no data at BLUE upstream
@@ -494,7 +494,6 @@ temp_streams_portal <-
   dplyr::select(startDateTime, site_id, surfWaterTempMean, finalQF) %>%
   dplyr::mutate(time = as_date(startDateTime),
                 surfWaterTempMean = as.numeric(surfWaterTempMean)) %>%
-  # dplyr::group_by(time, site_id) %>%
   dplyr::summarize(temperature = mean(surfWaterTempMean, na.rm = TRUE), .by = c('time', 'site_id')) %>%
   dplyr::select(time, site_id, temperature) %>%
   rename(observation = temperature) |>
@@ -515,8 +514,6 @@ cur_prt_month <- temp_streams_portal_QC %>%
             new_date = as.Date(ceiling_date(max(time), unit = 'month')))
 
 
-# what is the next month from this plus the current month? These might be the same
-# new_month_prt <- unique(format(c((as.Date(max(temp_streams_portal_QC$time)) %m+% months(1)), (Sys.Date() - days(2))), "%Y-%m"))
 
 # Download any new files from the Google Cloud
 download.neon.avro(months = cur_prt_month,
@@ -565,34 +562,21 @@ new_files <- map_lgl(prt_avro_files, function(x){
 
 prt_avro_files <- prt_avro_files[which(new_files)]
 
-## check for bad NEON files and remove if present
-problem_files <- c('/home/rstudio/data/aquatic_avro/site=BIGC/BIGC_L0_to_L1_Surface_Water_Temperature_DP1.20053.001__2021-12-27.avro',
-                   '/home/rstudio/data/aquatic_avro/site=BIGC/BIGC_L0_to_L1_Surface_Water_Temperature_DP1.20053.001__2023-02-01.avro',
-                   '/home/rstudio/data/aquatic_avro/site=BIGC/BIGC_L0_to_L1_Surface_Water_Temperature_DP1.20053.001__2023-01-28.avro')
+## BIGC's surface water temperature avro files are known to be bad; skip them.
+problem_files <- stringr::str_detect(prt_avro_files,
+                                     "BIGC_L0_to_L1_Surface_Water_Temperature_DP1.20053.001")
 
-problem_files <- map_lgl(prt_avro_files, function(x){
-  problem_file <- FALSE
-  if(stringr::str_detect(x, "BIGC_L0_to_L1_Surface_Water_Temperature_DP1.20053.001")){
-    problem_file <- TRUE
-  }
-  return(problem_file)
-})
-
-if(any(problem_files == TRUE)){
+if(any(problem_files)){
   prt_avro_files <- prt_avro_files[!problem_files]
   message('Problem files removed')
 }
 
 
-if(length(prt_avro_files > 0)){
-  # sc <- sparklyr::spark_connect(master = "local")
+if(length(prt_avro_files) > 0){
   # Read in each of the files and then bind by rows
-  sc <- NULL
-  purrr::walk(.x = prt_avro_files, ~ read.avro.prt(sc= sc,
-                                                   path = .x,
+  purrr::walk(.x = prt_avro_files, ~ read.avro.prt(path = .x,
                                                    columns_keep = columns_keep,
                                                    dir = file.path(parquet_file_directory, "prt")))
-  #spark_disconnect(sc)
 }
 
 
@@ -620,7 +604,7 @@ temp_rivers_portal <- read_neon_csv_batches(
   urls,
   cols = c("startDateTime", "tsdWaterTempMean", "thermistorDepth", "tsdWaterTempFinalQF"),
   process = function(d) d |>
-  dplyr::mutate(site_id = stringr::str_sub(filename, 77,80)) |>
+  dplyr::mutate(site_id = neon_file_site(filename)) |>
   dplyr::mutate(depth = as.numeric(thermistorDepth),
                 tsdWaterTempMean = as.numeric(tsdWaterTempMean),
                 tsdWaterTempFinalQF = as.numeric(tsdWaterTempFinalQF)) %>%
@@ -660,9 +644,7 @@ for(i in 1:length(edi_url_river)){
 
 edi_data <- list.files(file.path(EDI_file_directory), full.names = T)
 
-edi_rivers <- c(edi_data[grepl(x = edi_data, pattern= nonwadable_rivers[1])],
-                edi_data[grepl(x = edi_data, pattern= nonwadable_rivers[2])],
-                edi_data[grepl(x = edi_data, pattern= nonwadable_rivers[3])])
+edi_rivers <- files_for_sites(edi_data, nonwadable_rivers)
 
 # The hourly data set is for the whole water column.
 temp_rivers_EDI <- purrr::map_dfr(.x = edi_rivers, ~ read.csv(file = .x)) %>%
@@ -694,9 +676,7 @@ tsd_avro_files <- list.files(path = avro_file_directory,
                                     recursive = T,
                                     full.names = T)
 
-river_avro_files <- c(tsd_avro_files[grepl(x = tsd_avro_files, pattern= nonwadable_rivers[1])],
-                      tsd_avro_files[grepl(x = tsd_avro_files, pattern= nonwadable_rivers[2])],
-                      tsd_avro_files[grepl(x = tsd_avro_files, pattern= nonwadable_rivers[3])])
+river_avro_files <- files_for_sites(tsd_avro_files, nonwadable_rivers)
 
 tsd_parquet_files <- list.files(path = file.path(parquet_file_directory, "river_tsd"))
 
@@ -712,15 +692,11 @@ river_avro_files <- river_avro_files[which(new_files)]
 
 
 if(length(river_avro_files) > 0){
-  #sc <- sparklyr::spark_connect(master = "local")
   # Read in each of the files and then bind by rows
-  sc <- NULL
-  purrr::walk(.x = river_avro_files,  ~ read.avro.tsd(sc= sc,
-                                                      path = .x,
+  purrr::walk(.x = river_avro_files,  ~ read.avro.tsd(path = .x,
                                                       thermistor_depths = thermistor_depths,
                                                       dir = file.path(parquet_file_directory, "river_tsd"),
                                                       delete_files = FALSE))
-  #spark_disconnect(sc)
 }
 
 
@@ -773,31 +749,29 @@ targets_long <- dplyr::bind_rows(wq_cleaned, temp_cleaned) %>%
 message("#### Writing Targets to file ####")
 
 
-targets_long <- targets_long |>
+targets_long |>
   rename(datetime = time) |>
-  mutate(datetime = lubridate::as_datetime(datetime),
-         duration = "P1D",
-         project_id = "neon4cast") |>
-  select(project_id, site_id, datetime, duration, variable, observation)
-
-write_csv(targets_long, "aquatics-targets.csv.gz")
-
-mc_cp("aquatics-targets.csv.gz", "osn/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1D/")
+  format_targets(cfg, duration = "P1D") |>
+  check_targets(cfg, "Aquatics") |>
+  write_targets(cfg, "Aquatics")
 
 message("#### Writing Hourly Targets to file ####")
-hourly_temp_profile_lakes <- hourly_temp_profile_lakes |>
+expanded_file <- file.path(tempdir(), "aquatics-expanded-observations.csv.gz")
+hourly_temp_profile_lakes |>
   rename(datetime = time) |>
   mutate(datetime = lubridate::as_datetime(datetime),
          duration = "PT1H",
-         project_id = "neon4cast") |>
-  select(project_id, site_id, depth, datetime, duration, variable, observation)
+         project_id = cfg$project_id) |>
+  select(project_id, site_id, depth, datetime, duration, variable, observation) |>
+  write_csv(expanded_file)
+if (!is_dry_run()) mc_connect(cfg, "main")
+upload_file(expanded_file,
+            bucket_uri(cfg, "supporting_data_bucket", paste0("project_id=", cfg$project_id),
+                       basename(expanded_file), scheme = "mc"))
 
-write_csv(hourly_temp_profile_lakes, "aquatics-expanded-observations.csv.gz")
-
-mc_cp("aquatics-expanded-observations.csv.gz", "osn/bio230014-bucket01/challenges/supporting_data/project_id=neon4cast/")
-
-# sync the data back to the S3 cache
-mc_mirror( path.expand("~/data/"), "efi/aquatics-targets", overwrite = TRUE, remove = TRUE)
-
+# Sync the raw-data cache back to NRP for the next run.
+if (!is_dry_run()) {
+  mc_mirror(path.expand("~/data/"), "efi/aquatics-targets", overwrite = TRUE, remove = TRUE)
+}
 
 message(paste0("Completed Aquatics Target at ", Sys.time()))

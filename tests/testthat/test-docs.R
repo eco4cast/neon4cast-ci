@@ -34,3 +34,19 @@ test_that("every target group and catalog key is documented", {
   keys <- c(group_keys, names(cfg$catalog_config))
   expect_equal(documented(doc, keys), character(0))
 })
+
+test_that("every configured targets script exists", {
+  cfg <- repo_config()
+  scripts <- unlist(lapply(cfg$target_groups, `[[`, "targets_script"))
+  root <- test_path("..", "..")
+  expect_true(all(file.exists(file.path(root, scripts))), info = toString(scripts))
+})
+
+test_that("the workflows are valid YAML", {
+  dir <- test_path("..", "..", ".github", "workflows")
+  skip_if_not(dir.exists(dir), "not running inside the repository")
+  for (f in list.files(dir, "\\.ya?ml$", full.names = TRUE)) {
+    # suppressWarnings: R's parser warns about `context: .`, which is valid YAML.
+    expect_no_error(suppressWarnings(yaml::read_yaml(f)))
+  }
+})

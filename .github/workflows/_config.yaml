@@ -1,0 +1,65 @@
+# Reads challenge_configuration.yaml for the other workflows, so the container
+# image, runners and job matrices come from the config instead of being
+# written into each workflow. Called with `uses: ./.github/workflows/_config.yaml`.
+#
+# Runs on the GitHub runner itself (not in the container), where yq is
+# preinstalled. CHALLENGE_CONFIG, if set as a repository variable, points at a
+# different config file.
+name: read-config
+
+on:
+  workflow_call:
+    outputs:
+      image:
+        description: Container image for every job (ci$docker_image).
+        value: ${{ jobs.read.outputs.image }}
+      large_runner:
+        description: Self-hosted runner for heavy jobs (ci$large_runner).
+        value: ${{ jobs.read.outputs.large_runner }}
+      targets:
+        description: >
+          JSON list of {group, script, large} for every target group with a
+          targets_script.
+        value: ${{ jobs.read.outputs.targets }}
+      baselines_daily:
+        description: JSON list of target groups with a daily baseline.
+        value: ${{ jobs.read.outputs.baselines_daily }}
+      baselines_weekly:
+        description: JSON list of target groups with a weekly baseline.
+        value: ${{ jobs.read.outputs.baselines_weekly }}
+
+jobs:
+  read:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      image: ${{ steps.read.outputs.image }}
+      large_runner: ${{ steps.read.outputs.large_runner }}
+      targets: ${{ steps.read.outputs.targets }}
+      baselines_daily: ${{ steps.read.outputs.baselines_daily }}
+      baselines_weekly: ${{ steps.read.outputs.baselines_weekly }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          sparse-checkout: challenge_configuration.yaml
+
+      - id: read
+        env:
+          CONFIG: ${{ vars.CHALLENGE_CONFIG || 'challenge_configuration.yaml' }}
+        run: |
+          set -euo pipefail
+          baselines() {
+            yq -o=json -I=0 "[.target_groups | to_entries | .[] |
+              select(((.value.baselines // []) | map(select(.schedule == \"$1\")) | length) > 0) |
+              .key]" "$CONFIG"
+          }
+          {
+            echo "image=$(yq '.ci.docker_image // "eco4cast/rocker-neon4cast:latest"' "$CONFIG")"
+            echo "large_runner=$(yq '.ci.large_runner // "ubuntu-latest"' "$CONFIG")"
+            echo "targets=$(yq -o=json -I=0 '[.target_groups | to_entries | .[] |
+              select(.value.targets_script != null) |
+              {"group": .key, "script": .value.targets_script,
+               "large": (.value.targets_large_runner // false)}]' "$CONFIG")"
+            echo "baselines_daily=$(baselines daily)"
+            echo "baselines_weekly=$(baselines weekly)"
+          } | tee -a "$GITHUB_OUTPUT"

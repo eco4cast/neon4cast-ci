@@ -1,30 +1,41 @@
-# Workflow derived from https://github.com/r-lib/actions/tree/v2/examples
-# Need help debugging build failures? Start at https://github.com/r-lib/actions#where-to-find-help
+# Validate new submissions and write them as parquet and summaries.
 on:
   schedule:
     - cron: '0 */2 * * *'
   workflow_dispatch:
 
-
 name: process-submissions
 
+# Runs read and rewrite the processed-submissions record; never overlap.
+concurrency:
+  group: submissions
+  cancel-in-progress: false
+
 jobs:
+  config:
+    uses: ./.github/workflows/_config.yaml
+
   submissions:
+    needs: config
     runs-on: ubuntu-latest
-    timeout-minutes: 14400
+    timeout-minutes: 60
+    container:
+      image: ${{ needs.config.outputs.image }}
+      options: --memory 15120m
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       AWS_ACCESS_KEY_SUBMISSIONS: ${{ secrets.AWS_ACCESS_KEY_SUBMISSIONS }}
       AWS_SECRET_ACCESS_KEY_SUBMISSIONS: ${{ secrets.AWS_SECRET_ACCESS_KEY_SUBMISSIONS }}
       OSN_KEY: ${{ secrets.OSN_KEY }}
       OSN_SECRET: ${{ secrets.OSN_SECRET }}
-    container:
-      image: eco4cast/rocker-neon4cast:latest
-      options: --memory 15120m
     steps:
       - uses: actions/checkout@v6
 
-      - uses: ./.github/actions/install-mc
+      - uses: ./.github/actions/setup-challenge
 
       - name: Process submissions
         run: Rscript inst/scripts/process_submissions.R
+
+      - uses: ./.github/actions/healthcheck
+        with:
+          name: submissions

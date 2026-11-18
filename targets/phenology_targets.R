@@ -1,77 +1,46 @@
+# Phenology targets (daily gcc_90 and rcc_90) from the PhenoCam network.
+#
+# Run from the repository root:  Rscript targets/phenology_targets.R
+#
+# Environment variables
+#   OSN_KEY, OSN_SECRET  main store, for the upload
+#   DRY_RUN=true         write the targets to a local folder instead
+
+pkgload::load_all(quiet = TRUE)
 library(tidyverse)
-library(minioclient)
-
-install_mc()
-mc_alias_set("osn", "sdsc.osn.xsede.org", Sys.getenv("OSN_KEY"), Sys.getenv("OSN_SECRET"))
-
 source("targets/R/downloadPhenoCam.R")
-source("targets/R/calculatePhenoCamUncertainty.R")
 
-sites <- readr::read_csv("neon4cast_field_site_metadata.csv") |>
-  dplyr::filter(phenology == 1)
+cfg <- read_config()
+minioclient::install_mc()
 
-allData <- data.frame(matrix(nrow = 0, ncol = 5))
+# Each phenology site's PhenoCam camera and region of interest.
+sites <- read_sites(cfg, "Phenology")
 
 message(paste0("Downloading and generating phenology targets ", Sys.time()))
 
-for(i in 1:nrow(sites)){
-  siteName <- sites$phenocam_code[i]
-  site_roi <- sites$phenocam_roi[i]
-  message(siteName)
-  ##URL for daily summary statistics
-  URL_gcc90 <- paste('https://phenocam.nau.edu/data/archive/',siteName,"/ROI/",siteName,"_",site_roi,"_1day.csv",sep="")
-  ##URL for individual image metrics
-  URL_individual <- paste('https://phenocam.nau.edu/data/archive/',siteName,"/ROI/",siteName,"_",site_roi,"_roistats.csv",sep="")
-
-  phenoData <- download.phenocam(URL = URL_gcc90)
-  dates <- unique(phenoData$date)
-  phenoData_individual <- download.phenocam(URL=URL_individual,skipNum = 17)
-  ##Calculates standard deviations on daily gcc90 values
-  gcc_sd <- calculate.phenocam.uncertainty(dat=phenoData_individual,dates=dates)
-  rcc_sd <- calculate.phenocam.uncertainty(dat=phenoData_individual,dates=dates,target="rcc")
-
-  subPhenoData <- phenoData %>%
-    mutate(site_id = stringr::str_sub(siteName, 10, 13),
-           time = date) %>%
+all_data <- purrr::map(seq_len(nrow(sites)), function(i) {
+  camera <- sites$phenocam_code[i]
+  message(camera)
+  url <- paste0("https://phenocam.nau.edu/data/archive/", camera, "/ROI/", camera, "_",
+                sites$phenocam_roi[i], "_1day.csv")
+  download.phenocam(URL = url) |>
+    mutate(site_id = stringr::str_sub(camera, 10, 13), time = date) |>
     select(time, site_id, gcc_90, rcc_90) |>
-    pivot_longer(-c("time", "site_id"), names_to = "variable", values_to = "observation") |>
-    mutate(sd = ifelse(variable == "gcc_90", gcc_sd, rcc_sd))
+    pivot_longer(-c("time", "site_id"), names_to = "variable", values_to = "observation")
+}) |>
+  list_rbind()
 
-  allData <- rbind(allData,subPhenoData)
+# Every site and variable gets a row for every day in the record, so days
+# without an image are explicit NAs.
+all_days <- expand_grid(
+  site_id = sites$site_id,
+  time = seq(min(all_data$time), max(all_data$time), by = "1 day"),
+  variable = c("gcc_90", "rcc_90")
+)
 
-}
-
-full_time <- seq(min(allData$time),max(allData$time), by = "1 day")
-combined <- NULL
-
-for(i in 1:nrow(sites)){
-
-  full_time_curr1 <- tibble(time = full_time,
-                           site_id = rep(sites$field_site_id[i],length(full_time)),
-                           variable = "gcc_90")
-
-  full_time_curr2 <- tibble(time = full_time,
-                            site_id = rep(sites$field_site_id[i],length(full_time)),
-                            variable = "rcc_90")
-
-  combined <- bind_rows(combined, full_time_curr1, full_time_curr2)
-}
-
-
-
-allData2 <- left_join(combined, allData, by = c("time", "site_id", "variable"))
-
-allData2 |>
-  select("time", "site_id", "variable", "observation") |>
+all_days |>
+  left_join(all_data, by = c("time", "site_id", "variable")) |>
   rename(datetime = time) |>
-  mutate(datetime = lubridate::as_datetime(datetime),
-         duration = "P1D",
-         project_id = "neon4cast") |>
-  select(project_id, site_id, datetime, duration, variable, observation) |>
-  write_csv("phenology-targets.csv.gz")
-
-mc_cp(from = "phenology-targets.csv.gz", "osn/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1D/")
-
-unlink("phenology-targets.csv.gz")
-
-RCurl::getURL("https://hc-ping.com/f5d48d96-bb41-4c21-b028-930fa2b01c5a")
+  format_targets(cfg, duration = "P1D") |>
+  check_targets(cfg, "Phenology") |>
+  write_targets(cfg, "Phenology")

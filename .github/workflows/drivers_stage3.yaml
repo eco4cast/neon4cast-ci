@@ -1,42 +1,45 @@
+# Download the GEFS pseudo-observations and extend stage 3. A manual run can
+# rebuild stage 3 from all of the pseudo data.
 on:
   schedule:
     - cron: '0 23 * * *'
   workflow_dispatch:
+    inputs:
+      rebuild:
+        description: Rebuild stage 3 from all pseudo data (slow)
+        type: boolean
+        default: false
 
 name: drivers-stage3
 
+# Runs rewrite each site's stage 3 file; never overlap.
+concurrency:
+  group: drivers-stage3
+  cancel-in-progress: false
+
 jobs:
-  docker:
-    runs-on: efi-cirrus
+  config:
+    uses: ./.github/workflows/_config.yaml
+
+  drivers:
+    needs: config
+    runs-on: ${{ needs.config.outputs.large_runner }}
+    timeout-minutes: ${{ inputs.rebuild && 1440 || 180 }}
+    container:
+      image: ${{ needs.config.outputs.image }}
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       OSN_KEY: ${{ secrets.OSN_KEY }}
       OSN_SECRET: ${{ secrets.OSN_SECRET }}
-      AWS_REQUEST_CHECKSUM_CALCULATION: when_required
-      AWS_RESPONSE_CHECKSUM_VALIDATION: when_required
-    container:
-      image: eco4cast/rocker-neon4cast:latest
     steps:
       - uses: actions/checkout@v6
 
-      - name: Install
-        shell: Rscript {0}
-        run: |
-          remotes::install_github("appelmar/gdalcubes")
-          remotes::install_github("eco4cast/gefs4cast")
+      - uses: ./.github/actions/setup-challenge
 
-      - name: Download Pseudo
-        shell: Rscript {0}
-        run: |
-          source("drivers/download_psuedo.R")
+      # gdalcubes and gefs4cast are installed in the image.
+      - name: Download pseudo and update stage 3
+        run: Rscript inst/scripts/drivers_stage3.R ${{ inputs.rebuild && 'rebuild' || '' }}
 
-      - name: Update Stage3
-        shell: Rscript {0}
-        run: |
-          source("drivers/update_stage3.R")
-
-      - name: Healthcheck
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y curl
-          curl -m 10 --retry 5 https://hc-ping.com/cfa6fee0-6608-46f4-9cca-4e83445788fe
+      - uses: ./.github/actions/healthcheck
+        with:
+          name: drivers-stage3

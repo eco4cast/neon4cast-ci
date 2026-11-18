@@ -1,5 +1,4 @@
-# Workflow derived from https://github.com/r-lib/actions/tree/v2/examples
-# Need help debugging build failures? Start at https://github.com/r-lib/actions#where-to-find-help
+# Append new forecast and summary parquet to each model's bundle.
 on:
   schedule:
     - cron: '0 */6 * * *'
@@ -15,17 +14,23 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  forecasts:
-    runs-on: ubuntu-latest #efi-cirrus
+  config:
+    uses: ./.github/workflows/_config.yaml
+
+  bundle:
+    needs: config
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    container:
+      image: ${{ needs.config.outputs.image }}
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       OSN_KEY: ${{ secrets.OSN_KEY }}
       OSN_SECRET: ${{ secrets.OSN_SECRET }}
-    container: eco4cast/rocker-neon4cast:latest
     steps:
       - uses: actions/checkout@v6
 
-      - uses: ./.github/actions/install-mc
+      - uses: ./.github/actions/setup-challenge
 
       - name: Bundle forecasts
         run: Rscript inst/scripts/bundle.R forecasts
@@ -35,4 +40,6 @@ jobs:
         if: ${{ !cancelled() }}
         run: Rscript inst/scripts/bundle.R summaries
 
-
+      - uses: ./.github/actions/healthcheck
+        with:
+          name: bundling

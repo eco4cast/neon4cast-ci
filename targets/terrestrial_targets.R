@@ -11,10 +11,13 @@
 #      with the existing targets file so no data are dropped, checked, and uploaded.
 #
 # Environment variables
-#   NEONSTORE_HOME  neonstore directory (default /home/rstudio/data/neonstore_temp)
-#   DRY_RUN=true    run everything but do not write to or delete from OSN
+#   NEONSTORE_HOME       neonstore directory (default /home/rstudio/data/neonstore_temp)
+#   OSN_KEY, OSN_SECRET  main store
+#   DRY_RUN=true         run everything but do not write to or delete from OSN
 
 if (file.exists(".Renviron")) readRenviron(".Renviron")
+pkgload::load_all(quiet = TRUE)
+cfg <- read_config()
 
 print(paste0("Running Creating Terrestrial Targets at ", Sys.time()))
 print(sessionInfo())
@@ -22,7 +25,7 @@ print(sessionInfo())
 Sys.setenv(NEONSTORE_HOME = Sys.getenv("NEONSTORE_HOME", "/home/rstudio/data/neonstore_temp"))
 Sys.setenv(AWS_EC2_METADATA_DISABLED = "TRUE")
 
-dry_run <- tolower(Sys.getenv("DRY_RUN")) == "true"
+dry_run <- is_dry_run()
 use_5day_data <- TRUE
 months_to_refresh <- 5
 
@@ -38,37 +41,38 @@ if (dry_run) message("DRY RUN: nothing will be written to or deleted from OSN")
 options(timeout = max(300, getOption("timeout")))
 
 install_mc()
-mc_alias_set("osn", "sdsc.osn.xsede.org", Sys.getenv("OSN_KEY"), Sys.getenv("OSN_SECRET"))
+mc_connect(cfg, "main", alias = "osn")
 
-osn_root <- "osn/bio230014-bucket01"
+# The neonstore cache and flux staging areas live in the same bucket as the
+# challenge's targets.
+osn_bucket_name <- strsplit(config_get(cfg, "targets_bucket"), "/")[[1]][1]
+osn_root <- file.path("osn", osn_bucket_name)
 
 # minioclient splits commands on spaces, so quote local paths (macOS puts the
 # neonstore db under "Application Support")
 mc_mirror(file.path(osn_root, "neonstore/db"), shQuote(neonstore::neon_db_dir()))
 mc_mirror(file.path(osn_root, "flux_staging/neonstore_temp"), shQuote(neonstore::neon_dir()))
 
-sites <- read_csv("https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/neon4cast_field_site_metadata.csv", show_col_types = FALSE) |>
-  dplyr::filter(terrestrial == 1)
-
-site_names <- sites$field_site_id
+site_names <- read_sites(cfg, "Terrestrial")$site_id
 
 # arrow is used to read and delete on OSN. All uploads go through mc, because
 # arrow's S3 uploads fail on OSN with XAmzContentSHA256Mismatch.
 osn_bucket <- function(path) {
-  arrow::s3_bucket(file.path("bio230014-bucket01", path),
-                   endpoint_override = "sdsc.osn.xsede.org",
-                   access_key = Sys.getenv("OSN_KEY"),
-                   secret_key = Sys.getenv("OSN_SECRET"))
+  creds <- store_credentials(cfg, "main")
+  arrow::s3_bucket(file.path(osn_bucket_name, path),
+                   endpoint_override = creds$endpoint,
+                   access_key = creds$key,
+                   secret_key = creds$secret)
 }
 
-s3 <- osn_bucket("challenges/targets/project_id=neon4cast/duration=P1D")
 s3_neon_portal <- osn_bucket("flux_staging/neon_portal")
 s3_current_month <- osn_bucket("flux_staging/current_month")
 
 flux_cols <- c("timeBgn", "timeEnd", "data.fluxCo2.turb.flux", "siteID",
                "data.fluxH2o.turb.flux", "qfqm.fluxCo2.turb.qfFinl")
 
-existing_targets_daily <- arrow::read_csv_arrow(s3$path("terrestrial_daily-targets.csv.gz"))
+existing_targets_daily <- read_published_targets(cfg, "Terrestrial")
+if (is.null(existing_targets_daily)) stop("No published terrestrial targets to update")
 
 # Whole months only: archive partitions are replaced wholesale, so a partial
 # month here would drop data from the archive.
@@ -309,7 +313,7 @@ flux_target_daily <- flux_target_daily |>
   rename(datetime = time) |>
   mutate(datetime = lubridate::as_datetime(datetime),
          duration = "P1D",
-         project_id = "neon4cast") |>
+         project_id = cfg$project_id) |>
   select(project_id, site_id, datetime, duration, variable, observation) |>
   arrange(variable, datetime) |>
   na.omit()
@@ -335,25 +339,12 @@ combined_daily <- bind_rows(flux_target_daily, old_fluxes) |>
 # 4. Check and upload
 # ---------------------------------------------------------------------------
 
-n_old <- nrow(existing_targets_daily)
-n_new <- nrow(combined_daily)
-missing_sites <- setdiff(unique(existing_targets_daily$site_id), unique(combined_daily$site_id))
-n_dup_keys <- sum(duplicated(combined_daily[c("site_id", "datetime", "variable")]))
-
-message("Targets: ", n_old, " rows before, ", n_new, " rows now (",
-        sprintf("%+.1f%%", 100 * (n_new - n_old) / n_old), "), latest ", max(combined_daily$datetime))
-
-if (n_new < 0.95 * n_old) stop("New targets have ", n_new, " rows vs ", n_old, " before; not uploading")
-if (length(missing_sites) > 0) stop("Sites missing from new targets: ", paste(missing_sites, collapse = ", "))
-if (n_dup_keys > 0) stop(n_dup_keys, " duplicated site/datetime/variable rows in new targets")
-
-targets_file <- if (dry_run) file.path(tempdir(), "terrestrial_daily-targets.csv.gz") else "terrestrial_daily-targets.csv.gz"
-write_csv(combined_daily, targets_file)
-message("Wrote ", targets_file)
+combined_daily <- combined_daily |>
+  format_targets(cfg, duration = "P1D") |>
+  check_targets(cfg, "Terrestrial", published = existing_targets_daily)
+write_targets(combined_daily, cfg, "Terrestrial")
 
 if (!dry_run) {
-  mc_cp(shQuote(targets_file), "osn/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1D/")
-
   if (fs::dir_exists(fs::path(neon_dir(), "DP4.00200.001"))) {
     fs::dir_delete(fs::path(neon_dir(), "DP4.00200.001"))
   }

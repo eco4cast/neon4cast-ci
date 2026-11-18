@@ -37,8 +37,7 @@ resolve_taxonomy <- function(sorting, para, expert){
            nativeStatusCode = ifelse(is.na(nativeStatusCode.y), nativeStatusCode.x, nativeStatusCode.y),
            sampleCondition = ifelse(is.na(sampleCondition.y), sampleCondition.x, sampleCondition.y)
            ) %>%
-    select(-ends_with(".x"), -ends_with(".y")) # %>%
-#    select(-individualCount)
+    select(-ends_with(".x"), -ends_with(".y"))
      ## WARNING: if the subsample is split into separate taxa by experts, we do not know
      ## how many of the total count should go to each taxon in the the split
      ## since only part of that subsample have been pinned.

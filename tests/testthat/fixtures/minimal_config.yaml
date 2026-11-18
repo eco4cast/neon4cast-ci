@@ -6,6 +6,11 @@ forecasts_bucket: test-bucket/challenges/forecasts
 scores_bucket: test-bucket/challenges/scores
 targets_bucket: test-bucket/challenges/targets
 submissions_bucket: submissions
+noaa_forecast_bucket: test-bucket/drivers/noaa/gefs-v12
+supporting_data_bucket: test-bucket/challenges/supporting_data
+noaa_forecasts:
+  noaa_forecast_groups: [Stage1, Stage2]
+  noaa_forecast_group_paths: [stage1, stage2]
 scratch:
   endpoint: scratch.example.org
   bucket: scratch-bucket/tmp

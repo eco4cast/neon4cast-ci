@@ -1,22 +1,31 @@
 on:
   schedule:
     - cron: '0 8 * * *'
-  #push:
-  #  branches:
-  #    - main
   workflow_dispatch:
 
 name: dashboard
 
+# Two runs would push competing commits to gh-pages.
+concurrency:
+  group: dashboard
+  cancel-in-progress: false
+
 jobs:
-  docker:
+  config:
+    uses: ./.github/workflows/_config.yaml
+
+  dashboard:
+    needs: config
     runs-on: ubuntu-latest
+    timeout-minutes: 60
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-    container: eco4cast/rocker-neon4cast:latest
+    container:
+      image: ${{ needs.config.outputs.image }}
     steps:
       - run: git config --system --add safe.directory '*'
 
+      # Full history: the publish step checks out the gh-pages branch.
       - uses: actions/checkout@v6
         with:
            fetch-depth: 0
@@ -26,24 +35,14 @@ jobs:
         with:
           version: 1.4.146
 
+      # Queries the public buckets; writes dashboard/data/ and the site
+      # settings (title, links) in dashboard/_challenge.yml.
+      - name: Stage data
+        run: Rscript inst/scripts/dashboard.R
 
-      - name: cleanup disk space
-        run: |
-          sudo rm -rf /usr/local/lib/android /usr/share/dotnet /opt/ghc
-          df -h
-
-
-      - name: Staging data
-        shell: Rscript {0}
-        run: source("dashboard/stage_data.R")
-
+      # Also writes the sitemap, from the config's challenge_url.
       - name: Render
-        run: |
-          quarto render dashboard
-
-      - name: Build site map
-        shell: Rscript {0}
-        run: source("dashboard/build_site_map.R")
+        run: quarto render dashboard
 
       - name: Publish
         run: |
@@ -54,4 +53,9 @@ jobs:
           git add .
           git commit -a -m "update pages" || echo "nothing to commit"
           git push https://${GITHUB_PAT}:${GITHUB_PAT}@github.com/${GITHUB_REPOSITORY}
+          # Back to the code branch, for the healthcheck step.
+          git checkout -
 
+      - uses: ./.github/actions/healthcheck
+        with:
+          name: dashboard

@@ -5,16 +5,14 @@ Authors@R:
     person("Quinn", "Thomas", , "rqthomas@vt.edu", role = c("aut", "cre"))
 Description: Functions used by the GitHub Actions workflows that run an
     Ecological Forecasting Initiative forecasting challenge: reading and
-    validating the challenge configuration, connecting to S3 stores, reading
-    site metadata, and (in later versions) processing submissions, bundling,
-    scoring, baselines and the STAC catalog. Every challenge-specific setting
-    comes from 'challenge_configuration.yaml'. The package lives inside the
-    challenge repository and is loaded with pkgload::load_all() so the code a
-    workflow runs always matches the commit it checked out.
+    validating the challenge configuration, connecting to S3 stores,
+    reading site metadata, and processing submissions, bundling, scoring,
+    baselines, targets, NOAA drivers and the STAC catalog. Every
+    challenge-specific setting comes from 'challenge_configuration.yaml'.
+    The package lives inside the challenge repository and is loaded with
+    pkgload::load_all() so the code a workflow runs always matches the
+    commit it checked out.
 License: file LICENSE
-Encoding: UTF-8
-Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.3
 Depends:
     R (>= 4.1.0)
 Imports:
@@ -23,6 +21,7 @@ Imports:
     dplyr,
     duckdb,
     duckdbfs,
+    jsonlite,
     lubridate,
     minioclient,
     purrr,
@@ -37,10 +36,18 @@ Suggests:
     arrow,
     fable,
     fabletools,
+    gefs4cast,
+    imputeTS,
     score4cast,
     scoringRules,
     testthat (>= 3.0.0),
     tidyr,
     tsibble,
     withr
+Remotes:
+    eco4cast/gefs4cast,
+    eco4cast/score4cast
 Config/testthat/edition: 3
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.3

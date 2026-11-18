@@ -8,7 +8,8 @@
 # the authenticated alias and read and delete through an anonymous one. Because
 # deleting may fail, we also keep our own record (the "manifest") of every
 # submission handled, on the main store, and skip those keys. Drop the
-# anonymous alias once NRP restores the key's permissions.
+# anonymous alias once NRP restores the key's permissions. Operators: see
+# "The submissions bucket workaround" in docs/operations.md.
 
 # minio client aliases used for the submissions bucket.
 submissions_alias <- "submissions"

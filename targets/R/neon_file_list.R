@@ -13,10 +13,18 @@ neon_file_key <- function(name) {
   sub("\\.[0-9]{8}T[0-9]{6}Z\\.", ".", name)
 }
 
-# NEON file names look like NEON.D10.ARIK.DP1.20288.001....; the site is field 3
-neon_file_site <- function(name) {
-  vapply(strsplit(name, ".", fixed = TRUE), function(x) x[3], character(1))
+# NEON file names are NEON.<domain>.<site>.<level>.<product>.<revision>.
+# <horizontal>.<vertical>.<interval>.<description>.<YYYY-MM>.<package>...,
+# e.g. NEON.D03.BARC.DP1.20264.001.103.802.030.TSD_30_min.2025-01.basic....csv.
+# neon_file_field() returns field `i` of each name (or URL: the query string
+# and folders are dropped first).
+neon_file_field <- function(name, i) {
+  name <- basename(sub("\\?.*$", "", name))
+  vapply(strsplit(name, ".", fixed = TRUE), function(x) x[i], character(1))
 }
+neon_file_site <- function(name) neon_file_field(name, 3)
+neon_file_horizontal <- function(name) neon_file_field(name, 7)
+neon_file_vertical <- function(name) neon_file_field(name, 8)
 
 # Keep one row per logical file: the most recently published version
 latest_per_key <- function(df) {
