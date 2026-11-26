@@ -15,7 +15,7 @@ jobs:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       OSN_KEY: ${{ secrets.OSN_KEY }}
       OSN_SECRET: ${{ secrets.OSN_SECRET }}
-    container: eco4cast/rocker-neon4cast:latest
+    container: ghcr.io/eco4cast/rocker-neon4cast@sha256:87c4fd916562b692a9851e991904cd70e4c5aecc30aca34f6f98c506ff71203f
     steps:
       - uses: actions/checkout@v6
 
