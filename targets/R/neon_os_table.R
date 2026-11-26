@@ -20,11 +20,13 @@ neon_os_table <- function(dpID, tabl, package = "basic", token = Sys.getenv("NEO
                                       release = release, metadata = FALSE,
                                       include.provisional = include.provisional,
                                       token = token)
-  if (is.null(urlset) || length(urlset$files) == 0) {
+  # neonUtilities >= 4.1.0 returns a data frame (url, urlvar, release) by
+  # default (simplify.outputs = TRUE); earlier versions returned a list with
+  # $files. Accept either.
+  urls <- if (is.data.frame(urlset)) urlset$url else urlset$files
+  if (length(urls) == 0) {
     stop("neonUtilities::queryFiles() returned no files for ", dpID, " ", tabl)
   }
-
-  urls <- urlset$files
   files <- file.path(dest, basename(sub("\\?.*$", "", urls)))
   stopifnot(!anyDuplicated(files))
   dir.create(dest, recursive = TRUE, showWarnings = FALSE)
