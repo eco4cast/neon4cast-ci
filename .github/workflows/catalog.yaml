@@ -14,8 +14,9 @@ jobs:
       OSN_KEY: ${{ secrets.OSN_KEY }}
       OSN_SECRET: ${{ secrets.OSN_SECRET }}
     container:
-      #image: eco4cast/rocker-neon4cast:latest
-      image: rocker/ml-verse
+      # Pinned image: stac4cast, gsheet and DuckDB are preinstalled, so the job
+      # no longer compiles the latest DuckDB from CRAN at run time.
+      image: ghcr.io/eco4cast/rocker-neon4cast@sha256:87c4fd916562b692a9851e991904cd70e4c5aecc30aca34f6f98c506ff71203f
       options: --memory 15120m
     steps:
       - run: git config --system --add safe.directory '*'
@@ -29,12 +30,6 @@ jobs:
       - name: clone catalog destination repository
         run: |
           git clone --depth 1 https://github.com/eco4cast/neon4cast-catalog.git ../neon4cast-catalog
-
-      - name: Install
-        shell: Rscript {0}
-        run: |
-          install.packages('gsheet')
-          devtools::install_github('eco4cast/stac4cast')
 
       - uses: ./.github/actions/install-mc
 
@@ -84,6 +79,8 @@ jobs:
 
       - name: Call Healthcheck
         run: |
+          sudo apt-get update
+          sudo apt-get install -y curl
           curl -m 10 --retry 5 https://hc-ping.com/22fcd257-7930-455c-948d-0f913743b0c3
 
 
